@@ -1,0 +1,9 @@
+I:\Visual Studio\ZWSD_NameRule\ZWSD_NameRule\ZWSD_NameRule\bin\Debug\ZWSD_NameRule.exe.config
+I:\Visual Studio\ZWSD_NameRule\ZWSD_NameRule\ZWSD_NameRule\bin\Debug\ZWSD_NameRule.exe
+I:\Visual Studio\ZWSD_NameRule\ZWSD_NameRule\ZWSD_NameRule\bin\Debug\ZWSD_NameRule.pdb
+I:\Visual Studio\ZWSD_NameRule\ZWSD_NameRule\ZWSD_NameRule\obj\Debug\ZWSD_NameRule.csprojResolveAssemblyReference.cache
+I:\Visual Studio\ZWSD_NameRule\ZWSD_NameRule\ZWSD_NameRule\obj\Debug\ZWSD_NameRule.Form1.resources
+I:\Visual Studio\ZWSD_NameRule\ZWSD_NameRule\ZWSD_NameRule\obj\Debug\ZWSD_NameRule.Properties.Resources.resources
+I:\Visual Studio\ZWSD_NameRule\ZWSD_NameRule\ZWSD_NameRule\obj\Debug\ZWSD_NameRule.csproj.GenerateResource.Cache
+I:\Visual Studio\ZWSD_NameRule\ZWSD_NameRule\ZWSD_NameRule\obj\Debug\ZWSD_NameRule.exe
+I:\Visual Studio\ZWSD_NameRule\ZWSD_NameRule\ZWSD_NameRule\obj\Debug\ZWSD_NameRule.pdb
