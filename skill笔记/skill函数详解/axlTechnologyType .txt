@@ -1,0 +1,15 @@
+获得当前产品类型
+  NAME
+          axlTechnologyType - SKILL-> C interface to determine the product type
+  FUNCTION
+         axlTechnologyType(
+         )
+         ==> t_technology
+  SYNOPSIS
+         Returns type of design technology currently used
+  NEEDS
+         nothing
+  RETURNS
+         "mcm" - if the product is ADP
+         "pcb" - if the product is ALLEGRO LAYOUT
+         "chipio" - if the product is Chip I/O Planner

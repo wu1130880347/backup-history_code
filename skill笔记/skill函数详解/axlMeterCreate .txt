@@ -1,0 +1,48 @@
+[size=15.555556297302246px]进度表支持
+      NAME
+         axlMeterCreate - progress meter support
+  FUNCTION
+         axlMeterCreate(
+                 t_title
+                 t_infoString
+                 g_enableCancel
+                 [t_formname]
+                 [t_infoString2]
+                 [g_formCallback]
+         ) -> t/nil
+  SYNOPSIS
+         starts progress meter withoptional cancel feature
+            NOTE: always call axlMeterDestroy when done with meter.
+     NEEDS
+         t_title - title bar of meter
+       t_infoString - one line of 28characters used for anything you want
+                    (can be updated at meter update).
+     g_enableCancel - t enablethe application "Stop" button on graphical
+                    UI-basedapplications.  When enabled and theuser picks
+                    the Stop button, a true is returnedby the call to
+                    axlMeterIsCancelled().
+         t_formname - (Optional) the name of analternate form that can be used with
+                    these functions which has an info fieldnamed "progressText"
+                    and aprogress field named "bar". axlMeterIsCancelled will also
+                    notice if a "Cancel" Menubutton has beenpressed.
+                    If you do not give aform name "axlprogress.form" will be used.
+      t_infoString2 - (Optional) By Default "".
+     g_formCallback - (Optional) the name of aCallback function that you
+                    want called for anybuttons or fillins etc you may
+                    have on yourform. This works the same as
+                    g_formAction inaxlFormCreate.
+   RETURNS
+         t on success, otherwise nil.
+   SEE ALSO
+         axlMeterCreate, axlMeterIsCancelled, axlMeterDestroy
+         axlFormCreate
+   EXAMPLE
+         axlMeterCreate("SigNoiseDesign Audit", "", t)
+         total = <total nets>
+         done = 0
+         while(<still next net>&& (!axlMeterIsCancelled())
+            < do work>
+            axlMeterUpdate( (100 * ++done)/total
+                  sprintf(nil "Check %d of %dnets" donetotal))
+         )
+         axlMeterDestroy()

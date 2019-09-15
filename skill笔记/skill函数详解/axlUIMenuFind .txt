@@ -1,0 +1,78 @@
+按位置或命令找到一个菜单项
+  NAME
+         axlUIMenuFind - find a menu item by location or command
+  SYNOPSIS
+         axlUIMenuFind(
+             x_menuId/nil
+             t_cmdName/x_location
+             [g_menuOption]
+         ) ==> x_menuId/nil
+  FUNCTION
+         The location (x_location) is 0 based (typically the "File"
+         menu item on the menubar). The 0 location is the left or
+         top most menu item.  A negative number may be used to
+         specify a menu counting from the right side with a -1
+         indicating the menu furthest to the left or bottom.
+         Two modes are possible:
+         1) Find by name, finds menu item by command name.
+            This method cannot find menubar items such as "File".
+            When finding by name you should pass nil as the first
+            argument.
+         2) Find by x_location, identifies a menu item off the menubar
+            (menuId = nil) or sub-menu.
+         Menu searching is controlled via a menu stack. The first argument,
+         x_menuId, controls the stack. For most operations, you should pass
+         a nil to this argument. Typically searching via the menu stack
+         would use x_location as the second argument since the t_cmdName
+         method is sufficient to find commands multi-levels deep in the menu
+         hierarchy.  If you have a nested search active then passing a nil will
+         reset the stack. The stack is also popped if you provide a menuId
+         older then the last id.
+         The g_menuOption when used in location mode will return
+         the top or bottom of the indexed sub-menu (see below).
+  TIP   
+         Examples shown below provide typical uses.
+  CAUTIONS (release to release portability)
+         - While not frequent, command names may change from release to release.
+         - Certain products or product tiers may not have a command.
+         - Menus may be reorganized so expecting to find a command on a particular
+           sub-menu may not return the expected result in a new release.
+         - As always adding Allegro commands or scripts to menus may require updates
+           in a new release.
+         - See introduction of this section on menu recommandations.
+  NEEDS
+         x_menuId - menuId return of previous call or nil to search from menu root.
+         t_cmdName - find item by command name. This may not by just a command
+            but is realy a command line (e.g.  if the command is register as
+            "echo hello" then you must find by "echo hello" NOT "echo".
+         x_location - find item by location. Location is 0 based so the "File"
+            menu is location 0. Negative numbers may be used where -1 is the
+            right-most (or bottom-most) menu item.
+         g_menuOption - permitted values are 'top or 'bottom
+                 If used with find by command returns the top of bottom of the
+                 menu where the command exists.
+                 Bottom option also indicates to axlUIMenuInsert to that a new
+                 menu item should be appended to end of the menu.
+                 If used with find by location and the item is a submenu returns
+                 the top or bottom of that submenu.
+  RETURNS
+         If succesful returns a menu number else failure is
+         indicated by a nil
+  SEE ALSO
+         axlUIMenuInsert, axlUIMenuChange, axlUIMenuDelete,
+         axlUIMenuDump, axlUIMenuLoad,
+         axlUIMenuRegister, axlTriggerSet
+  EXAMPLES
+         - To add to end of "Add" menu either of the following
+            are equivalent (assumes add line exists on 3rd item of menubar):
+                 l = axlUIMenuFind(nil 3 'bottom)
+                 l = axlUIMenuFind(nil "add line" 'bottom)
+         - Find Help menu, useful for adding a new sub-menu
+           before the help menu
+                 l = axlUIMenuFind(nil -1 nil)
+         - Find Top of Help menu, useful for adding new help menu items.
+                 l = axlUIMenuFind(nil -1 'top)
+         - Find file menu
+                 l = axlUIMenuFind(nil 0 nil)
+         - Find bottom of File->Import Menu
+                 l = axlUIMenuFind(nil "load plot" 'bottom)

@@ -1,0 +1,28 @@
+返回圆弧的中心点
+  NAME
+         axlMidPointArc - returns mod-pointon an arc
+  SYNOPSIS
+         axlMidPointArc(
+                 ll_endPoints
+                 l_center
+                 f_radius
+                 g_clockwise
+         ) -> l_midPoint
+  FUNCTION
+         Returns mid-point on a arc.Note mid-point may not be on a database coordinate.
+         All parameters may beobtained from a arc dbid.
+  NEEDS
+         ll_line: arc end points
+         l_center: center of arc
+         f_radius: arc radius
+         g_clockwise: is arc inclockwise (t) or counterclockwise direction (nil)
+  RETURNS
+         l_midPoint - mid-point ofline
+         nil - error inarguments
+  SEE ALSO
+         axlMidPointLine
+  EXAMPLE
+         - try clockwise
+                 axlMidPointArc(list(20:0 0:20) 0:0 20 t) = (-14.14214 -14.14214)
+         - try counter-clockwise
+                 axlMidPointArc(list(20:0 0:20) 0:0 20 nil) = (14.14214 14.14214)

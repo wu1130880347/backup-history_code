@@ -1,0 +1,17 @@
+查询某个层是否为负片层
+  NAME
+      axlIsLayerNegative - confirms if theactive layer is negative
+  SYNOPSIS
+      axlIsLayerNegative(
+          t_layerName
+      )
+      => t/nil
+  FUNCTION
+      This function checks if thegiven plane layer is
+      negative or not
+  NEEDS
+     t_layerName - Name of the layerwhich is being queried
+                   it can only be acondcutor layer
+  RETURNS
+     <ret_value> - t, if theactive layer is neagtive
+                   nil if it is notnegative or in case its not an ETCH layer

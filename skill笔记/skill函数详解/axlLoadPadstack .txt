@@ -1,0 +1,20 @@
+¼ÓÔØÒ»¸öpad
+  NAME
+         axlLoadPadstack - loads a padstack.
+  SYNOPSIS
+         axlLoadPadstack(
+                 t_padname
+         )
+         ==> o_dbid
+  FUNCTION
+         Attempts to find thepadstack by name in the existing database. Failing
+         that looks on the padlibrary, on disk to find thepadstack.
+  NEEDS
+         t_padname       Padstack name. If loaded from disk usesthe PADLIB path
+                         variable tofind the pad (limited to 20characters).
+  RETURNS
+         o_dbid  - returns padstack dbid
+         nil     - Can't find the pad.
+  EXAMPLES:
+         1) Gets the "VIA" padstack
+                 pad = axlLoadPadstack( "VIA")

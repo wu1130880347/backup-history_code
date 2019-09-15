@@ -1,0 +1,16 @@
+获得当前处于激活状态文字字号
+  NAME
+         axlGetActiveTextBlock - obsolete
+  FUNCTION
+         axlGetActiveTextBlock(
+                 )
+         ==> _textBlock
+  SYNOPSIS
+         Obsolete use axlDBControl instead.
+         Gets the current activetext block, equivalent to the status form.
+  NEEDS
+         None.
+  RETURNS
+         _textBlock:     Returns the current active text blocknumber.
+  EXAMPLES
+         None.

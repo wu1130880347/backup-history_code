@@ -1,0 +1,66 @@
+加载颜色文件
+  NAME
+         axlColorLoad - load a color file
+  FUNCTION
+         axlColorLoad(
+                 t_file/nil
+         ) -> t/nil
+  SYNOPSIS
+         This loads an Allegro colorfile (default .colextension).
+         Master color file is at<cdsroot>/share/pcb/text/lallegro.col.
+         File format is:
+             # - comment if in first column
+             #N - next line with a numberis number of colors (currentlyonly
+                  24 is supported). This should appearfirst in the file
+                 EXAMPLE of number format
+                   #Number
+                   24
+             #B - next line with a numberis background color. This should
+                 appear after colornumber. Format of color line must be
+                 (name is currentlyignored):
+                         0 <red> <green><blue> [<name>]
+                 EXAMPLE of backgroundformat setting it to black
+                   #Background Color
+                    0      0      0       0
+             #I - next set of lines sets thecolors. These should always
+                 appear last in the file. Wewill read until the first
+                 color number thatexceeds the color number (currently
+                 hardcoded as 24) or the end of file isreached. The order
+                 the colors appearin the file determines the initial
+                 color [priority (highest (first) to lowest (last)].
+                 Format is:
+                   <colornumber> <pen number> <red> <green> <blue>[<name>]
+                 EXAMPLE:
+                     1      1       255    255     255    White
+                     2      2      14      210    255     LtBlue
+            
+           <color number>:entry in color table. This is the color number
+                 referenced by theallegro subclass (axlLayerGet)
+           <pen number>: Usedby Allegro plot (UNIX) to control what pen
+                 to use duringplotting. Not applicable on Windows.
+           <red> intensity ofred to blend into color 0 to 255
+           <green> intensityof green to blend into color 0 to 255
+           <blue> intensity ofblue to blend into color 0 to 255
+           <name> (optional) name of color, currently not used by Allegro
+                         but sigxptakes advantage of the name to auto-assign
+                         colors.
+                 
+         You should call axlVisibleUpdate to propertly updatethe display after
+         you finish manipulating thecolors.
+         In Allegro the color fileis if we need to start anew design at
+         program startup. Openingexisting databases uses the color table
+         stored in that database.New datbases created when Allegro is
+         already running copies thecolor table from the previous database.
+  NEEDS
+         s_file: color file name to load if nil usess lallegro.col
+                 if no directory pathcomponent we use LOCALPATH environment
+                 variable to findthe file.
+  RETURNS
+         t if loaded file; nil file not found or error in loading file
+  SEE ALSO
+         axlColorSave, axlColorSet
+  EXAMPLES
+         1) load user's default color. Overriding and setting current
+            board values:
+              axlColorLoad(nil)
+              axlVisibleUpdate(t)

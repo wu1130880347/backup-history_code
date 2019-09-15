@@ -1,0 +1,28 @@
+NAME
+         axlDMFindFile - gets fully specifiedname from Allegro DM
+  SYNOPSIS
+         Opens a file in conventionAllegro manner. Can add an extension
+         and optionally looks it up in a Allegrosearch path.
+         Note must have an entry infileops.txt file.
+  FUNCTION
+         axlDMFindile (
+                 t_id
+                 t_name
+                 t_mode
+                 [t_prop]
+         ) -> t_name/nil
+  NEEDS
+         t_id:  id describing file attributes from fileops.txt
+         t_name: name
+         t_mode: open mode
+                    "r": read-only
+                    "w": write
+                    "wf": write line-buffered
+         t_prop: Property string
+  RETURNS
+         t_name/nil:     Name of file or nil
+  SEE ALSO
+         axlDMOpenFile
+  EXAMPLE
+         (setq aPort (axlDMFindFile "ALLEGRO_TEXT", "clip", "w", ":HELP=clipboard"))
+                 - gets fully qualifiedname; clip.txt for writing

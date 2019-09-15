@@ -1,0 +1,15 @@
+使识别线轮廓可见或不可见。
+  NAME
+          axlSetWireProfileVisible
+   FUNCTION
+          axlSetWireProfileVisible(t_profile g_visible)
+             ==> t / nil
+   SYNOPSIS
+          This function willmake the identified wire profile
+          visible orinvisible.
+  NEEDS
+          t_profile -- Name of profile toretrieve color for.
+          g_visible -- t for visible, nil forinvisible.
+   RETURNS
+          t ifsuccessful.
+          nil if error (profile does not exist).

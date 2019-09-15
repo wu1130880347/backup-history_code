@@ -1,0 +1,19 @@
+保存当前设计的颜色至文件。
+  NAME
+         axlColorSave - save color file
+  FUNCTION
+         axlColorSave(
+                 t_file/nil
+         ) -> t/nil
+  SYNOPSIS
+         Saves current design'scolor to indicated file.
+  NEEDS
+         t_file - file name if nil saves to<HOME>/pcbenv/lallegro.col
+                 if no extension uses.col extension
+  RETURNS
+         t successful, nil failed to save
+  SEE ALSO
+         axlColorSave, axlColorSet
+  EXAMPLES
+         1) save current design color settings
+                 axlColorSave("mycolor")

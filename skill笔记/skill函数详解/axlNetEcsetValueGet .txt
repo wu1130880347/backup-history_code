@@ -1,0 +1,42 @@
+获得某网络上一个电气规则的设置值
+  NAME
+         axlNetEcsetValueGet - get anelectrical constraint associated with a net
+  FUNCTION
+         axlNetEcsetValueGet(
+                o_itemDbid/t_netName
+                 t_cnsName/s_name
+         )
+         ==> t_cnsValue/nil
+  SYNOPSIS
+         This routine returns thevalue of a specific electrical constraint that
+         as been assigned to a givennet. Both fixed and user defined constraints
+         may be accessed.
+         
+         This will not return a "flattened" net view ofconstraints applied to
+         pinpairs. Use axlCnsNetFlattened to obtain this constraint view.
+  TIPS
+         If requesting multipleconstraints from the same net is is faster to
+         obtain get thedbid of thet net and pass that as first argument instead
+         of using the net name.
+  NEEDS
+         o_itemDbid - the dbid ofany item that that is assigned to a net or Xnet.
+         t_cnsName - the propertyname for the constraint to be fetched. This can
+                     be either afixed constraint or a user defined constraint.
+         s_name - symbol name of DRCcheck (values returned by
+                         axlCNSEcsetModeGet(nil). These names may not
+                         exactlymatch the property name. They do not exist
+                         for userdefined properties in the ecset.
+  RETURNS
+         t_cnsValue - the valuereturned as a string
+         nil - no value defined for the net
+  SEE ALSO
+         axlCnsNetFlattened
+  EXAMPLES:
+         1) net is part of anECSET (electricalconstraint set) which has
+                 aMAX_EXPOSED_LENGTH constraint
+             net = car(axlSelectByName("NET" "NET2")
+             rule = axlNetEcsetValueGet(net "MAX_EXPOSED_LENGTH")
+         2) net has an overridecontraint for MAX_VIA_COUNT
+              rule = axlNetEcsetValueGet("NET2" "MAX_VIA_COUNT")
+         3) same as example 2 but usethe DRC check name
+              rule = axlNetEcsetValueGet("NET2" 'Maximum_Via_Count)

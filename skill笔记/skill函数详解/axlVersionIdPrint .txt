@@ -1,0 +1,24 @@
+Êä³ö°æ±¾ID
+  NAME
+      axlVersionIdPrint - return printable date/time of version id number
+  FUNCTION
+      axlVersionIdPrint(
+         x_time/t_time
+      ) -> t_printTime/nil
+  SYNOPSIS
+      This prints version_id
+      The VERSION_ID is stored as a property on the database root
+         axlDBGetDesign()->prop->VERSION_ID
+      and on the symbol defs. If may be used to determine if a symbol
+      should be refreshed. The VERSION_ID is updated everytime database
+      is saved (except if being done as part of an uprev).
+  NEEDS
+      VERSION_ID number obtained from database property VERSION_ID or
+      axlVersionIdGet()
+  RETURNS
+      print-able string in stand Allegro date/time format
+  SEE ALSO
+      axlVersionIdGet
+  EXAMPLES
+       axlVersionIdPrint(axlDBGetDesign()->prop->VERSION_ID)
+         -> "Mon Dec 16 12:45:16 2002"

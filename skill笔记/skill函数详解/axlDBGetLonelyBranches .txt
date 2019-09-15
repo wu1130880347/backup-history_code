@@ -1,0 +1,14 @@
+获得单独分支
+  NAME
+     axlDBGetLonelyBranches -    return design's standalone branches
+  SYNOPSIS
+      axlDBGetLonelyBranches(
+      )
+      ->lo_branch/nil
+  FUNCTION
+      Returns a list of the standalonebranch dbids in the design. A standalone
+      branch is a branch not associated with anynet.
+  NEEDS
+      Nothing
+  RETURNS
+      lo_branch: returns a list of DBIDs which represent allegrobranches

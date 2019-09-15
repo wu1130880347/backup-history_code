@@ -1,0 +1,19 @@
+É¾³ýÄ³¸ö¶ÔÏó
+  NAME
+         axlEraseObject - Erase a list of AXL DBID's
+  SYNOPSIS
+         axlEraseObject(
+                 lo_dbid
+         )
+         ==> t/nil
+  FUNCTION
+       Processes a list of DBID's and erases them.Typically used in
+       conjunction with axlDynamicsObject to erase them priorto attaching
+       them to the cursor.  Any objects erased are restored to their
+       visibility when calling AXL shell or term inating theSKILL program.
+  NEEDS
+         lrd_dbid        - list of DBIDS or one DBID
+  RETURNS
+         t      - Something was drawn or erased.
+         nil    - No valid DBID's or all objects already at desired
+                   display state.

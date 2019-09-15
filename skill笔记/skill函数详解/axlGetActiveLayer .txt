@@ -1,0 +1,19 @@
+
+获得当前处于激活状态的层
+  NAME
+         axlGetActiveLayer - obsolete
+  FUNCTION
+         axlGetActiveLayer(
+                 )
+         ==> t_layer
+  SYNOPSIS
+         Obsolete use axlDBControl instead.
+         Retrieves the active class andsubclass of the design.
+         Note: This function isobsolete and is kept for compatibility reasons.
+  NEEDS
+         None.
+  RETURNS
+         t_layer:        Returns a string denoting the activeclass and subclass.
+  EXAMPLES
+         axlGetActiveLayer()
+                 ==> "MANUFACTURING/PHOTOPLOT_OUTLINE"

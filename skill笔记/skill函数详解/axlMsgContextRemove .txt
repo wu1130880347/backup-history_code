@@ -1,0 +1,55 @@
+从context缓冲区移除某信息
+  NAME
+         axlMsgContextRemove - removes anybuffered messages
+  FUNCTION
+         axlMsgContextRemove(
+                 r_context
+                 t_format_string
+                 )
+         ==> t
+  SYNOPSIS
+         Removes a message (ormessages) from the bufferedmessages. This function lets you
+         remove messages (usually warnings) from the bufferthat you decide later in a procedure
+         that you do not wantthe user to see.
+  NEEDS
+         r_context:              The context handle fromaxlMsgContextStart. axlMsgContextRemove
+                                only removes messages for this context (or anychildren). If
+                                 r_context is nil, axlMsgContextRemove looks through all contexts.
+         t_format_string:        The format string of the message. Thematch for the message in
+                                 thebuffer ignores the substitution parameters used to generate
+                                 thefull text of the message.
+  RETURNS
+         t:      Always returns t.
+  EXAMPLES
+         axlMsgContextRemove(context, "My fatal error%s")
+         ==> t
+xupanlang=EN-US style='font-size:12.0pt;font-family:"Courier New";color:blue;background:white;mso-highlight:white;mso-font-kerning:0pt;mso-bidi-font-weight:bold'>for thecontext severity level with axlMsgContextTest
+         5. Prints the contextbuffer with axlMsgContextPrint
+         6. Ends with axlMsgContextFinish
+                 context = axlMsgContextStart("My own context.")
+                 axlMsgPut(list("My warning" 2))
+                 axlMsgPut(list("My error" 3))
+                 printf("Messageseverity %d",axlMsgContextTest(context))
+                 axlMsgPut(list("My fatal error %s" 4) "BADERROR")
+                 if( axlMsgContextInBuf(context "My error")
+                 printf("%s\n" "my error isthere"))
+                 printf("Messageseverity %d",axlMsgContextTest(context))
+                 axlMsgContextPrint(context)
+                 axlMsgContextFinish(context)
+                  ==> t
+         When you load theSKILL program shown above, the SKILL command line
+         outputs the following:
+         W- My warning
+         E- My error
+         F- My fatal error BADERROR
+         Message severity 3
+         my error is there
+         Message severity 4
+         t
+         This information shows thegeneral usage of the axlMsg system:
+         * Messages first go to thecontext buffer
+         * axlMsgContextPrint prints them to theSKILL command line
+         * The contents of theoutput buffer from any print and printf data write to thecommand
+           line when controlreturns to the command line.
+         That is why the messages "Messageseverity 3," "myerror is there" and
+         "Message severity 4" are after thebuffered messages ("W-My warning" ...).

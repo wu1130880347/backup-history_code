@@ -1,0 +1,20 @@
+打开Allegro 的log 文档
+  NAME
+         axlDMOpenLog - opens an Allegrologfile
+  SYNOPSIS
+         Opens an file for writing log messages. Name offile should
+         be program or application withoutan extension. This will append
+         an extension of ".log" to program name.
+  FUNCTION
+         axlDMOpenLog (
+                 t_program
+         ) -> p_port/nil
+  NEEDS
+         t_program:      your program name, no extension
+  RETURNS
+         p_port/nil:     A SKILL port if it can open file
+  SEE ALSO
+         axlDMOpenFile
+  EXAMPLE
+         logport = axlDMOpenLog("clipboard"))
+                 - opens a file;clipboard.log

@@ -1,0 +1,42 @@
+MCMÓëPCB²ãµÄÓ³Éä
+  NAME
+          axlMapClassName - return theappropriate class name based on the type of product
+  FUNCTION
+         axlMapClassName(
+             t_oldName/lt_oldName
+             [g_mapToPCB]
+         )
+         ==>t_newName/lt_newName
+  SYNOPSIS
+         This is intended if youwish to write a Skill program
+         that is will run in boththe Board or APD space.
+         It provides mapping fromPCB Class names to the name
+         appropriate to the programrunning your Skill program. It
+         allows you to write aprogram using PCB Class names and
+         have it run in APD.
+          Name Mapping
+     PCB               APD
+     BOARD GEOMETRY    SUBSTRATE GEOMETR
+     ETCH              CONDUCTOR
+     ANTI ETCH         ANTI CONDUCTOR
+     PACKAGE GEOMETRY  COMPONENT GEOMETRY
+     PACKAGE KEEPIN    COMPONENT KEEPIN
+     PACKAGE KEEPOUT   COMPONENT KEEPOUT
+     BOARD             SUBSTRATE
+         When using the list ofnames mode, names that are notrecognized are
+         returned "as is".
+  NEEDS
+     t_oldName   -- A PCB class name
+     lt_oldName  -- list of names
+     g_mapToPCB  -- Optional. t will map fromthe APD name to the
+                    PCB names.Default is nil (PCB->APD conversion).
+  RETURNS
+         t_newName       --     class name based on the type of product
+         lt_newName      --     list of class names renamed
+  EXAMPLES
+         1) in APD
+             axlMapClassName("ETCH") -> "CONDUCTOR"
+         2) while in Allegro
+             axlMapClassName("ETCH") -> "ETCH"
+         3) list in APD
+             axlMapClassName('("ETCH" "ANALYSIS")) -> ("CONDUCTOR" "ANALYSIS")

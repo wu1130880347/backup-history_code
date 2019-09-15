@@ -1,0 +1,11 @@
+NAME
+     axlNetSched
+  SYNOPSIS
+     axlNetSched()
+     ==> t
+  FUNCTION
+     This is the main routine thatis called by the Allegro command processor
+     for the Net Schedulecommand
+  NEEDS
+  RETURNS
+     t

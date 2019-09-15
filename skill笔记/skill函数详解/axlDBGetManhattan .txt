@@ -1,0 +1,31 @@
+获得网络的曼哈顿长度
+  NAME
+     axlDBGetManhattan - given a net return etch, path and manhattan lengths
+  SYNOPSIS
+     axlDBGetManhattan(
+         o_dbid_net
+     )
+     ==> l_result/nil
+  FUNCTION
+                 Given a netcalculates both a etch, path and manhattan length.
+                 Result is the sameas that used by listelement.
+                 Etch is current length of etch present
+                         is 0 when no etch
+                 Path is etch plus remaining
+                         is equal to etch when net is fullyconnected
+                         is equal to manhattan when net has no etch
+                 Manhattan -estimated routing length
+  NEEDS
+     o_dbid      - net dbid
+  RETURNS
+     nil         - Not a net dbid.
+                   Net is out ofdate
+                   No ratsnest
+     l_result    - (etchLength path manhattan)
+  SEE ALSO
+         axlDBGetLength
+  EXAMPLE
+         Skill> p = ashOne()
+         Skill> axlDBGetManhattan(p)
+         (2676.777 3300.0)
+         

@@ -1,0 +1,31 @@
+弹出调色板弹出并获取
+  NAME
+         axlCVFColorChooserDlg - Bring up colorpalette popup and get
+                                     user color index selection.
+  FUNCTION
+         axlCVFColorChooserDlg(
+                 [x_color_index]
+                 [g_show_hilite]
+                 [x_hilite_flag]
+                 [x_bitmap_index]
+         )
+         ==> t/nil
+  SYNOPSIS
+         displays color palettemodal dialog. Color wells reflect current design
+         colors.
+  NEEDS
+         x_color_index   - color index to initialize palette dialog.
+                           values 0 to 191.
+         x_bitmap_index  - bitmap index to initialize palette dialog.
+                           values 0 to 15.
+         g_show_hilite   - if highlight checkbox is to bedisplayed
+                               t           - display highlight checkbox.
+                              nil/default - do not.
+         x_hilite_flag   - Highlight state to initialize highlightcheckbox
+                           (if displayed). Pass 1 or 0.
+  RETURNS
+         list   - containing one or two int values for user color palette
+                   selection and highlight checkboxselection.
+                   if g_show_hilite is not nil, list contain the twovals
+                   else list contains color index only.
+         nil    - if user cancels theform or error occured.

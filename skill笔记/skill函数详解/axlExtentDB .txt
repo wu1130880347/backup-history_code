@@ -1,0 +1,37 @@
+获得板框范围或设计范围
+  NAME
+         axlExtentDB - extent ofdatabase (symbol or drawing)
+  SYNOPSIS
+         axlExtentDB(
+                 [s_mode]
+         )
+         ==> l_bBox/nil
+  FUNCTION
+         Default or 'windowfit modedetermines design type and returns
+         bBox extent as follows:
+           Drawing extent:
+             Computes the layoutextents and returns thesmallest bounding
+             box to be used for window-fit.
+             Only "lines", "linesegs" and "shapes" are searched on
+             selected layers in thefollowing order -
+              1) "BOARDGEOMETRY/OUTLINE"
+              2) "PACKAGEKEEPIN/ALL"
+              3) "ROUTEKEEPIN/ALL"
+             The first layer thathas any elements is used to determine
+             the layout extents. Ifno elements are found on these layers,
+             the design extents arereturned.
+           Symbol extent:
+              Computes the boundingbox enclosing all objects visible in symbol.
+         In 'obstacle mode computes a extent based uponthe first obstacle
+           where an object isfound.  This tends to slightly larger then
+           the real minimal databasesize. This is what drawing param
+           form uses.
+  NEEDS
+         Nothing/'windowfit  - window fit value (see above)
+         'obstacle       - see above
+  RETURNS
+         l_bBox          - bBox extents
+         nil             - On error condition.
+  EXAMPLES
+         ext = axlExtentDB('windowfit)
+        ext = axlExtentDB('obstacle)

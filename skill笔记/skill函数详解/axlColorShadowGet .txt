@@ -1,0 +1,29 @@
+获取阴影模式的选项。
+
+  NAME
+         axlColorShadowGet - get shadow settings
+  FUNCTION
+         axlColorShadowGet(
+                 g_option
+         ) -> t/nil/x_percent
+  SYNOPSIS
+         This fetches the options ofshadow mode.
+  NEEDS
+         g_option
+                 'mode: shadow mode status (t is on, nil is off)
+                 'activeLayer: isactive layer dimming enabled (t)
+                         This iscalled "Dimactive layer in Options panel.
+                 'highlight
+                         This iscalled "Dimcolor assignments" in the Options panel
+                 'percent: currentbrightness percentage (0 to 100)
+                 'custom: are customcolors not shadowed
+  RETURNS
+         t/nil: Is shadow or active layer modeon or off
+         x_percent: brightnesspercentage
+  SEE ALSO
+         axlColorSet, axlColorShadowSet
+  EXAMPLES
+         1) Is shadow mode on
+                 axlColorShadowGet('mode)
+         2) Is shadow mode percent
+                 axlColorShadowGet('percent)

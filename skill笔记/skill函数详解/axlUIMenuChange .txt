@@ -1,0 +1,37 @@
+UIÐÞ¸Ä²Ëµ¥
+  NAME
+         axlUIMenuChange - changes a menu item
+  SYNOPSIS
+         axlUIMenuChange(
+             x_menuId
+             s_option
+             g_mode
+             ... <pairs of s_option/g_mode>
+         ) -> t/nil
+  FUNCTION
+         This changes one parameters of an existing menu item.
+         Unlike other menu commands this function can be safely done outside of
+         the menu trigger callback if the menu command is associated with your
+         Skill code.
+         Chanages allowed are a variable set of new value pairs:
+                                         s_option        g_mode
+         Enable/Disable menu             'enable         t/nil
+         Set/Unset Check mark            'check          t/nil
+         Change display text             'display        <new text display>
+         Change command text             'command        <new command string>
+         You should not attempt to change any separtor menu items. Also
+         do not attempt to assign command text to a submenu.
+         See discussion in axlUIMenuFind about menu changes
+  NEEDS
+         x_menuId - the menuid from axlUIMenuFind
+         s_option/g_mode pairs see above
+  RETURNS
+         t if menu item is changed else nil if failed to change menu
+  SEE ALSO
+         axlUIMenuFind
+  EXAMPLES
+         - Set menu to be disabled
+                 q = axlUIMenuFind( nil "add rect")
+                 axlUIMenuChange(q 'enable nil)
+         - Enable and set check mark from previous example
+                 axlUIMenuChange(q 'enable t 'check t)

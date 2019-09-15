@@ -1,0 +1,39 @@
+NAME
+     axlGetMetalUsageForLayer
+列出所有层的组合
+  FUNCTION
+     axlGetMetalUsageForLayer(
+                 l_layers
+                 [l_extents]
+                 [g_positive]
+                 )
+         ==> resultStruct/nil
+  SYNOPSYS
+     This function compute thepercentage metal coverage on the layers specified
+     in l_layer(s) (combination of alllayers listed) in the areaspecified in
+     l_extents. If no extents areprovided, then thedrawing's substrate geometry
+     outline extents will be used.
+  
+     Negative layer metal coveragecan be computed by passing nil for g_positive,
+     if processing negativeartwork layers such as solder mask layers.
+     
+  NEEDS
+     l_layers - A single layer or list oflayers to compute the (combined) metal
+                usage on. Forexample, passing list("CONDUCTOR/TOP" "PIN/TOP")
+                will compute thecoverage of all conductor + pin objects on the top
+                layer. It will not computethe two individually.
+     l_extents - BBox region tocompute metal coverage in. If not supplied, the tool
+                 will compute basedon the substrate geometry outline's extents or,
+                 if nooutline is present, thedatabase extents.
+     g_positive - Whether the layer(s) being processed arepositive or negative
+                  layers. Defaultsto true.
+  RETURNS
+     resultStruct/nil - resultStructis a defstruct containing for elements:
+             areaUnits - Units in which thearea was computed and returned.
+             regionArea - The areaof the extents region the tool used (user
+                           supplied or drawingextents).
+             metalArea  - The total metal area in the region checkedon the
+                          layersindicated.
+             percentMetalCoverage -The percentage of the extents region covered
+                                    by metal ((metalArea / regionArea) * 100.0)
+         nil is returned if thereis an error, with error printed to command line.

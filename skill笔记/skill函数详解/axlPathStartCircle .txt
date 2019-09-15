@@ -1,0 +1,21 @@
+设置线段弧线的起点
+  NAME
+         axlPathStartCircle - create an axlPathstructure (r_path) for acircle
+  FUNCTION
+         axlPathStartCircle(
+             l_location
+             f_width
+         )
+         ==> r_path/nil
+  SYNOPSIS
+         Creates an axlPath structure(r_path) for acircle.
+  NEEDS
+         l_location              - center and radius as ((X Y) R)
+         f_width                 - edge width of the circle
+  RETURNS
+         r_path/nil:     - r_path with the circle as the onlysegment
+  NOTE
+         Width must be specified for thisinterface (it may be 0.0)
+         and since it usesstandard Skill arg check must be a flonum.
+  EXAMPLE
+         axlPathStartCircle( list(100:200 20) 0)

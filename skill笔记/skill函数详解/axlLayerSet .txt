@@ -1,0 +1,37 @@
+更新层面参数
+  NAME
+         axlLayerSet - Update layerparam
+  FUNCTION
+         axlLayerSet(
+                 o_dbid
+         )
+         ==>o_dbid/nil
+  SYNOPSIS
+         Updates changes to layerparam. Currently you can only update the
+         color andvisibility attributes of a parameter.
+         
+         This is just a wrapper foraxlSetParam.
+         After completing color orvisibility changes you should make a call
+         to axlVisibleUpdate if the display shouldbe updated.
+  NEEDS
+         o_dbid         - Layer Param dbid
+  RETURNS
+         o_dbid          - Layer param dbid
+         nil             - if error
+  SEE ALSO
+         axlSetParam axlLayerGet
+  EXAMPLES
+         1) Change color of topetch layer
+                 q = axlLayerGet("ETCH/TOP")
+                 q->color = 7
+                 q->pattern = 0          ; solid pattern
+                 q->visibility = nil
+                 axlLayerSet(q)
+                 ; if settingmultiple layer colors/visisbility only call
+                 ; visible updateafter last change
+                 axlVisibleUpdate(t)
+         2) To set allitems to the same color on a class do
+                 q = axlGetParam("paramLayerGroup:ETCH")
+                 q->color = 7
+                 axlSetParam(q)
+                 axlVisibleUpdate(t)

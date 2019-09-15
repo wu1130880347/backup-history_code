@@ -1,0 +1,22 @@
+设置实型数据输入框的小数点位数
+  NAME
+         axlFormSetDecimal - Set the decimalplaces for real fillin field(s).
+  SYNOPSIS
+         axlFormSetDecimal(
+             o_form
+             g_field
+             x_decimalPlaces
+         )
+         ==> t/nil
+  FUNCTION
+         Sets the decimal precision for real fillin fieldsin the form.  
+         If g_field is nil,  sets the precision for all real fillinfields in
+         the form.
+  NEEDS
+         o_form                  Form handle
+         g_field                 The field label or nil (for all fields)
+         x_decimalPlaces         Number of decimal places (positive integer)
+  RETURNS
+         t               for success
+         nil             Error.  There must be a problem with o_form, g_field or
+                        x_decimalPlaces.

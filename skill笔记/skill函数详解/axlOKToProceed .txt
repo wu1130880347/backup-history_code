@@ -1,0 +1,25 @@
+测试是否可以运行，有其他命令正在执行时则不能
+  NAME
+         axlOKToProceed - Wrapper forAIXOkToProceed
+  FUNCTION
+         axlOKToProceed (
+                 [t_echoMsg]
+         ) => t/nil
+  SYNOPSIS
+         Checks if Allegrois processing another interactive command or
+         engaged in some processthat might interfere with a SKILL command.
+          Use axlOKToProceed to check before starting functions such as
+         dbcreate, user interactions, selection setoperations. and
+         so on. The function returnst if Allegro can properly execute
+         a SKILL command at thatpoint, and returnsnil if it cannot.
+  NEEDS
+         t:      Suppresses the error message produced when it is not OK to
+proceed.
+  RETURNS
+         t/nil:  Returns t if Allegrocan allow AXL-SKILL database, selectio
+n, and interactive
+         functions to execute.Otherwise, the function returnsnil.
+  EXAMPLES
+         (when axlOKToProceed
+         ;; do AXL interactive command
+         )

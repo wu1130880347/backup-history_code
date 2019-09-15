@@ -1,0 +1,19 @@
+∂®“Âœﬂ∂Œ
+  NAME
+         axlPath StructureDefinitions
+  SYNOPSIS
+         (defstruct _axlPath             ; a path (r_path)
+             _width                      ;default width
+             _pathList)                  ;list of axlPathSeg segments
+                                        ;  NOTE: The pathList is stored in
+                                        ;  reverse order, i.e. the first
+                                        ;  axlPathSeg`s endPoint is the last
+                                        ;  point of the path
+                                        ;  NOTE: The "true" first axlPathSeg -
+                                        ;    the last in the list - width is
+                                         ;    ignored.
+         (defstruct _axlPathSeg          ; a path "segment"
+             _endPoint                   ;endpoint (starts at prev endpoint)
+             _width                      ;width of the segment (may be nil)
+             _arcCenter                  ;center if segment is an arc
+             _arcClockwise)              ;t if arc is clockwise

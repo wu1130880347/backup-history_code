@@ -1,0 +1,21 @@
+判断指定点是否在dbid 区内
+NAME
+         axlIsPointInsideBox is given point ondbid line
+  SYNOPSIS
+         Returns t a pointis inside or on edge of a box. Also see
+         axlfGeoPointInShape for dbidbased tests.
+         Floating point may be used.
+  FUNCTION
+         axlIsPointInsideBox(
+                 l_point
+                 l_box
+         ) -> t/nil
+  NEEDS
+         l_point: a point
+         l_box: a bounding box
+  RETURNS
+         t if inside or on boxedge; nil of outside
+  EXAMPLE
+         axlIsPointInsideBox(10:20 list(5:20 15:30)) = t
+         axlIsPointInsideBox(0:20 list(5:20 15:30)) = nil
+         axlIsPointInsideBox(15:20 list(5:20 15:30)) = t

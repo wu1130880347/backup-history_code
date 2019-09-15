@@ -1,0 +1,33 @@
+将某个窗口显示在其他所有窗口之上
+NAME
+         axlUIWExpose - exposes a possibly hidden window
+  SYNOPSIS
+         axlUIWExpose (
+                 r_window/nil
+         )
+         -> t/nil
+  FUNCTION
+         Exposes a window. Will open from an icon or raise to the top so
+         it is visible to user. See front of this section for specific window
+         types.
+         If window id is nil exposes the main window.
+         Under new UIs if the window has children they will be also exposed.
+  NEEDS
+         r_window:       Window id or if nil the main window.
+  RETURNS
+         t for success, nil for failure (window not a window)
+  NOTE
+         Under Microsoft Windows, the Operating System may not permit
+         you to move one window behind another.
+  EXAMPLES
+         The following example:
+             - Displays a window using axlUIViewFileCreate.
+             - Interactively moves it behind one or more other windows
+                 using the "back" selection of your window manager.
+             - Calls axlUIWExpose.
+         The window comes to the top above all other windows.
+           logWindow = axlUIViewFileCreate("batch_drc.log" "Batch DRC Log" t)
+           ; Other interactive code, possibly
+           ; causing Batch DRC Log window to be covered
+           ; Uncover the log window:
+           axlUIWExpose(logWindow)

@@ -1,0 +1,31 @@
+allegro skill Parameter操作函数
+
+正如在allegro skill database对象类型中提到的，一个PCB Editer设计中会有很多的Parameter，比如在design级别就有设计的精度，设计的版面尺寸，单位等等。在AXL-Skill中有一系列相 应的函数可以直接读取以及修改这些Parameter值。 
+2. 1 获取Parameter值的通用函数
+2.1.1 获取Parameter值的函数 axlGetParam           
+函数定义：axlGetParam (t_parm_name ) => o_paramDbid/nil            
+参数t_parm_name要求：被查询的parameter的名字。                   
+这个名字必须符合如下规则：                     
+paramTextBlock:<#>where # is 1-16 (Example:axlGetParam("paramTextBlock:1"); 默认的block只到16，对于大于16的block，如果系统里面有设定就可以同样得到，比如说有block 30，就可以这样得到axlGetParam("paramTextBlock:30") )                      paramDesign                     
+paramDisplay                     
+paramLayerGroup:<name>where nameis legal Allegro class name               
+paramLayerGroup:<name>/paramLayer:<name>                     
+artworkList offilm names        
+artwork:<filmNameAfilm given by filmName                    
+testprep            
+返回值o_paramDbid：返回值是个param型的dbid，该dbid将可用于axlSetParam函数来修改相应的Parameter。           
+示例：
+axlGetParam( "paramDesign") =>param:107955700(返回一个param类型的dbid, 该dbid包含了design的parameter信息)                          
+
+axlGetParam("paramLayerGroup:ETCH") =>param:107955760(返回的dbid包含系统的ETCH相关信息，比如有几个ETCH层) 
+
+     axlGetParam("paramLayerGroup:ETCH")->?? => (objType"paramLayerGroup" name "ETCH"visible nilnChildren 4groupMembers ("TOP" "INT1" "INT2" "BOTTOM") color -1)(说明：axlGetParam("paramLayerGroup:ETCH")将得到一个dbid，而->??操作将得到该dbid的所有直接相关属性，objType说明该dbid的对象类型是paramLayerGroup，nChildren=>4表面当前的design有4 个Etch层，groupMembers对应了具体的4个Etch层名字)                      
+axlGetParam("paramLayerGroup:ETCH")->groupMembers=>  ("TOP" "INT1" "INT2" "BOTTOM")           
+
+
+    2.1.2 设置Parameter值的函数 axlSetParam          
+    函数定义：axlSetParam (o_paramDbid ) => o_paramDbid/nil           
+    参数o_paramDbi要求：axlGetParam函数的返回值           
+    返回值o_paramDbid：返回值类型和axlGetParam返回的一样           
+    使用方法：Originalparam = axlGetParam( "paramDesign")，
+做一些其它的操作可能涉及到多个系统参数的改变，然后通过axlSetParam(Originalparam)命令来使系统所有的参数设置恢复之前保留的值。（参考后面提到的类型相似的axlVisibleGet和axlVisibleSet函数）

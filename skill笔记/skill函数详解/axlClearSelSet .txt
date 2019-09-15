@@ -1,0 +1,28 @@
+删除所有选择的对象集
+
+  NAME
+         axlClearSelSet - remove all objects fromthe selection set
+  SYNOPSIS
+         axlClearSelSet(
+         )
+         ==> t/nil
+  FUNCTION
+         Clears all dbids fromselect set.
+         Note: Use axlDeselectAll todeselect all with respect to Find Filter
+         setting.
+  NEEDS
+         None.
+  RETURNS
+         t      - if there was anythingin the sel set.
+         nil    - otherwise.
+  EXAMPLES
+         Use this function before doing aselection to ensure the select set
+         do es not have any leftover dbids in it, as in the example for
+         axlGetSelSetCount.
+         axlClearSelSet()
+         axlSetFindFilter(?enabled list("noall"))
+         axlSetFindFilter(?enabled list("pins")
+                 ?onButtons list("pins"))
+         axlAddSelectBox()
+         axlGetSelSetCount()
+         ==> 14

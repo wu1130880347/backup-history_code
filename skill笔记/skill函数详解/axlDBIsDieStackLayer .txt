@@ -1,0 +1,23 @@
+ÊÇ·ñÎªËÀ¶ÑÕ»²ã
+  NAME
+         axlDBIsDieStackLayer - is layer a diestack layer
+  FUNCTION
+         axlDBIsDieStackLayer (
+                 t_layerName
+         )
+         ==> t or nil
+  SYNOPSIS
+         Verifies if layer is a die stacklayer. This means that
+         attribute of the "paramLayer" parameter dbidcalled
+         "type" has a value of "DIESTACK".
+         This is normally used inthe APD product.
+  NEEDS
+         t_layerName: Layer name "CONDUCTOR/<subclass>"
+                         (note: CONDUCTOR is ETCH in Allegro)
+  RETURNS
+         t if die stack layer
+         nil not
+  SEE ALSO
+         axlDBIsBondwire
+  EXAMPLES
+         axlDBIsDieStackLayer("CONDUCTOR/TOP_COND") -> nil

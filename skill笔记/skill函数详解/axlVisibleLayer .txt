@@ -1,0 +1,25 @@
+vÏÔÊ¾Ä³²ã
+NAME
+         axlVisibleLayer - set layer visibility
+  SYNOPSIS
+         axlVisibleLayer(
+                 t_layer            
+                 g_makeVis           
+         )
+         ==> t/nil
+  FUNCTION
+         Sets a given layer visible/invisible. If given just class name,
+         sets entire layer to visible or invisible.
+         If you want to update the display call axlVisibleUpdate when
+         finished with your layer visiblity updates.
+  NEEDS
+         t_layer         - Name of layer. Either a fully qualified layer
+                           name in the format "<class>/<subclass>" or
+                           a class name in the format "<class>".
+         g_makeVis       - either t or nil. t to make it visible and
+                           nil to make it invisible.
+  RETURNS
+         t               - on success
+         nil             - on failure. e.g. layer does not exist.
+  SEE ALSO
+         axlVisibleUpdate

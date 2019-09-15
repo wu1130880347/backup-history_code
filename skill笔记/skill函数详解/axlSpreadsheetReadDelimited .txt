@@ -1,0 +1,19 @@
+读取表格分隔
+NAME
+     axlSpreadsheetReadDelimited
+  FUNCTION
+     axlSpreadsheetReadDelimited(t_fileName, t_delimiter)
+         ==> t / nil
+  SYNOPSIS
+     Read a text file on disk into memory for data access and manipulation as
+     a spreadsheet. File is expected to be a delimited text file, with cell
+     delimiters as specified in the t_delimiter argument. For XML spreadsheets,
+     use axlSpreadsheetRead.
+  NEEDS
+     t_fileName  -- Name of text file on disk to be read.
+     t_delimited -- Delimiter character used to separate "cells" in text file.
+  RETURNS
+     t   -- File successfully read; ready for querying.
+     nil -- Unable to read spreadsheet file.
+  SEE ALSO
+    axlSpreadsheetRead

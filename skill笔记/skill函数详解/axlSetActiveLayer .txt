@@ -1,0 +1,19 @@
+ÉèÖÃ¼¤»îµÄ²ã
+  NAME
+         axlSetActiveLayer - obsolete
+  FUNCTION
+         axlSetActiveLayer(
+                 t_layer
+                 )
+         ==> t/nil
+  SYNOPSIS
+         Obsolete use axlDBControl instead.
+         Sets the active class andsubclass of the design.
+  NEEDS
+         t_layer:        String with the format: <class> /<subclass>.
+  RETURNS
+         t/nil:          Returns t if it set thegiven active class and subclass successfully.
+                         Otherwiseit returns nil.
+  EXAMPLES
+         axlSetActiveLayer( "MANUFACTURING/PHOTOPLOT_OUTLINE")
+         ==> t

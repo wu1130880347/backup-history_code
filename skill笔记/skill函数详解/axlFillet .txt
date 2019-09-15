@@ -1,0 +1,28 @@
+给net或走线增加FILLET属性
+  NAME
+     axlFillet - Add fillet
+  FUNCTION
+     axlFillet(
+         o_dbid/lo_dbid
+     )
+     ==> t/nil
+  SYNOPSIS
+                 Add fillet betweencline and pin/via, and at T. Existing
+                 fillets will beremoved and re-generated.
+                 Fillet parametersare controlled from the Glossing
+                 "Pad andT"Parameter form.
+  NEEDS
+     o_dbid      - dbid can either be a NET, Path (CLINE) or line (segment).
+  RETURNS
+     t           - fillet OK
+     nil         - fillet failed
+  NOTE
+                 1) Pins, Vias and Ts are not supported use axlDBGetConnect
+                    on these objectsto get a list of Path (CLINES) that
+                    connect.
+                 2) For bestperformance, especially if fillets impact
+                    dynamic shapes, make a single callwith the list
+                    of objects to be filleted.
+  EXAMPLE
+                 1) fillet new MEMDATA8
+                 axlFillet(car(axlSelectByName("NET" "MEM_DATA8")))

@@ -1,0 +1,27 @@
+获得指定的域csets列表
+  NAME
+    axlCnsList - get list of csets in domainspecified
+  SYNOPSIS
+    axlCnsList(
+         s_csetDomain/nil
+    )
+    ==>lt_csetNames/ls_csetsDomain
+  FUNCTION
+    Returns the list of csets names ofthe domain specified.
+  NEEDS
+         s_csetDomain - domainssupported:
+                         spacing
+                         physical
+                         electrical
+                         sameNet
+                         nil - return list all domainssupported
+  RETURNS
+         lt_csetNames - list of cset in domainspecified
+         ls_csetDomains - list of domainssupported
+  SEE ALSO
+         axlCNSCreate
+  EXAMPLES
+         1) return all spacing cset names
+                 axlCnsList('spacing)
+         2) return domains supported
+                 axlCnsList(nil)

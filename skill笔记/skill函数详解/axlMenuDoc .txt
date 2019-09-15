@@ -1,0 +1,223 @@
+²Ëµ¥µµ°¸
+  NAME
+         axlMenuDoc - Allegro men fileformat
+  SYNOPSIS
+MENUS:
+Allegro tools typically supportthree menus; drawing, symbol and
+partition. The Allegro command set is verydifferent between these
+three design editors. Also menusets exist differnt tools such as
+APD, SIP and the SI (Signal Integrity) products (see below).
+All of the tiering (product levels) within a productare managed
+via the "#ifdef" statements within asingle menu file. Typically
+the settings of environmentvariables controlling the tiering
+are documented at the top of file.Note you cannot strip out
+the #ifdef statements to gainaccess to missing commands.
+FINDING MENUS:
+Allegro finds the menus with itsMENUPATH environment variable. The
+default Allegro menus are locatedin:
+        <cdsroot>/share/pcb/text/cuimenus
+The menus in this directory are asfollows (due to the tools andsoftware
+version you have loaded some may not bepresent in your installation).
+You should not modify any otherfile type in this directory as only
+the menu files are supported for usermodification.
+         allegro.men     - Menu for PCB designs
+         pcb_symbol.men  - Symbol menu for PCB products
+         partition.men   - Parition menu for PCB products
+         specctraquest.men - PCB SImenu
+         apd.men         - APD menu
+         sip.men         - SIP menu
+         icp_symbol.men  - APD/SIP symbol editor menu
+         apd_partition.men - APD Paritioneditor menu
+         sip_partition.men - SIPParition editor menu
+         apd_si.men      - APD SI menu
+         padlayout.men   - Pad Designer (in brd graphics editor)
+         padlaystn.men   - Pad Designer (standalone)
+         allegro_free_viewer.men -Allegro/SIP Free Viewer
+         viewlayout.men  - Allegro Viewer Plus
+CAUTION:
+         As new products are addedin a release; new menu files may
+         be added. Also Cadence maychange the name of any menu
+         file in a release.
+MENU Terms
+         Menubar - the menu itemsseen at the top of a Window
+         Menu item - a menu line;may either be a command, separator
+                 or asubmenu.
+         Separator - a horizontalline drawn to visually group menu items.
+         Submenu - a pulldown (from menbar) or apull-right (from
+                 another submenu). Submenus may onlyhave a display
+                 and commandassociation is not supported.
+MENU DESIGN CONSIDERATIONS
+         - Certain dynamic items mayexist. These are currently
+           the MRU (most recently usedfiles) and Quickreports.
+           Do not attemptto modify these items.
+         - Do not usespaces in the display for the menubar.
+         - All menubar items shouldbe submenus. Do not add a
+           command menu item at thislevel.
+         - Do not addexcessive items to the menubar. If the menubar
+           displays on two lines for atypical window width you may
+           have too many items.
+         - Keep the display textrelatively short,especially on the menubar.
+MENU CUSTOMIZATION METHODS
+         - Provide own customizationmenu via CDS_SITE. Replace
+           the Cadence provided menu(.men file) with your own.  
+              - Advantages:Relatively easy and no Skill programming required.
+              - Disadvanges: For newreleases need to merge your menu
+                 changes with newCadence menus. May need to modify
+                 multiple menus
+         - Overload your menucustomizations on Cadence menus via
+           Skill axlUIMenuRegister.
+              - Advantages:Relatively easy with minimal Skill programming.
+                         Dependingon your site's additions may is immune
+                         to manyCadence menu changes.
+              - Disadvanges: Cannot deleteCadence menu items or restrict
+                         yourchanges to a one Cadence menu.
+         - Register a axl menuTrigger notification via axlTriggerSet
+              - Advantages: Almostas much flexibity as overriding
+                         the defaultmenu file including targeting
+                         specificmenus.
+              - Disadvanges: Need toexamine your Skill code with
+                         with newCadence releases. Requires much
+                         more Skillprogramming knowledge.
+---------------------------------------------------------------------
+DYNAMICALLY LOADING MENUS:
+         All tools supportoverriding their default menus by putting your
+         file before the defaultCadence menu file via the MENUPATH.
+         Programs that supportaxl-Skill allow menus to be dynamically
+         changed while theprogram is running. This can be done
+         using the axlUIMenuLoad Skill function.  This is notsupported in
+         allegro_pcb andallegro_viewer.
+         See axlUIMenuLoad documentation
+         Tools support dynamically (via Skill) modifing menus
+         (see axlUIMenuFind).
+SEE ALSO
+         axlUIMenuFind
+---------------------------------------------------------------------
+MENU FILE FORMAT:
+Only one menu definition ispermitted per file. The following is in
+the file syntax in BNF format.Normally indents are used to reflect
+the menu hierarchy in the men file.
+  []      Optional
+  {}      May repeat one or more times
+  <>      supplied by user
+  |       Choose one or the other
+  :       Definition of a token
+  CAPS    Items in caps are keywords
+  (#)    Note, see number at endof this documentation
+FILE:
+         [comment]
+         [ifdef]
+         <name> MENUDISCARDABLE
+         BEGIN
+            {popup}
+         END
+popup:
+         POPUP "<display>"
+         BEGIN
+             {MENUITEM "<display>"               "<command>"}
+             [{separator}]
+             {[popup]}
+         END
+{[//]}          - comment lines
+separator:
+         MENUITEM SEPARATOR
+                 - this inserts aseparator (a line) at this spot in
+                 the menu. This is not supportat the top level (menubar)
+name:       This text is currrently ignored. Youshould use the file
+                 name minus theextension.
+comment:    double slash (//) can be used anyway to start acomment
+display:    Text shown to the user
+                 & - This isused to enable keyboard access to the
+                         menus. Forthis to work each menu level must
+                         have aunique key assigned to it. Use double
+                         ampersnd (&&) to get display a "&"
+                 ... - Three dots isa convention that this command
+                         displays aform
+command:    This is any Allegro command, sequence of Allegrocommands
+                 or Skillstatement. The Allegro command parser acts
+                 on this statementso it offers considerable flexibilty.
+                 The command shouldbe placed within a set of double
+                 quotes ("). Doublequotes are not supported within this
+                 command string.
+ifdef:      Use #ifdef/#endif and #ifndef/#endif (sorry,no #else) to make
+             items conditionallyappear in the menu depending on whether or not
+             a specified environmentvariable is set.
+             A #ifdef will cause themenu item(s) to be ignored unless the
+             environment variable isset.  You must have one #endif for
+             each #ifdef or #ifndefto end the block of conditional menu
+             items. Also, the#ifdef, #ifndef and #endif must start at
+             the first column of itsline in the menufile. The #ifndef is
+             the negation of #ifdef.
+             The condition syntaxsupports multiple variables with OR '||' or
+             AND '&&'conditions. Also the negation character '!' is supported
+             for the variables:
+             These statements may be nested.
+             The simple syntax is:
+                 #ifdef <envvariable name>
+                 [menu items whichappear if the env variable is set]
+                 #endif
+                 #ifndef <envvariable name>
+                 [menu items whichappear if the env variable is NOT set]
+                 #endif
+                 # logicallyequivalent to above state using negation character
+                 #ifdef !<envvariable name>
+                 [menu items whichappear if the env variable is NOT set]
+                 #endif
+             Also logical statements
+              1) if variable1 andvariable2 are both set do the included statement
+                 #ifdef <var1>&& <var2>
+                 [menu items whichappear if both variables are set]
+                 #endif
+              2) if either variable1or variable2 is do the included statement
+                 #ifdef <var1>|| <var2>
+                 [menu items whichappear if either variable is set]
+                 #endif
+            
+             The items between the#if[n]def/#endif can be one or more
+             MENUITEMs or could be aPOPUP.
+             In the followingexample, the items the "Export" popup appears in
+             the menu only if the "menu_enable_export" envvariable is set:
+                 #ifdefmenu_enable_export
+                     POPUP "&Export"
+                     BEGIN
+                     MENUITEM "&Logic...",   "feedback"
+                     END
+                 #endif
+             In the followingexample, the "ProductNotes" menuitem appears in
+             the menu only if the "menu_disable_product_notes" envvariable is
+             NOT set:
+                 #ifndefmenu_disable_product_notes
+                     MENUITEM "&ProductNotes",    "help -file algpn"
+                 #endif
+---------------------------------------------------------------------
+SIMPLE MENU EXAMPLE:
+The following shows the file andresulting menu.
+-----------------------------------------------------
+DISPLAY (indents reflect the various pulldownlevels)
+     File                Help
+        Open                 Contents
+        Export               Product Notes
+            Logic            Known Problems and Solutions
+        Exit                 ----------------------------
+                             AboutAllegro...
+FILE:
+-----------------------------------------------------
+simple MENU DISCARDABLE
+BEGIN
+     POPUP "&File"
+     BEGIN
+         MENUITEM "&Open",                       "open"
+         POPUP "&Export"
+         BEGIN
+         MENUITEM "&Logic...",                   "feedback"
+         END
+         MENUITEM "E&xit",                       "exit"
+     END
+     POPUP "&Help"
+     BEGIN
+         MENUITEM "&Contents",                   "help"
+         MENUITEM "&ProductNotes",              "help -file algpn"
+         MENUITEM "&KnownProblems and Solutions", "help -file alkpns"
+         MENUITEM SEPARATOR
+         MENUITEM "&AboutAllegro...",      "about"
+     END
+END

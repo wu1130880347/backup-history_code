@@ -1,0 +1,34 @@
+创建层面子群组下拉列表
+  NAME
+         axlBuildSubclassPopup - create popup for all subclasses for given class
+  FUNCTION
+         axlBuildSubclassPopup(
+                 r_form
+                 t_field
+                 t_class
+         ) -> t/nil
+  SYNOPSIS
+         Support for building a formpopup with list of subclasses from
+         indicated class
+  NEEDS
+         r_form, t_field: standardform
+  RETURNS
+         t mostly unless error in arguments
+  SEE ALSO
+         axlFormBuildPopup, axlClassFormPopup
+  EXAMPLES
+         The following form fileentry will provide a subclass popup
+         with color swatch support.Note axlMapClassName will allow
+         support of APD and ChipIO which rename certain classes.
+                 # place holdersince popup will be override by the code
+                 POPUP<subclass>"subclass""subclass".
+                 ...
+                 # field name shouldmatch t_field
+                 FIELD subclass
+                 FLOC 9 3
+                 ENUMSET 19
+                 OPTIONS prettyprintownerdrawn
+                 POP "subclass"
+                 ENDFIELD
+            axlBuildSubclassPopup(fw, "subclass" axlMapClassName("ETCH"))
+            axlFormSetField(fw, "subclass" "GND")

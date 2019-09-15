@@ -1,0 +1,29 @@
+获取使用的模块实例的逻辑方法。
+  NAME
+         axlGetModuleInstanceLogicMethod - Get the logicmethod used by the
+                                           module instance.
+  SYNOPSIS
+         axlGetModuleInstanceLogicMethod(
+             o_modinst
+         )
+         ==> i_logic/nil
+  FUNCTION
+         AXL interface to the C function thatdetermines the logic method
+         used by the moduleinstance.
+  NEEDS
+         o_modinst               AXL DBID of the module instance (ie. the
+                                dbid returned by axlDBCreateModuleInstance).
+  RETURNS
+         i_logic                 Value of the logic method flagfor the module
+                                instance.  Legal values are:
+                                    0 - nologic
+                                    1 - logicfrom schematic
+                                    2 - logicfrom module definition
+         nil                     Information could not beaccessed.
+  EXAMPLE
+         Get the logic method of amodule instance named inst.
+            axlSetFindFilter(?enabled '("noall" "groups") ?onButtons '("noall" "groups"))
+            axlSingleSelectName("GROUP" "inst")
+            modinst = car(axlGetSelSet())
+            axlGetModuleInstanceLogicMethod(modinst)
+            --> 2

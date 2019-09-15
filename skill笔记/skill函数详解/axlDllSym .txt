@@ -1,0 +1,32 @@
+从插件库导入一个零件
+  NAME
+         axlDllSym - import a symbolfrom a plugin library
+  SYNOPSIS
+         axlDllSym(
+                 o_plugin
+                 t_symbolName
+         )
+         ==> o_pluginFunc/nil
+  FUNCTION
+         This imports a symbol froma loaded dll. A dll can have one or
+         more exported symbols.
+         The symbol must have beenexported from the dll when the
+         dll was compiled and linked (See axlDllDoc).
+         
+  PluginFunc Attributes
+     NAME                TYPE    DESCRIPTION
+    ----------------------------------------
+     name                string  Name of imported symbol file
+     functions           nil    Always nil
+     objType             string  "pluginFunc"
+  NEEDS
+         o_plugin: dll handle from axlDllOpen
+         t_symbolName: name of anexported function within the dll.
+  RETURNS
+         o_pluginFunc - symbolhandle
+         nil - error; symbol not present in Dll.
+  SEE ALSO
+         axlDllOpen
+  EXAMPLES
+         1) Load the distance symbol from theaxl plugin test dll
+                 _ashDistance = axlDllSym(_ashTestDll "ashDistance")

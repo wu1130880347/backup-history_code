@@ -1,0 +1,52 @@
+动态shape, 打开现有的形状，有选择地替换边界
+  NAME
+         axlDBOpenShape - open an existingshape, optionally replaceboundary
+  SYNOPSIS
+         axlDBOpenShape(
+             o_shapeDbid/nil
+             [o_polygon/r_path/nil]
+             [g_close]
+         )
+         ==> o_dbid/nil
+  FUNCTION
+         Allows an existing shape to be opened toreplace its boundary
+         or to modify its voids.
+         Shape can be left open soyou can update the voids within the
+         shape. If only the outlineneeds to be replaced, you canclose
+         the shape as part of thiscall.
+         A new outline cannotoverlap existing voids or allow existing
+         voids to exist outside theoutline.
+         A side-effect of opening anexisting shape is the shape
+         will be displayed asunfilled until it is closed.
+  NEEDS
+         o_shapeDbid - dbid of shapeto be modified. If dbid is nil then
+                 use the existingopen shape
+         o_polygon - new shapeoutline in polygon format
+         r_path - new shape outlinein r_path format
+         g_close - optional option to close the shape (t) boundarymodification
+  RETURNS
+         o_dbid - dbid of providedshape or nil if an error
+  SEE ALSO
+         axlDBCreateCloseShape, axlDBCreateOpenShape, axlDBCreateVoid,
+         axlShapeDeleteVoids, axlShapeAutoVoid
+  EXAMPLES
+         ashOne is a sharewareutility that allows user to select
+         an object (see<cdsroo>/share/pcb/examples/skill/ash-fxf/ashone.il)
+         1) Select a shape and expand it by 100
+             shp = ashOne("shapes")
+             edge = car( axlPolyFromDB(shp) )
+             newedge = car( axlPolyExpand(edge 100.0 'NONE) )
+             newshp = axlDBOpenShape(shp newedge t)
+         2) Select a void delete it
+             shp = ashOne("voids")
+             edge = axlPolyFromDB(shp)
+             newedge = car( axlPolyExpand(edge 100.0 'NONE) )
+             newshp = axlDBOpenShape(shp newedge)
+             q = axlDBCreateCloseShape(newshp)
+         3) Select a shape, delete all voids and contract boundaryby 100
+             shp = ashOne("shapes")
+             edge = car( axlPolyFromDB(shp) )
+             newedge = car( axlPolyExpand(edge -100.0 'NONE) )
+             newshp = axlDBOpenShape(shp nil)
+             axlShapeDeleteVoids(shp)
+             q = axlDBCreateCloseShape(newshp)

@@ -1,0 +1,23 @@
+
+NAME
+         axlCreateDeviceFileTemplate - create a devicefile from a dra
+  SYNOPSIS
+         axlCreateDeviceFileTemplate(
+                 t_deviceName
+                 t_CLASS
+                 l_pinList
+         ) -> t/nil
+  FUNCTION
+         This creates a templatedevice file providing same functionality as the
+         create device command inthe symbol editor. Normally you would use
+         axlDBCreateComponent to create a devicefile if in the board
+  NEEDS
+         t_deviceName - name ofdevice file (no file extension or path)
+         t_CLASS - class of device (e.g. IC, IO, etc.)
+         l_pinList - list of pins. May eitherbe any combination of pin dbid or pin numbers
+                 If a pin dbid willfilter out mechanical pins
+  RETURNS
+         t - file created
+         nil - an issue
+  SEE ALSO
+         axlDBCreateComponent

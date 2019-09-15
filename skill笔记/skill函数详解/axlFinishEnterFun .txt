@@ -1,0 +1,15 @@
+结束当前函数
+  NAME   
+         axlFinishEnterFun - Causes the waitto get user input toterminate.
+  SYNOPSIS
+         axlFinishEnterFun (   
+         )  
+         ==> t/nil   
+  FUNCTION   
+         Terminates the wait for a user pick. Thewaiting function returns no data.
+         For a one-pick function (for example, axlEnterPoint) this function
+         behaves the same asaxlCancelEnterFun.
+  RETURNS   
+         Returns t if the termination succeeds, otherwise nil.
+  EXAMPLES
+         see axlCancelEnterFun

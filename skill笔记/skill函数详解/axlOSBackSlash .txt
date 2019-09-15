@@ -1,0 +1,24 @@
+改变正斜杠至反斜杠
+  NAME
+     axlOSBackSlash - Change forwardslashes to DOS style backslashes
+  FUNCTION
+     axlOSBackSlash(
+         t_directory
+     )
+     ==> t_directory/nil
+  SYNOPSIS
+     This changes UNIX style forwardslashes to DOS style backslashes.
+     While most applications supporteither style, certain olderWindows
+     applications only support DOSstyle pathing.
+     
+     The UNIX style is moreammenable to Skill programming.
+     On UNIX this just returns theincoming string.
+  NEEDS
+     t_directory
+  RETURNS
+     t_directory/nil
+  SEE ALSO
+         axlOSSlash
+  EXAMPLE
+         p = axlOSBackSlash("/tmp/foo")
+                 -> "\\tmp\\foo"

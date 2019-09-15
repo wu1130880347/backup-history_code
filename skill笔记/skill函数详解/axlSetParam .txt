@@ -1,0 +1,40 @@
+
+更新一个已经改变了的参数记录
+  NAME
+     axlSetParam - Function toupdate parameter record changes
+  SYNOPSIS
+    axlSetParam (
+        od_paramDbid
+    )
+    ->rd_paramDbid/nil
+  FUNCTION
+    This allows applications tomodify certain aspects of Allegro
+    parameters.  After a parameter has been retrieved, attributes of itcan
+    be changed locally.  Those changes can the be put back into thedatabase
+    using axlSetParam.
+  NEEDS
+      rd_paramDbid - should be aparameter id returned from axlGetParam.  
+                     Modify theparameters to be changed then call
+                     axlSetParam to update the database.
+  RETURNS
+      Returns nil if itfailed to modify the database for any reason,
+      and the input parameterid if successful
+  EXAMPLE
+   1) Change visibility (note it is easier touse axlVisibleSet to do this)
+      (setq etch_top (axlGetParam "paramLayerGroup:ETCH/paramLayer:TOP"))
+      =>param:123456
+      ; is layer visible ?
+      etch->visible
+      t
+      ; blank it
+      etch_top->visible = nil
+      t
+      (axlSetParam etch_top)
+      =>param:123456
+      ; layer is now invisible
+      etch_top->visible
+      nil
+   2) Change accuracy
+         p = axlGetParam("paramDesign")
+         p->accuracy = 3
+         axlSetParam(p)

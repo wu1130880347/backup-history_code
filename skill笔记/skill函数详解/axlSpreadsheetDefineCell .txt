@@ -1,0 +1,23 @@
+定义在活动表格中的单元格
+  NAME
+     axlSpreadsheetDefineCell
+  FUNCTION
+     axlSpreadsheetDefineCell(row, col, style, type, value)
+         ==> t / nil
+  SYNOPSIS
+     Completely define asingle cell in the active worksheet.
+     This function is more efficientthan calling axlSpreadsheetSetCell with
+     multiple axlSpreadsheetSetCellProp calls afterwards.
+  NEEDS
+     row   -- Row index (1-based) for the desired cell.
+     col   -- Column index (1-based) for the desired cell.
+     style -- Style name to apply to thiscell / nil for default.
+     type  -- Type definition for this cell / nil for default(string).
+     value -- Value for cell / nil for empty.
+  RETURNS
+     t   -- Cell successfully defined.
+     nil -- Cell notdefined. See console for reason.
+  SEE ALSO
+    axlSpreadsheetGetCell
+    axlSpreadsheetSetCell
+    axlSpreadsheetSetCellProp

@@ -1,0 +1,17 @@
+创建或更新AUTOSILK信息7
+  NAME
+         axlDBCreateSymbolAutosilk - create/updatesymbol AUTOSILK information
+  SYNOPSIS
+         axlDBCreateSymbolAutosilk (
+             o_symbol
+         )
+         ==> t/nil
+  FUNCTION
+         This function will create (or update) the AUTOSILKinformation for
+         the specified symbol, as required. Itwill also update, asrequired,
+         any other AUTOSILKinformation in the vicinity of the symbol.
+  NEEDS
+         o_symbol                - axl DBID of the symbol
+  RETURNS
+         t    if valid symbol DBIDprovided
+         nil  if DBID not a valid symbol

@@ -1,0 +1,16 @@
+清除窗体上的鼠标动作选项5 q- L9 m) W' B
+  NAME
+         axlFormClearMouseActive - Clears theMouseActive option on a form
+  FUNCTION
+         axlFormClearMouseActive(
+             r_form
+         )
+         ==> t/nil
+  SYNOPSIS
+         Clears the option todispatch the MouseActive event on a form.
+  NEEDS
+         r_form          Handle for the form
+  RETURNS
+         t      Option was cleared
+         nil    r_form does not reference a valid form
+关闭窗体

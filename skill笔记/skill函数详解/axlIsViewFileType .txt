@@ -1,0 +1,24 @@
+测试是否是文件显示窗口
+  NAME
+         axlIsViewFileType - tests if arg isa long message window type
+  FUNCTION
+         axlIsViewFileType(
+                 g_userType
+                 )
+         ==> t/nil
+  SYNOPSIS
+         Tests whether g_userType isa long message window user type.
+  NEEDS
+         g_userType:      Argument to be tested.
+  RETURNS
+         t/nil:  Returns t ifg_userType is of type r_windowMsg.
+                 Otherwise itreturns nil.
+  SEE ALSO
+         axlUIViewFileCreate
+  EXAMPLES
+         The following example:
+           1. Creates a windowusing axlUIViewFileCreate
+           2. Tests whether it isa view file type.
+              logWindow = axlUIViewFileCreate("batch_drc.log" "Batch DRC Log" t)
+              axlIsViewFileType(logWindow)
+                 ==> t

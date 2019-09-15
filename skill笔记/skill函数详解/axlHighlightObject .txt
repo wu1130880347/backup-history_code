@@ -1,0 +1,53 @@
+高亮显示某个对象
+  NAME
+         axlHighlightObject - Highlight a list of AXLDBID's
+  FUNCTION
+         axlHighlightObject(
+                 [lo_dbid]
+                 [g_permHighlight]
+         )
+         ==> t/nil
+  SYNOPSIS
+         Highlights (temporary orpermanent) the provided dbid or list
+         of dbids.
+         The list ofobjects that support permanent highlight is more
+         restrictive thentempoary highlight. See the Highlight command
+         documentation.
+         DEVELOPEMENT NOTE: setting axlDebug(t) will enableadditional
+                 informationalmessages
+                 
+  NEEDS
+         od_dbid - list ofDBIDS or one DBID
+         g_permHighlight - if PERM or TEMPhighlight color is desired.
+                           t             - use PERM highlight color
+                          nil/default   - use TEMP highlightcolor.
+  RETURNS
+         t       - Something was highlighted ordehighlighted.
+         nil     - No valid dbid's or all objects alreadyat desired
+                   highlightingstate.
+  SEE ALSO
+         axlDehighlightObject, axlDBControl,axlIsHighlighed
+  EXAMPLES
+         A) You can use the AXL-SKILL axlHighlightObject and
+            axlDehighlightObject functions tohighlight database elements
+            during interactivecommands.
+         The following example doesthe following:
+            1. Defines the functionhighlightLoop.
+            2. Loops on the function axlSelect gathering user selections
+               to highlight.
+            3. Waits thendehighlights.
+         You can stop the command atany time by selecting Cancel or
+         Done from the pop-up.
+         (defun highlightLoop ()
+             axlSetFindFilter( ?enabled '("noall" "alltypes" "nameform")
+                                 ?onButtons "alltypes")
+             while( axlSelect()
+                   axlHighlightObject( axlGetSelSet())
+                   axlSleep(1)
+                   axlDehighlightObject( axlGetSelSet())
+             )
+         )
+          B) Permanent highlight an object usingcolor 4:
+                 axlDBControl('highlightColor4)
+                 axlHighlightObject(axlGetSelSet() t)
+                 checkColor = axlIsHighlighted( car(axlGetSelSet()) )

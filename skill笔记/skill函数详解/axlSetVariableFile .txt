@@ -1,0 +1,25 @@
+设置环境变量文件
+  NAME
+        axlSetVariableFile -     sets and saves to fileAllegro environment variable
+  FUNCTION
+         axlSetVariableFile(
+                 t_variable
+                 g_value
+                 )
+         ==> t/nil
+  SYNOPSIS
+         This operates the same as axlSetVariable except it also saves the setting to
+         the user's local enviromentfile.
+         Variable is added in thepreference section of the env file.
+  CAUTION
+         On Windows, updating theenvironment file on disk can cause performance issues
+         if this interface isused heavily.
+  NEEDS
+         t_variable:     name of the Allegro environment variable.
+         g_value:        Value to which the environmentvariable is to be set.
+                         Can be astring, int, t, or nil.
+  RETURNS
+         t/nil:          Returns t ifsuccessful. Returns nil if invalid data
+                         type ofvariable is marked read-only.
+  SEE ALSO
+         axlSetVariable,  axlUnsetVariableFile

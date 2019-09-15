@@ -1,0 +1,47 @@
+创建一个器件
+  NAME
+         axlDBCreateComponent - create acomponent
+  FUNCTION
+         axlDBCreateComponent(
+             s_refDes
+             s_deviceName
+             [s_package]
+             [s_value]
+             [s_tolerance]
+         )
+         ==> r_dbid/nil
+  SYNOPSIS
+         Given the informationneeded to describe an Allegro device, create
+         the Allegro component and return its dbid.  If the component
+         definition already exists, then use the existingdefinition to create
+         the new component. If thecomponent definition does not exist, then
+         create a new definitionusing the device file and create the new
+         component.
+  NEEDS
+         s_refDes        - The reference designator for the new component.
+         s_deviceName    - Name of Allegro device file.
+         s_package       - Package name to be used for the component.  This
+                           willover-ride the value found in the device file.
+                           (can be nil)
+         s_value         - "Value" attributevalue.  This will over-ride the
+                           valuefound in the device file.
+                           (can be nil)
+         s_tolerance     - "Tolerance" attributevalue.  This will over-ride
+                           the valuefound in the device file.
+                           (can be nil)
+  RETURNS
+         r_dbid      - DBID of new Allegro component.
+         nil         - If unable to create component.
+  NOTE
+         Note that if the user changes anexisting component definition by
+         specifying a new value for package, value, or tolerance, then a
+         device file is needed.
+  EXAMPLE
+         1) Create a new empty comp from anexisting one, ashOne can be found@
+                         <cdsroot>/share/pcb/examples/skill/examples/ash-fxf/ashone.il
+                 syminst = ashOne()
+                 ci =syminst->component
+                 nci = axlDBCreateComponent("C1_NEW" ci->deviceTypeci->package
+                                ci->compdef->prop->VALUE ci->compdef->prop->TOL)
+            If your component is not a discrete youdon't need tht 4th &5th args but
+            the above example willwork for all comps

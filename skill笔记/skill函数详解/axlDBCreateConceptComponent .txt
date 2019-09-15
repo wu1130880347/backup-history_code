@@ -1,0 +1,53 @@
+创建一个概念器件
+  NAME
+     axlDBCreateConceptComponent - Given the Conceptdevice information,
+                                  create a component in the Allegro
+                                  database.
+  SYNOPSIS
+     axlDBCreateConceptComponent(
+         s_refdes
+         s_partPath
+         s_logName
+         s_primName
+         [s_pptRowName]
+     )
+     ==> r_dbid/nil
+  FUNCTION
+     Given the Concept informationneeded to describe an Allegro device,
+     create the Allegro component and return its dbid.  If the component
+     definition already exists, then use the existingdefinition to create
+     the new component.  If the component definition does not exist, then
+     create a new definition and then create thecomponent instance.
+     Concept information will comefrom a chips_prt file and, possibly,
+     from a physical parts table (PPT).  The location of this information
+     can be determined using thecptListXXX family of routines, which
+     allow browsing through a Concept library.
+  NEEDS
+     s_refDes        - The reference designator for the new component.
+     s_partPath      - The full path to the chips_ptr filecontaining the
+                       descriptionof the desired logical part.  This can
+                       be determinedusing the cptListComponentLibraries
+                       function.
+     s_logName       - The name of the desired logicalpart.  This can
+                       be determinedusing the cptListComponentPrimitives
+                       function.
+     s_primName      - The name of the desired primitive.  This can
+                       be determinedusing the cptListComponentPrimitives
+                       function.
+     s_pptRowName    - The name of the desired PPT part.  This is an
+                       optionalargument, as the Concept datamay not
+                       include specific deviceinformation (which would be
+                       contained ina PPT).  This indicates a specific
+                       row in a PPTfrom which to create thecomponent.
+                       This can bedetermined using the
+                      cptListComponentDevices() function.
+  RETURNS
+     r_dbid      - DBID of new Allegro component instance.
+     nil         - If unable to create componentinstance.
+  NOTE
+     The actual name of theresulting Allegro device is generated
+     automatically.  If using the cptListComponentDevices() function,
+     then the name should have been createdalready, and is included
+     in the return values of thatfunction.  The name is determined by
+     the Concept library data usedto create the part.
+     This function meant to be calledfrom SKILL.

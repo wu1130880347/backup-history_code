@@ -1,0 +1,16 @@
+返回当前工作表的“大小”
+  NAME
+     axlSpreadsheetGetWorksheetSize
+  FUNCTION
+     axlSpreadsheetGetWorksheetSize()
+         ==> list(rows, columns).
+  SYNOPSIS
+     Return the "size" of the currentworksheet, in terms of thehighest
+     row and column which havedata.
+  NEEDS
+     Nothing.
+  RETURNS
+     list -- (maxRow, maxColumn).
+     nil  -- No worksheets current defined / nospreadsheet active.
+  SEE ALSO
+    axlSpreadsheetSetWorksheet

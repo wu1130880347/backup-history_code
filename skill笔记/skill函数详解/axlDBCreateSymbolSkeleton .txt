@@ -1,0 +1,59 @@
+创建一个器件的轮廓图:
+  NAME
+         axlDBCreateSymbolSkeleton - place a "skeleton" symbol instance tothe design
+  SYNOPSIS
+         axlDBCreateSymbolSkeleton(
+             t_refdes
+             l_anchorPoint
+             g_mirror
+             f_rotation
+             l_pinData
+             [t_embeddedLayer]
+         )
+         ==> l_result/nil
+         axlDBCreateSymbolSkeleton(
+             l_symbolData
+             l_anchorPoint
+             g_mirror
+             f_rotation
+             l_pinData
+             [t_embeddedLayer]
+         )
+         ==> l_result/nil
+  FUNCTION
+         This function will create a "minimal" symbol instance.While the
+         symbol name must beprovided, and must exist in thesymbol library,
+         the instance is createdwith only pins. The pin count and numbers
+         must match that of thelibrary version. Once this "skeleton" instance
+         has been created, the expectation isthat you will be adding the
+         rest of the symbol geometrywith additional axlDBCreate calls.
+         This supports the abilityto add a symbol that has been "instance
+         edited", such as is requiredby translators from other CAD systems.
+         The symbol definition mustexist in the drawing, or if there is none
+                 in the drawing, then it must be found in the symbollibary.
+  NEEDS
+         t_refdes                - The refdes of the component.
+                 or
+         l_symbolData            - a list of (t_symbolName [t_symbolType])
+                                         t_symbolName - name of thesymbol
+                                        t_symbolType - "PACKAGE" (default)
+                                                        "MECHANICAL", or
+                                                        "FORMAT"
+                                        t_refdes - (optional) refdes
+         l_anchorPoint           - The location of the symbol. Thiswill
+                                        be the symbol's "origin".
+         g_mirror                - nil --> not (default)
+                                   t --> symbol ismirrored,
+                                  'GEOMETRY --> geometry is mirrored.
+         f_rotation              - The rotation angle in degrees.nil--> 0.0.
+         l_pinData               - list of axlPinData defstructs for the pins
+         t_embeddedLayer         - Place on embedded layer. Layer mustbe enabled for
+                                  embedded. Mirror option is ignored.
+                                  Layer may either be fully qualified ("ETCH/GND")
+                                   or just the subclass ("GND"). May not use the
+                                  top or bottom layer.
+  RETURNS
+         l_result - nil if not created,
+                 or a list containing (car) DBID of the symbol
+                                     (cadr) t if DRCs created or nil.
+  EXAMPLES

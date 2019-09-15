@@ -1,0 +1,19 @@
+根据区域缩放窗口
+NAME
+         axlWindowBoxSet - sets or selects zoom window
+  SYNOPSIS
+         axlWindowBoxSet(
+                 [l_bBox]
+         )
+         ==> l_bBox
+  FUNCTION
+         Function to zoom window onto a box, after making adjustments for
+         the aspect ratio. If no argument is specified, the user is
+         prompted for a bounding box.
+  NEEDS
+         l_bBox        - (Optional) Bounding box for which zooming is desired.
+                           (in user units)
+  RETURNS
+         l_bBox          - bBox of window after zooming, this differs from
+                           the input argument in that it is adjusted for
+                           the aspect ratio. Units are in user units.

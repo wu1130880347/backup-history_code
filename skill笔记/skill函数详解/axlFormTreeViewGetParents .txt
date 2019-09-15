@@ -1,0 +1,24 @@
+获取窗体目录树父项目
+  NAME
+         axlFormTreeViewGetParents - Gets parents of atreeview control item
+  SYNOPSIS
+         axlFormTreeViewGetParents(
+                 r_form
+                 t_field
+                 g_hItem
+         ) -> lg_hItem/nil
+  FUNCTION
+         Returns a list of all theansestors of a treeview control item starting
+         from the root of the tree.This is a convenient function to help in
+         search operations in skill. Applicationscan traverese their tree list
+         by following parent liststo a given item instead of searching the
+         whole tree for an item.
+  NEEDS
+         Takes 3 args; form id, field name (string), treeview item
+  
+         Item is the handle of anitem in the tree view control. This handle was
+         returned as result of thecall to axlFormTreeViewAddItem().
+  
+  RETURNS
+         Returns a list containing allparents, starting from theroot if successful,
+         nil for failure.

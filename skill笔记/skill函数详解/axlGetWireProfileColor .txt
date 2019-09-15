@@ -1,0 +1,15 @@
+获取配置文件颜色
+   NAME
+          axlGetWireProfileColor
+   FUNCTION
+          axlGetWireProfileColor(t_profile)
+             ==> color index / nil
+   SYNOPSIS
+          This function willretrieve the color index associated with
+          a bond wire profile. If noprofile matching the name supplied
+          is found in the database, nil isreturned.
+   NEEDS
+          t_profile -- Name of profile toretrieve color for.
+   RETURNS
+          color number assigned to profile if profile found.
+          nil if an error occured(profile not found).

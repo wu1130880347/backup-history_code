@@ -1,0 +1,14 @@
+设置默认Die信息的组件。
+  NAME
+     axlSetDefaultDieInformation - Sets the defaultdie information for a component.
+  FUNCTION
+     axlSetDefaultDieInformation(comp)
+         ==> t/nil
+  SYNOPSIS
+     This function will configure anewly-placed IC-class component as a die
+     in a MCM or SIPdesign. Based on the placed component's information the
+     die will be flagged as eitherwire bond or flip-chip.
+  NEEDS
+     comp -- dbid of the component /symbol to set default information for.
+  RETURNS
+     t ifsuccessful, nilotherwise.

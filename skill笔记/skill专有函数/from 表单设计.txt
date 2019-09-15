@@ -1,0 +1,92 @@
+表单设计
+本章将介绍如何创建Allegro PCB编辑器表单（对话），并通过他们与用户交互的控制类型和功能。 
+from可单独存为一个*.form文件，然后有相对应的il调用。但一般我们会先在运行skill代码时临时生成.form文件，然后直接调用，待命令结束前再删除.form表单文件。这种"卸磨杀驴"方法的好处是在插件发布时只需发布一个.il文件，与可生成 .cxt 做准备。
+
+通常表单在运行流程中所使用的函数
+1。 打开表单（axlFormCreate）
+2。 初始化字段（axlFormSetField） 
+3。 显示表（axlFormDisplay） 
+4。 互动与用户（axlFormCallback） 
+5。 关闭表单（axlFormClose） 
+
+    form 嵌到options
+axlMiniStatusLoad(); 这个函数可以让用户定义的form显示在Options Tab上。
+
+axlUIWDisableQuit => axlUIWDisableQuit(userDefinedForm) ;屏蔽掉form右上角的那个close叉叉
+axlUIWClose => axlUIWClose(userDefinedForm); 关闭掉form
+axlUIWShow => axlUIWShow(userDefinedFormoption); option 'show =>显示并激活userDefinedForm;'showna 显示但不激活; 'hide 窗口隐藏; nil显示支持的操作
+axlUIWPrint => axlUIWPrint(userDefinedForm "thisis a pretty form"); 输出字符到form的最下面窗口
+axlUIWPerm => axlUIWPerm(userDefinedForm t);allegro打开新的板子会默认关闭掉当前打开的所以的form窗口，用这个命令可以屏蔽这个功能 axlUIWBlock =>axlUIWBlock(userDefinedForm);强制用户操作了当前的form才可以继续其它的工作
+axlUIWRedraw axlUIWUpdate => axlUIWUpdate(nil)这个和axlUIWRedraw(nil)更适合刷新主屏幕
+axlUIWExpose axlUIWExposeByName=>这2个都是将选择的窗口显示到最前端
+参考algroskill.pdf中的例子：
+
+另
+allegro skill Form操作 allegro有很多的form，比如artwork，比如status，还有些在Options Tab上显示的如change命令的form...... 能自己创建一些form会很有意思，也很有用。 a. form的基本元素示例：下面是一个简单的form，包含2个Text，2个可以输入数据的Field，1个复选框checkbox，2个按钮 Button。
+FILE_TYPE=FORM_DEFNVERSION=2 FORM FIXED PORT 30 12 HEADER "HelloYou!" TILE
+TEXT "YourName:" TLOC 4 1 ENDTEXT
+FIELD user_nameFLOC 16 1 STRFILLIN 8 15 ENDFIELD
+TEXT "Yourage:" TLOC 4 3 ENDTEXT
+FIELD user_ageFLOC 16 3 REALFILLIN 4 6 DECIMAL 4 ENDFIELD
+FIELD MarriedCheckFLOC 4 6 CHECKLIST "Married?"ENDFIELD
+FIELD RunCheckFLOC 4 9 MENUBUTTON "Result" 8 3 ENDFIELD
+FIELD CloseFormFLOC 16 9 MENUBUTTON "Close" 8 3 ENDFIELD
+ENDTILE ENDFORM
+
+a. form的基本元素
+form的define信息一般保存在一个.form的文件中，
+文件的开头一般都是FILE_TYPE=FORM_DEFNVERSION=2。
+正式的form信息从FORM关键字开始，以ENDFORM结束。
+最常用的form元素有FIELD，TEXT，BUTTON。其它常用的还有Checkbox，Radiobox，Group。在Form中定义一个item，一般是Text和Field，Field包含除Text以外 的所有类型，先确定是Text还是Field，然后是相对位置Location，然后是具体的类型，最后结束这个Item的定义，比如：TEXT "Yourage:" ;Text，且显示的是Your age
+TLOC 4 3 ; 位置为Form的（4 3）            ENDTEXT  ; 结束这个Text的定义
+
+b. 创建一个简单的Form 当你创建了一个Form文件，接下来要把它在Allegro中显示出来。假设我们把刚刚提到的那个Form保存到C:/temp名叫user.form的 文件中，用下面的axlFormCreate函数来在Allegro中创建并用axlFormDisplay函数显示出来。
+user_Form = axlFormCreate((gensym) “c:/temp/user.form"'(e inner) 'user_callback t ) axlFormDisplay(user_Form)
+这里的user_callback是个函数，是对应现在创建的user_Form对应的用户操作的响应，
+比如用户点击了一个按钮，就会有些相应的操作。还 有些函数可以用来设置Form中一些Field，设置默认值，
+比如 axlFormSetField(user_Form "user_age" 24)；以及获取Form中Field的值，
+比如axlFormGetField(user_Form "user_age" )；＝>24
+b. 创建一个简单的Form之call back函数Form显示出来对应的是种前台操作，而响应用户相应的操作则可以称之为后台操作。创建一个Form的时候都会有个call back函数assign给它。call back函数里面包含了对应各个Field的操作命令。比如：
+procedure( user_callback(user_Form )
+
+    case(  user_Form->curField          ;curField 将得到当前用户操作的Field名字                
+        ( "user_name"                  
+                     axlMsgPut( sprintf( nil "currentuser name %s" user_Form-> curValue ) )                  ; curValue 将得到当前Field的值                  );                    
+
+            ( "user_age"                  
+                     axlMsgPut( sprintf( nil "currentuser age %d" user_Form-> curValue ) )                     ) 
+
+             ( "MarriedCheck"                  ; dosomething                )              
+
+             ( "RunCheck"                  
+                     sMsg = axlFormGetField(user_Form "user_name" )                  
+                     axlUIConfirm(sprintf(nil "Hello%s, Good Day!" sMsg))                )              
+
+             ( "CloseForm"                  
+                     axlFormClose(user_Form )              
+    )       
+)
+
+
+
+)
+
+
+c. 创建一个Grid Form Grid比较适合制作表格形式的Form，比如假设我们想做个Form来显示当前工作文件夹下面的所有文件，用Grid就会比较合适，定义一个三列的表格，第一列显示第几个文件，第二列显示文件名，第三列显示文件大小，而这用一般的Form形式来实现会比较麻烦。比如把下面这段Grid信息加入到一般的 form定义文件中，就会支持Grid的相关操作：
+"GRIDcrsGrid" "FLOC 2 1" "FSIZE42 27" "OPTIONS HLINES VLINES USERSIZE"
+"GHEADTOP" "HEADSIZE 3" "OPTIONS3D MULTI" "ENDGHEAD"
+"GHEADSIDE" "OPTIONS 3D NUMBER" "HEADSIZE5" "ENDGHEAD"
+"ENDGRID" 如下的代码则会帮助你设置这个Grid空间，比如这里设置了3列，每列各代表一些意思。
+tGridCol =make_formGridCol() tGridCol->fieldType = 'LONG tGridCol->colWidth = 2
+tGridCol->align = 'center tGridCol->headText = "Count"
+tGridCol->scriptLabel = nil 
+axlFormGridInsertCol(user_form "crsGrid" tGridCol )
+tGridCol->fieldType= 'TEXT tGridCol->colWidth = 8
+tGridCol->headText = "File Name"
+tGridCol->align = 'left tGridCol->scriptLabel = nil 
+axlFormGridInsertCol(user_form "crsGrid" tGridCol )
+tGridCol->fieldType= 'LONG tGridCol->colWidth = 2
+tGridCol->align = 'center tGridCol->fieldLength = 4 
+tGridCol->min= 1tGridCol->max = 10
+tGridCol->headText = "Size" 
+axlFormGridInsertCol(user_form "crsGrid" tGridCol ) 相应的form操作函数也包含了Grid关键字，如axlFormGridUpdate，axlFormGridOptions...

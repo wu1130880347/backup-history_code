@@ -1,0 +1,54 @@
+ÉèÖÃÑÕÉ«
+  NAME
+         axlFormColorize - Override default text or background color on a control
+  SYNOPSIS
+         axlFormColorize(
+             o_form
+             t_field
+             g_option
+             g_color
+         ) ==> t/nil
+  FUNCTION
+         This allows the override of the background and/or text color
+         of a control. Only the following controls are supported:
+         STRFILLIN, READFILLIN, LONGFILLIN, INTSLIDEBAR, ENUMSET,
+         CHECKLIST and TEXT (or INFO). Names used are those found
+         in the form BNF file syntax.
+         By default these controls use the default system colors.  
+         To override these colors the following options are provided
+            'background          set background of control
+            'text                set text of control
+         
+         The g_color argument is either a color symbol (for non DB
+         options), a number for DB color options or nil (for restoring
+         to system default. The allowed values can be found in axlColorDoc.
+         Other form controls support color as a fundamental part
+         of their interface. These are COLOR (axlFormDoc) and GRID
+         (axlFormGridDoc) controls.
+         The following restrictions exist:
+            - setting the same or close text and background colors
+                 can cause read-ability problems
+            - setting the background of CHECKLIST controls is not
+                 supported on UNIX.
+            - fillins with popups do not correct show color.
+  NEEDS
+         o_form                  Form handle
+         t_field                 the field name
+         g_option                Option (see above)
+         g_color                 Color (see axlColorDoc) or nil
+  RETURNS
+         t               for success
+         nil             Error.  Problem with one of the input parameters.
+  EXAMPLES
+         Based upon code example found in axlform.il.
+         Set text of string control to red
+             axlFormColorize(f1s "string" 'text 'red)
+         Set background of string control to green
+             axlFormColorize(f1s "string" 'background 'green)
+         Set control back to default:
+             axlFormColorize(f1s "string" 'text nil)
+             axlFormColorize(f1s "string" 'background nil)
+         Set control background to Allegro database color 1
+             axlFormColorize(f1s "string" 'background 1)
+  SEE ALSO
+         axlColorDoc

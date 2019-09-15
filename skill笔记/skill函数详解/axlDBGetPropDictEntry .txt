@@ -1,0 +1,46 @@
+获得对象的属性
+  NAME
+         axlDBGetPropDictEntry
+  FUNCTION
+         axlDBGetPropDictEntry(
+                 t_name
+                 )
+         ==> o_propDictEntry/nil
+         axlDBGetPropDictEntry(
+                 nil
+                 )
+         ==> lt_validObjects
+  SYNOPSIS
+         Get the property dictionaryentry for the property namegiven by
+         the string t_name. Use axlDBGetPropDictEntry to get the
+         information about a property dictionaryentry.
+         If name is nil returns a list of legal objectsthat can be used
+         to create propertydictionary entries. This is the "objects"
+         attribute of theo_propDictEntry data type.
+         You cannot create a property with the samename as an existing
+         allegro property.
+  NEEDS
+         t_name:         String specifying the name of theproperty whose
+                         dic tionaryentry is to be retrieved.
+  RETURNS
+         o_propDictEntry/nil:    Returns the dbid of the property dictionary
+                                entry for theproperty whose name is given
+                                 byt_name. If could not get the entry, it
+                                 returns nil.
+         lt_validObjects: List ofvalid objects to associate with a property
+  SEE ALSO
+         axlDBAddProp
+  EXAMPLES
+         The following example gets the "signalmodel"property
+         myprop = axlDBGetPropDictEntry("signal_model")
+         and dumps its attributes
+         myprop->??
+                 (write nil
+                  useCount 0
+                  units nil
+                  range nil
+                  objType "PropDict"
+                  name "SIGNAL_MODEL"
+                  dataType "STRING"
+                  readOnly t
+         )

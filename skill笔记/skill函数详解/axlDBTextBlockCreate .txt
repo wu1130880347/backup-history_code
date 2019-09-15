@@ -1,0 +1,30 @@
+文本块创建
+  NAME
+         axlDBTextBlockCreate - create a new textblock
+  SYNOPSIS
+         axlDBTextBlockCreate(
+                 x_blockTemplate
+                 ?width  f_width
+                 ?height f_height
+                 ?lineSpacef_lineSpace
+                 ?charSpacef_charSpace
+                 ?photoWidthf_photoWidth
+         ) => x_textBlock/nil
+  FUNCTION
+         Creates a new block blockfrom the template block number provided.
+         By providing optionaltextblock charactistics
+         You can get available textblocks by:
+                 lst = axlGetParam("paramTextBlock")
+                 
+  NEEDS
+         x_blockTemplate
+         f_XXX values
+  RETURNS
+         x_textBlock     - new text block
+         nil             - failed, Typically your exhausted the numberblock Allegro provides
+                                 or one of the parameters is not the correct datatype.
+  SEE ALSO
+         axlGetParam, axlSetParam, axlDBTextBlockCompact
+  EXAMPLES
+         - create a new text blockbased upon text block 1 but change width and height
+                 blockNum = axlDBTextBlockCreate(1 ?width 15.0 ?height 16.0)

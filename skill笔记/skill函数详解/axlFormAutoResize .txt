@@ -1,0 +1,16 @@
+根据所需大小自动调整窗体大小
+  NAME
+         axlFormAutoResize - Resizes a form tofit its controls
+  FUNCTION
+         axlFormAutoResize(
+             r_form
+         )
+         ==> t/nil
+  SYNOPSIS
+         Recalculates the requiredwidth and height and resizes the formbased
+         on the current visibilityof the form's fields.
+  NEEDS
+         r_form          Handle for the form
+  RETURNS
+         t      Form was resized
+         nil    r_form does not reference a valid form

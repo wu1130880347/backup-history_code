@@ -1,0 +1,31 @@
+´°ÌåÄ¬ÈÏ°´¼ü
+  NAME
+         axlFormDefaultButton - sets/disables default button
+  FUNCTION
+         axlFormDefaultButton(
+                 r_form
+                 t_field/g_mode
+                 )
+         ==> t/nil
+  SYNOPSIS
+         Forms will normally automatically set a default button
+         in a form via the DEFAULT stanza in the form file or looking
+         for the ok/done labels. The default button what is executed
+         when the user hits a carridge-return.
+         A form can have at most one default button and only a field
+         type BUTTON can be have the default button attribute.
+         Note: if default buttons are disabled in form then trying
+           to establish a new default button will be ignore. You
+           can only change the default button if the capability in
+           the form is enabled.
+  NEEDS
+         r_form:         Form dbid.
+         t_field:        Field name to establish as new button default.
+         g_mode:         t to enable default button in form, nil to disable.
+  RETURNS
+         t/nil: t if succeeds, nil field doesn't exist
+  EXAMPLES
+         1) no default button in form
+                 axlFormDefaultButton(form nil)
+         2) set default button to be Cancel instead of default Ok
+                 axlFormDefaultButton(form "cancel")

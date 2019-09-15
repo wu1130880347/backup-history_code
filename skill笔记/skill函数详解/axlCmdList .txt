@@ -1,0 +1,24 @@
+列表用户注册的skill 命令集
+  NAME
+         axlCmdList - list user register Skillcommands
+  FUNCTION
+         axlCmdList()
+            -> ll_strings/nil
+  SYNOPSIS
+         Lists commands registeredby axlCmdRegister. List is
+         a list of list of 2 strings
+                 ( (<allegrocommand> <skill function>) ....)
+  NEEDS
+         nothing
+  RETURNS
+         nil if nothing register
+         list of list of 2 strings
+  SEE ALSO
+         axlCmdRegister
+  EXAMPLES
+         axlCmdRegister("interboxcmd" 'axlEnterBox)
+         axlCmdList()
+           will return ==>
+                 (
+                     ("interboxcmd" "axlEnterBox")
+                 )

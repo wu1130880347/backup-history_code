@@ -1,0 +1,15 @@
+删除整个设计固定属性
+NAME
+         axlUnfixAll - remove FIXED property from entire design
+  FUNCTION
+         axlUnfixAll(
+         )
+         ==> x_count
+  SYNOPSIS
+         This is a convenience API.
+         If removes the FIXED property from all elements in the design.
+  NEEDS
+  RETURNS
+         x_count - number of fixed properties removed
+  EXAMPLES
+         axlUnfixAll()

@@ -1,0 +1,22 @@
+UIW ÒÆ¶¯´°¿Ú
+  NAME
+         axlUIWMove - Move a window
+  SYNOPSIS
+         axlUIWMove (
+                 r_window/nil
+                 l_xy
+         )
+         -> t/nil
+  FUNCTION
+         Moves a window. New location (l_xy) which is upper left corner is specified in pixels.
+  NEEDS
+         r_window:       Window id or if nil the main window.
+         l_xy            (x_X x_y)
+  RETURNS
+         t - window moved
+         nil - error, handle is not a window
+  SEE ALSO
+         axlUIWSize
+  EXAMPLES
+         - move main window to upper left corner of display
+                 axlUIWMove(nil 0;0)

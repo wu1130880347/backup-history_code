@@ -1,0 +1,27 @@
+获取某层shape基本信息
+  NAME
+         axlDBGetShapes - returns shapesbased upon layer filtering
+  FUNCTION
+         axlDBGetShapes(
+                 t_layer
+         )
+         => l_dbid/nil
+  SYNOPSIS
+         This is a convenience function that allows quickaccess to
+         shapes without accesss tovisibility or find settings.
+  NEEDS
+         t_layer - layer name where
+                 nil - all layers
+                 <class> - allsubclass of class
+                <class>/<subclass>
+  RETURNS
+         l_dbid: list of shapes
+  EXAMPLES
+         Returns all shape on design
+             axlDBGetShapes(nil)
+         Returns all shapes onBOUNDARY layer
+             axlDBGetShapes("BOUNDARY")
+         Returns all shapes on ETCHGND
+             axlDBGetShapes("ETCH/GND")
+         Returns all shapes on ROUTEKEEPOUT
+             axlDBGetShapes("ROUTEKEEPOUT")

@@ -1,0 +1,138 @@
+执行一批Allegro命令操作
+  NAME
+      axlRunBatchDBProgram - Wrapper forspawning Allegro batch programs
+  FUNCTION
+     axlRunBatchDBProgram(
+         t_prog
+         t_cmdFmt
+         [?logfile t_logfile]
+         [?startMsg t_startMsg]
+         [?reloadDB t/nil]
+         [?noUnload t/nil]
+         [?silent   t/nil]
+         [?noProgress   t/nil]
+         [?warnProgram  t/nil]
+     )
+     ==> t/x_error
+  SYNOPSIS
+         This spawns batch jobs thatrequire current open database
+         via an abstract model. Whenjob completes, it prints out an
+         appropriate message line andoptionally reloads (?reloadDB)
+         database ifsuccessful. Database if saved from current
+         active database uses atemporary name to avoid overwriting
+         database on disk.
+         The following options arealways required (UIBatchSpawn):
+             t_prog - program toexec
+             t_cmdFmt - Commandstring (see below for format)
+         Optional:
+             t_logFile - Name oflogfile program creates
+                         Registersthis with logfile viewlog facility
+                         if programends in an error. If no logfile required
+                         do not set. Ifno extension adds .log
+                         asextension.
+             startMsg - enables a start message to display
+                 when programstarts. Defaults to using program name.
+                 If you override byproviding a string, we add "Starting..."
+             reloadDB - if t, reload databaseafter successful run of program
+                 If batch programdoesn't save database (e.g. reports) then
+                 there is no reasonto reload database.
+                  
+             noUnload - If t don'tsave database to disk. Typically used
+                 if program creates anew database or doesn't require an
+                 Allegor database.
+             silent - If t nomessages or progress meter is displayed. Use if
+                 there is no need for theuser to know another program is spawned.
+                 Default is nil.
+             noProgress - If t noprogress meter is displayed. Default is nil.
+             noLogview - When set itprevents display if log file on programexit.
+             warnProgram - Programsupports warninging status
+                         (returns 0 if success, 1 ifwarnings and 2 if errors)
+             noExitMsgs - When setmessages about program success or failure are suppressed.
+         t_cmdFmt formatting should include theeverything except the
+                 design filename.Where the design appears place a %s.
+                 To get a %s while doing asprintf use a "%%s", as shown in examples.
+                    EX. cmdFmt = "netrev -$ -q-r %s"
+                 To achieve this and alsoadd the options do
+                    EX. sprintf(cmdFmt, "%s -$ %s %s%%s", prog, argq argr)
+  TIPS
+         For debug, set the envvariable, wait_debug, on the Allegrocommand line:
+             setwait_debug
+         or in Skill
+             axlSetVariable("wait_debug" nil)
+         This echos the spawningarguments of your program. You can also use this
+         variable to see how Allegrospawns programs from its dialogs. The
+         "#T<num>.tmp" name seen in thisoutput is the temporary save of the current
+         design to disk and the useof the "%s" argument in yourt_cmdFmt statement.
+         For a list ofAllegro programs and their command line arguments see the directory:
+             <cdsroot>/share/pcb/batchhelp
+         or run the batchprogram with the "-help" argument.
+             Example: idf_in -help
+         Many Allegro batch programssupport '-$' as a standard argument. This
+         prevents prompting for missinginput arguments.
+  NEEDS
+         t_prog  - string containing program name
+         t_cmdFmt - stringcontaining starting arguments (including program)
+         t_logfile - optional stringshowing logfile
+         t_startMsg - optionalstring having start message
+         ?reloadDB  - optional t/nil having database be reloadedafter job completes
+         ?noUnload - optional t/nil statingdatabase shouldn't be saved
+         ?silent - optional t/nil controlling infomessasges
+         ?noProgress - optional t/nilcontrolling progress meter.
+  RETURNS
+         t if successful a error numberthat is program dependant upon
+         a failure.
+  EXAMPLES
+         -) Spawn genfeedformat whichrequires design to be saved to a temp file
+             Program Args:
+                 -$ - silent
+                 -b - name of design(required)
+                 %%s - because we sprintf theformat before calling batch we
+                         need toescape the %s by prepending an extra %
+             Skill:
+                sprintf(format "genfeedformat-$ %s %%s", "-b")
+                    ;format=  "genfeedformat -$ -b %s"
+                axlRunBatchDBProgram("genfeedformat" format
+                                        ?logfile "genfeed")
+             Without sprintf
+                axlRunBatchDBProgram("genfeedformat" "genfeedformat -$ -b%s"
+                                        ?logfile "genfeed")
+            
+         -) Spawn 3rd party program, notepad, on an existing file"allegro.jrl"
+            In this case we do not want tosave design (?noUnload t) and
+            no progress meter isrequired (?noProgress t)
+                 axlRunBatchDBProgram("notepad" "notepad allegro.jrl"
+                                 ?noUnload t ?noProgress t)
+         -) Spawn 3rd party importlogin, a program thatrequires read/write database
+            wrapping. Read existing 3rd partynetlist file called "netlist.txt".
+            Since design needs to bereloaded if import is successful use the
+            "?reloadDB t" option.
+             Program Args:
+                 -$ - silent
+                 -g - run gateassign
+                 -y 1 -Always Place changed component
+                 netlist - name ofnetlist file (e.g. netlist.txt)
+                 %s - use currentdesign
+             Skill:
+                 axlRunBatchDBProgram("netin"
+                                        "netin-$ -g -y 1 netlist %s"
+                                        ?startMsg "LogicImport"
+                                        ?logfile "netin"
+                                         ?reloadDB t)
+         -) Export IDF
+             Program Args:
+                 -d IDF  - File name type
+                 -V 3.0  - IDF version
+                 -h 2000 -default package height
+                 -s ...  - Source id (note \"...\" allows spaces inname)
+                 -o myidf - outputidf files (with bdf and ldfextensions)
+                 %s - axl will entername of temp database saved to disk
+             Skill:
+                axlRunBatchDBProgram("idf_out"
+                 "idf_out %s -d IDF -o myidf -s \"allegro_16.3\" -b 1 -h 2000-V 3.0")
+         -) Import IDF, assumes an existing bdf file, unnamed.bdf. Ifsuccessful
+            load updated design backinto memory via the reload option (?reloadDB t).
+             Program Args:
+                 -o %s - name ofcurrent design (%s -substiute in current design)
+                 unnamed - name ofbdf file on disk
+             Skill:
+                axlRunBatchDBProgram("idf_in" "idf_in -o %sunnamed" ?reloadDB t)

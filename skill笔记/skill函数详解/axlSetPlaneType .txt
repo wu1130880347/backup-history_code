@@ -1,0 +1,22 @@
+设置一个平面层的正负片属性
+  NAME
+     axlSetPlaneType - Change Plane type ofconductor subclass.
+  SYNOPSIS
+     axlSetPlaneType(
+         t_subclassName
+         t_planeType
+     )
+     ==> t/nil
+  
+  FUNCTION
+         This changes the photoplot type of aconductor or plane type layer between
+         positive or negative artwork.Changing a layer already containing data will
+         require re-voiding existingshapes and updating DRC.
+  NEEDS
+         t_subclassName     -- subclass name whose plane type is tobe changed.
+         t_planeType        -- plane type ("Positive", "Negative")
+  RETURNS
+         axlSetPlaneType   - nil if could not change,
+                              - t if plane typechanged.
+  SEE ALSO
+         axlGetParam, axlSetParam

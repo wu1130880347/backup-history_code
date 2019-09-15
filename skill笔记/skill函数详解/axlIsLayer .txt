@@ -1,0 +1,16 @@
+查询某个层是否存在
+  NAME
+         axlIsLayer - does layer exist
+  FUNCTION
+         axlIsLayer(
+                 t_layer            
+         )
+         ==>t/nil
+  SYNOPSIS
+         This determines if thet_layer exists. t_layer is a
+         fully qualified layer name.
+  NEEDS
+         t_layer         - Name of layer in format "<class>/<subclass>"
+  RETURNS
+         t               - if the layer exists
+         nil             - if the layer is not present,

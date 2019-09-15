@@ -1,0 +1,16 @@
+清除当前出错严重等级
+  NAME
+         axlMsgClear - clears currentmessage severity level
+  FUNCTION
+         axlMsgClear(
+                 )
+         ==> t
+  SYNOPSIS
+         Clears the current errorseverity level. If you want to reset the severity (using
+         axlMsgSet), then firstsave it (using axlMsgTest).
+  NEEDS
+         None.
+  RETURNS
+         t:      Always returns t.
+  EXAMPLES
+         axlMsgClear()

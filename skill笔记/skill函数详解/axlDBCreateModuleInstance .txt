@@ -1,0 +1,41 @@
+由Module在板上创建一个实例:
+  NAME
+         axlDBCreateModuleInstance - Create a moduleinstance.
+  SYNOPSIS
+         axlDBCreateModuleInstance(
+             t_name
+             t_moddef_name
+             l_origin
+             r_rotation
+             i_logic_method
+             [l_net_except]
+             [g_mirror]
+         )
+         ==> o_result/nil
+  FUNCTION
+         AXL interface to the C function that creates amodule instance
+         in the design.
+  NEEDS
+         t_name                  The name of the moduleinstance.
+         t_moddef_name           The name of the module
+                                definition to base the instance on.
+         l_origin                Coordinate to serve as thelocation where
+                                 theorigin of the module definition will
+                                 be placed.
+         r_rotation              Angle of rotation for the moduleinstance.
+         i_logic_method          Flag to indicate where the logic for the
+                                module comes from.
+                                    0 - no logic
+                                    1 - logic fromschematic
+                                    2 - logic from moduledefinition
+         l_net_except            Optional list of net names to addto the net
+                                exception list.
+         g_mirror                Should module be mirrored
+  RETURNS
+         o_result                If successful, returns a databaseobject
+                                that is the group used to represent the
+                                 module instance.
+         nil                     Module instance could not be created.
+  EXAMPLE
+         Add a module instance basedon the module definition file mod.mdd.
+            modinst = axlDBCreateModuleInstance("inst" "mod" '(500 1500) 2 '("GND" "+5"))

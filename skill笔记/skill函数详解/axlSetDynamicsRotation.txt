@@ -1,0 +1,18 @@
+ÉèÖÃ¶¯Ì¬Ðý×ª
+  NAME
+         axlSetDynamicsRotation - sets rotationoption for dynamics
+  SYNOPSIS
+         axlSetDynamicsRotation(
+            f_angle/nil
+         ) ==> f_oldangle
+  FUNCTION
+         Sets the Dynamics rotation.If angle is nil then returns
+         current rotation.
+  NEEDS
+         f_angle floating point number
+  RETURNS
+         old angle
+  SEE ALSO
+         axlAddSimpleMoveDynamics
+  EXAMPLES
+         axlSetDynamicsRotation(45.0)

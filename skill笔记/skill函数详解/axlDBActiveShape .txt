@@ -1,0 +1,15 @@
+ÊÇ·ñÎª¶¯Ì¬shape
+  NAME
+         axlDBActiveShape - Is a shape active
+  SYNOPSIS
+         axlDBActiveShape(
+         )
+         ==> o_shape/nil
+  FUNCTION
+         Return the DBID of theactive shape (nil if no shape active).
+  NEEDS
+         none
+  RETURNS
+         o_shape/nil    - the dbid of the active shape, or nil if none
+  EXAMPLES
+         Create Shape Example

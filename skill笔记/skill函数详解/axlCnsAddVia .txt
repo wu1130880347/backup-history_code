@@ -1,0 +1,31 @@
+添加一个padstack 至 constraint 的via 列表中
+    NAME
+         axlCnsAddVia - adds a padstackto constraint via list.
+    FUNCTION
+         axlCnsAddVia(
+             t_csetName
+             t_padstackName
+         )
+         ==> t/nil
+    SYNOPSIS
+         Adds padstack to theconstraint via list of aphysical cset.
+         Via is added to end of list (see axlCnsGetViaList of via ordering
+         functionality in etchediting).
+         Padstack does not need to exist to beadded to a constraint via list.
+         If t_csetName is nil, add padstack to allphysical csets.
+         Notes:
+           - If via already exists in via list a t is returned.
+           - Locked csets will return a nil.
+    NEEDS
+         t_csetName - name ofphysical cset or nil for all csets.
+         t_padstack - name of a via padstack.
+    RETURNS
+         t if added; nil error in arguments, cset does not exist or
+            illegal padstack name
+    SEE ALSO
+         axlCnsList axlCnsGetViaList
+    EXAMPLES
+         1) add ALLPAD to all csets
+                 axlCnsAddVia(nil "ALLPAD")
+         2) add ONEPAD to DEFAULT cset
+                 axlCnsAddVia("DEFAULT" "ONEPAD")

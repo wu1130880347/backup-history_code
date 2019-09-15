@@ -1,0 +1,38 @@
+格点操作选项（复数形式）
+  NAME
+         axlFormGridOptions - control gridoptions
+  FUNCTION
+         axlFormGridOptions(
+                 r_form
+                 t_field
+                 s_name
+                 [g_value]
+         ) -> t/nil
+  SYNOPSIS
+         Miscellaneous grid options.
+         See axlFormGridDoc for grid overview.
+  NEEDS
+         r_form: - form handle
+         t_field: - field name
+         s_name/g_value: supportedoptions are shown below
+            ['goto x_row] row number(-1 last row)
+                Puts indicated rowon display (scrolls grid if required)
+            ['goto x_row:x_col] row and column number (-1 last row or column)
+                Sends grid toindicated row and column
+            ['select x_row]
+                 Selects (highlights) the indicatedcolumn
+            ['select x_row:x_col]
+                 Selects (highlights) the indicated cell.Grid must be
+                 in cell select modeelse row is selected (see axlFormGridEvents).
+            ['deselectAll] -deselect any selected grid cells/rows.
+  RETURNS
+         Returns t for success, nil for failure
+  SEE ALSO
+         axlFormGridNewCell, axlFormGridEvents
+  EXAMPLES
+         1) Make sure row 10 is visable
+                 axlFormGridOption(fw, "mygrid" 'goto 10)
+         2) Make sure row 5 column 2 is visible
+                 axlFormGridOption(fw, "mygrid" 'goto 5:2)
+         3) Deselect anything highlighted ingrid
+                 axlFormGridOption(fw, "mygrid" 'deselectAll )

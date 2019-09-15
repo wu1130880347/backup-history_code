@@ -1,0 +1,44 @@
+NAME
+         axlSymbolDetach - Remove an object to a symbol instance
+  SYNOPSIS
+         axlSymbolDetach(
+                 o_symInstDbid
+                 o_dbid/lo_dbid/g_mode
+         )
+         ==> t/nil
+  FUNCTION
+         Unlinks objects from the given symbol instance.
+         For pin escapes, two special modes are provided to detach all or most
+         symbol etch from a given symbol instance.
+         It only unlinks an object from a symbol if it matches the provided
+         symbol instance.
+         See axlSymbolAttach for the rules.
+  CAUTION
+         Running refresh_symbol result results in duplicate objects as the detached
+         objects are loaded again.
+  NEEDS
+         o_symInstDbid   - symbol instance to modify.
+         o_dbid - dbid to unlink from symbol
+         lo_dbid - list of dbids to unlink from symbol
+         g_mode - special modes for unlinking all "etch" from symbol
+                 'allEtch - deassign all etch from symbol
+                 'allClineVia - design all etch except for shapes from sybmol
+  RETURNS
+         t       - was able to change symbol
+         nil     - otherwise
+  SEE ALSO
+         axlSymbolAttach
+  EXAMPLES
+         Examples use ashOne which is a shareware utility that allows user to select
+         an object (see <cdsroo>/share/pcb/examples/skill/ash-fxf/ashone.il)
+         - Typical method: To get the symdbid from the object:
+             - if etch
+                 symdbid = dbid->symbolEtch
+             - if nonetch
+                 symdbid = dbid->parent
+             symdbid = ashOne("SYMBOLS")
+             dbid = ashOne("NOALL")
+             ret = axlSymbolDetach(symdbid, dbid)
+         - Dessign all etch from symbol except shapes
+             symdbid = ashOne("SYMBOLS")
+             ret = axlSymbolDetach(symdbid, 'allClineVia)

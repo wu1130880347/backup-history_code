@@ -1,0 +1,103 @@
+图形绘制文件
+  NAME
+     axlGRPDoc - Simple GraphicsDrawing Utilities
+  SYNOPSIS
+     A set of simple graphicsdrawing utilities primarily aimed at
+     drawing into bitmap areas (thumbnails) within the UIFforms package.
+     (For more information on thumbnails, see thedocumentation on UIFThumbnail.)
+     axlGRP is the AXL interface tothe GRP Simple Graphics Drawing utility.
+  GENERAL USAGE
+     The general usage of thispackage is to simplify application drawing
+     into thumbnails within forms.The general steps for doing this are:
+     1). Specify thethumbnail field within the form file. This should not
+     have a bitmap associated withit.
+      2). Call the axlGRPDrwInit function with the form, field name, and a
+      callback function. This function returnsa handle for usage
+      in later processing - hangonto it.
+      3). Drawing takesplace within your callback function. Using the provided
+      functions, you should redrawyou image. The callback function is invoked
+      with the graphics handle asthe parameter.
+      4). You can cause thecallback function to be triggered by calling the
+      axlGRPDrwUpdate function.
+      Note that the applicationCANNOT set bitmaps or graphics callbacks using
+      the facilities outlined in theThumbnail documentation while using
+      this package.
+  SUPPORTED ELEMENTS
+      This package supports thefollowing items:
+      Rectangles (Filled andunfilled)
+      Polygons (Filled andunfilled)
+      Circles (Filled andunfilled)
+      Simple Lines
+      Poly Lines
+      Bitmaps
+      text
+  COORDINATE SYSTEM
+      This package supports amappable coordinate system. By using the
+      GRPDrwMapWindow function, you can specify arectangle that will
+      get mapped to theactual drawing area. An aspect ratio of 1 to 1 is
+      maintained.
+      The zero point of the drawingarea is considered to be the upper
+      left point of the drawing:
+      0,0--------------------------------------------------->
+      |   
+      |
+      |
+      |
+      |
+      |
+      |
+      V
+      
+  DRAWING MODEL
+      A very simple drawing model isused in this package: earlier drawn
+      objects are overlapped bylater drawn objects. The application must
+      manage this.
+   OPTION PROPERTIES
+      Option properties can be set on ther_graphics handle prior to calling
+      the drawing functions. Theseproperties are adhered to, if applicable,
+      by the drawing properties. Theoptions are:
+         color - applies to allelements
+         fill  - only applies to rectangles andpolygons.
+         width - only applies whengeometric elements are unfilled.
+         text_align  - text justification. Only applies to text.
+         text_bkmode - textbackground display mode. Only applies to text.
+   
+      The possible settings for colorare:
+  
+         black white red greenyellow blue lightblue rose purple teal darkpink
+         darkmagenta aqua gray oliveorange pink beige navy violet silver rust
+         lime brown mauve magentalightpink cyan salmon peach darkgray
+         button (whichrepresents the current button color)
+      The possible settings for fillare:
+         filled
+         filled_solid
+         unfilled
+      The possible settings fortextalign are:
+         left
+         center
+         right
+      The possible settings fortextbkmode are:
+         transparent
+         opaque
+      Defaults for each ofthese options are:
+         color       - black
+         fill        - unfilled
+         width       - 0
+         text_align  - left
+         text_bkmode - transparent
+   NON-SUPPORTED ELEMENTS
+      The following geometricelements are not supported:
+            Arcs                                          
+            Shapes (i.e. - polygon'swith arcs)
+            bitmaps from resources
+            ellipses
+  
+       Additionally, the followingcapabilities are not supported:
+      
+            Geometrictransformations (rotation, translation, scaling)
+            Transparency.
+            Loading bitmaps from theresource file.
+            No 3 or 2.5 D
+   EXAMPLES               
+     See<cdsroot>/share/pcb/examples/skill/form/basic/axlform.il for acomplete
+     example.

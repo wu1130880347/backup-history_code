@@ -1,0 +1,12 @@
+返回PinDelay设置值，若无则返回nil
+  NAME
+     axlCNSGetPinDelayPVF
+  SYNOPSIS
+     axlCNSGetPinDelayPVF()
+         => t_pinDelayPVF
+  FUNCTION
+     Returns the pin delaypropagation velocity factor.
+  NEEDS
+  RETURNS
+     t_pinDelayPVF: If the pin delaypropagation velocity factor is defined, it is
+                    returned as astring. If not defined, a blank string isreturned.

@@ -1,0 +1,21 @@
+读取表格数据
+  NAME
+     axlSpreadsheetRead
+  FUNCTION
+     axlSpreadsheetRead(t_fileName)
+         ==> t / nil
+  SYNOPSIS
+     Read a spreadsheet file on diskinto memory for data access and
+     manipulation. File is expectedto be in Microsoft XML open
+     spreadsheet format. Fortext-delimited files, use
+     axlSpreadsheetReadDelimited.
+  NEEDS
+     t_fileName -- Name ofspreadsheet file on disk to be read.
+  RETURNS
+     t   -- Spreadsheet successfully read; ready forquerying.
+     nil -- Unable to readspreadsheet file.
+  SEE ALSO
+    axlSpreadsheetClose
+    axlSpreadsheetInit
+    axlSpreadsheetWrite
+    axlSpreadsheetReadDelimited

@@ -1,0 +1,17 @@
+设置某个部件可用
+  NAME
+     axlFormSetFieldEditable - sets a form fieldto editable
+  FUNCTION
+     axlFormSetFieldEditable (
+         r_form
+         t_field
+         g_editable
+     ) -> t/nil
+  SYNOPSIS
+     Sets individual form fields toeditable (t) or greyed (nil).
+  NEEDS
+     r_form:             Form id.
+     t_field:    Form field name (string).
+     g_editable: t make editiable; nil grey it
+  RETURNS
+     Returns t for success, nil for failure

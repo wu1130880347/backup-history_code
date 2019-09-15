@@ -1,0 +1,18 @@
+# Allegro script
+#	file: J:/ZWSD/design2018/PM2_5Project/Revsion1/design/pcb/logic_import.scr
+#	start time: Fri Sep 07 21:07:20 2018
+#	Version: 17.2-2016 S031 (3682489) Windows SPB 64-bit Edition
+scriptmode +i +n
+version 17.2
+
+setwindow pcb
+trapsize 24059
+placementedit
+netin 
+setwindow form.niparams
+FORM niparams import  
+setwindow pcb
+trapsize 24059
+placementedit 
+
+#	stop time: Fri Sep 07 21:07:45 2018

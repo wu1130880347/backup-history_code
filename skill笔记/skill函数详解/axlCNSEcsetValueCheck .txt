@@ -1,0 +1,29 @@
+检查值是否合法
+  NAME
+         axlCNSEcsetValueCheck - check if value for is acceptable
+  FUNCTION
+         axlCNSEcsetValueCheck(
+                 s_name/t_name
+                 g_value
+         )
+         ==>t/t_errroMessage/nil
+  SYNOPSIS
+         This checks the syntax ofthe given value against the
+         allowed syntax for the givencontraint.
+         
+         Contraint names may beobtained from axlCNSEcsetGetValue(nil).
+  CAUTION
+         Allowed syntax may changefrom release to release.
+  NEEDS
+         t_name: string name ofconstraint
+         s_name: symbol name ofconstraint
+         g_value: value to verifiy
+  RETURNS
+         t: syntax is correct
+         nil: Constraint name is not supported
+         t_errorMessage: syntax iswrong. Message indicates why.
+  SEE ALSO
+         axlCNSEcsetValueGet
+  EXAMPLES
+         1) test if allowed to set
+             axlCNSEcsetValueCheck('Net_Schedule_Topology"STAR")

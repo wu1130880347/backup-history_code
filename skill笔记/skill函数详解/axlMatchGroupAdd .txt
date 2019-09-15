@@ -1,0 +1,34 @@
+Ìí¼ÓGroup
+NAME
+         axlMatchGroupAdd  - add members to a match group
+  FUNCTION
+         axlMatchGroupAdd(
+                 o_mgdbid/t_mgName
+                 o_dbid/lo_dbid
+         )==> t/nil
+  SYNOPSIS
+         Adds members to a matchedgroup. Eligible members are:
+                 - nets (if a netis part of a xnet then the xnet is
+                         added to the group)
+                 - xnets
+                 - pinpairs
+         See discussion inaxlDBMatchGroupCreate.
+         Command fails in producttiers that do not support electrical
+         constraints or thesymbol editor.
+  TIP
+         Using dbids is faster then usingnames.
+  NEEDS
+         o_mgdbid: dbid of a matchgroup
+         t_mgName: name of a matchgroup
+         o_dbid:   legal database dbid to add to match group
+         lo_dbid:  list of legal databasedbids to add to match group
+  RETURNS
+         t         - added elements
+         nil       - failed one or more element adds
+  SEE ALSO
+         axlMatchGroupCreate
+  EXAMPLES
+         - To match group created inaxlMatchGroupCreate add two nets
+             mg = car(axlSelectByName("MATCH_GROUP" "MG1"))
+             nets = axlSelectByName("NET" '("B1_OUT" "B2_OUT"))
+             axlMatchGroupAdd(mg  nets)

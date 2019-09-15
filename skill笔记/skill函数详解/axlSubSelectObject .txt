@@ -1,0 +1,30 @@
+选择子对象
+  NAME
+         axlSubSelectObject
+  FUNCTION
+         axlSubSelectObject(
+                 lo_dbid
+                 )
+         ==> t/nil
+  SYNOPSIS
+         Removes the dbids in lo_dbid from the select set in cumulated mode.
+         lo_dbid can be either a single dbid or a list of dbids. It removes
+         figures completely regardless of the selection mode.
+  NEEDS
+         lo_dbid:     dbid, or list of dbids to be removed from select set.
+  RETURNS
+         t/nil:       Returns t if it removed any objects from select set,
+                      nil otherwise.
+  EXAMPLES
+         The following example creates a via, then selects all the vias in
+         a surrounding region for deletion, but saves the one just created
+         by subtracting its dbid from the selection set.
+         axlClearSelSet()
+         axlSetFindFilter(?enabled list("noall" "vias")
+                 ?onButtons list( "vias"))
+         myvia = axlDBCreateVia( "pad1", 3025:3450)
+         axlAddSelectBox( list( 3000:3100 3200:3600))
+         axlSubSelectObject( car( myvia))
+         ==> t
+         The resulting select set contains the dbids of all vias in the box
+         except myvia, the one just created.

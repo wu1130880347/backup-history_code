@@ -1,0 +1,23 @@
+
+通过某个事件触发清除一个函数调用
+  NAME
+         axlTriggerClear - clear a callback from a event trigger
+  FUNCTION
+         axlTriggerClear(
+                 s_trigger
+                 s_function
+         ) -> t/nil
+  SYNOPSIS
+         Removes a registered callback trigger. You basically pass the
+         same arguments that you passed in registering the trigger.
+         It is not considered nice to remove another applications trigger.
+  NEEDS
+         s_trigger - trigger type see axlTriggerSet
+         s_function - trigger function to remove, same as passed to
+                 axlTriggerSet
+  RETURNS
+         t if trigger is removed, nil no trigger by name to remove
+  SEE ALSO
+         axlTriggerSet, axlTriggerPrint
+  EXAMPLES
+         see axlTriggerSet for example

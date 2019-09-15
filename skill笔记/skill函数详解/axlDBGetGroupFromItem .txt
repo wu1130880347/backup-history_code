@@ -1,0 +1,41 @@
+从对象组中筛选出组类型
+  NAME
+         axlDBGetGroupFromItem - Filter object'sgroup membership by a group type.
+  SYNOPSIS
+         axlDBGetGroupFromItem(
+             o_dbid
+             t_groupType
+             [g_promoteToNet]
+         ) -> lo_groupDbid/nil
+  FUNCTION
+         You can normally fetch the list of groups that anobject is a member of
+         by using the groupsattribute of its dbid (etc. o_dbid->groups).
+         This function provides additionalfiltering where you can request if an
+         belongs to a particulargroup type. Depending upon the group characteristics
+         an object can either belongto single group of a type or can be a member
+         multiple groups of a singletype. For example, anobject can belong to
+         multiple generic groups canbelong to only one diffpair group.
+         The g_promoteToNet optionshould be used for thosegroups whose membership
+         is limited to nets/xnets.If will promote the object provided to
+         its owning xnet. If istargeted for use with diffpair and bus groups
+         where we limit membership to the net'sxnet. If provides an easy way
+         for those groups if given the dbid of anet to promote the id to its xnet.
+  NEEDS
+         o_dbid - dbid to beexamined
+         t_groupType - group type name. This is thegroup type name NOT
+                 the name of thegroup. In dbid terms this is group->type.
+         g_promoteToNet - Promoteobject to its net/xnet and perform test on
+                 that object.
+  RETURNS
+         lo_groupDbid - group dbids or nil if not a member of requested group type
+  SEE ALSO
+         axlDBCreateGroup
+  EXAMPLES
+         In both case ashOne is ashareware utility that allows user to select
+         one object (see<cdsroo>/share/pcb/examples/skill/ash-fxf/ashone.il
+         1) diffpair; set g_promoteToNet to t in case net is part of axnet
+                 p = ashOne()    ; select a net that is a diffpair member
+                 l = axlDBGetGroupFromItem(p "DIFF_PAIR" t)
+         2) generic group
+                 p = ashOne()    ; create a group and select an object that is partof group
+                 l = axlDBGetGroupFromItem(p "GENERIC")

@@ -1,0 +1,17 @@
+查询某个层是否显示
+  NAME
+         axlIsVisibleLayer - is layer visible
+  SYNOPSIS
+         axlIsVisibleLayer(
+                 t_layer            
+         )
+         ==>t/nil
+  FUNCTION
+         Returns the visibility (t/nil) of a fullyqualified layer.
+  NEEDS
+         t_layer         - Name of layer in format "<class>/<subclass>"
+  RETURNS
+         t               - If the layer is visible
+         nil             - If the layer is invisible or not present
+  EXAMPLE
+         axlIsVisibleLayer("pin/top") ==> t

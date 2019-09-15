@@ -1,0 +1,32 @@
+ÅÐ¶ÏpadËùÔÚ²ãÃæ£¬
+  NAME
+         axlPadOnLayer - Is pad on an etchlayer
+  SYNOPSIS
+         axlPadOnLayer(
+             o_dbid
+             t_layer/x_layerNumber
+             [g_noPadSuppress]
+         )
+         ==> t/nil
+  FUNCTION
+         Tests if a pad ispresent on an etch layer. A pad is present on the layer if
+         the padstack has a regular, anti or thermalpad and it is not suppressed
+         by the rules of PadSuppression.
+         
+         While this does support apadstack dbid, for best operationyou should
+         pass the VIA or PINobject.
+  NEEDS
+         o_dbid - a via, pin orpadstack
+         t_layer- name of layer (e.g. "TOP")
+         x_layerNumber - layernumber (starts at 0)
+         g_noPadSuppress - t if ignorepad suppression, nil (default) use pad suppression
+  RETURNS
+         t if a padis on layer; nil no pad on layer
+  SEE ALSO
+         axlPadSuppressGet
+  EXAMPLES
+         1) using ashOneshareware in <cdsroo>/share/pcb/examples/skill/ash-fxf/ashone.il
+            Assuming a design where padsuppression is enabled on etch layer GND
+              pad = ashOne(list("vias" "pins"))
+              res1 = axlPadOnLayer(pad "GND")
+              res2 = axlPadOnLayer(pad "GND" t)

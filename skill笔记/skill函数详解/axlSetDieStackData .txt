@@ -1,0 +1,47 @@
+为指定Die设定数据堆栈
+  NAME
+         axlSetDieStackData - set data for thespecified die
+  FUNCTION
+         axlSetDieData (
+             g_stackId
+             s_dataType
+             g_newValue
+         )
+         ==> t/nil
+  SYNOPSIS
+         This function sets thegiven data for the given die.
+         Only available in SIPproducts.
+  NEEDS
+         g_stackId - name or dbid ofthe die stack to get the data for
+         s_dataType   - data type of the given value, one of:
+                         '(DSA_CAVITY_DEPTH
+                          DSA_CAVITY_LAYER
+                          DSA_CAVITY_DIMENSIONS)
+         g_newValue - new value for thespecified data type.
+  RETURNS
+         t on success, otherwise nil
+   NAME
+          axlSetDieType
+   FUNCTION
+          axlGetDieType(
+             componentDBID
+             dieType
+          )
+          ==> t/nil
+   SYNOPSIS
+          This function setsthe attachment type for a die component to one of the
+          available types. Currently, the supported attachtypes are:
+             WIREBOND
+             FLIP CHIP
+   NEEDS
+          componentDBID - dbidhandle of the die component to configure.
+          dieType - Attachment type toconfigure this component as. Allowed
+                    values are "WIREBOND" and "FLIPCHIP".
+   RETURNS
+          t         if successful.
+          nil       if failed (non-die objectpassed or not packaging product).
+.
+   EXAMPLES
+          axlSetDieType(myComp "WIREBOND")
+            ==> t
+

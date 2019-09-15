@@ -1,0 +1,25 @@
+NAME
+         axlGetDynamicsSegs
+  FUNCTION
+         axlGetDynamicsSegs (
+                 l_point1
+                 l_point2
+                 r_lastPath/nil
+         ) ->
+  SYNOPSIS
+         Normally used with dynamicsto calculate arc tangency of two picks to
+         a current r_path. Passedcoordinates may be modified preserve
+         tangancy.
+         Depends on current linelock state set by user or axlSetLineLock.
+  NEEDS
+         point1     - First pick before dynamics started.
+         point2     - Second pick, after dynamics was done.
+         lastPath   - Previous path to be used fortangency calculations.
+                         Can pass nil if notapplicable.
+  RETURNS
+         l_pointList/nil
+  SEE ALSO
+         axlAddSimpleRbandDynamics axlMakeDynamicsPath axlSetLineLock
+  EXAMPLES
+         q = axlGetDynamicsSegs(10:10 100:100 nil)
+                 -> (((10.0 10.0) (100.0 100.0) nil))

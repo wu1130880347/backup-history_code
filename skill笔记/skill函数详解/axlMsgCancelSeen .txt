@@ -1,0 +1,18 @@
+检查axlMsgCancelPrint的信息是否已经打印了
+  NAME
+         axlMsgCancelSeen - verify thatcancel print message was printed
+  FUNCTION
+         axlMsgCancelSeen(
+                 )
+         ==> t/nil
+  SYNOPSIS
+         Checks to see if the axlMsgCancelPrint message was printed. This is not a routine that
+         polls the input stream for aCANCEL key. It is simply a convenience routine for checking
+         the buffer of currentmessages for the occurrence of the axlSsgSys.cancelRequest message.
+  NEEDS
+         None.
+  RETURNS
+         t/nil:  Returns t if thecancel requested has been seen. Returns nil if it was not seen.
+  EXAMPLES
+         if( axlMsgCancelSeen()
+         ; clear input and return

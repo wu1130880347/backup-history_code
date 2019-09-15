@@ -1,0 +1,26 @@
+将一个数据库对象转换为r_path
+
+  NAME
+         axlDB2Path - Converts a databaseobject to a r_path
+  SYNOPSIS
+         axlDB2Path(
+                 o_dbid
+         )
+         ==> r_path
+  FUNCTION
+         This takes a database id and converts it to anr_path. It
+         supports all dbids with asegment attribute (shape, void, path,
+         line). Path and Line are AXL-Skillterminology, Allegro
+         terminology would refer tothese entities as cline/line and
+         segements respectively.
+  NEEDS  
+         od_dbId                 The dbid for the line.
+  RETURNS
+         r_path - if object can beconverted
+         nil - object cannot be converted.
+  SEE ALSO
+         axlPathStart
+  EXAMPLES
+         1) obtain shape outline as a r_path
+                 p = ashOne("shapes")
+                 path = axlDB2Path(p)

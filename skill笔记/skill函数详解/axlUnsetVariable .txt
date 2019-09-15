@@ -1,0 +1,25 @@
+取消某环境变量的值
+NAME
+         axlUnsetVariable -  unset value of specified Allegro environment variable
+  FUNCTION
+         axlUnsetVariable(
+                 t_variable
+                 )
+         ==> t
+  SYNOPSIS
+         Unsets the Allegro environment variable with the name given by the string t_variable.
+         The value of the named variable becomes nil.
+         NOTE: Variable names/values can change from release to release.
+  NEEDS
+         t_variable:      String giving the name of the Allegro environment variable.
+  RETURNS
+         t:       Always returns t.
+  SEE ALSO
+         axlGetVariable
+  EXAMPLES
+         The following example clears the current library path libpath
+         when its current value is /mytools/library.
+         (axlUnsetVariable "libpath")
+         ==> "/mytools/library"
+         libraryPath = (axlGetVariable "libpath")
+         ==> nil

@@ -1,0 +1,25 @@
+删除菜单项或全部子菜单
+  NAME
+         axlUIMenuDelete - deletes a menu item or entire submenu
+  SYNOPSIS
+         axlUIMenuDelete(
+             x_menuId
+         ) t/nil
+  FUNCTION
+         This deletes a single menu item or submenu based upon what is the
+         current find menu item.
+         See discussion in axlUIMenuFind about menu changes.
+  NEEDS
+         x_menuId - the menuid from axlUIMenuFind
+  RETURNS
+         t if menu item is deleted else nil if failed to delete menu item
+  SEE ALSO
+         axlUIMenuFind
+  EXAMPLES
+         - Delete add rect command menu ((add rect command is still available from
+           command line:
+                 q = axlUIMenuFind( nil "add rect")
+                 axlUIMenuDelete(q)
+         - Delete entire edit menu (assumes 2 menu item in menubar)
+                 q = axlUIMenuFind( nil 1)
+                 axlUIMenuDelete(q)

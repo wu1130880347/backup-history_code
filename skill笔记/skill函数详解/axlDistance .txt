@@ -1,0 +1,19 @@
+获得两点之间的距离
+
+  NAME
+         axlDistance returns distancebetween two points
+  SYNOPSIS
+         Returns distance betweentwo points.
+         Floating point may be used.
+  FUNCTION
+         axlDistance(
+                 l_point1
+                 l_point2
+         ) -> f_distance
+  NEEDS
+         l_point: a point
+         ll_line: two points which is end of line
+  RETURNS
+         returns distance (floating point)
+  EXAMPLE
+         axlDistance(10:20 5:20) = 5.0

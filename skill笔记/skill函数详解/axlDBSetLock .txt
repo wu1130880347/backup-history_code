@@ -1,0 +1,53 @@
+设计文件锁定
+  NAME
+         axlDBSetLock - sets the datbaseto be locked
+  FUNCTION
+         axlDBSetLock(
+                 ['passwordt_password]
+                 ['commentst_comments]
+                 ['exports "disabled"/"enabled"]
+         ) t/nil
+  SYNOPSIS
+         This provides a mechanismto lock the database against future
+         changes. If you lock thedatabase it is locked in memory, you
+         must save the database todisk to save the lock. With this
+         in mind, after locking thedatabase, you are given one
+         save of the database beforesave rejects an attempt to save
+         the database.
+         When the database is lockedthe user will be warned upon opening
+         the database that it islocked. Saving the database will
+         fail with the exception ofabove and uprev (see below).
+                 
+         Options:
+           password: if provided this mustbe provided to unlock the
+                 database. If youforget the password you won't be able
+                 to unlock the database.Password must be 20characters
+                 or less. The followingcharacters are not allowed
+                 (\ whitespace) or leading dash (-)
+           comments - free formcomments. You may embed carriage
+                 returns ("\r") in the string toforce a new-line
+                 in the locking userinterface
+           exports - default is toallow exporting data to other
+                 formats. Ifdisabled the following exports are
+                 prevented: techfilewrite, dump_libraries, create modules.
+         Uprev-ing the database fromone database version to the next
+         ignores the lock flag.
+         For simple lock provide noarguments.
+         
+         If a nil is providedprovided returns list ofoptions to this
+         function.
+  NEEDS
+         All arguments are optional, see SYNOPSIS for description.
+  RETURNS
+         t: locked the database
+         nil: failed to lock.Argument errors ordatabase already locked
+  SEE ALSO
+         axlDBGetLock axlDBDelLock axlSaveDesign
+  EXAMPLES
+         1) Most basic lock (no password, no comments, exports enabled)
+             axlDBSetLock()
+         2) Lock with comments and disable data export
+             axlDBSetLock('comments "I locked thedatabase"
+                         'exports "disabled")
+             axlSaveDesign(?design "locked_data")
+             printf("Locked info%L\n" axlDBGetLock())

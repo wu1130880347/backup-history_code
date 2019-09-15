@@ -1,0 +1,59 @@
+获取同网络（net）间的间距（spacing）值
+  NAME
+    axlCNSGetSameNet - obtain a same netspacing cset values
+  SYNOPSIS
+    axlCNSGetSameNet(
+         t_cset
+         t_layer
+         s_constraint
+         [g_string]
+         )
+         ==> g_value/nil
+    axlCNSGetSameNet(
+         t_cset
+         t_layer
+         nil
+         [g_string]
+         )
+         ==> ll_nameValue/nil
+    axlCNSGetSameNet(
+         nil
+         nil
+         nil
+         )
+         ==> ls_cnsTypes
+  FUNCTION
+         Documentation same asaxlCNSGetSpacing.
+  NEEDS
+         t_cset: name of a same netspacing cset. Can use "" for "DEFAULT".
+         t_layer: ETCH layer name (e.g "ETCH/TOP" or "TOP"). If nil apply
+                 change to alllayers.
+         s_constraint: name ofconstraint. If nil return a set of
+                 symbol/value pairsof all constraints.
+         g_string: By defaultreturns value in the native units of the
+                 contraint. Ifg_string is t willalways return data
+                 as a string
+  RETURNS
+         g_value: value ofconstraint in design units
+         ll_nameValue - name valuepairs of spacing constraint symbol
+                 and constraint value for all spacing (s_constraint g_value).
+                 '((shape_shape 10.0) (line_line 5.0) ...)
+         ls_cnsTypes - list of supported samenet spacing constraint anmes
+         nil - returns nil on error (or same_net)
+  SEE ALSO
+         axlCNSSetSameNet, axlCnsList, axlCNSGetSpacing
+  EXAMPLES
+         1) Get shape to shape same net spacingin default cset, TOPlayer
+                 axlCNSGetSameNet("" "TOP" 'shape_shape)
+         2) Get all same net constraints for 25_MIL_SPACE, bottom layer
+                 axlCNSGetSameNet("25_MIL_SPACE" "BOTTOM" nil)
+         3) Get all same net constraints for DEFAULT, bottom layer asstrings
+                 axlCNSGetSameNet("" "BOTTOM" nil t)
+         3) Get supported same net constraintsymbols
+                 axlCNSGetSameNet(nil nil nil)
+         4) Fetch all layers and constraints of samenet cset DEFAULT
+                 cset = ""       ;; DEFAULT cset
+                 foreach(subclass axlSubclassRoute()
+                     layer = axlCNSGetSameNet(cset subclass nil)
+                     printf("\nLAYER=%s\n\tconstraints=%L\n" subclass, layer)
+                 )

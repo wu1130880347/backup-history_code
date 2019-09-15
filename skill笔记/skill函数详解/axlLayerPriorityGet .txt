@@ -1,0 +1,30 @@
+获取所有层面设置
+  NAME
+         axlLayerPriorityGet - get layer'spriority
+  SYNOPSIS
+         axlLayerPriorityGet(
+                 t_layer
+          ) -> x_priority/t_mapClass/nil
+  FUNCTION
+         Get a layer's priority where 0 isnormal (not set). Priority can range from
+         1 (highest) to 255 (lowest).
+         Function operates in twomodes:
+            if t_layer is layername (class / subclass), returns priority
+                 of that layer as aninteger
+            if t_layer is classname then returns the mapped layer
+         NOTE: mapped layergroupings may change from release to release (e.g.
+          future releases may choose to break up someclass groupings.
+  NEEDS
+         t_layer - layer name (<class>/<subclass>) or classname (<class>)
+  RETURNS
+         x_priority - priority oflayer (0 layer draws at normal priority)
+         t_mapClass - class nameused as lead group for provided class
+         nil - error inlayer name
+  SEE ALSO
+         axlLayerPrioritySet
+  EXAMPLES
+         - get and fetchpriority
+             axlLayerPrioritySet("BOARD GEOMETRY/OUTLINE" 1)
+             prior = axlLayerPriorityGet("BOARD GEOMETRY/OUTLINE")
+         - get group class mappingof class Ref Des
+             axlLayerPrioritySet("REF DES") -> "COMPONENT VALUE"

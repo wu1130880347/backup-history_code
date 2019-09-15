@@ -1,0 +1,47 @@
+设置pad 封装类型
+  NAME
+         axlPadstackSetType - sets padstack type
+  SYNOPSIS
+         axlPadstackSetType(
+                o_padstack/t_padstack
+                 g_uviaBbvia
+         ) -> t/nil
+         axlPadstackSetType(
+                o_padstack/t_padstack
+                 g_type
+                 g_value
+         ) -> t/nil
+  FUNCTION
+         Changes a padstack type.
+         In its 2argument mode is the same as:
+                 axlPadstackSetType(padstack 'type g_uviaBbvia)
+         Permits changing the type orantipads as Route Keepouts (ARK)
+         via the g_type optins.
+         'type
+            changes a bbvia padstackto a micro via and vice versa.
+            Uvia types can bemanaged seperately in the contrainst system.
+            This has no effect if thepadstack is used with Pins.
+            Values are 'bbvia or 'uvia.
+         'keepout
+            Enables (ordisables) the antipads asRoute Keepouts. This
+            indicates the padstackhas been built to allow use of the
+            antipad to generate theequivalent of a rko for mechanical
+            pins. It has no effect if thesepadstacks are used for
+            logical connections.Values are t or nil.
+         Marks DRC out-of-date ifsuccessful.
+  NEEDS
+         o_padstack - padstack dbid
+         t_padstack - padstack name
+         g_type - mode (either 'type or'keepout)
+         g_value - appropriatesetting (see above)
+  RETURNS
+         t - change successful
+         nil - failed. Not apadstack, padstack not indatabase,
+                 type notrecognized or padstack not a bbvia or uvia.
+  SEE ALSO
+         axlDBCreatePadstack, axlPadstackEdit
+  EXAMPLES
+         1) Change padstacknamed VIA to a micro via
+                 axlPadstackSetType("VIA" 'type 'uvia)
+         2) Change to supportantipads as Route Keepouts (ARK)
+                 axlPadstackSetType("VIA" 'keepout t)

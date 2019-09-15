@@ -1,0 +1,66 @@
+这个“Do”功能必须在 Lisp 命令之后
+  NAME
+         axldo  axldoStar - the "do" function modeled afater theCL do
+  SYNOPSIS
+         axldo(
+                 g_initList
+                 g_terminateList
+                 [g_body]
+         ) -> g_result
+         axldoStar(
+                 g_initList
+                 g_terminateList
+                 [g_body]
+         ) -> g_result
+  FUNCTION
+         A "do" function, modeled after theCL (Common Lisp) do.
+         Public:
+          (defmacro do ((var [init [step]]) ...) (end-test resultresult ...) @body)
+          (defmacro doStar ((var [init [step]]) ...) (end-test resultresult ...)
+         
+          The do macro provdes ageneralized iteration facility, with an
+          arbitrary number of "indexvariables".  These variables are bound
+          within the iteration and stepped inspecified ways.  They may be
+          used both to generatesuccessive values of interest or to accumulate
+          results.  When an end condition is met (as specified byend-test),
+          the iteration terminates, the result sexpsare successive evaluated,
+          and the value of the last result sexp isreturned.
+         
+          The first item in the formis a list of 0 or more index-variable
+          specifiers.  Each index-variable specifier is a list of the name of
+          the variable var, an initial valueinit, and a stepping formstep.
+          If init is omitted, it defaults tonil.  If step is omitted, the var
+          is not changed by the do construct betweenrepetitions (though code
+          within the do is free to alterthe value of the variable by using
+          setq).
+           An index-variablespecified can also be just the name of a
+           variable.  In this case, the variable has an initial value ofnil
+           and is not changed betgweenrepetitions.  This would be used much
+           as a locally scopedvariable in a letstatement would be.
+           Before the 1st iteration, all the init formsare evaluated, and each
+           var is bound to the valueof its respective init.   This is a
+           binding, not an assignment:  when the loop termintes the old values
+           of those variables willbe restored. All of the init forms are
+           evaluated BEFORE any varis bound; hence all the init forms may
+           refer to the old bindinsof all the variables (that is, to the
+           values visible BEFOREbeginning execution of the do).  Note that
+           all init bindings aredone in parallel for do, serially for doStar.
+          The second element of theloop is a list of an end-testingpredicate
+          form end-test, and zero or more resultforms.  This resemblews a
+          cond clause.  At the beginning of each iteration, after processing
+          the variables, the end-test iseval'ed.  If the result is nil,
+          execution proceedswith  the body of the form.  If the result is
+          non-nil, the result formsare evaluated in order as an implicit
+          progn, and then the do returns the valueof the last eval'ed result.
+           At the beginning of eachiteration, the index variables areupdated
+           as follows.  All the step forms are evaluated, from left to right,
+           and the resultingvalues are assigned to the respective index
+           variables.  Any variable that has no step value is not assigned.
+  NEEDS
+         g_initList - 0 or more index variable specifiers
+         g_termiateList - end testpredicate
+         g_body  - body of procedure
+  RETURNS
+         Value resulting fromeval'ing last "result" sexp.
+  SEE ALSO
+         letStar

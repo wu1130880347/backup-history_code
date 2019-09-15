@@ -1,0 +1,24 @@
+Í¼ÐÎ»æÖÆ£º»­¾ØÐÎ
+  NAME
+      axlGRPDrwRectangle
+  FUNCTION
+      axlGRPDrwRectangle(
+               r_graphics,
+               l_upper_left,
+               l_lower_right
+      )->t/nil
+  SYNOPSIS
+     This function draws a rectangle, into the areaidentified by the r_graphics
+     handle, and the upper_left andlower_right coordinates.Option
+     properties attached to ther_graphics handle are applied, when drawing
+     the rectangle.
+  NEEDS
+     r_graphics - The graphicshandle.
+     l_upper_left - A list notingthe coordinate of the upper left point of
+                    the rectangle.
+     l_lower_right- A list notingthe coordinate of the lower right point of
+                    the rectangle.
+  RETURNS
+      nil if an erroroccurred, otherwise t.
+  SEE ALSO
+     axlGRPDoc

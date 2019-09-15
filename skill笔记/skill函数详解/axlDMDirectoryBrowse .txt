@@ -1,0 +1,32 @@
+ä¯ÀÀÖ¸¶¨Ä¿Â¼
+NAME
+     axlDMDirectoryBrowse        - browse for diretory
+  SYNOPSIS
+     axlDMDirectoryBrowse(
+         t_startingDirectory
+         g_writeFlag
+         [?helpTag t_helpTag]
+         [?title t_title]
+     )
+     ==> t_dirName/nil
+  
+  FUNCTION
+     Opens a directory browser.Unlike file browsers this only allows
+     a user to select adirectory.  Call blocks until
+     user selects or cancels.
+  NEEDS
+     t_startingDirectory - name ofstarting directory
+     g_writeFlag - a boolean if the file is to beopened for write
+                   (t) or for read (nil).
+     t_helpTag - optional tag thatdefines the help messageto be
+                 displayed if the Help button isselected in browser.
+                 Default help is provided if this option is not set.
+     g_title - optional overridedefault title bar of browser. Normally
+         is the name of the commandthat invoked browser.
+  EXAMPLES
+     Browse current directory
+         axlDMDirectoryBrowse("." t ?title "Pick adirectory")
+         
+  RETURNS
+     t_dirName - the name dirctoryselected
+     nil - no directory name selected

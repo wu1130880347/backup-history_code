@@ -1,0 +1,110 @@
+allegro skill Database操作相关函数
+    5.1Database Read函数
+    和以前一样，这里只介绍部分的函数，其它的函数请参考algroskill.pdf文件。   
+    axlDBGetDesign() => dbid，当前design的dbid，基本上来说整个design的所有信息都可以通过这个dbid得到。比如design有多少个component，每个component的dbid；比如design有多少drc，每个drc又分别是什么等等。
+    axlDBGetAttachedText(o_dbid) =>text dbid，得到o_dbid对象所具有的(被attached的)text的dbid列表。该函数常用于在一个包含很多text的symbol对象上查找特定text的应用中。比如我们通常会把一个design放在适当尺寸的sheet中，对应于design的各个层，sheet也会有对于的页码来表示，比如sheet的第1页是Top层，那么int1层可能就是第2页，如果你想写个程序来实现页码的自动更新，就会用到这个函数来找到需要被修改的字符(text)，然后用后面将要说到的Database Create相应函数来修改选中的字符。
+    axlDBGetPad(o_dbidt_layer t_type) => pad dbid，获得pin，via，padstack相应层的特定pad。
+    比如axlDBGetPad (dpin “Etch/Top"”anti“)=>dpin对象在Top层的anti-pad的dbid。通过这个dbid又可以进一步得到pad的一些相关属性。
+    axlDBGetPropDictEntry(t_name) =>propdefinition，得到user defined properties里面设置的各个属性的信息，比如属性类型，应用的对象。
+    axlDBGetProperties(o_dbid[lt_type]) => l_results，得到o_dbid所具有的properties列表，allegro默认的或者是user defined。
+    axlDBIsFixed(o_dbid) =>t/nil，判断一个对象是不是被fixed了。通常在用户程序想修改一些design的对象的时候，必须先确定该对象是不是被fixed了，fixed 对象是不可以被修改的。(用户必须先给fixed的对象un-fixed，然后才能进行修改)
+    axlDBGetShapes(t_layer) =>shape dbid，一种获取指定层所有shape的快捷方式。(通常的获取对象的方式都是先要设置FindFilter，然后addselect，再getselset，3步才可以。)
+
+    5.2Database Create
+    首先allegro本身不支持的操作使用下面将要给出的AXL-Skill函数也是无法实现的。比如allegro不支持将一个cline画到非Etch 层去，那么用axlDBCreatePath()也无法在非Etch层Create一个cline的。对于非法操作，函数的返回值都是nil。
+    要想让你create的对象立即显示出来有2种方法，运行axlDisplayFlush()命令来刷新allegro的显示状态，或者运行一个allegro本身的命令，否则的话你create的对象是不会被显示出来的。
+
+    5.2.1 Path部分的函数
+    Path指的是各种形状的Line。Path总会有个起点有个终点，
+axlPathStart函数用于确定起点，而终点则是Path里面的最后一点。 
+axlPathStart(l_points [f_width]) =>r_path,产生一个path对象并确定起点  
+axlPathArc(Radius/Angle/Center) => 这里的三个函数都是用来生成曲线的  
+axlPathLine() => 向一个path末尾添加一个点 
+axlPathGetWidth(r_path) => 得到一个path的宽度，如果一个path中的各个segment的宽度都不一样，可以使用axlPathSegGetWidth()函数。  
+axlPathSegGetEndPoint(r_pathSeg) => 得到path的最后一个点，
+相关的函数还有
+axlPathGetLastPathSeg()用来得到path的最后一个segment。 
+    axlDBCreatePath()和axlDBCreateLine()，将不可见的path或point列表转变成可见的实际存在的 Line，Create在不同的layer，将产生不同的对象，比如在Etch layer将产生Cline对象，在Silkscreen layer就是些简单的Line。
+
+
+
+    5.2.2 Shape部分函数
+    Shape是几何图形，所以Create Shape通常需要先提供一个boundry(Shape的边界/区域)，而这通常有2种方式，其一是使用上面讲到的Path函数来Create一个闭合的区域，其二是用Polygon函数来为Shape提供一个Polygon。
+    5.2.2.1 Polygon相关函数     Polygon是多边形的意思，其实和Shape一样(根据Polygon生成的Shape，所以当然是一样的)，只是Polygon是不可见的，而 Shape是可见的。Polygon的操作函数之所以不并入Shape我想可能是因为每次对Shape形状的改变allegro都会update整个 design的shape，顺便还要updateDRC(Shape和On-Line Drc没有disable的情况下)，这都是些很耗时的操作。Polygon的任何操作都不会影响到design，直到当它最后呈现为Shape时。
+axlPolyFromDB(),获得指定对象的Polygon，这是一个非常好用的函数，比如有个形状很怪异的Pad，而你必须根据这个Pad画出个Shape，这个时候你就可以直接用这个命令直接得到那个Pad的Polygon,然后就可以生产Shape了，很简单。
+    axlPolyOperation()，Polygon的一些操作，比如多个Polygon以某个规则(AND OR ANDNOT)组合到一起,形成一个/多个新Polygon。
+axlPolyExpand()，将Polygon扩展/压缩一定的尺寸
+    个人突然感觉Polygon像photoshop软件里有选定区域。
+
+示例: 实现allegro的merge shape的命令  
+a. 选择需要被merge的Shape            
+b. 使用axlPolyFromDB函数得到每一个Shape的Polygon            
+c. 使用axlPolyOperation函数的"AND"规则，将多个Polygon形成一个            
+d. 删除选中的所有Shape            
+e. 使用下面将要提到的axlDBCreateShape命令生成新的Shape
+
+    5.2.2.2 Shape相关函数   
+axlDBCreateOpenShape，这个函数是用来Create一个Open状态的Shape的，Open的意思是可以在Create的Shape上再添加Void。
+axlDBCreateCloseShape，这个函数是前一个函数的补充，Open状态的shape使用了这个函数就被Close了，Close意思是Shape不可以再添加Void了。
+axlDBCreateShape, 这个函数直接Create一个Close的Shape。
+
+axlSetFindFilter( ?enabled list( "lines" ) ?onButtons "all")
+    axlSingleSelectBox()
+    d=axlGetSelSet()
+    poly= axlDB2Path(car(d))
+     d1=axlDBCreateShape( poly1, t, car(d)->layer)
+
+
+5.2.3 和Path无关的函数
+
+axlDBCreateExternalDRC，create一个用户自定义的DRC，通常是在用户自定义的检查中
+axlDBCreatePadStack，Create一个新的Padstack，比如你想要用一种新的Via，但是Library中还没，就可以使用该命令Create一个Padstack,然后用axlDBCreateVia命令生成一个
+axlDBCreateText，比如前面提到的自动修改字符的操作，这个命令就可以生成指定的字符。
+
+
+    5.2.4 Property函数
+    axlDBCreatePropDictEntry，在user defined property列表中创建一个新的property类型  axlDBAddProp，将指定的property赋予特定的对象，比如将Fixed Property赋予一个Component，这个和allegro本身的Fixed命令是一样的。
+
+    5.3Database Group
+    Group比较简单，相关的函数也不是很多。   
+axlDBCreateGroup，create一个新的Group对象   
+axlNetClassCreate，create一个NetClass对象   
+axlRegionCreate，create一个Region对象
+
+    NetClass和Region是16.0以后新的属性
+    5.4Database Attachment
+    这里说到的Attachment是attach到design的database中的。   
+axlCreateAttachment(t_attachmentIdt_passwd x_revision s_dataFormat t_data ) =>Create一个名字/ID是t_attachmentId的attachment，t_password设定密码，x_revision确定版本，s_dataFormat将决定t_data的数据类型。    
+
+axlGetAllAttachmentNames() => 得到design Database中所有attachment的dbid列表。   
+axlGetAttachment(t_attachmentId[s_dataFormat]) => 获得指定attachment的value。
+
+    5.5 DatabaseTransaction
+    这里又有一组比较好用的函数   
+axlDBTransactionStart() =>n_Mark，得到一个mark值可以为其余Mark，Oops，Rollback，以及Commit命令所用。    
+
+axlDBTransactionMark(n_Mark) => 使用n_Mark来标记该命令运行前design的状态，方便后面的Oops和Rollback操作。    
+
+axlDBTransactionOops(n_Mark) => 取消最近一次的axlDBTransactionMark以来的操作，使得design返回Mark前的状态。和allegro中的Oops命令是相似的。    
+
+axlDBTransactionRollback(n_Mark) => 是databaseTransaction的一次Undo操作，相当于allegro中的Cancel操作。   
+
+axlDBTransactionCommit(n_Mark) => 确定一次transaction的完成，之后n_Mark将不再有效，也即不能再执行Oops/Rollback操作了。    
+
+另2个关联的函数：   
+
+axlTransformObject()，早已经在之前的章节介绍了。    
+
+axlDBCloak(g_func [g_mode])，将一些可能会引起shape update或者drc update之类的比较耗时的函数/命令嵌入在这个命令中运行会比较省时。
+
+    另外：举个简单的例子说明为什么这个命令好用。假设你要编写一个实现Symbol横向或者纵向对齐的命令，最简单的想法就是让用户选择需要移动的 Symbol，然后记录下各个Symbol的 coordinate，rotation，mirror，name，type等等参数，对应于Opps或者Cancel操作就是利用之前备份的那一大堆数 据来恢复现场。这里涉及一大堆的数据管理，而且当用户同时选择了n个symbol然后又去掉了部分选择，以及在done掉命令之前有做过几次Opps和几 次transaction，这个数据的管理会很让人伤脑筋。然而通过这里介绍的几个命令，就很简单了，只要在transaction之前Mark一下(记 录现场)，Opps，Cancel之类的操作只是简单的恢复到Mark点就好了，不用管Mark以后用户是怎么个操作的，是不是很简单？
+
+    5.6Database Miscellaneous
+    举几个很适用的函数，其它的请自行参考学习了。   
+axlAirGap()，功能如同allegro中的Measure结果中的Airgap。    
+
+axlDBGetLength()，功能如同allegro的Show Element命令选择一个Cline显示长度一样。    
+
+axlGeoPointInShape()，这个命令能检验一个Point是不是在特定的Shape里面。   
+
+axlChangeNet()，改变指定对象的net name，不过因为一些功能方面的限制，其实适用性不强 

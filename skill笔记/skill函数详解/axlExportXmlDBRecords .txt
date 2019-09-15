@@ -1,0 +1,31 @@
+导入Allegro 参数文件
+  NAME
+         axlExportXmlDBRecords - import AllegroParameter file
+  SYNOPSIS
+         axlExportXmlDBRecords(
+                 t_fileName
+                 lt_parmGroups/nil
+         ) -> t/nil
+         axlExportXmlDBRecords(
+                 nil
+         ) -> lt_parmGroups
+  FUNCTION
+         This exports an AllegroParameter file from the current design. It offers
+         the same capability as (File->Import->Parameter)
+         Side effect is creation ofa param_write.log file.
+  NEEDS
+         t_fileName - name ofparamter file. Default extension is .prm and if
+                 not given a pathcomponent will locate the file via PARAMPATH.
+                 If filename is nil report back as a list the supportedparamter groups.
+         lt_parmGroups - list of parameter groupsto export or nil to export all
+  RETURNS
+         t if success, nil an error
+  SEE ALSO
+         axlImportXmlDBRecords
+  EXAMPLES
+         1) In an existing dump save all itssettings and load into a new design
+                 axlExportXmlDBRecords("myparam" nil)
+                 axlOpenDesign(?design "newDesign")
+                 axlImportXmlDBRecords("myparam")
+         2) Dump current paramter groups
+                 axlExportXmlDBRecords(nil)

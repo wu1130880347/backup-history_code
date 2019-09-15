@@ -1,0 +1,25 @@
+创建一个圆形的void0 `1 K3 `; P( z
+  NAME
+         axlDBCreateVoidCircle - create a circularvoid in an "open" shape
+  FUNCTION
+         axlDBCreateVoidCircle(
+                 o_shape
+                 l_location
+                 [f_width]
+                 )
+         ==> o_polygon/nil
+  SYNOPSIS
+         Creates a circular void inthe currently open shape rd_shape. It is
+         an error to call this function without a currentlyopen shape.
+  NEEDS
+         o_shape:        dbid of the open shape created by
+                        axlDBCreateOpenShape.
+         l_location:     Center and radius of the circular void to becreated.
+                         Thestructure of the argument is: (X:Y R).
+         f_width:        Void edge width (used by cross-hatch). Default is 0.
+  RETURNS
+         o_polygon/nil:  dbid of the circular void created. If thereis an
+                         error, function returns
+                         nil, and does not create a void.
+  EXAMPLES
+         Create Shape Example

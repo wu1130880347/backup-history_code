@@ -1,0 +1,48 @@
+打开一个网址的链接
+  NAME
+     axlHttp - URL browser interface
+  SYNOPSIS
+     axlHttp(
+         t_url
+     )
+     ==> t
+  CAUTION
+     This interface may be modifiedin the future in such areas
+     as including a web browserinside the program as opposed
+     to external
+  FUNCTION
+     Displays a URL from Allegro.
+     
+     This displays the URL in anexternal web browser. It first
+     attempts to use the last activewindow of a running web browser
+     the system (raising it to thetop or de-iconify if required).
+     If no browser is currentlyrunning it will attempt start a web
+     browser.
+     It functions slightly differentin a UNIX versus NT environment.
+     On UNIX the only supportedbrowser is Netscape. If it does not detect
+     netscape running on the system itattempts to start netscape.
+     It may not detect if the webpage fails to load.
+     It assumes that the program "netscape" is in your searchPATH.
+     You can override the programname by the environment variable:
+         http_netscape = <programname>
+     Example:
+         set http_netscape =netscape7
+     Caution: On UNIX this interfaceis only verified with netscape it may
+         not function withother web browser (e.g.iexplorer)
+     On Windows it uses the defaultweb browser registered with Windows
+     registry for URLs.If none is registered then the API will fail.
+     We have verified that bothNetscape and Internet Explorer. Unlike
+     UNIX this API works with anyfiletype that has a Windows
+     registry entry (Example: if youhave acroread register for pdf
+     files you can view an PDF filesvia Acrobat by axlHttp("my.pdf"))
+     There is no Allegro environmentvariables available for the
+     Windows interface.
+  NEEDS
+     t_url - URL to display
+  RETURNS
+     t ifsuccess; nil failure
+     Failure can be due to
+         no webbrowser found (UNIX) orregistered (Windows)
+         Can't loadURL  (this error may not alwaysbe detected on UNIX)
+  EXAMPLE
+         axlHttp("http://www.cadence.com")

@@ -1,0 +1,18 @@
+去除临时目录下的一个临时文件
+NAME
+     axlTempFileRemove - delete temporary file and returns name to pool
+  SYNOPSIS
+     axlTempFileRemove(
+         t_filename
+     )
+     ==> t
+  FUNCTION
+     This deletes file and removes temporary name from pool.
+     It is important to call this function once you are finished
+     with a temporary filename.
+     This can also be used to delete files whose names are not obtain
+     from axlTempFile
+  NEEDS
+     t_filenam - filename
+  RETURNS
+     t

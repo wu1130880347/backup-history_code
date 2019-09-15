@@ -1,0 +1,27 @@
+框选增加对象
+  NAME
+         axlAddSelectBox - find objects in aselection window
+  SYNOPSIS
+         axlAddSelectBox(
+                 [l_bBox]
+         )
+         ==> t/nil
+  FUNCTION
+         Find all nonselectedobjects that intersect with the input box and meet
+         the find filter criteria.  Add those objects to the selection set.
+         If no box (or an incomplete box) is provided, prompt the user for
+         a selection box (or to complete the box) prior to the findoperation.
+  NEEDS
+         l_bBox  - A list containing one or two coordinatesdefining the
+                   bounding box tobe used to the select figures. If l_bBox is
+                   nil, the function requests two picksfrom the user. If l_bBox
+                   has only onepoint, the function asks for a second point from
+                   the user.
+  RETURNS
+         t               - if any objects were added to theselection set.
+         nil             - if nothing added.
+  EXAMPLES
+         This function behaves exactly as axlSingleSelectBox except that
+         axlSingleSelectBox does not clear the select set.
+  SEE ALSO
+         axlAddSelectPoint axlSingleSelectBox

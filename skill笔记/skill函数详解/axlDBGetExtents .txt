@@ -1,0 +1,30 @@
+获取计算区段的数据列表
+  NAME
+         axlDBGetExtents - get calculated extentsof database items
+  FUNCTION
+         axlDBGetExtents(
+                 o_dbid/lo_dbid
+                 g_visibleOnly
+         )
+         ==> bBox/nil
+  SYNOPSIS
+         This returns the extents ofa physical database objects. You
+         have a choice of gettingthe extents of the entire object
+         (even if it currently is not visible) or justs the current visible
+         objects.
+         With the visible option theextents may be smaller then the
+         bBox attribute of theelement's dbid bBox.
+         If a list of dbids isprovided the union of the extents is returned.
+  NEEDS
+         o_dbid          dbid of an element.
+         lo_dbid         list of dbids
+         visible_only    t      - return the extents ofvisible parts
+                                  of the element.
+                         nil     - return the extents of the entire
+                                  element.
+  RETURNS
+         bBox    The extents of the element. This might be azero extents
+                         if the object has noextents visiable or does
+                         not have extents (e.g. nets).
+                         (
+         nil    error, bad arguments

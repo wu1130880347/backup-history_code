@@ -1,0 +1,61 @@
+ä¯ÀÀÎÄ¼þ
+  NAME
+     axlDMFileBrowse     - browse for files
+  SYNOPSIS
+     axlDMFileBrowse(
+         t_fileType
+         g_writeFlag
+         [?defaultName t_defaultName]
+         [?helpTag t_helpTag]
+         [?directorySet g_directorySet]
+         [?noDirectoryButtong_noDirectoryButton]
+         [?mainFile g_mainFile]
+         [?noSticky g_noSticky]
+         [?title t_title]
+         [?optFilters t_filters]
+     )
+     ==> t_fileName/nil
+  
+  FUNCTION
+     Opens a standard file browser.Unlike the other axlDM functions this
+     always presents a user with afile browser. Call blocks until
+     user selects file or cancels.
+     It should be noted that thefile is not opened, only
+     the name of the file isselected and returned to thecaller.
+     You always get a 'All files (*.*)' as the finalfilter.
+  NEEDS
+     t_id -  id describing file attributes fromfileops.txt
+                 or list of ids for different types
+             or nil if optFilters is usedto describe files
+     g_writeFlag - a boolean if the file is to beopened for write
+                   (t) or for read (nil).
+     t_defaultName - optional nameof file that is to be selected by default
+     t_helpTag - optional tag thatdefines the help messageto be
+                 displayed if the Help button isselected in browser.
+                 Default help is provided if this option is not set.
+     g_directorySet - sets thedirectory change button. By default not set.
+     g_noDirectoryButton - optionalhiding of directory change button
+         in browser. By default itis present.
+     g_noSticky - file browsernormally remembers the directory from
+         previous invocation. Thisis handy if user browses insame location
+         that is different then current workingdirectory. If this option
+         is "t" then it starts thebrowser in the current working directory.
+         Normally you should set this option if g_directorySet is "t".
+     g_mainFile - matches optionsAllegro uses to open files from File menu.
+         currently this isg_noSticky=t & g_directorySet=t. For non-main
+         files you should use nooptions.
+     g_title - optional overridedefault title bar of browser. Normally
+         is the name of the commandthat invoked browser.
+     g_filters - optional filtersadded to default t_id filter
+         format is:<msg>|<filter>|<msg>|<filter>....
+  EXAMPLES
+     Browse Allegro Text files:
+         axlDMFileBrowse("ALLEGRO_TEXT" nil)
+     Browse Allegro Text files and allow secondaryfilter of *.log
+         axlDMFileBrowse("ALLEGRO_TEXT" nil ?optFilters "All logfiles|*.log|")
+     Browse Skill files (both il and ils extensions)
+         axlDMFileBrowse(nil nil ?optFilters "Skillfiles(*.il)|*.il|Skill Oops(*.ils)|*.ils|")
+         
+  RETURNS
+     t_fileName - the name of thefile selected
+     nil - no file name was specified

@@ -1,0 +1,12 @@
+2.3Database Layer相关操作函数
+    这里给出一些方便操作Layer的函数：     
+   axlGetXSection()，这是获取design的crosssection(层叠结构)的函数；      
+    axlLayerGet(t_layer)，这是获得指定层t_layer的dbid的函数；      
+    axlIsLayer(t_layer)，判断指定的层t_layer存不存在；      
+    axlIsVisibleLayer(t_layer)，判断指定层t_layer是不是显示状态(visible)；      
+    axlVisibleLayer(t_layerg_makeVis)，设置指定层t_layer的状态是显示还是不显示；      
+    axlVisibleDesign(g_makeVis)，设置design的状态是显示还是不显示；      
+    axlVisibleGet()，该函数的返回值是命令运行当前design的所有颜色显示状态；      
+    axlVisibleSet(l_vislist)，该函数使用axlVisibleGet()函数的返回结果，重置design的显示状态。      
+更多相关函数请参考algroskill.pdf文档
+

@@ -1,0 +1,20 @@
+NAME
+     axlSpreadsheetSetCellProp
+设置表格单元属性
+  FUNCTION
+     axlSpreadsheetSetCellProp(propName, propVal)
+         ==> t / nil
+  SYNOPSIS
+     Sets a property on the active cell in the spreadsheet.
+  NEEDS
+     propName -- Propety to set. Allowable values are:
+                     STYLE, TYPE, or VALUE
+     propVal  -- Value to set this property to.
+  RETURNS
+     t   -- Cell property successfully set.
+     nil -- Property not set (no active cell or invalid property).
+            See console for further details.
+  SEE ALSO
+    axlSpreadsheetSetCell
+    axlSpreadsheetGetCell
+    axlSpreadsheetDefineCell

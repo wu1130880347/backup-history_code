@@ -1,0 +1,26 @@
+获得path的线宽
+  NAME
+         axlPathGetWidth - Get the defaultwidth of an axlpath structure.
+  FUNCTION
+         axlPathGetWidth(
+             r_path
+         )
+         ==> f_width/nil
+  SYNOPSIS
+         Gets the default width ofan existing path structure.
+  NEEDS
+         r_path:         Handle of an existing path structure.
+  RETURNS
+         f_width:        Default width of the path structure.Returns
+                         nil if r_pathis not a path, or if it is empty.
+  EXAMPLES
+         The following example:
+             * Creates a path withwidth 173 mils
+             * Adds line segments atwidths 29 and 33 mils
+         axlPathGetWidth still returns thedefault path width of 173 mils.
+         path = axlPathStart( list(1000:1250) 173)
+                 axlPathLine( path 29 2000:1250)
+                 axlPathLine( path 33 3000:3450)
+                 axlDBCreatePath( path "etch/top")
+         axlPathGetWidth( path)
+                 ==> 173.0

@@ -1,0 +1,25 @@
+输出到 CSV 文件
+  NAME
+         axlPinExport - export a pin csvfile
+  SYNOPSIS
+         axlPinExport(
+                 g_includeTextLocation
+                 [t_csvfile]
+         )
+         --> t/nil
+  FUNCTION
+         This exports all pins inthe symbol editor in csv format. The format of
+         the csv file is describedin axlPinImport.
+         Function is only enabled insymbol editor.
+  NEEDS
+         g_includeTextLocation if t include pintext location (offset, rotation and
+                 mirror); nil ommits datawhich means pin text when loaded into
+                 a symbol will belocated at pin origin.
+         t_csvfile - name of csvfile; default is symbol name. Assumes a csv extension.
+  RETURNS
+         t - csv file created
+         nil - failed to createcsv file
+  SEE ALSO
+         axlPinImport
+  EXAMPLES
+         See example inaxlPinImport.

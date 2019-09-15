@@ -1,0 +1,17 @@
+UI获取用户数据
+  NAME
+         axlUIGetUserData
+  SYNOPSIS
+         axlUIGetUserData (
+         ) ==> r_userData/nil
+  FUNCTION
+         Gets the user data type from Allegro. It contains
+         info such as the cancel flag which tells whether the
+         user cancelled out of an enter function. It also holds
+         the active popup handle and ministatus form handle.
+         The callbacks from the registered commands or popups can
+         use this pointer to communicate with the main SKILL program.
+  NEEDS
+         none
+  RETURNS
+         r_userData/ilcNil for SUCCESS/FAILURE.

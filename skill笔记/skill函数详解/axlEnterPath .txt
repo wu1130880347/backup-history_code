@@ -1,0 +1,72 @@
+获得用户输入的路径
+  NAME     
+         axlEnterPath - interactiveinterface to get an axlPath
+  FUNCTION     
+         axlEnterPath (      
+             ?prompts l_prompt
+             ?points  l_point
+             ?lastPath r_path
+             ?gridSnap g_gridSnap
+         )   
+         ==> t/nil     
+  SYNOPSIS   
+         Gets the start point and subsequent points for a path, either
+         from the user, with optionalprompting, or from the optional
+         argument ?points. The function sets the startpoint to the
+         first value of l_points, if any, and the second point tothe
+         second value, if any. If ?lastPath is given, the function
+         connects the dynamicrubberband to its most recent segment.
+         Use axlEnterPath recursively tobuild up the coordinates of a
+          path from an interactiveuser.
+  NEEDS     
+         l_prompt        - List containing one prompt message.The
+                         function display s this to the user.
+         l_point         - list of points. If provided, point is returned.
+         r_path          - a path strtucture to start thecurrent path form.
+                                 Ifr_path is provided, thefirst point is
+                                 forced to be theend point of r_path, even if
+                                 itis provided by the user.
+         g_gridSnap      - User pick or l_point is snapped to grid before
+                                it's returned if g_gridSnap is set.
+      
+  RETURNS   
+         r_path/nil: Path containingsegments constructed from the
+                         combinedpoints in l_points and the user input
+                         toaxlEnterPath.
+  EXAMPLE     
+         You use the AXL-SKILL axlCancelEnterFun and axlFinishEnterFun
+         functions when you create aninteractive command that loops on
+         user input, so the user canterminate the command.
+         The following example doesthe following:
+         1. Defines the functions axlMyCancel and axlMyDone.
+         2. Defines a pop-up with thosefunctions as the callbacks for
+                 user selections.Cancel and Done from thepop-up.
+         3. Loops on the function axlEnterPath gathering userinput to
+                 create amulti-segment line on "etch/top."
+         The user terminates thecommand at any time by selecting Cancel
+         or Done from the pop-up.
+        (defun axlMyCancel ()
+                 axlClearDynamics()
+                 axlCancelEnterFun()
+                 axlUIPopupSet(nil))
+         (defun axlMyDone ()
+                 axlClearDynamics()
+                 axlFinishEnterFun()
+                 axlUIPopupSet(nil))
+         mypopup = axlUIPopupDefine( nil
+                 (list (list "MyCancel" `axlMyCancel)
+                 (list "MyDone" `axlMyDone)))
+         axlUIPopupSet( mypopup)
+         ; Clear the dynamic buffer
+         axlClearDynamics()
+         ; Clear mypath to nil, then loopgathering user picks:
+         mypath = nil
+         while( (mypath = axlEnterPath(?lastPath mypath))
+                 progn(
+                         axlDBCreatePath(mypath, "etch/top")))
+         The program gathers onepick from the user and extends the
+         database path by that pickduring each time around the while
+         loop. The user terminatesthe loop by picking Done from the
+         pop-up. The user can cancelout at any time by selecting Cancel.
+          The segments added becomepermanent in the database when the
+        loop terminates.

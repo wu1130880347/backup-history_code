@@ -1,0 +1,23 @@
+¹Ø±Õ²å¼þ
+NAME
+         axlDllClose - closes a plugin
+  SYNOPSIS
+         axlDllClose(
+                 o_plugin
+         )
+         ==> t/nil
+  FUNCTION
+         This closes an open pluginhandle. Once a handle is closed
+         you can no longer callfunctions obtained from the plugin.
+         Also a plugin isautomatically closed when their are no
+         active references to it viaSkill's garbage collection.
+         It is not advisable to close a Plugin due toperformance
+         considerations.
+  NEEDS
+         o_plugin - plugin handleobtained from axlDllOpen.
+  RETURNS
+         t if successful to close, nil if handle is not a legal handle
+  SEE ALSO
+         axlDllOpen
+  EXAMPLES
+         see example referenced by axlDllOpen

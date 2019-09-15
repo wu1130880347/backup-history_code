@@ -1,0 +1,72 @@
+删除或添加一个配对
+  NAME
+         axlPinPair - add or deletea diffpair
+  SYNOPSIS
+         Add
+             axlPinPair(
+                 o_pin1/t_pin1
+                 o_pin2/t_pin2
+             )==>o_pinpair
+         Delete
+             axlPinPair(
+                o_pinpair/lo_pinpair
+             )==> t/nil
+  FUNCTION
+         This creates or deletesa pinpair. A pinpair consists of two pins
+         or ratTs on the samenet. A PinPair consistes of two unordered
+         pins. For example, pinpair u1.2:r1.2is the same pinpair as
+         r1.2:u1.2
+         If pinpair already exists, thenexisting pinpair is returned.
+         The command fails inproduct tiers that do not support electrical
+         constraints or thesymbol editor.
+         You cannot create a pinpairif both pins (or ratT) do not belongto
+         the same xnet.
+         If the pinpair was createdvia an ecset, the ecsetDerivedattribute
+         will be t. This means youcannot delete it since the pinpair
+         has been created from anecset property. You must find the
+         ecset(s) associated with anet, xnet, diffpair or bus and make
+         the modification at thatlevel.
+         To avoid garbage collectionat database save, apinpair either
+         must be part of a MatchGroup or have a legal electrical constraint
+         property assigned to it.Legal electrical properties are:
+                 PROPAGATION_DELAY
+                 MIN_FIRST_SWITCH
+                 MAX_FINAL_SETTLE
+                 IMPEDANCE_RULE
+                TIMING_DELAY_OVERRIDE
+                 RELATIVE_SKEW
+         RELATIVE_PROP_DELAY isstored on the "rpd" attrbiute as a list
+         of lists. The reason for this isthat a pinpair can be a member
+         of multiple matched groups.See axlMatchGroupCreate for more
+         infomation.
+  TIP
+         Using dbids is faster then usingnames.
+  NEEDS
+         o_pin1/o_pin2   - dbid of a pin or ratT
+         t_pin1/t_pin2   - apin name (<refdes>.<pin#>(ratT names notsupported)
+         o_pinpair       - pinpair dbid
+         lo_pinpair      - list of pinpair dbids (delete mode only)
+  RETURNS
+         Returns depending upon themode
+             nil: error
+             t:   delete was successful
+             o_pinpair: dbid ofadded or modified diffpair
+  SEE ALSO
+         axlPinPairSeek axlPinsOfNet axlMatchGroupCreate
+  EXAMPLES
+         1) Example: xnethaving 2 nets; NET1 and NET1A. This demostrates
+            that pinpairs areactually stored on the xnet
+              - Create pinpair usingname
+                  pp = axlPinPair("U2.13" "R1.2")
+         
+              - Create PinPair withratT of net NET1A
+                  ratTs = axlPinsOfNet("NET1A" 'ratT)
+                  pp = axlPinPair("U2.13" car(ratTs))
+              - verify pinpairs areboth on NET1A
+                 n = car(axlSelectByName("NET" "NET1A"))
+                 n->pinpair RETURNS nil
+              - Now look at the xnet(NET1)
+                 xn = car(axlSelectByName("XNET" "NET1"))
+                 xn->pinpair RETURNS (dbid:21697512dbid:21697232)
+         2) Delete all pinpairsof example 1
+             axlPinPair(xn->pinpair)

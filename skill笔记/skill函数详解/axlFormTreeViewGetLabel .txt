@@ -1,0 +1,20 @@
+获取窗体目录标签
+  NAME
+         axlFormTreeViewGetLabel - Returns the textlabel of a treeview control item
+  SYNOPSIS
+         axlFormTreeViewGetLabel(
+                 r_form
+                 t_field
+                 g_hItem
+         ) -> t_label/nil
+  FUNCTION
+         Returns the text of a giventreeview item.
+  
+  NEEDS
+         Takes 3 args; form id, field name (string), treeview itemhandle.
+  
+         Item is the handle of anitem in the tree view control. This handle was
+         returned as result of thecall to axlFormTreeViewAddItem().
+  
+  RETURNS
+         Returns t_label if successful, nil for failure.

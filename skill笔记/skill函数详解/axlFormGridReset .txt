@@ -1,0 +1,28 @@
+更新格点显示
+  NAME
+         axlFormGridReset - updates grid display
+  FUNCTION
+         axlFormGridReset(
+                 r_form
+                 t_field
+         ) -> t/nil
+  SYNOPSIS
+         This resets the grid to itsunloaded state. Application
+         should then set the columns, then rows the same as when
+         they initially loaded thewindow.
+         This is used if you want to changethe number of columns
+         after the grid has alreadybeen initialized.
+  NEEDS
+         r_form: standard formhandle
+         t_field: standard fieldname
+  RETURNS
+         Returns t for success, nil for failure (incorrect args)
+  SEE ALSO
+         axlFormGridNewCell
+  EXAMPLES
+         See fgrid.il in examplearea
+         Pseudo code:
+                 axlFormGridReset(fg "grid")
+                 initCols()
+                 initRows()
+                 axlFormGridUpdate(fg "grid")

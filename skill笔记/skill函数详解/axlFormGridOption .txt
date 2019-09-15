@@ -1,0 +1,22 @@
+格点操作选项
+  NAME
+         axlFormGridOption - controlgrid options
+  SYNOPSIS
+         axlFormGridOption(
+                 r_form
+                 t_field
+                 s_name
+                 g_value
+         ) -> t/nil
+  FUNCTION
+         Miscellaneous grid options.
+         See axlFormGridDoc for grid overview.
+  NEEDS
+         r_form - form handle
+         t_field - field name
+         ['goto x_row] row number (-1 last row)
+             Sends grid to indicatedrow
+         ['goto x_row:x_col] row and column number (-1 last row or column)
+             Sends grid to indicatedrow and column
+  RETURNS
+         Returns t for success, nil for failure

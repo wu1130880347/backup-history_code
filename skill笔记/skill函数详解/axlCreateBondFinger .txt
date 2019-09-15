@@ -1,0 +1,43 @@
+NAME
+          axlCreateBondFinger
+   FUNCTION
+          axlCreateBondFinger(
+             parentSymbol
+             fingerName
+             list(fingerLocationfingerRotation fingerPadstack)
+             list(placementStyleewlLength fingerSnap fingerAlign)
+          )
+          ==> dbid/nil
+   SYNOPSIS
+          This function adds a valid, fully-instantiatedbond finger to the
+          database. Bond fingerscreated through this interface can be
+          safely manipulated by thewirebond toolset and willalso be
+          properly recognized by allaspects of the database (DRC,
+          signal integrity, 3D viewer, etc).
+   NEEDS
+          parentSymbol - dbid of thesymbol (generally a die) with
+             which this finger shouldbe associated whenperforming
+             operations like a move or delete. Optional.
+          fingerName - The name ofthe bond finger, asstored in the
+             BOND_PAD property.
+         fingerLocation/Rotation/Padstack - The physical information about
+             the bond finger beingcreation, the location is adatabase
+             coordinate point, the rotation and angle in degrees, and
+             the padstack the dbidof a padstack to use.
+         placementStyle/ewlLength/fingerSnap/fingerAlign - The placement
+             data for the bond fingerbeing created, as follows:
+             placementStyle: Stringvalue in the following list:
+                 "Orthogonal", "Equal WireLength", "On Path", "FreePlacement"
+             ewlLength: Length valuefor Equal Wire Lengthstyle,
+                 which represents thedesired length of the wire.
+             fingerSnap: Stringvalue in the following list:
+                 "Center ofFinger", "FingerOrigin", "Near End", "Far End",
+                 "NearestPoint", "FarthestPoint"
+             fingerAlign: Stringvalue in the following list:
+                 "Aligned withWire", "Orthogonal toDie Side",
+                 "Orthogonal toGuide", "Pivoting Orthoto Guide",
+                 "Average WireAngle", "ConstantAngle", "Match CWNeighbor"
+                 "Match CCWNeighbor"
+   RETURNS
+          dbid of newly created bondfinger if successful.
+          nil  if an error occured (message printed to status window).

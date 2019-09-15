@@ -1,0 +1,14 @@
+É¾³ýÀ¯Öò
+  NAME
+     axlDeleteTaper - Delete tapers
+  SYNOPSIS
+     axlDeleteTaper(
+         o_dbid
+     )
+     ==> t/nil
+  FUNCTION
+     Deletes tapers
+  NEEDS
+     o_dbid      - dbid of Shape or PATH.
+  RETURNS
+     t or nil 

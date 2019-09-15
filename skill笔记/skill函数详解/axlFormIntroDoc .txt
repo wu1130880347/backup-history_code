@@ -1,0 +1,322 @@
+Allegro Form PackageÎÄ¼þ
+  NAME
+      axlFormIntroDoc - Introduction tothe Allegro Form Package.
+  SYNOPSIS
+      This chapter describes thecontrol types andfunctions that allow
+      you to create Allegro forms and interact with usersthrough them.
+      Allegro forms are are alsoknown as dialogs.
+      Allegro forms support a rich set of fields (or control types).
+      See Table 1 in axlFormCallback and axlFormBNFDoc for a complete
+      description of field types.Also on the software CD (see
+      EXAMPLES below) include demo programs that show the types and
+      options available.
+      The Skill implementation ofthe forms package does not support the
+      all functionality present inthe core form package; short fields and
+      variable tile forms.
+   OVERVIEW:
+      Additional DocumentationResources
+         1) axlFormCreate - open a form
+         2) axlFormCallback - callback model for interaction withuser
+         3) axlFormBNFDoc - Backus Naur Form, form file syntax
+         4) demos
+         5) axlFormTest
+   PROGRAMMING:
+         It is best to look at thetwo form demo;
+            1) basic controls --axlform.il/axlform.form
+            2) grid control -fgrid.il/fgrid.form
+            3) multi-select gridcontrol - fgrid-msel.il/fgrid.form
+         The first step is to create formfile. Use axlFormTest to insure
+         fields are correctlypostioned.
+         When programming thefollowing is a general model:
+             1) Open form                (axlFormCreate)
+             2) Initializefields        (axlFormSetField)
+             3) display Form             (axlFormDisplay)
+             4) Interactive withuser    (axlFormCallback)
+                 also see USERINTERACTION MODELS below
+             5) Close Form               (axlFormClose)
+   TIPS:
+         1) Many users find that it is easier todistribute their program
+            using a form if they embed the formfile in their Skill code.
+            In this case use Skill to open atemporary file and print
+            the statements, open for form, then delete the file.
+         2) Use axlFormTest("<formfile>")  to interactively adjust of fields.
+         3) You can use "ifdef" and #ifndef" and Allegro environmentvariables
+            (axlSetVariable) to controlappearance of items in form file.
+   FIELD/CONTROL
+         Most interaction to thecontrols are via axlFormSetField,
+         axlFormGetField, axlFormSetFieldEditable andaxlFormSetFieldVisible.
+         Certain controls haveadditional APIs which arenoted in the
+         description for the control.
+         Most controls supportsetting their background and foreground
+         colors. See axlColorDoc and axlFormColorize for more information.
+     The following is a field list and their capabilities.
+     TABSET/TAB
+         A property sheet control.Provides the ability to organize
+         and nest many controls on multiple tabs.
+         Unlike other form controlsyou nest other form controls
+         within TAB/ENDTAB keywords.The size of the tab is control
+         is specified by the FLOC and FSIZE keywords usedas part
+         of the TABSET definition.The single option provided to the
+         TAB keyword serves the dualpurpose of being both the display
+         name and the tab label name.The TABSET has a single option
+         which is the fieldLabel of the TABSET.
+         The TABSET has a singleoption:
+            tabsetDispatch -- When auser picks on a TAB, bydefault,
+                 it is dispatched tothe application as the with
+                 the fieldLabel set to the name of thetab and the
+                 fieldValue as a 't'.  With this option we use the
+                 fieldLabel definedwith the TABSET keyword and
+                 the fieldValue asthe tab name. In most cases you
+                 do not need to handle tabchanges in your form
+                 dispatch code but when you do each dispatchmethod
+                 has its advantages.
+         TABSETs cannot be nested.
+     GROUP
+         A visible box around othercontrols. As such, yougive it a width,
+         height and optional text. Ifwidth or height is 0, we draw the
+         appropriate horizontal or vertical line.Normally the group text
+         is static but you canchange it at run-time by assigning a label
+         to the group.
+     TEXT
+         Static text, defined in the formfile with the keyword "TEXT".
+         The optional second field (use double quotes if more then
+         one word) is any text stringthat should appear in the field.
+         An optional third field canbe use to define a label for
+         run-time control. In addition the labelINFO can be used to
+         define the field label and text width.
+         Mult-line text can bespecified by using the FSIZE label with
+         a the height greater then 2. If no FSIZE labelis present then
+         a one-line text control isassumed where the field width
+         is specified in the INFOlabel.
+         OPTIONS include (form file)
+             any of
+                 bold      - text is displayed in bold font
+                 underline - text isdisplayed with underline
+                 border    - text is displayed with a sunken border
+                 prettyprint - maketext more read-able using upper/lower case
+             and one ofjustification
+                 left      - left justified (default)
+                 center    - center text in control
+                 right     - right justify text
+     STRFILLIN
+         Provides a string entrycontrol. The STRFILLIN keyword takes
+         two required arguments, width of control incharacters and
+         string length (which may be a larger or smaller value then the
+         width of the control).
+         There are 3 variations of thefillin control:
+           1) single line text
+           2) single line textwith a drop-down (use POPkeyword)
+              The dropdown providesthe ability to have pre-defined
+              values for the user.
+           3) multi-line textcontrol. Use a FSIZE keyword to indicate
+              field width and height.
+     INTFILLIN
+         Similar to a STRFILLINexcept input data is checked
+         to be an integer (numbers 0 to 9 and + and -). Use th
+         LONGFILLIN keyword with twoarguments; field width and string
+         length.
+         It only supports variations1 and 2 of STRFILLIN.
+         It also supports a minimum and maximum dataverification. This
+         can be done via the formfile with the MIN and MAX keywords
+         or at run-time viaaxlFormSetFieldLimits.
+     INTSLIDEBAR
+         This is a special versionof the INTFILLIN, itprovides an
+         up/down control to theright of the field that allows the
+         user to change the valueusing the mouse. You should use
+         MIN/MAX settings to limitthe allowed value.
+     REALFILLIN
+         Similar to INTFILLIN exceptsupports floating point numbers.
+         Edit checks are done toonly allow [0 to 9 .+-].If addition
+         to min/max support you canalso provide number of decimals via
+         the DECIMAL keyword or at run-time viaaxlFormSetDecimal.
+         
+     MENUBUTTON
+         Provides a button control.Buttons are stateless. The MENUBUTTON
+         keyword takes two options;width and height.
+         A button has one option:
+            multiline - If buttontext cannot fit on one line wrap it.
+                         Otherwisetext is centered andrestricted to
+                         a singleline
+         A button can have a popupby inserting the "POP" label.
+         With no popup pressing the button dispatchesa value of 1. If
+         it is a button with a popupthen the dispatch is thedispatch
+         entry of the popup
+         Standards:
+             - use "..." if button brings up afile browser
+             - append "..." to text of button if button brings upanother
+                 window
+             - use these labels for:
+                 close - to Close dialogwithout
+                 done/ok - to storechanges and close dialog
+                 cancel - to canceldialog without making any changes
+                 help - The is reserved for cdsdoc help
+                 print - do not use (will get changed to Help).
+     CHECKLIST
+         Provides a check boxcontrol (on/off). Two variants aresupported:
+            - a checkbox
+            - a radiobox.
+         For both types theCHECKLIST control takes an argument for
+         the text that should appearto the right of the checkbox
+         A radiobox allows you toseveral checkboxes to be grouped
+         together. The form packageinsures only one radiobox be
+         set. To enable a radiogroupping provide a common text string
+         as a third argument to theCHECKLIST keyword. An idiosyncrasy
+         of a radiobox is that youwill be dispatched for both the
+         field being unset and also for the field beingset.
+         
+     ENUM (sometimes called combo box)
+         Provides a dropdown topresent the user a fixed set of choices.
+         The dropdown can either bepre-defined in the form file
+         via the POPUP keyword or at run-time withaxlFormBuildPopup.
+         Even if you choose to define the popup atrun-time, you must
+         provide a POPUP placeholderin the form file.
+         POPUP entries are in theform of display/dispatch pairs. Your
+         setting and dispatching of thisfield must be via the dispatch
+         item of the popup (you can always makeboth the same). This
+         technique allows you toisolate what is displayed to the
+         user from what yoursoftware uses. The special case of nil
+         as a value to axlFormSetField will blank thecontrol.
+         Two forms of ENUM field aresupported, the default issingle
+         line always has thedropdown hidden until the user requests
+         it. In this case only define the ENUMSET withthe width
+         parameter. A multi-lineversion is available where the
+         drop-down is alwaysdisplayed. To enable the multi-line
+         version specify both thewidth and height in ENUMSETkeyword.
+         Tip: FILLIN fields alsooffer ENUM capability, see below.
+         OPTIONS include (form file)
+            prettyprint - make textmore read-able using upper/lower case
+            ownerdrawn - provided tosupport color swatches next
+                         to subclassnames. See axlSubclassFormPopup.
+            dispatchsame - Normally if user selects sameentry that
+                         iscurrently shown it will not dispatch
+            
+     LIST
+         A list box is a controlthat displays multiple items. If the list box
+         is not large enough to display all the list box items at once,
+         the list box provides therequired horizontal or vertical scroll bar.
+         We support two list box types; single (default) and multi-selection.
+         You define a multi-select boxin form file with a "OPTIONS multiselect"
+         List boxes have a width and height specified bythe the second
+         and third options to the LIST keyword.The first option to
+         the LIST keyword is ignoredand should always be anempty string
+         ("").
+         List box options are:
+             SORT - alphabetical sort
+             ALPHANUMSORT - takes inaccount trailing numbers so a NET2
+                 appears before aNET10 in the list.
+             PRETTYPRINT: case is ignored and items arereformatted forreadability
+         Special APIs for list controls are axlFormListOptions,
+         axlFormListDeleteAll, axlFormListSelect, axlFormListGetItem,
+         axlFormListAddItem, axlFormListDeleteItem, axlFormListGetSelCount
+         axlFormListGetSelItems, axlFormListSelAll.
+         TIP: For best performancein loading large lists consider passing
+           a list of items toaxlFormSetField.
+     THUMBNAIL
+         Provides a rectangular areafor bitmaps or simple drawings.
+         You must provide a FSIZEkeyword to specify the area occuppied
+         by the thumbnail
+         In bitmap mode, you can provide abitmap as an argument to the
+         THUMBNAIL keyword or at run time as afile to axlFormSetField.
+         In either case, BMPPATH and a .bmp extension isused to locate
+         the bitmap file. The bitmapshould be 256 colors or less.
+         For bitmaps we support oneOPTION:
+            stretch - draw bitmap tofill space provided. Default is
+                 to center bitmap inthe thumbnail region.
+         In the drawing mode you usethe APIs provided by axlGRPDoc to
+         perform simple graphicsdrawing.
+     TREEVIEW
+         Provides a hierarchial treeselector. See axlFormTreeViewSet.
+     GRID
+         This provides a simplespreadsheet like control. See axlFormGridDoc
+         for more info.
+     COLOR
+         Provides a COLOR swatch.Can be used to indicate status (e.g.
+         red, yellow, green). The size of the color swatch iscontrolled
+         by a width and height option theCOLOR keyword.
+         
+         Add the INFO_ONLY keywordto have a read-only color swatch.
+         Without INFO_ONLY the colorswatch provides CHECKBOX like
+         functionality via itsup/down appearance.
+         With COLOR swatches you canuse predefine colors or
+         Allegro database colors. See axlColorDoc.
+     TRACKBAR
+         Provides a slider bar for setting integervalues. The
+         TRACKBAR keyword takes botha width and height and the
+         bar may be eitherhorizontal or vertical.
+         It is important to set both a minimum and maximum integer
+         value. This can be donefrom the form file with the MIN and
+         MAX keywords or at run-time byaxlFormSetFieldLimits.
+     PROGRESS
+         Provides a progress barusually used to indicate status of time
+         consuming operations. Forsetting options to the progress
+         meter pass of list of 3 items to axlFormSetField which
+         are (<step value><number of steps> <initial position>). A
+         subsequent nil passed to axlFormSetField will step the meter
+         by the <step value>.
+         PROGRESS keyword provides for both a width and height of the bar.
+         Bar should be horizontal.
+      
+   USER INTERACTION MODELS
+      Forms support several modes ofgetting infomation from the user;
+         1) Blocking with no callback
+         2) Blocking with callback
+         3) Callback no blocking
+         4) Options form
+      1) Blocking with no callback is thesimplest to program but you are
+         limited to user interaction(such as syntaxingchecking) with
+         what the form's packageprovides for each field. Yourform must
+         use a standard ok or cancel label toallow the user to close the form.
+         Call axlUIWBlock after you display the form.
+         Once the axlUIBlock APIreturns you can query field values via
+         axlFormGetField.
+         This programming modelshould be used only with the simplest forms
+      2) Blocking is similar to the Microsoftdialog model. You can only
+         enter infomation in thedialog. The rest of Allegro is disabled.
+         Until method 1 you provide a formcallback and fully interact with
+         user data entries.
+      3) Callback no blocking is similar tothe way many native Allegro
+         Allegro forms operate. Theuser can interact with both the user's
+         form and the rest ofAllegro. This interface can be more complicted
+         to program if you need to useAllegro database transactions. If
+         you need to usetransactions while theform is open then youneed
+         to declare you commandinteractive and alsoprovide a main window
+         event handler such asaxlEvent so you can properly end your command
+         when another Allegro command starts.
+      4) The options form (or the ministatus form) is the Allegrowindow
+         to the left of the canvas.This is always none blocking and its
+         size is restricted to theOptions panel size. See axlMiniStatusLoad.
+      Many form fields in additionto the "ColorWell" canhave their
+      background and foreground colorset. For grids see the grid document
+      (axlFormGridDoc) for the other formfields see axlFormColorize.
+      To understand how the formpackage functions it is best to look
+      at the examples shown below.The most import is the basic example.
+      In any case to use theexamples:
+          - Copy all of the filesfrom one of the directories to a local
+            directory.
+          - Start Allegro
+          - Change it to thedirectory with the demoestration files
+               "cd<directory>
+            on Allegro command line
+          - load the Skill file inthe directory (it is the one with the
+            "il" extension.Example on Allegro command line:
+                 skill load "<filename>"
+         - start demo by typing onAllegro command line
+            For basic demo
+                 skill formtest
+            For grid demo
+                 skill gridtest
+         - examine the Skill code and form file
+       HINT: by setting the Allegroenviornment variable "TELSKILL", an
+         a window opens thatprovides direct access to the Skill interpreter.
+         This is offers moreflexibly then the Allegro commandarea. On UNIX
+         if this variable is set before starting thetool then the Skill
+         type-in area is the Xterminal used to start Allegro. See the
+         enved tool to configure thewidth and height of thewindow.
+  EXAMPLES
+         See<cdsroot>/share/pcb/examples/form
+            basic: demostrates basicform capabilities
+            grid: demostrates gridcontrol capabilites
+            wizard: form when used in a Wizardmode
+  SEE ALSO
+         axlUIWBlock axlMiniStatusLoad axlEvent axlFormTreeViewSet
+         axlFormColorize axlFormBNFDoc axlGRPDoc axlFormGridDoc

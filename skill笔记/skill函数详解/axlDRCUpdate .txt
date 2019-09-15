@@ -1,0 +1,28 @@
+¸üÐÂDRC
+  NAME
+         axlDRCUpdate - Does a DRC update
+  FUNCTION
+         axlDRCUpdate (
+               g_mode
+         ) -> x_cnt/nil
+  SYNOPSIS
+         Performs a DRC check onentire design.
+         Has two return options controledvia g_mode option
+            nil: interactive (on) checks -- similarto drcupdate command
+            t:   on and batch checks - similar to dbdoctordrc option
+         Will enable On-Line DRC if it is disabled.
+         This obeys current DRC modesettings.
+  CAUTIONS
+         Batch mode is being phasedout.
+  NEEDS
+         g_mode: t do all checks plus batch only checks, nil do only
+                 interactive checks
+  RETURNS
+         x_cnt: Returns number oferrors
+  SEE ALSO
+         axlDRCGetCount, axlDBControl, axlDRCWaive
+         axlDBCheck
+  EXAMPLES
+         1) Run a drc check on a net nameed "GND"
+             db = axlDBFindByName('net "GND")
+             cnt = axlDRCItem(nil p)

@@ -1,0 +1,20 @@
+增加一个非走线层
+  NAME
+     axlLayerCreateNonConductor - create a newsubclass for non-etch subclasses
+  FUNCTION
+     axlLayerCreateNonConductor(
+         t_layerName
+     )
+     ==> t/nil
+  SYNOPSIS
+     Creates a new subclass fornon-etch subclasses.
+     Note if subclass exists itreturns t.
+  NEEDS
+     t_layerName            - <class>/<subclass>
+  RETURNS
+     t/nil   - Returns t ifsubclass create, nil if name isillegal
+  SEE ALSO
+     axlLayerCreateCrossSection
+     axlLayerGet
+  EXAMPLE
+     axlLayerCreateNonConductor("BOARDGEOMETRY/FOO")

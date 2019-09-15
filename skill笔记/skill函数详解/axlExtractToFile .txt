@@ -1,0 +1,36 @@
+调用提取程序写入文件 NAME
+         axlExtractToFile - Invokes theextract program to write to files
+  FUNCTION
+         axlExtractToFile(
+             t_viewFile
+             lt_resultFiles
+             [lt_options]
+         )
+         ==> t/nil
+  SYNOPSIS
+         Invoke the Allegro dataextraction program 'extract' to obtain data
+         from the current design.This is essentially the same as saving
+         the current database and then running the batchversion of extract.
+         For more information on'extract', including thedetails of the
+         extract command file, and the command options, see the Allegromanual.
+  NEEDS
+             t_viewFile          - name of the extract command file (View file)
+             lt_resultFiles      - list of file names for the extract output
+                                    if one file, may be stringinstead of list
+             lt_options          - list of keywords for various options:
+                                     "crosshatch" - generate cross hatch lines
+                                                for cross hatchedshapes
+                                    "ok" - unknown fieldsare OK - (useful
+                                                for props not defined for
+                                                this particular design)
+                                    "short" - short format
+                                    "quiet" - don't print progress messages
+                                     "mcm" - output MCM terminology
+  RETURNS
+         axlExtractToFile        - t if successful, nil if error
+                                        see extract LOG file if error
+  EXAMPLES
+          The following exampleextracts the component data from the
+          current layout.
+             axlExtractToFile( "cmp_rep_view" "my_comp_data") ==> t
+          The function writes the data tothe file my_comp_data.txt.

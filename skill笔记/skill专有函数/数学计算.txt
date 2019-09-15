@@ -1,0 +1,7 @@
+数学计算
+
+Math函数
+axlDistance();  得到2点之间的距离   
+axlGeoEqual(); 在当前design精度下，比较2个浮点数是否相等   
+axlIsPointInsideBox(); 检查点是不是在Box里面  
+axl_ol_ol2(); 检查两个线是否相交

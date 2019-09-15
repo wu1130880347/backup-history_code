@@ -1,0 +1,147 @@
+source $TELENV
+alias ~Q next               #(执行下一步命令)
+alias End redisplay         #（刷新屏幕）
+alias Del Delete            #（激活删除命令）
+alias Esc Done            #（取消指令）
+alias Home Zoom fit         #（全屏显示）
+alias Insert Define grid    #(设置栅格)
+alias ~3 3D_VIEWER            #3D显示
+alias ~O open
+alias ~S save
+alias ~X cup
+alias ~C copy
+alias ~V paste
+alias ~R show measure
+alias ~L mirror
+alias ~A save_as
+alias ~E change
+alias ~P prmed
+alias ~T text edit
+#Aalias ~Y zcopy shape            #zcopy
+
+funckey l mirror          #镜像放置物体 
+funckey ac align components  #对其命令
+funckey m move            #移动 
+funckey e spin            #旋转 
+funckey ph package_height #设置高度 
+funckey d Delete          #（激活删除命令）
+funckey z oops            #撤销 
+funckey Z zcopy shape
+funckey A Align components    #对齐
+funckey C Cmgr   #CM
+funckey f vertex
+funckey ra angle 90        #旋转90度
+funckey t add text        #定义添加文字
+funckey g Define grid     #定义栅格
+funckey pl add line       #画线(非连接线) 
+funckey pp add pin        #添加引脚
+funckey pb label refdes   #添加标签
+funckey pr add rect       #添加矩形
+funckey pc add circle     #添加圆
+funckey w add connect     #画连接线
+funckey s slide    
+funckey c copy  
+funckey y toggle
+funckey ax pop finish
+funckey qq status
+funckey qa shape global param
+funckey ks keepout shape
+funckey pm place manual
+funckey pt display toolbar param
+funckey art artwork          #打开光绘    
+#funckey as shape add           
+#funckey aa shape select       
+#funckey es shape edit boundary      
+funckey Q generaledit       #普通模式
+funckey W placementedit			 #布局模式
+funckey E etchedit  				 #布线模式
+funckey R shapeedit  				 #铜皮模式
+funckey rn rats net    
+funckey ac assign color   
+funckey as shape add
+funckey aa shape select
+funckey ae shape edit boundary
+funckey qw flipdesign
+
+funckey adap replay add_package.scr
+funckey adsns replay set_shape_nodisplay.scr
+funckey adss replay set_shape_display.scr
+funckey adae replay artwork_export.scr
+funckey adus replay update_shape.scr
+funckey adsgs replay set_grid_display.scr
+funckey adsp replay set_workspace.scr
+funckey adli replay logic_import.scr
+funckey adsm replay silkscreen_move.scr
+funckey adci replay Cad_Import.scr
+
+
+funckey aq color192          #定义颜色 
+funckey 1 'pop bbdrill;pop swap;subclass top'
+funckey 2 'pop bbdrill;pop swap;subclass bottom'
+funckey 3 'pop bbdrill;pop swap;subclass top;+'
+funckey 4 'pop bbdrill;pop swap;subclass top;+;+'
+funckey 5 'pop bbdrill;pop swap;subclass top;+;+;+'
+funckey 6 'pop bbdrill;pop swap;subclass top;+;+;+;+'
+
+
+#配置鼠标操作类似AltuimDesigner
+# add and modifty wheel function
+#button wheel_up   "roam y -$roamInc"
+#button wheel_down "roam y  $roamInc"
+#button Swheel_up   "roam x -$roamInc"
+#button Swheel_down "roam x  $roamInc"
+#button Cwheel_up zoom in 1
+#button Cwheel_down zoom out 1
+
+### User Preferences section
+### This section is computer generated.
+### Please do not modify to the end of the file.
+### Place your hand edits above this section.
+###
+set pdf_netname_on_pin
+set pdf_netname_on_cline
+set dxf_version = 14
+set dxf_incremental
+set padpath = J:/CDA/work2019/Hardwork/design/EC620/Revsion3/design/ec620_power_12relay/lib/
+set psmpath = J:/CDA/work2019/Hardwork/design/EC620/Revsion3/design/ec620_power_12relay/lib/
+set parampath = $steppath J:/Cadence_Data/pcb_lib/Public/Public_Pad_Lib/
+set steppath = J:/CDA/work2019/Hardwork/design/EC620/Revsion2/3d/
+set allegro_dynam_timing = on
+unset acon_disable_nullnet_route
+unset allegro_etch_length_on
+set allegro_dynam_timing_fixedpos
+unset acon_restore_space_mode
+set step_display_resistors_capacitors
+set step_export_comp_part_number
+set step_board_level_package_height
+unset disable_opengl
+set ads_sdplot = Output_Plot
+set ads_sdreport = Reports
+set ads_sdart = Gerber
+set ads_sdlog = Output_Log
+set display_drcfill
+unset infinite_cursor_bug_nt
+unset pcb_cursor_angle
+set pcb_cursor = cross
+unset telskill
+set scriptpath = J:/CadenceSkill/my_script/
+set clippath = $clippath G:/ZWSD/design/WallSocket/pcb/tempaltes_lib/
+unset display_shapefill
+unset no_etch_shape_display
+unset old_shape_fill_style
+unset no_shape_fill_dyn_ood
+unset no_shape_fill
+set allegro_new_units = mils
+set cdnsip_new_accuracy = 2
+set allegro_new_accuracy = 2
+set new_template_with_last_design
+set new_units = mils
+set apd_new_units = mils
+set new_accuracy = 2
+set apd_new_accuracy = 2
+set cdnsip_new_units = mils
+set autosave_time = 15
+set autosave_dbcheck
+set autosave
+set autosave_name = Brd_backup
+set journal_prefix = wu

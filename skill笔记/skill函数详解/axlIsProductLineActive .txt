@@ -1,0 +1,15 @@
+判断程式是否已启动
+  NAME
+     axlIsProductLineActive
+  SYNOPSIS
+     axlIsProductLineActive(t_productLine) -> t/nil
+  FUNCTION
+     This routine determines if aproduct in a given product line has been been
+     started.
+  NEEDS
+     productLine: the product linethat we are to check. The legal values are:
+                    "SI", "PCB", "CONCEPT", "ORCAD", "APD", "SIP" and "PACKAGING".
+                  (NOTE: "PACKAGING" is equivalent to "APD" + "SIP".)
+  RETURNS
+     t: there is a license checkedout for the given product line.
+     nil: there is no licensechecked out for the given product line.

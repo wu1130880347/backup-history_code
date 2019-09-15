@@ -1,0 +1,16 @@
+获取所有Allegro design 附件列表
+  NAME
+     axlGetAllAttachmentNames - Retrieve a list of allAllegro design attachments
+  SYNOPSIS
+     axlGetAllAttachmentNames(
+     )
+     ==> l_attachment/nil
+  FUNCTION
+     Returns a list of theids for all database attachments in the
+     the current Allegrodatabase.  If no attachments are present, then nil will
+     be returned.  The attachments themselves can be retrievedusing the
+     axlGetAttachment() function.
+  NEEDS
+     Nothing.
+  RETURNS
+     Returns a list ofattachment ids or nil if there are noattachments in the database.

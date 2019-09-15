@@ -1,0 +1,27 @@
+É¾³ýÒ»¸öGroup
+  NAME
+         axlMatchGroupDelete - deletes a matchgroup
+  FUNCTION
+         axlMatchGroupDelete(
+                 o_mgdbid/t_mgName
+         ) -> t/nil
+  SYNOPSIS
+         This deletes a match group.
+         Command fails in producttiers that do not support electrical
+         constraints or the symbol editor.
+  TIP
+         Using dbids is faster then usingnames.
+  NEEDS
+         o_mgdbid: dbid of a matchgroup
+         t_mgName: name of a matchgroup
+  RETURNS
+         t: match group deleted
+         nil: failed
+  SEE ALSO
+         axlMatchGroupCreate
+  EXAMPLES
+         1) Delete match groupcreated in axlMatchGroupCreate
+                 mg = car(axlSelectByName("MATCH_GROUP" "MG1"))
+                 axlMatchGroupDelete(mg)
+            or
+                 axlMatchGroupDelete("MG1")

@@ -1,0 +1,18 @@
+设置表格单元
+NAME
+     axlSpreadsheetSetCell
+  FUNCTION
+     axlSpreadsheetSetCell(row, col)
+         ==> t / nil
+  SYNOPSIS
+     Make the active row/column of the current worksheet active.
+  NEEDS
+     row   -- Row index (1-based) of cell to activate.
+     col   -- Column index (1-based) of cell to activate.
+  RETURNS
+     t   -- Cell successfully activated.
+     nil -- Cell not activated. See console for reason.
+  SEE ALSO
+    axlSpreadsheetGetCell
+    axlSpreadsheetSetCellProp
+    axlSpreadsheetDefineCell

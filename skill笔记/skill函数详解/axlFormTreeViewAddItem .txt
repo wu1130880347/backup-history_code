@@ -1,0 +1,103 @@
+窗体目录树添加项目
+  NAME
+         axlFormTreeViewAddItem - Addes an item toa treeview (existing or not)
+  SYNOPSIS
+         axlFormTreeViewAddItem(
+                 r_form
+                 t_field
+                 t_label
+                 g_hParent
+                 g_hInsertAfter
+                 [g_multiSelectF]
+                 [g_hLeafImage]
+                 [g_hOpenImage]
+                 [g_hClosedImage]
+         ) -> g_hItem/nil
+  FUNCTION
+         This will add an item to atreeview under parent and after
+         insertAfter sibling. Ifsibling is nil, the item is addedas
+         the last child of a parent.If parent is nil, the item is created
+         as the root of the tree.
+         Note that this is the onlyinterface to add an iem to a tree.
+         axlFormSetField is disabled for Tree controls for now.
+         Also note that theinterface for expanding a parenton demand
+         is not worked out yet. That interface willbe provided shortly.
+         Applications must hold onto the returned handle l_hItem since
+         a handle will be passed asform->curValueInt when the item is
+         selected from the treeview. Note that the string associated with
+         the selected item is alsopassed as form->curValue. However, string
+         value may not be unique and thus cannot be usedas reliable
+         identifer for the selctedtreeview item.
+         The tree view defaults tosingle selection mode. This means there is
+         no checkbox associated withitems in the tree view to make multiple
+         selections. To make a treeview item multi select, you need to pass
+         one of the following valuesfor t_multiSelectF:
+             nil or'TVSELECT_SINGLE  for no selecion statecheckbos
+             t   or 'TVSELECT_2STATE for 2 state checkbox
+                   'TVSELECT_3STATE  for 3 state checkbox
+         If an item is defined to bemulti select, a check box willapear
+         as part of the item. Theuser can check/uncheck (2 state) this box
+         to indicate selection or selectchecked/unckeched/disabled modes
+         for 3 state button. When the user makesany selection in the checkbox,
+         it's value is passed to application ocdein form->treeViewSelState.
+         In this case, form->curValuewill be nil.
+CALLBACK VALUES
+        In your provided callback function for the form, the first argument,
+        form, has the following propertiesrelevant to treeviews:
+  
+        form->curValue   contains the label of a treeview item. Thisis
+                         set in single selectmode and in multi select
+                         mode when the user selectsthe item. In this
+                         case result->tree.selectState will be -1.
+  
+        form->curIntValue  Contains the id of the selected treeview item
+  
+        form->selectState
+                         In multiselect mode when theuser picks the
+                         selection checkbox, this filed will contain:
+                                 0 if selection checkboxis not checked
+                                 1 if selection checkboxis checked
+                                 2 if selection checkboxis disabled (3 state mode only)
+                         In this case result->stringwill be empty.
+  
+                         In allother cases the value is -1.
+        form->event
+                         If eventproperty is set to "rightpopup", treeview
+                         control has a popup and the user hasselected an
+                         item in thepopup. In this case, form->curValue
+                         is set to the popup index selected, and
+                        form->selectState is set to -1. form->curIntValue
+                         is set to the treeviewitem id.
+                         You addpopups to treeview fields in a form like
+                         any otherfield in the form.
+                         For allnon-popup operations, eventis set to
+                         "normal".
+         CALLBACK NOTES:
+                 - If a popup (RMB) is associated witha tree control:
+                   form->event =='rightpopup
+                   fw->curValue -has the popup item selected
+                  fw->curValueInt - has the tree item selected when RMB is done
+  NEEDS
+         r_form: Form id
+         t_field: Name if field
+         t_label: string of item inthe treeview.
+         g_hParent: handle of theparent. If null, item is created asthe
+                   root of the tree.
+         g_hInsertAfter: handle ofthe sibling to add the item after. If null,
+                   item is added atthe end of siblings of the parent.
+         t_multiSelectF: if t, the item will havea checkbox for multi
+                   selection.
+         g_hLeafImage: handle of theimage to use whenever this item is
+                   a leaf node inthe tree view.  If nil or not supplied,
+                   the default pinkdiamond image will be used.
+         g_hOpenImage: handle of theimage to use whenever this item is
+                   an expandedparent node in the tree view.  If nil or not
+                   supplied, the default openfolder image will be used.
+         g_hClosedImage: handle ofthe image to use whenever this item is
+                   an unexpandedparent node in the tree view.  If nil or not
+                   supplied, the default closedfolder image will be used.
+  RETURNS
+         g_hItem if the item is addedto the tree view control, nil if any error
+         occured.
+  EXAMPLES:
+         see<cdsroot>/share/pcb/examples/skill/form/basic/axlform.il

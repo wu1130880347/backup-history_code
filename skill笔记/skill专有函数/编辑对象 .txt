@@ -1,0 +1,114 @@
+编辑对象axlDbidName(); 得到dbid对应的名字  
+
+3. AXL-SKILL Database
+    allegro中的每个对象object(比如IC元件，net)都有一个对应的dbid(databaseidentifiers)，AXL-SKILL操作allegro的也正是这些dbid。   dbid对象：在不同的级别上的dbid是不一样的，比如在Design以及包含的database对象有
+PropertyDictionary，
+Lines，
+Text，
+Polygons，
+Shapes，
+Property 
+Definitions，
+DRCs，
+Vias that arePadstack object types，
+Symbols that areSymdef object types，
+Components，
+Nets；
+
+    而在Symbol级别上则是
+PPins that arePadstack object types，
+Vias that arePadstack object types，
+Lines，
+Arcs，
+Text，
+Polygons，
+Shapes。
+
+    allegro skill database对象类型
+    1.database对象描述
+    1.1 对象类型  
+    Figure objects： 
+Arcs，Branches，
+Design Files，Drcs，
+Lines，Paths，
+Polygons ，
+Ppins，Shapes，
+Symbols ，
+Tees，
+Vias，
+Pads，
+Padstacks，
+Symdefs；      
+
+     Logical objects：
+Components ，
+Functions，
+Function Pins，
+Nets，            
+Propertydictionary objects；
+     Parameter objects：
+Design，
+Display，
+Layer Group，
+Layer，
+Textblock Group，
+Textblock。
+
+
+    1.2 基本操作         
+    尽管有如此之多的类型，但是在allegro中的操作其实就是找到合适的database元素，然后对其操作就好了。只要保证被访问的元素的dbid有效，就可以对其进行处理。
+
+    2. Figure类型
+    Figure在allegro PCB Editer里面一般被成为几何形状，一个Figure类型的元素通常具有如下的属性。
+
+    常见的Figure属性
+属性名            类型              描述       
+bBox           bbox        Figure’s bounding box        
+branch         dbid        For etch, thefigure’s branch parent          
+layer          t_layer     Layer of figure, nil if object ismulti-layer        
+parent         dbid        Nonconnective owner            
+net            dbid        Net object if figure is associated with a net
+
+    注意: 对于所有空(dummy)网络的Figure, 它们的net属性都是"", 而不是nil。
+    Figure有很多的类型，每个类型都有很多个属性，具体的信息请参考algroskill.pdf文档的第二章，这里只列出其中的Line。
+
+     Line的属性列表(除Figure类型常见的属性以外的部分)
+属性名       类型              描述        
+isEtch           t/nil            t = a CLINE; nil = aLINE      
+lineType        s_type        symbol: horizontal,vertical, odd        
+objType        string         Type of object, inthis case "line"          
+parent          dbid           Path,polygon, orshape        
+startEnd        l_point       Start and end points          
+width            float          Width ofline     3. Logical类型
+
+    Logical类型其实就是和电气有关的属性，比如网络连接(net)，电子器件{component)等。    Logical类型通常都具有objType, prop, and readOnly3种属性。    如果你选择了一个component，那么它的objType就是component，如果选择的是pin，则objType属性值就是pin......
+
+    一个简单的例子Bus(总线)，其它的Logical类型请参考Cadence的algroskill.pdf文件
+属性名            类型          描述
+
+groupMembers     l_dbid          List of xnets of the bus
+name                  string          Name of the bus      
+objType              string          “group”          
+type                  string          “BUS”4.Property Dictionary类型
+
+    在allegro的应用中会根据工作的需要自己定制(创建)属性——用户定义的属性(userdefined properties)。Allegro支持用户创建具备如下特性的属性
+NETS， 
+COMPONENTS， 
+FUNCTIONS PINS，
+VIAS， 
+SHAPES， 
+SYMBOLS， 
+CLINES，
+LINES， 
+DRCS， 
+FIGURES，
+DESIGNS， 
+COMPDEFS， 
+PINDEFS， 
+FUNCDEFS。
+
+    如果你创建了一个只包含SYMBOLS类型的属性，那么你创建的这个属性只能被赋给Allegro中的Symbol对象，而不可以赋给 一个net或其它非Symbol的对象。
+    5.Parameter类型
+    Parameter的简单理解就是Allegro中个各个设置参数，举个简单的例子，系统(Design)级别的参数列表。   
+    Design Parameter属性
+    属性名 可设置否? 类型 描述 accuracy no integer Number of decimal places of accuracy bBox nobbox The design’s bounding box height no float Height in userunits objType no string Type of object, in this case "paramDesign" unitsno string Type of user units (mils, inch, micron,millimeterandcentimeter) width no float Widthin user units xy no point Lower left corner of design 注意： 可设置否表示的是能否通过函数axlParamSet来设置。下一章将主要讲对Allegro Parameter的操作，对参数的读取，修改与更新等等。

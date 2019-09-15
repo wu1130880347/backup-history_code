@@ -1,0 +1,21 @@
+返回axlDM 调用中错误的字符串
+  NAME
+         axlDMFileError - return error string from last failed axlDM call
+  FUNCTION
+         axlDMFileError(
+         ) -> nil/t_errorMessage
+  SYNOPSIS
+         This returns the error from the last axlDMxxx call.
+         Subsequent calls will reset the error message so youshould
+         retrieve the error as soon as a callfails.
+  NEEDS
+         nothing
+  RETURNS
+         nil: no error message available
+         t_errorMessage: messageindicating why lastoperation failed
+  SEE ALSO
+         axlDMOpenFile
+  EXAMPLE
+         q = axlDMOpenFile("TEMP" "foo.bar" "r")
+         unless(q
+             printf("ERROR is%L\n" axlDMFileError()))

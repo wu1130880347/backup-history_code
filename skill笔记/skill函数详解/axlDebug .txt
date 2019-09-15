@@ -1,0 +1,23 @@
+启用/禁用AXL debug 模式
+  NAME
+         axlDebug - enable/disableAXL debug mode
+  FUNCTION
+         axlDebug(
+             t/nil
+         ) t/nil
+  SYNOPSIS
+         This enables/disables AXL debug mode. See axlIsDebug for
+         description of what thisentails.
+         Enable debug also enables error messages for invalid attributs
+         of Allegro dbids. Thisenables detecting typos when fetching data
+         from dbids.  This entails a slight performance hit.
+         For example, it you have a pindbid and you do a
+                 pin->bbox (instead ofpin->bBox)
+         then an error will be issued.
+  NEEDS
+         t - to enable AXL Skill debug mode
+         nil - to disable
+  RETURNS
+         returns last setting
+  SEE ALSO
+         axlIsDebug

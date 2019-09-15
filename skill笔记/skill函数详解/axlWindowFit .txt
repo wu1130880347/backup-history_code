@@ -1,0 +1,23 @@
+适当缩放显示当前设计区域
+NAME
+         axlWindowFit - fit design to current display window
+  FUNCTION
+         axlWindowFit(
+         )
+         ==> l_bBox
+  SYNOPSIS
+         Zooms in to (or out of) a design so that it fits fully on the
+         window. For the Allegro layout editor, this performs a fit
+         on the outline. See doc of axlLayoutExtent for more
+         details. For the Allegro symbol editor, it performs a fit such that
+         all visible objects occupy maximum window area.
+         This is bound to the Allegro command "window fit".
+         It returns the bounding box of the window after the fit has
+         been performed.
+  NEEDS
+         nil
+  RETURNS
+         l_bBox          - The bounding box of the window after zooming
+                           (in user units).
+  NOTE
+         This is available as the Allegro command "window fit".

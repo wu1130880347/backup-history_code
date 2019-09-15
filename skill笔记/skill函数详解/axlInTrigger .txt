@@ -1,0 +1,16 @@
+´¥·¢»Øµ÷
+  NAME
+         axlInTrigger - test if in aaxlTrigger callback
+  SYNOPSIS
+         axlInTrigger(
+         ) ==> t/nil
+  FUNCTION
+         Returns t ifcurrently in a trigger call. This function is only required
+         in rare cases when youmight have a utility that you want to run
+         differently if called as part of aaxlTrigger callback.
+  NEEDS
+         nothing
+  RETURNS
+         t if in atrigger callback, nilotherwise
+  SEE ALSO
+         axlTriggerSet

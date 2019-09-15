@@ -1,0 +1,72 @@
+获取OS系统机器数据
+  NAME
+         axlOSControl - inquire about OS and machinedata
+  FUNCTION
+         axlOSControl(
+                 s_name
+                 [g_value]
+         )
+         ==>g_currentValue/ls_names
+  SYNOPSIS
+         Inquires and/or sets thevalue dealing with the graphics.
+         If setting a value, the return is theold value of the control.
+         A side effect of most ofthese controls is if a form is active that
+         is displaying the currentsetting it may not be updated. Additional
+         side effects of individualcontrols are listed.
+         Items will be added overtime.  Items currently supported:
+         Name:   cpu
+         Value:  x_number
+         Set?:  No
+         Description: Returns numberof available CPUs. Included in the number are
+                 multi-cpumulti-core, andhyperthreading.
+         Equiv:  none
+         Side Effects: none
+         Name:   is64exe
+         Value:  t/nil
+         Set?:  No
+         Description: Returns if thisexecutable is 64bit
+         Equiv:  none
+         Side Effects: none
+         Name:   is64os
+         Value:  t/nil
+         Set?:  No
+         Description: Returns if this isa 64bit based OS.
+         Equiv:  none
+         Side Effects: none
+         Name:   isWindows
+         Value:  t/nil
+         Set?:  No
+         Description: Returns t if aWindows OS and nil if UNIX or Linux.
+         Equiv:  none
+         Side Effects: none
+         Name:   hostname
+         Value:  string
+         Set?:  No
+         Description: Returnshostname of computer this programming is running on.
+         Equiv:  none
+         Side Effects: none
+         Name:   physicalMemory
+         Value:  x_number
+         Set?:  No
+         Description: Returns inunits of 1Mbyte the amount of physical memory. This is not
+                 to be confused withvirtual memory.
+                 Note 32bit OScan at most address 4GB (4000MB) of memory. 32bitWindows is
+                 restricted to 3GB. Soeven if you have more installed on your PC this will
+                 still report 3GB.
+         Equiv:  none
+         Side Effects: none
+  NEEDS
+         s_name: symbol name ofcontrol. nil returns all possible names
+         s_value: optional symbolvalue to set. Usually a t or a nil.
+  RETURNS
+         See above
+         ls_names - If name is nil then returnsa list of all controls.
+  SEE ALSO
+         axlUIControl, axlMemSize
+  EXAMPLES:
+         1) get CPUs
+                 size = axlOSControl('cpu)
+                         -> 2
+         2) get if 64bitprogram
+                 axlOSControl('is64exe)
+                         -> nil

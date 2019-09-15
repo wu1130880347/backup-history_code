@@ -1,0 +1,51 @@
+¸ñµãÉèÖÃ
+  NAME
+         axlDBGridSet  - set the design grid
+  SYNOPSIS
+         axlDBGridSet(
+                 og_grid
+         )
+         ==> t/nil
+  FUNCTION
+         This modifies the gridsettings in the design.
+         
+         In addition to the gridnames (see axlDBGridGet), two symbolic
+         grid names are available:
+            'all - sets all gridvalues
+            'etch - sets all ETCHgrid values
+         
+         As a convenience when setting a singlethe xGrids or yGrids attribute,
+         you can use a float.
+         Both xMajor and yMajor values areautomatically determined by the sum
+         of the spacings in xGrids and yGridsrespectively.
+  NOTES
+         - Non etch grids may not have multiplespacings. We only use the
+           first grid seen.
+         - Setting grids is not undo-able (this may change inthe future).
+         - Etch grids names are thesame as ETCH layer names. This may
+           change in the future.
+         - Origin values must bewithin drawing extents or 0.
+         - If Grid dialog is open it will not be updated if you change the grid
+           settings via this API.
+  NEEDS
+         og_grid - a griddisembodied property list from axlDBGetGrid
+  RETURNS
+         t if changed grid, nil if failure
+  SEE ALSO
+         axlDBGridGet, axlDBDisplayControl
+  EXAMPLES
+         1) Modify TOP grid settings
+             grid = axlDBGridGet("TOP")
+             grid = axlDBG
+         2) Modify all grids ( note allow xGrids and yGrids to NOT be list)
+             grid = axlDBGridGet("TOP")
+             grid->name = 'all
+             grid->xGrids = 5.0
+             grid->yGrids = 5.0
+             axlDBGridSet(grid)
+         3) Modify all etch grids
+             grid = axlDBGridGet("TOP")
+             grid->name = 'etch
+             grid->xGrids = '(5.0 7.0)
+             grid->yGrids = '(5.0 6.0)
+             axlDBGridSet(grid)

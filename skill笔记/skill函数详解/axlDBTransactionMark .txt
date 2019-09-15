@@ -1,0 +1,20 @@
+编写数据库中的交易记录
+  NAME
+         axlDBTransactionMark - Write a mark inthe database transaction record
+  SYNOPSIS
+         axlDBTransactionMark(
+             x_mark
+         ) ==> t
+  FUNCTION
+         This writes a mark in thedatabase that can be used with
+         axlDBTransactionOops to rollbackdatabase changes to this mark.
+         When a transaction mark iscommited or rollbacked all
+         axlDBTransactionMarksassociated with that mark are discarded.
+  NEEDS
+         x_mark - databasetransaction mark returned from axlDBTransactionStart
+  RETURNS
+         nil if not successful, t if successful
+  EXAMPLE
+         See axlDBTransactionStart
+  SEE ALSO
+         axlDBTransactionStart, axlDBTransactionOops

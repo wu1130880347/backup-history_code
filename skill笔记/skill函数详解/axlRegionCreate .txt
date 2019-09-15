@@ -1,0 +1,33 @@
+´´½¨ÇøÓò
+  NAME
+         axlRegionCreate - create a region
+  SYNOPSIS
+         axlRegionCreate(
+                 t_name
+         )==> o_dbid
+  FUNCTION
+         Creates a new region group.If a region exists with this name
+         then nil isreturned.
+         Regions may contain shapeson CONS_REGION class. Shapes
+         are added to the regiongroup via the axlRegionAdd.
+         Empty regions may bedeleted on database save.
+         
+         You can obtain the current set ofregions in the database
+         via: axlDBGetDesign()->region.
+         None of the region APIs areenabled in the PCB L product.
+  TIP
+         For better performance, whenmodifing regions you may wish
+         to wrap all the calls withthe axlDBCloak comman.
+  NEEDS
+         t_name  - name of region group (changed to upper case)
+  RETURNS
+         nil: error or regionwith that name exists
+         o_dbid: dbid of group
+  SEE ALSO
+         axlRegionDelete axlRegionAdd axlRegionRemove, axlDBCreateShape,
+         axlDBCreateRectangle
+         If shapes are a member of aregion then their dbid region
+         attribute will refer to theregion dbid
+  EXAMPLES
+         1) Create a rgioncalled "BGA"
+                  nc = axlRegionCreate("BGA")

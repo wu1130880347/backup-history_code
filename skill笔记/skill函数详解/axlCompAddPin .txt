@@ -1,0 +1,71 @@
+Ìí¼ÓÁã¼þµÄpin
+  NAME
+     axlCompAddPin
+  FUNCTION
+     This function add one or more pins to thespecified component.
+     Pins are added to thecorresponding component and symbol definition,
+     with changes being reflected inall instances of those definitions.
+  SYNOPSIS
+     axlCompAddPin(o_comp
+                   g_absLoc
+                   o_pin/lo_pins
+     ) => t/nil
+  NEEDS
+     o_comp         -- Dbid of component instance to which pins should
+                       be added.
+     g_absLoc       -- If true, locations and rotations for pins are
+                       absolutevalues in the design space. If nil,
+                       these valuesare relative to the origin of the
+                       unmirrored, unrotated symboldefinition.
+     o_pin/lo_pins  -- Structure, or list of structures, defining the
+                       pins to beadded. These objects are defstructs as
+                       definedbelow.
+         Defstruct used to define a pin. Usemake_axlCompPinRecord.
+         Required Elements are:
+             s_pinUse    -- Pin use code for this pin. Must be one of
+                 the followingsymbols:
+                     UNSPEC, POWER, GROUND, NC, LOADIN, LOADOUT, BI, TRI, OCA, OCL.
+             n_swapCode  -- Swap group code for this pin. A swapcode of
+                 0 means this pin is not swappable.Otherwise, all pins with the
+                 same swap code areswappable. This value is not used for co-design
+                 components, as all co-designcomp pins are considered swappable.
+             l_location  -- X/Y coordinate location for the pin. Absolute or relative
+                 to the symbol def origin, as specified byg_absLoc.
+             n_rotation  -- Angular rotation of this pin. Absolute or relative to the
+                 symbol def origin, as specified byg_absLoc.
+         Optional Elements are:
+             pinNumber   -- Physical pin number to assign to thispin.
+                 Must be uniqueacross all pins of the component. If no pin
+                 number is provided, the pin number willbe computed based on the
+                 pin numberingscheme for the component. Ifthe numbering scheme is
+                 'Customized', as is the default for co-design objects, then the
+                 tool will assignthe first unused integer as the pin's number (1, 2...).
+             pinName     -- Logical pin name for the pin. Not used
+                 for power/ground pins.If not provided, the pin name for signal
+                 pins will be thesame as the physical pin number.
+             verilogPort -- Verilogport name for the pin. Not used
+                 for power/ground pins. If not provided, the verilog portname will
+                 match the logicalpin name.
+             net         -- Net name or dbid to assign thispin to when created.
+                 If nil, pin will be createdon a dummy net and can beassigned later.
+             padstack    -- Padstack name or dbid to use for this pin. If nopadstack
+                 is supplied, the padstackalready in use for pins ofthis component
+                 will be used for this pin as well.
+         Co-design Elements are:
+             codesignNet -- Net namefor this pin in thesecondary design space. e.g.
+                 For a co-design diein a package, this is the pin'snet in the IC design.
+                 For a co-designpackage in a board, this isthe pin's net in the package.
+             codesignPad -- Pad/Cellname for this pin in thesecondary design space. e.g.
+                 For a co-design diein a package, this is the pin'sLEF bump macro.
+                 For a co-designpackage in a board, this isthe pin's padstack in the package.
+  RETURNS
+     t if the pin(s) were added.
+     nil if there was an error adding any of thepins, e.g. if a pin
+         would be placed outside theextents of the symbol or drawing.
+  NOTES
+     If many pins are to be added, it is moreefficient to pass the entire
+     list to this function to process them in one call than tocall
+     axlCompAddPin with eachindividual pin.
+  SEE ALSO
+     axlCompMovePin
+     axlCompDeletePin

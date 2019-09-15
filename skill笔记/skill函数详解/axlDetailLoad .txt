@@ -1,0 +1,45 @@
+加载 Allegro IPF 文件到设计图中
+  NAME
+          axlDetailLoad - load Allegro ipf (intermediate plotfile) into design
+  SYNOPSIS
+         axlDetailLoad(
+             t_filename
+             point
+             f_scale
+             x_rotation
+             g_mirror)
+         ==> t/nil
+  FUNCTION
+         This loads a the designatedipf file (t_filename) into the current
+         design at location (point), with scaling (f_scale), rotation (f_rotation)
+         and mirror (g_mirror). Items are clipped to rectangleprovided a save file
+         time.
+         It will load the detail to theactive layer.
+         NOTES:
+            - scale values much lessthen 1.0 may haveunpredictable results.
+  NEEDS
+         t_filename - the name ofthe plot file whichcontains the detail.
+         point - the location toplace the detail.
+         f_scale - the scalingfactor of the details as a floating point number
+                         (1.0 is no scaling). Most be greater then 0.1
+         x_rotation - the rotatingangle in degrees. Rotation is restricted to integers.
+         g_mirror - whether thedetail should be mirrored (t/nil.
+  RETURNS
+         t      - was able to load
+         nil    - otherwise
+  SEE ALSO
+         axlDetailSave, axlSetActiveLayer
+  EXAMPLES
+         1) Select a group of objects and load at 0,0 with doublescaling.
+              - use ashSelect function in Skill examplesarea
+               file = "myplt.plt"
+               objs = ashSelect(nil)
+               lyr = "MANUFACTURING/DETAIL"
+               win = axlDBGetDesign()->bBox
+               when(objs
+                   axlDetailSave(file win objs)
+                   axlLayerCreateNonConductor(layer)
+                   axlVisibleLayer(layer t)
+                   axlSetActiveLayer(layer)
+                   axlDetailLoad(file 0:0 2.0 0 nil)
+               )

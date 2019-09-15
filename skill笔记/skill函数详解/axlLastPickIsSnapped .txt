@@ -1,0 +1,17 @@
+是否为最后点击
+  NAME
+         axlLastPickIsSnapped - was last pickedsnapped
+  FUNCTION
+         axlLastPickIsSnapped(
+         ) -> t/nil
+  SYNOPSIS
+         Normally called after anaxlEnter call to determine if the pick
+         was snapped or unsnapped.
+  NEEDS
+         nothing
+  RETURNS
+         t if last pickedwas snapped, nil ifunsnapped
+  EXAMPLES
+         snappedPoint = axlEnterPoint(?prompts list("Pick originpoint")
+                                 ?gridSnap t)
+         state = axlLastPickIsSnapped()

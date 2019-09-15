@@ -1,0 +1,17 @@
+使用 axlFormGridSetBatch 设置的格点，
+NAME
+         axlFormGridBatch - used with axlFormGridSetBatch
+  FUNCTION
+         axlFormGridBatch(
+                 r_cell
+         ) -> t/nil
+  SYNOPSIS
+         This function is always used with axlFormGridSetBatch. It
+         sets many grid cells efficiently.
+  NEEDS
+         r_cell - obtained from axlFormGridNewCell
+  RETURNS
+         t - if successful
+         nil - failed
+  SEE ALSO
+         axlFormGridNewCell

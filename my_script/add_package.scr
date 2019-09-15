@@ -1,0 +1,17 @@
+# Allegro script
+#	file: J:/ZWSD/design2018/PM2_5Project/Revsion1/design/Lib/add_package.scr
+#	start time: Fri Sep 07 19:56:43 2018
+#	Version: 17.2-2016 S031 (3682489) Windows SPB 64-bit Edition
+version 17.2
+
+setwindow pcb
+trapsize 1325
+dlib 
+setwindow form.dlib
+FORM dlib execute  
+FORM dlib cancel  
+setwindow pcb
+save 
+fillin yes 
+
+#	stop time: Fri Sep 07 19:57:07 2018

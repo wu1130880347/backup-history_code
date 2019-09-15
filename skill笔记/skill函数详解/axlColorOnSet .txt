@@ -1,0 +1,18 @@
+当前颜色设置
+  NAME
+         axlColorOnSet - this is obsolete
+  FUNCTION
+         axlColorOnSet(
+                 g_item
+                 g_state
+            ) -> t
+  SYNOPSIS
+         This is obsolete. Due tochanges in the viewing model, Allegro
+         no longer allows you toturn off a color.
+  NEEDS
+         items are ignored
+  RETURNS
+         t: success always
+  SEE ALSO
+         
+  EXAMPLES

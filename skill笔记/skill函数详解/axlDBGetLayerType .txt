@@ -1,0 +1,21 @@
+获得层类型
+  NAME
+         axlDBGetLayerType - Get thecross-section type of alayer
+  SYNOPSIS
+         axlDBGetLayerType(
+             t_layerName
+         )
+         ==> t_layertype/nil
+  FUNCTION
+         This function retrieves thecross-section type of agiven layer.
+         This may be (Layer Type in define xsection form): CONDUCTOR,
+         CROSSOVER, DIELECTRIC, PLANE, BONDING WIRE , MICROWIRE,
+         MULTIWIRE, OPTICAL WAVE GUIDE, or THERMAL GLUECOATING.
+         See cross-section dialog for a current list.
+  NEEDS
+         t_layername               - layername is<class>/<subclass>
+  RETURNS
+         nil - if an error occurs
+         t_layertype -layer type string
+  EXAMPLE
+        axlDBGetLayerType("ETCH/TOP") => "BONDING_WIRE"

@@ -1,0 +1,25 @@
+获取模的类型
+  NAME
+          axlGetDieType
+   FUNCTION
+          axlGetDieType(
+             componentDBID
+          )
+          ==> t_dieType
+   SYNOPSIS
+          This function will return the dieattachment type for a given die
+          component in a Cadencepackaging tool (APD/SIP). A die isconsidered
+          to be an IC classcomponent in the database.
+          Currently, the attachementtypes that are supported include the
+          following:
+             WIREBOND
+             FLIP CHIP
+   NEEDS
+          Component DBID - dbidhandle of the die component to query.
+   RETURNS
+          t_dieType ifsuccessful.
+          nil       if failed (non-die objectpassed or not packaging product).
+.
+   EXAMPLES
+          axlGetDieType(myComp)
+            ==> "FLIPCHIP"

@@ -1,0 +1,33 @@
+¸ü¸ÄÆ÷¼þ±àºÅ
+  NAME
+          axlRenameRefdes - rename a refdes.
+  SYNOPSIS
+          Renames a refdes. Foreither argument, may usea refdes name or a
+          component instance.
+          If both refdes exist aswap will be done.
+  FUNCTION
+         axlRenameRefdes(
+                 t_oldName/o_oldCompDbid
+                t_newName/o_newCompDbid
+         )
+         ==> t/nil
+  NEEDS
+         t_oldName       --     the existing refdes name.
+         o_oldCompDbid   --     alternative is a component dbid
+         t_newName       --     the new refdes name     
+         o_newCompDbid   --     alternative is a component dbid
+  RETURNS
+         t               --      the refdes is successfully renamed orswapped.
+         nil             --      fails.
+                                 Illegal object
+                                Illegal name
+  EXAMPLE
+      1) Change by name
+         axlRenameRefdes("U1" "X1")
+      2) Swap with startingpoint of 2 component dbids
+         axlSetFindFilter(?enabled '("noall" "components") ?onButtons '(all))
+         axlSingleSelectName("COMPONENT" "U1")
+         firstComp = car(axlGetSelSet())
+         axlSingleSelectName("COMPONENT" "U2")
+         secondComp = car(axlGetSelSet())
+         axlRenameRefdes(firstComp secondComp)

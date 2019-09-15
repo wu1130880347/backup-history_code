@@ -1,0 +1,29 @@
+获得线段的终点
+  NAME
+         axlPathSegGetEndPoint - Get the end pointof a pathSeg
+  FUNCTION
+         axlPathSegGetEndPoint(
+             r_pathSeg
+         )
+         ==> l_end_point/nil
+  SYNOPSIS
+         Gets the end point of anexisting path structure.
+  NEEDS
+         r_pathSeg:      Handle of a path segment.
+  RETURNS
+         l_endPoint:     List containing the end point of the path
+                         structure.Returns nil if r_pathSeg is not the
+                         dbid of apath segment, or if thestructure is
+                         empty.
+  EXAMPLES
+         This example:
+           * Creates a path withdefault width 173 mils
+           * Add line segments atwidths 29 and 33 mils
+           * Gets the last segmentadded with axlPathGetLastPathSeg
+         axlPathSegGetWidth returns the widthof that segment only, 33 mils.
+         path = axlPathStart( list(1000:1250) 173)
+                 axlPathLine( path 29 2000:1250)
+                 axlPathLine( path 33 3000:3450)
+         lastSeg = axlPathGetLastPathSeg(path)
+         axlPathSegGetEndPoint( lastSeg)
+                 ==> (3000 3450)

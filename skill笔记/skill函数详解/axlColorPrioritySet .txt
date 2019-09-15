@@ -1,0 +1,17 @@
+优先级颜色设置
+  NAME
+         axlColorPrioritySet - obsolete
+  FUNCTION
+         axlColorPrioritySet(
+                 g_item
+                 [g_item2]
+            ) -> t
+  SYNOPSIS
+         This is obsolete due tochanges in Allegro's color model use axlLayerPrioritySet.
+  NEEDS
+         items are ignored
+  RETURNS
+         t
+  SEE ALSO
+         axlColorSet
+  EXAMPLES

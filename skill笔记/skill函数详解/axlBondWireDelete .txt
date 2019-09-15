@@ -1,0 +1,21 @@
+NAME
+          axlBondWireDelete
+   FUNCTION
+          axlBondWireDelete(
+             bondWires
+             deleteFingers
+          )
+          ==> t/nil
+   SYNOPSIS
+          This will delete the (list of) bond wires passedin.
+          Optionally, it will delete theconnect bond finger
+          elements as well.
+   NEEDS
+          bondWires -- either a dbidor a list of dbids
+              representing the bondwires to be deleted.
+          deleteFingers -- t/nil totell the system whether it should
+              remove any bond fingersconnected to the wires.         
+   RETURNS
+          t   if 1+ objects deleted.
+          nil otherwise
+   EXAMPLES

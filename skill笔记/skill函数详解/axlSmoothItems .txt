@@ -1,0 +1,30 @@
+Æ½»¬½¥±äCline
+  NAME
+    axlSmoothItems - smooth a set ofclines
+  SYNOPSIS
+     list
+     axlSmoothItems (
+         lo_clineList
+     ) ==> (x_
+  FUNCTION
+     Takes a list ofdbids representing clines and/or cline
+     segments and smoothsthem according to the parameters set using the
+     axlSmoothSetParams() function.
+  NEEDS
+     lo_clineList - List of dbidsrepresenting clines and/or cline segments to
+                 be smoothed.
+  RETURNS
+     This function returns a listcontaining the number of clines that were
+     changed by the smoothingprocess and the list of changed items.  The
+     format is as follows:
+         (x_change (o_dbid1 o_dbid2 o_dbid3))
+     Where x_change indicates thenumber of items changed, or -1 if a user
+     interrupt occurred.
+     If an error occurs, the function will return nil.
+  EXAMPLE
+     1) Smooth a set ofclines
+          clines = <list of...>
+          axlSmoothSetParams(list("45" -1.0 "0" 10.0 0))
+          res = axlSmoothItems(clines)
+  SEE ALSO
+     axlSmoothSetParams

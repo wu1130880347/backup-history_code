@@ -1,0 +1,147 @@
+设置某个事件触发相应函数
+  NAME
+     axlTriggerSet - set an event trigger
+  FUNCTION
+     axlTriggerSet(
+         s_trigger
+         s_function
+     )   => t/nil
+     axlTriggerSet(nil nil)
+         => (ls_listOfSupportTriggers)
+  SYNOPSIS
+     This allows an application to register interest in events that occur
+     in Allegro. Supported events are shown by the s_trigger option
+  RESTRICTIONS
+         Unless otherwise indicated, in you Skill callback trigger you
+         cannot do the following:
+            - open, save or close the current database
+            - call axlShell
+            - call any of the axlEnter functions or any of the Select
+              object functions to request a user pick.
+         You should restrict any user interaction to blocking dialogs (forms).
+  TRIGGERS
+     s_trigger Options:
+         'open   (t_database g_existing)
+                 - called immediately after database is opened. Passed
+                   a list of two items, the name of the database
+                   and t if existing and nil if a new database.
+                 - Restictions: You should not open, save or close the
+                         current database.
+                 
+         'save   (t_oldName t_newName)
+                 - called before a database is saved to disk. Passed a
+                   list of two items, the old and new names of the
+                   database (if same then database was overwritten).
+                   This is not called when autosaving.
+         'close  t_name
+                 - called before another database is opened. The single
+                   item (not a list) is the name of the datbase being
+                   discarded.
+         'exit   x_status
+                 - called when program is exiting except if it is an abnormal
+                   termination. x_status is a number where 0 indicates
+                   a clean exit, 1 indicates warnings and 2 is exiting
+                   due to an error. GUI programs do not currently exit
+                   with warnings but this may change in the future.
+                   Trigger is provided for applications to clean-up
+                   there environment, use the save or close trigger
+                   for database specific work.
+                   Restricitions:
+                     - Do not read or change the database.
+                     - Do not display dialogs or blocking confirmers.
+         'menu   t_menuName
+                  - called when a new menu is loaded in the main tool window.
+                    Targeted at application code to modify the menu.
+                   Restricitions:
+                     - While a database is active do not change the database.
+                     - Do not display dialogs or blocking confirmers.
+                     - Do not call axlUIMenuLoad.
+         'xprobe   (s_mode lo_dbid)
+                  - called when object(s) is highlighted or dehilighted
+                    s_mode is a symbol which may be highlight or dehighlight
+                    and lo_dbid is a list of dbids. This is the same
+                    interface used to cross-probe to ConceptHDL/Capture.
+                    This is targeted to allow sending messages to external
+                    tools.
+                   Restricitions:
+                     - Do not change the database
+                     - Do not invoke a dialog or blocking confirmer
+                     - Keep processing at a minimum since this will
+                       impact user interactive performance.
+                     
+         Future releases may add addition triggers. Please request what
+         you desire.
+         
+     When axlTriggerSet is called with both arguments as nil, it returns
+     a list of supported triggers.
+  APPLICATION NOTES:
+     -) All trigger functions take a single argument. If you provide
+         a function that doesn't match this standard your trigger
+         function will NOT be called.
+     -) Any processing you do in these triggers will increase the
+         time to open or save a database. Keep it short! If you can't
+         keep it short please inform the user of your processing so
+         they do not blame Cadence about slow open/save database times
+         (use axlUIWPrint).
+     -) You can register multiple functions for a single trigger but
+         each registration must have a different function. The order
+         that these functions are called when the trigger occurs is
+         undefined.
+     -) Allegro will send a close trigger when Allegro exits normally.
+         Abnormal exits (crash, user kill, etc.) when result in this
+         trigger not being generated.
+     -) You can do user interface work in these triggers. BUT
+         keep in mind you must have the user enter all infomation
+         before returning from the trigger. Situations where you might
+         return without getting data from the user is if you open a form.
+         When opening a form call axlUIWBlock after axlFormDisplay to
+         insure do all your processing inside the trigger (for correct
+         form display use the block option in axlFormCreate, lt_placement
+         parameter).
+     -) You should use caution when using axlShell API within a trigger function.
+        Cadence advises against this and does not support it.
+         (e.g. calling allegro commands or running scripts)
+         - Allegro may block in the script resulting in trigger failures.
+         - Messages may appear to the user which you cannot suppress.
+         - Scripts, commands and command behavioral can change from release to release.
+         - user can also commands to different functionality.
+     -) The triggers for opening and saving the database are generally
+         not called when the database needs to do temporary saves
+         (e.g axlRunBatchDBProgram, reports, netrev etc.). This is not
+         100% as rules are violated.
+     -) Triggering may be disabled by setting the environment variable
+             dbg_noskilltriggers
+         This is useful in debugging if you suspect the applications
+         running on the triggers is causing problems.
+  NEEDS
+     s_trigger   see above
+     s_function = callback function for event. Each trigger should have
+         its own function. If you use the same function for multiple triggers
+         you are unable to differentiate what the cause of the trigger is.
+  RETURNS
+     t if register function for indicated callback
+     nil failed to register trigger
+  SEE ALSO
+     axlTriggerClear, axlTriggerPrint, axlInTrigger
+  EXAMPLES
+     see <cdsroot>/share/pcb/examples/skill/trigger
+     How to use with ~/pcbenv/allegro.ilinit to be notified when
+     your user opens a new board. This example will echo a print
+     everytime a user opens a new database
+     1) In ilinit add:
+       procedure( MyTriggerOpen( t_open)
+         let( (brd old)
+         brd = car(t_open)
+         old = cadr(t_open)
+         if( old then
+            old = "Existing"
+         else
+            old = "New"
+         )
+         printf("SKILLCB Open %s database %s\n" old brd)
+         t
+       ))
+       axlTriggerSet('open 'MyTriggerOpen)
+     2) To be compatible with pre-14.1 software subtitute for axlTriggerSet
+        in allegro.ilinit
+       when( isCallable('axlTriggerSet) axlTriggerSet('open 'MyTriggerOpen))

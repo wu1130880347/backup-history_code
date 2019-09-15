@@ -1,0 +1,43 @@
+获取正在进行的Allegro 命令
+  NAME
+         axlShellPost - post a command forprocessing after skill return
+  FUNCTION
+         axlShellPost(
+                 t_command
+                 ) ==> t
+  SYNOPSIS
+         This works similar to axlShell exceptit first requires a return
+         from the Skill interpreterbefore executing the command(s). It
+         should only be used in thespecial circumstance where you want to
+         do some processing inSkill, execute an Allegrointeractive
+         command and havethat command be left active for the user.
+         If more the one command isembedded in post command then
+         subsequent commands shouldbe prefixed with an underscore
+         to inhibit scripting.Example:
+                 axlShellPost("zoompoints; _pick 10 20")
+  CAUTIONS:
+         1) Do NOT attempt touse this as a method to override an
+            existing Allegro commandwith Skill code and then try
+            to call the originalAllegro command. An infinite loop
+            will result.
+         2) This function may not beportable across Allegro releases.
+  NEEDS
+         t_command:      Allegro shell command orcommands.
+  RETURNS
+         t:      Always returns t.
+  SEE ALSO
+         axlShell
+  EXAMPLES
+         1) over the movecommand to print hello and then let user
+            move objects
+         axlCmdRegister( "mymove" 'testSkill ?cmdType "interactive")
+         procedure( testSkill()
+             printf("Hellomymove\n")
+             axlShellPost("echohello from post; _move")
+             printf("Helloafter-mymove\n")
+         )
+         Output -- showing deferredexecute:
+            Hello mymove
+            Hello aftermove
+            hello from post
+            Select element(s) to move.

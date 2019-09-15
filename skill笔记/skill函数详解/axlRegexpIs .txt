@@ -1,0 +1,24 @@
+某个变量或数据是否包含通配符
+  NAME
+     axlRegexpIs - does patterncontain wildcard characters
+  SYNOPSIS
+    axlRegexpIs (
+      t_exp
+    ) => t/nil
+  FUNCTION
+      Does expression containAllegro compatible wildcard characters.
+      Certain select by namefunctions support wildcard characters and
+      this allows you to test for theirpresence before calling this
+      functions.
+      The regular expression used byAllegro differ from the Skill
+      regular expression handling tobe more compatible with the
+      character set allowedin Allegro object names. This should
+      not be used to testpatterns being sent to the Skill regexp
+      family of functions
+  NEEDS
+      name - Skill symbol for theenvironment variable name
+  RETURNS
+      t it does
+      nil it doesn't
+  SEE ALSO
+      rexCompile, axlSelectByName, axlSingleSelectName

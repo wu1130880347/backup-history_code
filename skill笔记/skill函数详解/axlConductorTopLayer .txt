@@ -1,0 +1,16 @@
+获得PCB顶层层名，如：TOP
+  NAME
+     axlConductorTopLayer - to return the name of the topconductor layer
+  SYNOPSIS
+     axlConductorTopLayer(
+     )
+     ==> t_name
+  FUNCTION
+         Return the name of the topconductor layer.
+  NEEDS
+         nothing
+  RETURNS
+         t_name: the name of the topconductor layer
+  EXAMPLE
+         axlConductorTopLayer() -> "TOP"
+  EXAMPLE

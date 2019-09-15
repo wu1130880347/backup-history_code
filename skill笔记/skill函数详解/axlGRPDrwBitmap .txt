@@ -1,0 +1,20 @@
+图形绘制格式的位图
+  NAME
+      axlGRPDrwBitmap
+  FUNCTION
+      axlGRPDrwBitmap(
+               r_graphics,
+               t_bitmap
+      )->t/nil
+  SYNOPSIS
+      This function loads a bitmap intothe drawing area in the
+      graphics field.  More drawing can take place on top of the
+      bitmap.
+  NEEDS
+      r_graphics - The graphicshandle.
+      t_bitmap   - The name of the bitmap file. The file mustbe on the
+                   BMPPATH, with "bmp" as the extension.
+  RETURNS
+      nil if an erroroccurred, otherwise t.
+  SEE ALSO
+     axlGRPDoc

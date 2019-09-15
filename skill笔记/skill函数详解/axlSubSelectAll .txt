@@ -1,0 +1,37 @@
+根据面板设置去除所有选择状态的对象
+  NAME
+         axlSubSelectAll - Remove all drawing objects from the selection set if they meet current find filter criteria.
+  SYNOPSIS
+         axlSubSelectAll(
+         )
+         ==> t/nil
+  FUNCTION
+         Finds all figures in the database that pass the current Find
+         Filter and deletes their dbids from the select set. Use
+         axlSubSelectAll to subtract all of a given type of figure
+         from a larger set of selected objects.
+         Note: Use axlClearSelSet to deselect all figures in the
+                 current select set, regardless of the current Find
+                 Filter.
+  NEEDS
+         None
+  RETURNS
+         t       - Something was removed from the selection set.
+         nil     - Otherwise.
+  EXAMPLES
+         The following example interactively selects all connect lines
+         (clines) and vias on a net, subtracts the via dbids from the
+         select set, and deletes the remaining dbids in the select set.
+         axlClearSelSet()
+         axlSetFindFilter(?enabled
+                 list( "noall" "equivlogic" "nets" "clines" "vias")
+                 ?onButtons list( "all"))
+         axlAddSelectPoint()
+         axlSetFindFilter(?enabled list( "noall" "vias")
+                 ?onButtons list( "all"))
+         axlSubSelectAll()
+         axlDeleteObject(axlGetSelSet())
+         ==> t
+         The prompt Enter selection point, is displayed. Only the
+         connect lines on the net you have select are deleted--not the
+         vias of the net.

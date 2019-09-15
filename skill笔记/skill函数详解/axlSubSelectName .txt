@@ -1,0 +1,5 @@
+按名称去除所选对象
+  NAME
+         axlSubSelectName        - Remove objects from sel set by name
+  SYNOPSIS
+         see axlAddSelectName

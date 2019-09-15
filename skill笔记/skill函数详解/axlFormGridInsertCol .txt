@@ -1,0 +1,77 @@
+将列添加到格点列中
+  NAME
+     axlFormGridInsertCol - add column toform grid
+  FUNCTION
+     axlFormGridInsertCol(
+         r_form
+         t_field
+         r_formGridCol
+     ) -> t/nil
+  SYNOPSIS
+         For more info on using this function with grids see
+         axlFormGridDoc overviewdiscussion.
+         Adds a column with theindicated options (g_options) to a
+         grid field. The g_optionsparameter is a defstruct
+         of type formGridCol (withauto-constructed make_formGridCol
+         and copy_formGridCol procedures). The formGridColstructure
+         has defaults behavior for all settings.
+    FormGridCol attributes:
+         fieldType       ; (symbol) type of field type(default = TEXT)
+                         ; types := TEXTSTRING LONG REAL ENUMSET CHECKITEM
+         fieldLength     ; (integer) maximum data length (default = 16)
+         colWidth        ; (integer) width of column (defult =0)
+                         ;   if 0 is provided the grid will equallyallocate
+                         ;   the remaining grid width to all 0 widthcolumns
+         headText        ; if grid has a top heading, thissets the heading
+                         ; text. Can also setvia axlFormGridSet
+         ; alignment types (left, right,center)
+         align           ; (symbol) column alignment (defaultleft)
+         topAlign        ; (symbol) alignment of column header
+                                 (default center)
+         scriptLabel     ; (string) column scripting name (default use rownumber)
+                         ; If column entrycan be user edited you may wish
+                         ; to provide a name which is recorded
+                         ; to the script file(for fieldTypes of TEXT this
+                         ; option is ignored)Case is ignore and text
+                         ; should not havewhitespace or the '!'
+         popup           ; (string) name of associated popup,may be
+                                applied to ENUMSET, STRING, LONG or REAL
+                                columns or cellsof that type.
+         ; accuracy support only applicablefor LONG and REAL column types
+         ;       if used must set both min and max values
+         decimals        ; (integer) number of decimal places
+         max             ; (integer or float) maximum value
+         min             ; (integer or float) minimum value
+         Columns currently may onlybe added to a grid field at
+         creation time. Once a gridhas had rows added no new columns
+         may be added. Thisrestriction may be lifted in the future.
+  CAUTION
+         Once a row is addedadditional columns may not be added.
+         This is true even if you delete all rowsin the grid.
+  NEEDS
+         r_form - form handle
+         t_field - field name
+         r_formGridCol - defstruct of type formGridCol (see above)
+  RETURNS
+         t if success
+         nil if failure which may be due to
+                 form or field doesn't exist
+                 field not of type GRID
+                 errors in g_optionsdefstruct
+                 grid has alreadyhad a row added.
+  EXAMPLE
+         For a complete gridprogramming example see:
+            <CDS_INST_DIR>/share/pcb/etc/skill/examples/ui
+         1) Add a 1st column of type TEXT (non-editable) with centeralignment
+             options =make_formGridCol()
+             options->fieldType ='TEXT
+             otpions->align ='center
+             axlFormGridInsertCol(r_form "grid" options)
+         2) Add a 2nd column of type ENUM (non-editable) column width 10,
+            center alignment
+                 - assumes that formfile has a popup definition of grid2nd
+             options->fieldType ='ENUMSET
+             options->popup = "grid2nd"
+             options->colWidth = 10
+             options->scriptLabel= "class"
+             axlFormGridInsertCol(r_form "grid" options)

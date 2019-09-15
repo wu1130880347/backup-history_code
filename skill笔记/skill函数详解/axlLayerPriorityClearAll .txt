@@ -1,0 +1,15 @@
+删除所以层面设置
+  NAME
+         axlLayerPriorityClearAll - Clears all layerpriority settings in
+                                     allegro database.
+  FUNCTION
+         axlLayerPriorityClearAll(
+         ) -> t/nil
+  SYNOPSIS
+         CLears all layer priorityinformation in allegro database. Use
+         See axlLayerPrioritySet() for usage.
+  NEEDS
+  RETURNS
+         t: success
+  SEE ALSO
+         axlLayerPrioritySaveAll axlLayerPriorityRestoreAll

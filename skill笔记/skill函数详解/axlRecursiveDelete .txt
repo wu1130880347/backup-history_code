@@ -1,0 +1,35 @@
+移除某个目录及其子目录和文件
+  NAME
+     axlRecursiveDelete - Recursively removedirectories and files
+  SYNOPSIS
+     axlRecursiveDelete(
+         t_directory
+     )
+     ==> t/nil
+  FUNCTION
+    Recursively removedirectories  and  subdirectories  in the argument  
+   list.   The directory will beemptied of files and removed.
+    If the removal of a non-empty,  write-protected  directory is  
+    attempted, the utility willalways fail. If it encounters protected
+    files or sub-directories itdoes not remove them or its parent
+    directories but will remove allother objects (thus it is partially
+    successful).
+  CAUTION
+    This can be dangerous since itcan severely damage your system/data
+    if not usedwith care. For example, axlRecursiveDelete("/") could
+    delete your OS and all ofyour data.
+  NEEDS
+     t_directory - directory orfilename
+  RETURNS
+     t: removed directory
+     nil: failed orpartially failed for any of the following reasons
+         - doesn't exist
+         - read protected
+         - sub-file ordirectory does not allow remove  (partial success)
+         - a sub-file ordirectory is in use (NT only) (partial success)
+      A partial success means thatsome of the files and directories
+      were deleted.
+  EXAMPLE
+         p = mkdir("/tmp/foo")
+         mkdir("/tmp/foo/bar")
+         axlRecursiveDelete(p)

@@ -1,0 +1,22 @@
+修改设计原点
+  NAME
+     axlDBChangeDesignOrigin - move designorigin
+  SYNOPSIS
+     This allows changing of theorigin of the design
+     It may fail it the new designorigin falls outside the maximum
+     interger range.
+     This is an offset. A negativenumber moves the database left
+     or down while a position number moves it to theright or up.
+  FUNCTION
+     axlDBChangeDesignOrigin(
+         l_point
+     ) -> t/nil
+  NEEDS
+         X/Y offset
+  RETURNS
+         nil if failed to make change
+  CAUTIONS
+         1) On large designs this make take time
+  EXAMPLES
+     1) Move origin
+         axlDBChangeDesignOrigin(900:900)

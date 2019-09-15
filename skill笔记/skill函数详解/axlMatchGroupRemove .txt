@@ -1,0 +1,29 @@
+É¾³ýÒ»¸öGroup
+  NAME
+         axlMatchGroupRemove  - remove members from a  match group
+  FUNCTION
+         axlMatchGroupRemove(
+                 o_mgdbid/t_mgName
+                 o_dbid/lo_dbid
+         )==> t/nil
+  SYNOPSIS
+         Removes objects from anexisting match group. Object must
+         currently be a member (attributegroupMembers) of the match
+         group.
+         Command fails in producttiers that do not support electrical
+         constraints or thesymbol editor.
+  TIP
+         Using dbids is faster then usingnames.
+  NEEDS
+         o_mgdbid: dbid of a matchgroup
+         t_mgName: name of a matchgroup
+         o_dbid:   legal database dbid to remove frommatch group
+         lo_dbid:  list of legal databasedbids to remove from match group
+  RETURNS
+         t         - removed elements
+         nil       - failed one or more elementremoves
+  SEE ALSO
+         axlMatchGroupCreate
+  EXAMPLES
+         - To match group in example axlMatchGroupAdd remove one of the nets:
+             axlMatchGroupRemove(mg  car(nets))

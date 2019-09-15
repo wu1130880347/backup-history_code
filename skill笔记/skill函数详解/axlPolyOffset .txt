@@ -1,0 +1,29 @@
+偏移一个多边形
+  NAME
+         axlPolyOffset - shift polycoordinates
+  FUNCTION
+     axlPolyOffset (
+         o_polygon/lo_polygon
+         l_xy
+         [g_copy]
+     )
+     => o_polygon
+  SYNOPSIS
+      This offsets the entire polyby the provided xy coordinate. Optionally
+      if g_copy is t it willcopy the poly, default is to offset the provided
+      poly.
+      The offseted polygon must beentirely within the extents of the drawing.
+  NEEDS
+      o_polygon    - o_polygon on which the operation is tobe done.
+      lo_polygon   - optionally pass a list of polys
+      l_xy         - coordiates in user units for offset.
+      g_copy       - optional, if t doesthe offset on a copy
+  RETURNS
+      lo_polygon/
+      o_polygon - in place offset (g_copy nil) oroffseted copy of polygond
+                  (g_copy is t). If passed a list ofpolys returns a list
+                  otherwise return a poly.
+  SEE ALSO
+      axlPolyFromDB
+  EXAMPLES
+     <cdsroot>/share/pcb/examples/skill/axlcore/ashpoly.il

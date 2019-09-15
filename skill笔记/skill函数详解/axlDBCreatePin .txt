@@ -1,0 +1,90 @@
+创建一个pin
+  NAME
+         axlDBCreatePin - add a pin to thedatabase
+  FUNCTION
+         axlDBCreatePin(
+            t_padstack/o_padstackDbid
+             l_anchorPoint
+             r_pinText/nil
+             [f_rotation]
+         )
+         ==> l_result/nil
+  SYNOPSIS
+         Adds a pin with padstackt_padstack, pin name r_pinTextat location
+         l_anchorPoint, and rotated byf_rotation degrees.
+         Notes:
+             1) This interface mayonly be used in the symbol editor
+             2) Use axlDBCreatePin only in package and mechanical symbol
+                 drawings. Creatinga pin in any other type of symbols will
+                 cause an error
+             3) Use nil for r_pinText to createa mechanical pin
+  NEEDS
+         t_padstack              - The padstack name for the via.  If a
+                                padstack definition with this name is not
+                                already in the layout, the function
+                                searches in order the libraries specified
+                                 byPADPATH and loads thedefinition into
+                                 thedatabase.
+         o_padstackDbid          - a padstack dbid
+         l_anchorPoint           - The location of the pin
+         r_pinText               - Pin number text structure:
+                         This inturn requires the axlTextOrientation
+                         structure:
+                         defstruct axlTextOrientation
+                            r_textOrientation;theorientation of text
+                           textBlock     ;string - text blockname
+                           rotation      ;rotation infloatnum degrees
+                           mirrored      ;t-->mirrored,nil --> not mirrored
+                                         ;'GEOMETRY--> only geometry is mirrored.
+                           justify       ;"left","center", "right"
+                         Note: Aswith all SKILL defstructs, use constructor
+                         functions:
+                           make_axlPinText to create instancesof axlPinText and
+                           make_axlTextOrientation for axlTextOrientation.
+                                        See the example below.
+                         Use copy functions: copy_axlPinText to copy
+                         instancesof axlPinText and copy_axlTextOrientation
+                         for axlTextOrientation.
+                         If this is nil then a mechanical pin iscreated.
+         f_rotation              - The rotation angle in degreesof the pin.
+  RETURNS
+         l_result/nil          - nil if not created, or a list containing
+                                        (car) axl DBID of the pin
+                                         (cadr) t if DRCs created or nil.
+  EXAMPLES
+         1) The following example adds pins "1", "2", "3", and a
+            mechanical to a packagesymbol drawing. pin "1" with a square pad
+            rotated 45 degrees, pins "2" and "3" with round pads , and pin "3"
+            with its pin textmirrored.
+         mytext = make_axlTextOrientation(
+                                 ?textBlock 6, ?rotation 60.0
+                                 ?mirrored nil ?justify "center")
+         mypin = make_axlPinText(?number "1",
+                                 ?offset 0:75, ?text mytext)
+         axlDBCreatePin( "pad1" 0:0 mypin 45.0)
+         mytext->justify = "left"
+         mytext->rotation = 0.0
+         mypin->number = 2
+         mypin->offset = -125:0
+         axlDBCreatePin( "pad0" -100:-100 mypin)
+         mytext->rotation = -45.0
+         mytext->justify = "right"
+         mytext->mirror = t
+         mypin->number = 3
+         mypin->offset = 50:0
+         axlDBCreatePin( "pad0" 100:-100 mypin)
+         mypin->mytext = nil
+         axlDBCreatePin( "pad0" 100:100 mypin)
+         2) Create 8 pins using a loop
+            x=1000.0
+            y=1000.0
+            myText = make_axlTextOrientation(?textBlock 6
+                          ?justify "center")
+            myPin= make_axlPinText(?offset 0:0 ?text myText)
+            for(i 1 8
+                y=y-100
+                sprintf(buf "a%d" i)
+                myPin->number =buf
+                axlDBCreatePin("VIA" x:y myPin)
+            )
+)

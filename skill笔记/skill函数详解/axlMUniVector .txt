@@ -1,0 +1,36 @@
+返回两个点之间的单位矢量
+  NAME
+         axlMUniVector - return a unit vector betweentwo points
+  FUNCTION
+         axlMUniVector(
+                 l_pt1
+                 l_pt2
+                 [f_length]
+         ) -> l_uniPt1
+  SYNOPSIS
+         This calculates aunit-vector. A unit vector allows one to
+         calculate points additional points alongthat line.
+         Has two modes of operation:
+         1) Without a length return a unit vector to beused in other
+            operations likeaxlMXYMult. Use this mode if you need
+            to calculate severalpoints from the same unit vector.
+         2) With a lengthcalculates a new xy location f_length from
+            l_pt1 along the vectorspecified by pt1 and pt2.
+         This provides optimizedsolution over the traditional
+         trigometric approach.
+  NEEDS
+         l_pt1, l_pt2: 2 xypoints
+         f_length: optional length toproject
+  RETURNS
+         returns a unit-vector, xy point
+         nil: arguments were not xypoints
+  SEE ALSO
+         
+  EXAMPLES
+         1) Found a point 5 unitsalong a line from 1263.0:1062.0
+            to 1338.0:1137.0
+                 origin = 1263.0:1062.0
+                 uniVec = axlMUniVector(origin 1338.0:1137.0)
+                 res = axlMXYMult(uniVec, 5.0 origin)
+         2) Same as example 1 excepthave uni vec do all the work
+                 res = axlMUniVector(origin 1338.0:1137.0 5.0)

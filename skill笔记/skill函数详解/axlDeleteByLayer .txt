@@ -1,0 +1,33 @@
+É¾³ýÄ³²ãµÄÊý¾Ý
+  NAME
+          axlDeleteByLayer - delete data on alayer
+  SYNOPSIS
+          This deletes all data onone or more providedlayers.
+          The following should benoted:
+             - does not delete pins or vias.
+             - deletes pins escapes and other symbol dataassociated with symbols.
+             - does not delete objects on asymbol definition. If you are using
+               this interface as aprerequisite to deleting a layer, objects
+               on a symboldefinition may still prevent you
+             - to delete dynamicshapes, you also need todelete data on the
+               equivalent BOUNDARYclass.
+             - Certain classes areignored; DRC_ERROR_CLASS, PIN, VIA_CLASS, ROUTER_PLAN
+                 and CAVITY;
+  FUNCTION
+         axlDeleteByLayer(
+                t_layerName/lt_layerName
+                 [nil/'fixed]
+         )
+         ==> x_cnt/nil
+  NEEDS
+         t_layerName     -      layer name <class>/<subclass>
+         lt_layerName    -      list of layer names
+         'fixed          -       optional, ignore FIXED property
+  RETURNS
+         x_cnt           -       number of items deleted
+         nil             -       any error
+  EXAMPLE
+         - delete all data onETCH/TOP except for fixeddata
+            axlDeleteByLayer("ETCH/TOP")
+         - delete all data onETCH/BOTTOM plus OUTLINElayers including fixed
+            axlDeleteByLayer(list("ETCH/TOP" "BOARDGEOMETRY/OUTLINE") 'fixed)

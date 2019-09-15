@@ -1,0 +1,36 @@
+对象是否被固定
+  NAME
+     axlDBIsFixed - Is element fixed
+  SYNOPSIS
+     axlDBIsFixed(
+         o_dbid
+         [g_showMessage]
+     ) -> nil or [dbid of 1st element that is making item fixed]
+  FUNCTION
+         This checks if indicated databaseobject is fixed. When the FIXED property
+         is present if can either bedirectly on the object, on a parent (e.g. a CLINE
+         is fixed if the NET is fixed) or on a child (e.g. a symbol isfixed if its
+         place bounds is fixed).
+         
+         Object can be fixed by thefollowing:
+             - FIXED property on itself or its parent or child (e.g. group symboletc)
+             - The object (parent or child) has a privatedatabase fixed attribute
+             - Read-only (typically due topartition enabled)
+             - if symbol has testpoints and fixed test pointflag set
+             - if pin or via is a test pointand fixed test pointflag set
+             - if symbol and any children havethe fixed property
+         Returns first item foundthat causes element to be fixed (could be more then one).
+  NOTE
+         Recommend using axlDBCloak with its'ignoreFixed  option.
+  NEEDS
+     o_dbid      - dbid of the element to be checked.
+     g_showMessage - t to have Allegro display message if item fixed
+                         nil no message
+  RETURNS
+     dbid        - of element causing the fixed.
+     nil         - unfixed
+  SEE ALSO
+     axlDBIgnoreFixed, axlDBIsReadOnly, axlDBCloak
+  EXAMPLE
+         p = axlSelectByname("SYMBOL" "U1")
+         ret = axlDBIsFixed(p)

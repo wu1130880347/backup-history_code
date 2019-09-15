@@ -1,0 +1,25 @@
+获得设计文件锁定信息
+  NAME
+         axlDBGetLock - get database lockinformation
+  FUNCTION
+         axlDBGetLock(
+         ) -> nil/l_info
+  SYNOPSIS
+         This returns the theinfomation about a lock. The following
+         info is provided
+             t_userName - user loginwho locked the database (auto-generated)
+             t_lockDate - datadatabase was locked (auto-generated)
+             t_systemName - system where database was locked(auto-generated)
+             t_export - can designdata be exported to other formats
+                        enabled/disabled string
+             t_comments - comments set by user who lockeddatabase (optional)
+         You can also use the function to see if the database islocked:
+            nil - database isunlocked
+            list - database islocked.
+  NEEDS
+         nothing
+  RETURNS
+         nil: database is not locked
+         (t_userName t_lockDate t_systemNamet_export [t_comments])
+  SEE ALSO
+         axlDBSetLock axlDBDelLock

@@ -1,0 +1,81 @@
+创建一个Group
+  NAME
+         axlMatchGroupCreate - add a match group
+  SYNOPSIS
+         axlMatchGroupCreate(
+                 t_name
+         )==> o_mgdbid
+  FUNCTION
+         This creates a newmatchgroup.
+         If a matchgroup already exists withthis name then nil is returned.
+         Match groups need to bepopulated, use axlMatchGroupAdd to populate.
+         Empty match groups aredeleted on database save.
+         Command fails in producttiers that do not support electrical
+         constraints or thesymbol editor.
+         If the matchgroup waspartially or completely created via an ecset,
+         you can only delete it butit will reappear when an Ecset
+         re-flattening is requireddue to modifications in the design. An Ecset
+         derived match groupindication is currently not available via
+         Skill since it is due toorigin flags stored on the properties.
+         You can access list ofmatch groups in database by:
+                 axlDBGetDesign()->matchgroup
+  RELATIVE_PROPAGATION_DELAYDiscussion
+         Match groups can containthe following elements: xnets, nets, and
+         pinpairs. If a net is partan xnet, the xnet is addedto the
+         match group.
+         TheRELATIVE_PROPAGATION_DELAY proeprty can be added to the match
+         group, xnet andpinpairs. If you add it to the match group then any
+         match group member thatdoes not have the property inherits
+         it from the match group.
+         Because xnets andpinpairs can belong to multiple match groups,
+         a "rpd" attribute exists on thedbid for nets, xnets and pinpairs.
+         This attribute is a list oflists where each sub-list contains a
+         match group dbid and theRELATIVE_PROPAGATION_DELAY value:
+                 rpd = ( (o_mgDbid t_rpdValue) ....)
+         Thus if apinpair belongs to 2 match groups, you will see two
+         lists which are theinherited. A pinpair in a single match group
+         will have a single list oflist. Example a pinpair in MG3 with global
+         scope and anoverride of delta/tolerance of 10ns:5% reports:
+                 rpd = ((dbid:61315360 "MG3:G:::10ns:5 %"))
+         the same pinpair without anoverride will report default match group value
+                 rpd = ((dbid:61315360 "MG3:G:AD:AR:0ns:5 %"))
+         In both examples thr dbidreferences the match group id (MG3).
+         TheRELATIVE_PROPAGATION_DELAY syntax is discussed in the
+         Allegro Property ReferenceManual. In general the syntax is:
+                 <Match groupname>:<scope>:<pinpair>:<value>
+         Adding anddeleting properties to a Match Group or PinPair dbid can
+         accomplished usingaxlMatchGroupProp. When creating the property
+         value, you MUST include thematch group name but not an explicit
+         pinpair. For example, the following addsa RPD property to a match
+         group named "MG2":
+            axlMatchGroupProp.(mg '("RELATIVE_PROPAGATION_DELAY" "MG2:G:::0 ns:5%"))
+         Additional restrictions for thisproperty:      
+            - Pinpairs should havethe pinpair section empty ("::").
+              Example: "MG2:G:::0 ns:5 %"
+            - MatchGroups should notreference an explicit pinpair but,
+              if not empty, should be a use apinpair type (e.g. "AD:AR",
+              "D:R", etc.)
+         For nets and xnets, if youaccess the RELATIVE_PROPAGATION_DELAY
+         property, you may see theflattened version. This means if object
+         is part of multiple MatchGroups, they all appearconcatenated in
+         the property. Any pinpairsthat are part of the net appear as part
+         of the property at the net or xnetlevel. This is present to
+         support legacy applicationslike netlisters. The "rpd" attribute
+         that is dbids forpinpairs, net and xnetswill break this
+         concatentation apart. Ifyou you need to modify in these
+         situations by axlDBAddProp and axlDBDeleteProp it may effect all
+         match groups andpinpairs. It is recommended that you use
+         axlMatchGroupProp formodification of the
+         RELATIVE_PROPAGATION_DELAY propertyfor all objects.
+  NEEDS
+         t_name          - name of match group (changed to upper case)
+  RETURNS
+         nil: error or matchgroup with that name exists
+         o_mgdbid: dbid of matchgroup
+  SEE ALSO
+         axlPinPairSeek axlPinsOfNet axlMatchGroupCreate
+         axlMatchGroupDelete axlMatchGroupAdd axlMatchGroupRemove
+         axlMatchGroupProp
+  EXAMPLES
+         1) Create a matchgroup called "MG1"
+                  mg = axlMatchGroupCreate("mg1")

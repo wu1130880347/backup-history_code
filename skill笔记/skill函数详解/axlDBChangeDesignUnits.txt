@@ -1,0 +1,62 @@
+修改设计单位
+  NAME
+     axlDBChangeDesignUnits - change designworking units andaccuracy
+  SYNOPSIS
+     This allows the units and accuracy of thedesign to be changed.
+     Either may be nil to maintain currentdesign value.
+     When changing units, you should changethe accuracy to maintain
+     adaquate precision within thedatabase. The following table will
+     help in maintaining this precision (ACC := accuracy):
+     
+         UNITS      MIN ACC MAX ACC    DELTA
+         mils          0      4         0
+         inches        2       4         3
+         microns       0      2         0
+         millimeters   1       4         3
+         centimeters   2       4         4
+-) Decreasing accuracy is not recommended.
+-) Switching units between Metric and English is not recommended due toinevitable
+    rounding issues.
+-) Use the DELTA to decide what theaccuracy should whenchanging units
+         new acc = orig acc + (new delta - olddelta)
+                 then limit to newmin/max
+    Ex: mils to millim with current accuacyof 1
+         new acc = orig acc + (millim_delta -mils_delta)
+            4    =    1     +      3       -   0
+-) When changing from one English unitto another or from one
+    Metric unit to another, the defaultaccuracy must match that
+    of the previous. for instance if you are in MILS 0 and change
+    to INCHES the accuracy must be set to 3.
+-) If you change from an English unitto a Metric unit or from aMetric
+    unit to an English unit then the accuracy mustbe set to some
+    number that is at least asaccurate as the current database. for
+    instance if the board is inMILS 0 and you change toMILLIMETERS,
+    then the accuracy must be set to 2, then if you change toINCHES
+    the accuracy must be set to 3 (inches and 3 = mils and 0).
+-) If for any reason the accuracy that isneeded is not allowed due to a
+    limitation on the number ofdecimal places allowed for a particular unit,
+    or if the user explicitly changes theaccuracy to make it less accurate
+    then an error message is be displayed.  The message will say
+    "E-Accuracy will bedecreased, database round-offs may occur".
+    For instance if you are in MICRONS and 1 and change toCENTIMETERS, you
+    will get an error since we don't allow CENTIMETERS and 5.
+  FUNCTION
+     axlDBChangeDesignUnits(
+         t_units/nil
+         x_accuracy/nil
+     ) -> x_drcCount/nil
+  NEEDS
+         t_units - mils, inches, millimeters, centimeters or microns
+         x_accuracy - range is 0 to 4 but may be limitedby above table.
+  RETURNS
+         drc count if successful
+         nil if failed to make change
+  CAUTIONS
+         1) On large designs this make take time
+         2) Reruns DRC if enabled
+  EXAMPLES
+     1) change design from  mils/0 to millim/4 (accuracy is to maintain
+             database precision)
+         axlDBChangeDesignUnits("millimeters" 4)
+     2) increase accuracy from 0  to 2; keep same units
+         axlDBChangeDesignUnits(nil 2)

@@ -1,0 +1,29 @@
+按dbid增加选择对象
+  NAME
+         axlAddSelectObject      - Add objects in list to sel set
+         axlSubSelectObject      - Remove objects in list from sel set.
+  FUNCTION
+         axlAddSelectObject(
+                 lo_dbid
+         )
+         ==> t/nil
+         axlSubSelectObject(
+                 lo_dbid
+         )
+         ==> t/nil
+  SYNOPSIS
+         Adds the dbids in lo_dbidto the to the select set in cumulated
+         mode, that is, without removingalready selected objects. lo_dbid
+         can be either a single dbid or a list of dbids. The function adds
+         dbids in the select set only if they are not already there. The
+         function selects figures completelyregardless of the selection
+         mode . If the dbid of anypart of a figure is in lo_dbid, the
+         function adds the entire figure.
+  NEEDS
+         lo_dbid:   dbid, or list of dbids to be added to the selectset.
+  RETURNS
+         t      - If seomthing was added or removed from the sel set
+         nil    - Otherwise
+  NOTE
+         axlAddSelectObject and axlSingleSelectObject only select objectsthat
+         are of a type that is enabled inthe find filter (?enabled).

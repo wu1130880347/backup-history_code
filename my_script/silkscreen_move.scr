@@ -1,0 +1,12 @@
+# Allegro script
+#	file: J:/ZWSD/design2018/PM2_5Project/Revsion1/design/pcb/silkscreen_move.scr
+#	start time: Sat Sep 08 08:43:06 2018
+#	Version: 17.2-2016 S031 (3682489) Windows SPB 64-bit Edition
+version 17.2
+
+setwindow pcb
+trapsize 12029
+placementedit
+aln 
+
+#	stop time: Sat Sep 08 08:43:25 2018

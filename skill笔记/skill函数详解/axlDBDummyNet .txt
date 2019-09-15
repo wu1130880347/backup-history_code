@@ -1,0 +1,31 @@
+²éÕÒ¿Õnet
+  NAME
+         axlDBDummyNet - retrieve dummynets
+  FUNCTION
+         axlDBDummyNet (
+               g_mode
+         ) -> lo_dbid/nil
+  SYNOPSIS
+         This returns all dummy netsin design.
+         Two courtesy options areprovided which are:
+          - 'pin for any dummy net that hasa pin return the first pin ofthe
+             dummy net
+          - 'shape for any dummy net thathas a shape return the first shape of
+             the dummy net
+         Typically each dummy net indesign will only have a single pin
+         or shape but this may not always be the case.Clines or vias cannot,
+         by themselves exist on adummy.
+         Symbols (dra) do not have dummy nets
+  NEEDS
+         g_mode: 'pin - return list of 1st pins on dummynets
+                 'shape - return list of 1st shapes on dummynets
+  RETURNS
+         t - success
+         nil - failed due to incorrect arguments
+  SEE ALSO
+         axlIsDummyNet, axlDbidName
+  EXAMPLES
+         1) Print all 1st pins on dummynets
+             foreach( mapc x axlDBDummyNet('pin) printf("%s\n" axlDbidName(x)))
+         2) Get all dummy nets on design
+             p = axlDBDummyNet(nil)

@@ -1,0 +1,19 @@
+# Allegro script
+#	file: J:/ZWSD/design2018/NodeScreenV1_0/Revsion2/Finally/main/pcb/play/set_shape_display.scr
+#	start time: Fri Sep 07 20:09:32 2018
+#	Version: 17.2-2016 S031 (3682489) Windows SPB 64-bit Edition
+scriptmode +i +n
+version 17.2
+
+setwindow pcb
+trapsize 3886
+placementedit
+enved 
+placementedit 
+setwindow form.prfedit
+FORM prfedit no_shape_fill NO 
+FORM prfedit apply  
+FORM prfedit done  
+setwindow pcb
+
+#	stop time: Fri Sep 07 20:09:41 2018

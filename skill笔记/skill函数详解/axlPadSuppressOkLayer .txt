@@ -1,0 +1,23 @@
+NAME
+         axlPadSuppressOkLayer - can layer supportsuppress pads
+  SYNOPSIS
+         axlPadSuppressOkLayer(
+             t_layer/x_layerNumber
+         )
+         ==> t/nil
+  FUNCTION
+         Indicates if layercan be set for pad suppression. Only internal
+         conductor and shapelayers that are not set for negative artwork
+         support pad suppression.
+  NEEDS
+         t_layer- name of layer (e.g. "TOP")
+         x_layerNumber - layernumber (starts at 0);
+  RETURNS
+         t if layercan allows padsuppress; nil otherwise
+  SEE ALSO
+         axlPadSuppressGet
+  EXAMPLES
+         The following are the samein the PCB tool but may not be in APD
+         or cdnsip:
+            axlPadSuppressOkLayer("TOP")
+            axlPadSuppressOkLayer(0)

@@ -1,0 +1,48 @@
+NAME
+         axlPinImport - import a pin csvfile
+  SYNOPSIS
+         axlPinImport(
+                 t_csvFile
+         )
+         --> l_cnt/nil
+  FUNCTION
+         This imports pin csv (comma separatedvalues) file into thesymbol editor.
+         With this file you can describe thelocation and other characteristics
+         of a set of pins(including mechanical) that comprise asymbol.
+         Function is only enabled insymbol editor.
+         To best understand theformat of this file, youshould export one via
+         axlPinExport.
+         
+         Two formats are supported:
+         - pin only, pin text is locatedat pin origin
+         - pin with text
+         File format:
+           - A '#' indicates acomment
+           - (Optional) Units,<units strings>
+           - table desribing pins
+         Pin Table (column numberindicated)
+           1)  PinNumber - Pin number, if blank then amechanical pin.
+           2)  Padstack - name of padstack
+           3)  x - x location of pin (no units)
+           4)  y - y location of pin (no units)
+           5)  rotation - pin rotations, if blankhas no rotations
+         If the pin text option isused then the following columns should be present
+           6)  x offset location from pin origin
+           7) y offset location from pin origin
+           8)  rotation of text (absolute), if blank no rotation
+           9)  textMirror; blank no mirror, "m" text should bemirrored
+         Text block used for pintext is the design active text block.
+         NOTE: Setting axlDebug() may give additionalinfo on why pins fail to load.
+  NEEDS
+         t_csvFile - csv file, assumes a .csvextension.
+  RETURNS
+         nil - unable to openfile or no pins loaded
+         l_cnt - a list of (x_pinsLoaded x_pinFailed)
+  SEE ALSO
+         axlPinExport
+  EXAMPLES
+         - in the symbol editor witha dra file loaded. Export pins with text location,
+           date, delete all pins and then importthem:
+               axlPinExport(nil "foo")
+               axlDeleteObject(axlDBGetDesign()->pins nil
+               axlPinImport(foo")

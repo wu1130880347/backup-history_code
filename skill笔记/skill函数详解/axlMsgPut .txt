@@ -1,0 +1,55 @@
+在命令对话框显示信息
+  NAME
+         axlMsgPut - puts a message tothe journal file
+  FUNCTION
+         axlMsgPut(
+                 g_message_format
+                 [g_arg1 ...]
+                 )
+         ==> t
+  SYNOPSIS
+         Puts a message in thejournal file. Use this function to "print" messages. Itbuffers
+         any errors orwarnings, but processes othermessage classes immediately.
+  NEEDs
+         g_message_format:       The context message (printf like) message formatstring. See
+                                Message Handler Functions .
+         g_arg1 ...:             The values for thesubstitution arguments for the format string.
+  RETURNS
+         t:      Always returns t.
+  EXAMPLES
+         axlMsgPut(list("Cannot findvia %s" 3) "VIA10")
+          ==> t
+         The following example:
+         1. Starts a contextwith axlMsgContextStart
+         2. Puts a warning, an error, and a fatal error messageusing axlMsgPut
+         3. Checks for the error messagewith axlMsgContextInBuf
+         4. Tests for thecontext severity level with axlMsgContextTest
+         5. Prints the contextbuffer with axlMsgContextPrint
+         6. Ends with axlMsgContextFinish
+                 context = axlMsgContextStart("My own context.")
+                 axlMsgPut(list("My warning" 2))
+                 axlMsgPut(list("My error" 3))
+                 printf("Messageseverity %d",axlMsgContextTest(context))
+                 axlMsgPut(list("My fatal error %s" 4) "BADERROR")
+                 if( axlMsgContextInBuf(context "My error")
+                 printf("%s\n" "my error isthere"))
+                 printf("Messageseverity %d",axlMsgContextTest(context))
+                 axlMsgContextPrint(context)
+                 axlMsgContextFinish(context)
+                  ==> t
+         When you load theSKILL program shown above, the SKILL command line
+         outputs the following:
+         W- My warning
+         E- My error
+         F- My fatal error BADERROR
+         Message severity 3
+         my error is there
+         Message severity 4
+         t
+         This information shows thegeneral usage of the axlMsg system:
+         * Messages first go to thecontext buffer
+         * axlMsgContextPrint prints them to theSKILL command line
+         * The contents of theoutput buffer from any print and printf data write to thecommand
+           line when controlreturns to the command line.
+         That is why the messages "Messageseverity 3," "myerror is there" and
+         "Message severity 4" are after thebuffered messages ("W-My warning" ...).

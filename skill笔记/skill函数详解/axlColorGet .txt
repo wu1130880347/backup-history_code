@@ -1,0 +1,53 @@
+»ñÈ¡ÑÕÉ«
+  NAME
+         axlColorGet - get color palette
+  FUNCTION
+         1) axlColorGet(
+                x_number/`background
+            ) -> lx_rgb/nil
+         2) axlColorGet(
+                 'count
+            ) -> x_count
+         3) axlColorGet(
+                 'all
+            ) -> llx_rgb
+         4) axlColorGet(
+                 'pattern
+            ) -> x_count
+  SYNOPSIS
+         Supports these modes:
+            1) If passed an index less the color count returns a list containg
+                 the red, green, blue palette valuesfor that color index.
+                 These are integervalues between 0 (no color and 255 (maximum
+                 color). For example a '(255 255 255) is white.
+               Or if passed 'backgroundreturns the pallete for the background.
+            2) if givien 'countreturns the current size of the database pallete
+                 (currently always 24)
+            3) if passed 'all returnsa list of list (red, green, blue) for
+               all entire databasepalette EXCEPT the background.
+            4) returns number ofpatterns supported (includesdefault solid).
+         The color index is the numberassigned to to each layer in Allegro
+         (see axlVisibleGet)
+  NEEDS
+         x_number - color number
+         'background - get background color
+         'count - query currentdatabase color palette size
+         'all - get entire databasecolor palette (except background)
+  RETURNS
+         x_count: size of databasepalette
+         nil: error
+         lx_rgb: a palette
+         llx_rgb: The entiredatabase palette
+  SEE ALSO
+         axlColorSet, axlVisibleGet
+  EXAMPLES
+         1) get red/green/blue of color 2
+                 clr = axlColorGet(2)
+         2) get background color
+                 bground = axlColorGet(`background)
+         3) get number of colors
+                 cnt = axlColorGet(`count)
+         4) get all red/green/blue color settingsexcept background
+                 all = axlColorGet(`all)
+         5) get number of display patterns supported
+                 cnt = axlColorGet(`pattern)

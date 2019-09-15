@@ -1,0 +1,27 @@
+FormGrid¸üÐÂ
+
+  NAME
+         axlFormGridUpdate - Cause grid tographically update after changes
+  FUNCTION
+         axlFormGridUpdate(
+                 r_form
+                 t_field
+         ) -> t/nil
+  SYNOPSIS
+         Unlike the form listscontrol you must manually notify the grid
+         control that it must updateitself. You should use this call in the
+         following situations:
+                 1) Inserting a row or rows
+                 2) Deleting a row or rows
+                 3) Changing cell(s)
+         You should make the call atthe end of all of changes to the grid.
+  CAUTION:
+         Do not make this callinside the function you use with
+         axlFormGridSetBatch. Makeit after axlFormGridSetBatch returns.
+  NEEDS
+         r_form: standard formhandle
+         t_field: standard fieldname
+  RETURNS
+         Returns t for success, nil for failure
+  SEE ALSO
+         axlFormGridNewCell

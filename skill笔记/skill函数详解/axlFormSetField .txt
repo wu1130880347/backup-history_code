@@ -1,0 +1,68 @@
+设置某个部件显示的内容
+  NAME
+         axlFormSetField - sets a form fieldvalue
+  SYNOPSIS
+         axlFormSetField(
+                 r_form
+                 t_field
+                 g_value/nil
+         ) -> t/nil
+  FUNCTION
+         Sets values of individualform fields.
+         Value is type dependent upon type of field type. Fora complete
+         discussion of field typessee the discussion at the front of
+         this section.
+         
+         Special notes for certain controls.
+         LIST TYPE
+            Value may be a string, integer or real. Items areconverted
+            to strings before beingdisplayed. A nil isneeded to display
+            the list
+            Alternatively value maybe a list of strings. This results
+            in better performance when you have many itemsto display.
+         
+         COLOR TYPE
+            g_value parameter mayhave several types:
+                 s_colorSymbol           - set field to predefined color
+                 x_number                - set field to product color
+                 t or nil                - depress or raise field
+                 l_both                  - a list allows setting both
+                                        check and value;pass a list of
+                                        the color set
+            s_colorSymbol may beblack, white, red, green, yellow
+                                 or multivalue.
+            x_number is a integerbetween 1 and 24 with 0 being background
+         CHECKBOX
+            The following valuesunset the checkbox; nil, 0, "nil", "false" & "no".
+            All other values will set the checkbox.
+  NEEDS
+         form id - form handle
+         field name - field name isa string or symbol
+         value - may be a string, boolean, integer or floating point
+                 number or a list; function of field type.
+  EXAMPLES:
+         List Field (field is named "list")
+            ;; display 3 items in list
+            axlFormSetField(fw, "list", "a")
+            axlFormSetField(fw, "list", "b")
+            axlFormSetField(fw, "list", "c")
+            ; nil required first time list isdisplayed
+            axlFormSetField(fw, "list", nil)
+            ;; display 3 items in list -alternative
+            axlFormSetField(fw, "list", '("a" "b" "c"))
+         Color field (field is named "color")
+            ;; sets the color field topre-defined color "red"
+            axlFormSetField(fw, "color", `red)
+            ;; sets the color field to productcolor 1
+            axlFormSetField(fw, "color", 1)
+            ;; visually depresses the color fieldif not greyed
+            axlFormSetField(fw, "color", t)
+            ;; visually depresses the color fieldand set to
+            ;;      pre-defined green color
+            axlFormSetField(fw, "color", '(green t))
+          Tab field (field is named "tab")
+            ;; puts the tab on top
+            axlformSetField(fw, "tab", nil)
+         
+  RETURNS
+         Returns t for success, nil for failure

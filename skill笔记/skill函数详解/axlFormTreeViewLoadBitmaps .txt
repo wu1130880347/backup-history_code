@@ -1,0 +1,43 @@
+¼ÓÔØ´°ÌåÄ¿Â¼Ê÷Í¼Æ¬
+  NAME
+         axlFormTreeViewLoadBitmaps - Makes new bitmapimages available for use ina tree view
+  SYNOPSIS
+         axlFormTreeViewLoadBitmaps(
+                 r_form
+                 t_field
+                 lt_bitmaps
+         ) -> l_hImage/nil
+  FUNCTION
+         Allows an application to load one or more bitmaps intoAllegro
+         for use in the specified tree view.
+  NEEDS
+         r_form: Form id
+         t_field: Name of field
+         lt_bitmaps: Either a stringcontaining the name of the bitmap
+                 file to load, or a list of strings, each of which is the
+                 name of a bitmapfile to load.
+  NOTES
+         Bitmap images must be 16 x 16 pixels.
+         A bitmap file may containmore than one image provided they are
+         appended horizontally (i.e. a bitmap filecontaining n images
+         will be (16*n) x 16 pixels).
+         The color RGB(255,0,0) is reserved for the transparentcolor.
+         Any pixel with this colorwill be displayed using the background
+         color.
+  RETURNS
+         A list of image handlesthat the caller will use to reference
+         the images images insubsequent axlFormTreeViewAddItem calls.
+         The list is ordered tocorrespond with the same order that
+         the images were listed inthe lt_bitmaps parameter.
+         nil is returned if any of the bitmapfiles could not befound,
+         or if an error was encountered while adding images.
+  EXAMPLE
+         Say file myBmp1.bmp is a 16 x 16 bitmap and myBmp2.bmp is a
+         32 x 16 bitmap.
+             (axlFormTreeViewLoadBitmaps (list "myBmp1" "myBmp2"))
+         might return
+             (6 7 8)
+         This would mean that the image handle 6 would refer to  the
+         bitmap contained inmyBmp1.bmp, the image handle 7 would refer
+         to the left half ofmyBmp2.bmp, and the image handle 8 would
+         refer to the right half ofmyBmp2.bmp.

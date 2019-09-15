@@ -1,0 +1,20 @@
+获得list部件中某处的内容
+  NAME
+         axlFormListGetItem - Get a list item string at index
+  FUNCTION
+         axlFormListGetItem(
+                 r_form
+                 t_field
+                 x_index
+         ) -> t_listItem/nil
+  SYNOPSIS
+         This will return the item in the list at index (x_index).
+         Lists start at index 0. If -1 is passed as an index, returns
+         last item in list.
+  NEEDS
+         r_form: Form id
+         t_field: Name if field
+         x_index: offset into list
+  RETURNS
+         t_listItem: string of itemin the list.
+         nil if index is not valid or no item is at that index

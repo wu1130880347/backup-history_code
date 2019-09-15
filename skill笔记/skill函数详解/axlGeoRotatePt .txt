@@ -1,0 +1,31 @@
+旋转的中心点
+  NAME
+         axlGeoRotatePt - rotate pointabout a center
+  FUNCTION
+         axlGeoRotatePt(
+                 f_angle
+                 l_xy
+                 l_origin/nil
+                 [mirror]
+         ) -> l_xyResult/nil
+  SYNOPSIS
+         Rotates xy about an originby angle. Optionally applies mirror
+         on the x axis.
+  NEEDS
+         f_angle: angle 0 to 360 degrees(support for 1/1000 ofa degree)
+                 rotation iscounter-clockwise for positive numbers
+         l_xy: xy point to rotate inuser units
+         l_origin: origin to rotateabout if nil uses (0, 0)
+         mirror: optional mirrorflag (t performmirror)
+  RETURNS
+         l_xyResult: rotated result
+         nil: error inarguments or rotation would result in return
+                 being outside ofthe database extents
+  EXAMPLES
+         1) rotate:
+                 axlGeoRotatePt(45.0 10:200 5:2) ->   (-131.4716 145.5427)
+         2) rotate and mirror:
+                 axlGeoRotatePt(45.0 10:200 5:2 t) -> (-138.5427 138.4716)
+         3) rotate about 0,0:
+                 axlGeoRotatePt(90.0, 100:0 nil) ->  (0.0 100.0)
+2 U% T2 E  y3 Y# W! |9 H

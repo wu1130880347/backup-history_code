@@ -1,0 +1,34 @@
+获取die-stack设置数据
+  NAME
+         axlGetDieStackMemberSet - getdie-stack member data set
+  FUNCTION
+         axlGetDieStackMemberSet (
+         )
+         ==> list ofdie-stack member defstructs/nil
+  SYNOPSIS
+         This function returnsa list of defstructs - one for each member
+         of the given die stack.
+         Only available in SIPproducts.
+  NEEDS
+         g_stackArg - name or dbid ofthe die stack
+  RETURNS
+         l_data - List of die-stack member datadefstructs or nil on error
+       defstruct fields are:
+         dbid                  - dbid of member
+         refId                 - member name
+         memberType            - one of DSA_DIE, DSA_SPACER, DSA_INTERPOSER
+         stackPosition         - integer position of member instack
+         layerName             - etch object subclass of member
+         nextMemberOnSameLayer -flag indicating next member on same layer
+         prevMemberOnSameLayer -flag indicating previous member on same layer
+  EXAMPLE
+         data = axlGetDieStackMemberSet("DIESTACK1")
+         foreach(member data
+           printf("refId = %L,memberType = %L\n" member->refId
+                                                 member->memberType)
+         )
+         ==> refId = "FC1", memberType =DSA_DIE
+             refId = "IPOSER_1", memberType =DSA_INTERPOSER
+             refId = "WB1", memberType =DSA_DIE
+             refId = "SPACER_1", memberType =DSA_SPACER
+             refId = "WB2", memberType =DSA_DIE

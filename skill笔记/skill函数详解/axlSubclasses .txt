@@ -1,0 +1,39 @@
+ETCH²ãÃæÁÐ±í
+  NAME
+      axlSubclasses - list of subclasses that make up class ETCH
+  SYNOPSIS
+         axlSubclasses(
+            t_class
+            ?field s_name
+            ?value g_value
+         ) -> lt_subclasses
+  FUNCTION
+      This returns list of subclasses that make up class.
+      Will function in both APD and Allegro name space.
+      The field and value options provide additional filtering based upon
+      the characteristics of the layer. See Allegro Skill doc
+      "Layer Parameter Attributes (Allegro Subclasses)" or do
+         axlLayerGet("MANUFACTURING/PROBE_TOP")->??
+      to get a attributes and values permitted on a layer.
+      You should map the class name via axlMapClassName if you are writing
+      code for both PCB and APD/SIP as certain class names are different
+      in these products.
+      The base call is actually just:
+         axlGetParam("paramLayerGroup:ETCH")->groupMembers
+  NEEDS
+         t_class - class name
+         field - Optional field for filtering. If value option is not
+                 present filters on basis of a non-nil value.
+         value - Optional value of field to use for filtering. Requires
+                 field option to be passed.
+  RETURNS
+         list of subclass strings
+  SEE ALSO
+         axlSubclassRoute, axlGetParam, axlMapClassName, axlClasses
+  EXAMPLES
+         1) get all subclasses on class
+             axlSubclasses( axlMapClassName("MANUFACTURING"))
+         2) get user defined subclasses
+             axlSubclasses("MANUFACTURING" ?field 'userDefined)
+         3) all allegro defined
+             axlSubclasses("MANUFACTURING" ?field 'userDefined ?value nil)

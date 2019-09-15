@@ -1,0 +1,36 @@
+在图形区域设置一个可用的鼠标右键菜单
+  NAME
+         axlUIPopupSet - sets the current popup in the graphics canvas
+  SYNOPSIS
+         axlUIPopupSet(
+                 r_popup
+                 )
+         ==> r_prevPopup
+  FUNCTION
+         Sets the active popup in Allegro. If nil is passed, it unsets the
+         currently active popup.
+         If this call is preceded by a call to axlUICmdPopupSet with a non-nil
+         r_popup, the contents of this popup are used to control graying of
+         the popup items defined in the call to axlUICmdPopupSet.  Otherwise
+         r_popup is used to replace the popup entries.  In both cases, the
+         popup callbacks will be replaced.
+         The popup is invoked by pressing mouse popup button, this is normally
+         the right mouse button.
+  NEEDS
+         r_popup         Popup handle, obtained by calling axlUIPopupDefine.
+  RETURNS
+         r_prevPopup     The popup set that was previously defined. This can
+                         be used to restore the previous popup state.
+  EXAMPLES
+         The following example creates a pop-up with the selections:
+            - Complete, associated with your function axlMyComplete
+            - Rotate, associated with axlMyRotate
+            - Something, associated with axlMySomething
+            - Cancel, associated with axlCancelEnterFun
+                 popid = axlUIPopupDefine( nil
+                         (list (list "Complete" 'axlMyComplete)
+                         (list "Rotate" 'axlMyRotate)
+                         (list "Something" 'axlMySomething)
+                         (list "Cancel" 'axlCancelEnterFun))
+         You then set up the pop-up, as follows:
+                 axlUIPopupSet( popid)

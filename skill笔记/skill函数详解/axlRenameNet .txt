@@ -1,0 +1,36 @@
+¸ü¸ÄÍøÂçÃû
+  NAME
+          axlRenameNet - rename a net.
+  SYNOPSIS
+         axlRenameNet(
+                 t_old_name
+                 t_new_name
+         )
+         ==> t/nil
+         _axlDBRenameNet(
+                 o_dbid
+                 t_new_name
+         )
+         ==> t/nil
+  FUNCTION
+          Renames a net. For oldobject may either give a string with
+          the net name to be renamedor an object that is on that net.
+          It will fail if the newnet name already exists in the database.
+          dbid = axlSingleSelectName("NET" '("NET"))
+          Note doesn't refresh anyaxl dbid's to reflect the new net name.
+          Caution: The net name maybe used in properties. This function
+                 currently does not updatethese values.
+  NEEDS
+         t_old_name      --     the existing net name.
+         o_dbid          --      alt is a dbid that is on a net
+         t_new_name      --      the new net name (should not exist in database).
+  RETURNS
+         t               --      the net is successfully renamed.
+         nil             --      fails.
+                                 Netalready exists
+  EXAMPLE
+         axlRenameNet("GND" "NEWGND")
+         ; first verify new net name doesn'texist
+         axlSetFindFilter(?enabled '("noall" "nets"))
+         if(axlSingleSelectName("NET" '("NEWGND") ) then
+             axlRenameNet(dbid "NEWGND")

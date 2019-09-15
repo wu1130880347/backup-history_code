@@ -1,0 +1,24 @@
+设置某个部件显示的内容
+  NAME
+         axlFormSetInfo - sets an info field
+  FUNCTION
+         axlFormSetInfo(
+                 r_form
+                 t_field
+                 t_value
+                 )
+         ==> t/nil
+  SYNOPSIS
+         Sets info t_field to valuet_value in open form r_form. Unlike axlFormSet, a user cannot
+         change an info field.
+         Note: You can also useaxlFormSetField.
+  NEEDS
+         r_form:         Form dbid.
+         t_field:        Name of the field.
+         t_value:        Desired value of the field.
+  RETURNS
+         t/nil:          Returns t if the field was set to desired value.Otherwise, it returns
+                         nil.
+  EXAMPLES
+         axlFormSetInfo( form "file_list" fileName)
+         See the use of axlFormSetField in axlFormCreate examples.

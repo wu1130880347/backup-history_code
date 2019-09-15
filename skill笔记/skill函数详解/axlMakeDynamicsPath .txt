@@ -1,0 +1,34 @@
+将某个线段或弧线的dbid数据转换为path
+  NAME
+         axlMakeDynamicsPath - Convert formattedlist of to a r_path
+  SYNOPSIS
+         axlMakeDynamicsPath (
+             l_formatedList
+         )  
+         ==> r_path/nil
+  FUNCTION
+         This is a convience function toconstruct an r_path from a formatted
+         list Several axlDBCreateand axlPoly required an r_path
+         Format is:
+                 ( l_seg1 l_seg2 ...)
+           Where each l_seg is
+                 ( l_startPointl_endPoirt [f_width] [l_center] [f_radius])
+             wherre
+                 l_startPoint -startpoint of path
+                 l_endPoint -endpoint of path
+                 f_width - optionalwidth (default of 0)
+                 l_center - optionalcenter point if r_path is an arc
+                 f_radius - optionalradius if r_path is an arc
+             If an arc r_path bothl_center and f_radius must be provided.
+         Caution: Passing an illegalformat may result in a bad return
+  NEEDS  
+         l_formatedList  - See above for format
+  RETURN
+         r_path ifsuccessful; nil otherwise.
+  NOTE   
+         A circle is an arc segmentwith same end points.
+  SEE ALSO
+         axlGetDynamicsSegs
+  EXAMPLES
+         Simple r_path segment witha with of 20
+            a = axlMakeDynamicsPath('( (10:10 100:100 15.1)))

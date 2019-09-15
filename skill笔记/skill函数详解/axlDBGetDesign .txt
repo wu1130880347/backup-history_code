@@ -1,0 +1,34 @@
+»ñÈ¡DesignµÄdbid
+  NAME
+     axlDBGetDesign -    Gives the design root DBID
+  FUNCTION
+    axlDBGetDesign (
+       )
+       ==> o_design/nil
+  SYNOPSIS
+      Returns the root design dbid.Use this dbid to get thedesign properties
+      and to add properties to the design.Note that you cannot edit the root design
+      object. AXL edit commands ignore thisdbid.
+      This also allows access tolists of all dbids of many types in the
+      design such as nets, components, etc.
+  TIP
+      It is much more efficient if you need to accessall nets, components, etc.
+      to use the appropriateattribute off this dbid then to use the Selection
+      APIs to query all elements.
+  NEEDS
+      none
+  RETURNS
+      o_design/nil:           Root design dbid
+  SEE ALSO
+      See Section Allegro DatabaseUse Model, Design object for complete
+      description of objectsaccessible from this dbid.
+  EXAMPLES
+         Get the root design and set the BOARD_THICKNESSproperty to 0.350 inches.
+             mydesign = axlDBGetDesign()
+             axlDBAddProp( mydesign, list("board_thickness", 0.350))
+         To check the property hasthe correct value:
+             1. From the Allegromenu, chooseEdit->Property.
+             2. From the FindFilter, select Drawing fromFind by Name
+             3. Put "*" (or any character) then hit "Enter".
+         The Show dialog box isdisplayed, listing the currentproperties
+         attached to the design.

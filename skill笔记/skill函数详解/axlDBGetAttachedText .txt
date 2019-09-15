@@ -1,0 +1,38 @@
+获得对象所包含的文字
+  NAME
+     axlDBGetAttachedText - retrieve theattached text from the database.
+  FUNCTION
+     axlDBGetAttachedText(
+         o_dbid
+     )
+     => l_dbid/nil
+  SYNOPSIS
+       Returns the list of dbids of textobjects attached to the object whose
+       dbid is o_dbid. If dbid isaxlGetDesign returns all text attached to
+       root of design.
+  NEEDS
+       o_dbid:   dbid of object from which attached text dbidsare be retrieved.
+  RETURNS
+       l_dbid/nil:     Returns a list of the text objects attached too_dbid.
+                 Returns nil if there are noattached text objects.
+  EXAMPLES
+         The following example lets the user pick asymbol, then returns the
+         text attributes of eachtext object attached to that symbol.
+         (defun showText ()
+            mypopup = axlUIPopupDefine( nil
+                 list(list("Done" 'axlFinishEnterFun)
+                 list("Cancel" 'axlCancelEnterFun)))
+            axlUIPopupSet( mypopup)
+            axlSetFindFilter( ?enabled '("noall") ?onButtons "noall")
+            axlSetFindFilter( ?enabled '("symbols") ?onButtons "symbols")
+            while((axlSelect)
+                progn( alltext =
+                      axlDBGetAttachedText(car(axlGetSelSet()))
+                      foreach(thistext alltext
+                          printf( "Text on thissymbol is: %s\n",
+                                         thistext->text))))
+         Run showText() and pick a symbol ofdevice type "74F74,"
+         assigned as refdes "T23." The
+         function prints the following:
+                 Text on this symbolis : T23
+                 Text on this symbolis : 74F74

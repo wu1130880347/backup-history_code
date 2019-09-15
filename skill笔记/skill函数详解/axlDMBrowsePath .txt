@@ -1,0 +1,31 @@
+调用基于Allegro路径变量的文件浏览器
+  NAME
+         axlDMBrowsePath - invoke a file browser based uponAllegro path variables
+  FUNCTION
+         axlDMBrowsePath(
+                 t_adsFileType
+                 [t_title]
+                 [t_helpTag]
+         ) -> t_fileName/nil
+  SYNOPSIS
+         This invokes a standardAllegro file browser suporting
+         paths (e.g. SCRIPTPATH). To use, you need to passone
+         of the filetypes support byfileops.txt. Generally this
+         should be used to browsefiletypes that include the fileops
+         PATH attribute. axlDMFileBrowse should be used
+         to browse other filetypes.This will work on non-PATH
+         filetypes (it browses incurrent working directory) but
+         the user is not able to change thedirectory with
+         the this browser.
+  NEEDS
+         t_adsFileType - first entryon lines in fileops.txt
+         t_title - title for dialog (optional)
+         t_helpTag - option tag for help file (currently this
+                 can only be used byCadence)
+  RETURNS
+         If success returns fullpath to filename otherwise nil
+  SEE ALSO
+         axlDMFileBrowse
+  EXAMPLES
+         ret = axlDMBrowsePath("ALLEGRO_SCRIPT")
+         ret = axlDMBrowsePath("ALLEGRO_CLIPBOARD" "SelectClipboard")

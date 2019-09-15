@@ -1,0 +1,23 @@
+显示查看     2.2 Color操作函数(部分)
+    2.2.1 Allegro中的Color          
+    Allegro支持2种访问Color的方式，预定义的color和allegro database color。           
+    预定义的color有'black，‘'white，'red，'green，'yellow，'blue，'multivalue - use dfor fields where value not thesame，'button - current color of button faces (grey)。           
+    database color是以[1-24]之间的整数表示的，0被保留为背景颜色。           
+    在2.1.1的示例中，就有看到color值为-1的情况，这表示被查询的元素当前是不可见的。     
+2.2.2 常用Color相关函数   
+
+axlUIDataBrowse axlUIColorDialog 这2个函数调用allegro系列的form，挺有用的。
+
+axlUIDataBrowse('NET '(RETRIEVE_NAME) "hi" t) 
+rgb = axlColorGet(1) 
+rgb = axlUIColorDialog(nil rgb) 
+when( rgb axlColorSet(1 rgb) ) 
+这里的1可以是其它的数字，16.0以上可以到192。
+
+
+    获取Color调色板，axlColorGet(x_number/'background/'count/'all), 如axlColorGet('all)=>得到系统的颜色设置结构列表。对应设置Color调色板函数，axlColorSet()；             
+    系统颜色设定的保存与重载函数，axlColorSave(file)与axlColorLoad(file)；             
+    用户定制颜色来设置系统中的元素，axlCustomColorObject([lo_dbid][g_custom_color])，
+    相应的清除命令为axlClearObjectCustomColor([lo_dbid])；             
+    其它更多的color相关函数请参考algroskill文档
+

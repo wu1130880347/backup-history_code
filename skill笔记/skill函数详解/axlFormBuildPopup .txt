@@ -1,0 +1,207 @@
+创建鼠标右键菜单
+  NAME
+         axlFormBuildPopup - changes popup for a popup fieldnon-popup fields is an error
+  FUNCTION
+         axlFormBuildPopup (
+                         r_form
+                         t_field
+                         l_pairs
+         ) -> t/nil
+  SYNOPSIS
+         This provides the abilityto dynamically change popups of fields
+         that have them. Thesefields are enum (or pop-up) and other fields
+         that have a popup icon.Buttons, optionally, may also have apopup
+         if they have a right arrow.
+         Attempting this call on ona field without a popup is an error.
+  NEEDS
+         r_form: a form handle
+         t_field: field name
+         l_pairs: may be one of fourformats where each element is asingle
+                 popup entry. Amaximum of 256 popup entries areallowed
+                 ( (t_display t_dispatch) ... )  -- normal
+                 ( t_displayNdispatch... )      -- alternative normal
+                 ( (t_display x_dispatch) ... )  -- for enum field types
+                 ( (t_displayt_dispatch/x_dispatch options) ... )  
+                 Options can be 1 or 2 additional list options that are
+                    S_color/x_color
+                         -- for enum field typeswith color
+                    bold or underline
+                         -- a bold or underline items
+                 See below for examples
+  Note: All entries in an l_pairsargument must be the same type of
+         format. That is, you cannot have a list containing, for example, both
+         display/dispatch strings and display/enum types, or
+         display/dispatch and single-stringentries.     
+         Must be one of formatsdescribed here. Each list object
+         defines a single popupentry. The AXL Forms: Pop-up Example
+         below shows examples of allthree formats:
+         * A list of lists of stringpairs.
+         The first member of each string pairlist is the display value-the
+         string displayed in thepop-up. The second member of each string pair
+         is the dispatch value-thestring value returned as form->curValue when
+         the user selects thatpop-up entry. Example:
+                 '(("MyPop A" "myvalue_a") ("MyPop B" "myvalue_b"))
+         * A list of lists of pairs where the first member of each pair is a
+         string giving the display value, and the second member is an integer
+         that is the dispatch value, returned asform->curValue when the user
+         selects that pop-up entry.
+         You can use the return value as an index into an array.Example:
+                 '(("MyPop A" 5) ("MyPop B" 7))
+         * A list of strings. axlFormBuildPopup uses each stringboth
+         for display value and the return value.
+                 '("MyPop A" "MyPop B")
+         * A color swatch can bespecified as a optional third field. This
+           is currently only supportedby ENUM field types (it isignored
+           by other field types). With an ENUM youneed to add
+           "OPTIONS ownerdrawn" in the form file for the FIELD inquestion
+           to see the color swatchin the popup.
+           You can use eitherpre-defined color names (see axlColorDoc)
+           or Allegro boardcolors (see axlLayerGet). You can't mix
+           this color types in asingle popup.
+                 '(("Green" 1 green) ("Red" 2 red) ("Yellow" 3 yellow))
+                 '(("Top" "top" 2) ("Gnd "gnd" 4) ("Bottom" "btm" 18))
+            If instead of a color or Allegro colornumber, you provide
+            a nil then that popup entrywill not have a colorswatch.
+                 '("(None" 0 nil) ("Green" 1 green) ("Red" 2 red)
+                                 ("Yellow" 3 yellow))
+         * Font type of bold or underline can bespecified via:
+                 '(("Top" "top" bold) ("Gnd "gnd" underline) ("Bottom" "btm"))
+         * When font type is combined withcolor it looks like
+                 '(("Top" "top" "Green" bold)  ("Gnd "gnd" "Red" underline)
+  Tips:   
+         - axlFormBuildPopup allows a maximum of1000 pop-up entries inone pop-up.
+         - If creating a dynamicpopup (entries createdunder prgoram control) a
+           dummy entry must exist inthe form file or buildpopup will fail. Example:
+                 <popupname> """".
+         - The field name isactually a search mechanism. We first search the
+           fields for the field name witha popup and then search the popupnames.
+           Since the only way tochange grid column or cell based popups is by
+           popup name you may runinto failures if thatpopup name has the same
+           name as another field inthe form.
+  RETURNS
+         t/nil:  Returns t if it has set the field. Otherwise it returns nil.
+  EXAMPLES
+         This example program uses aform file (expected to be inthe
+         current directory) to create a pop-upusing each of the three
+         possible ways. In each case the sample programalso displays
+         in the pop-up field thevalue returned whenever the user
+         selects a pop-up.
+         The form file popup.form for this example is:
+         FILE_TYPE=FORM_DEFNVERSION=2
+         FORM
+         FIXED
+         PORT 50 5
+         HEADER "PopupSelector"
+         POPUP <SCRIPTP> "Record" "record","Replay" "replay","Stop" "stop".
+         POPUP <MYPOPUP> "MyPopup1" "myPopup1","MyPopup2" "myPopup2".
+         TILE
+         TEXT "My PopupHere:"
+         TLOC 1 1
+         ENDTEXT
+         FIELD my_popup
+         FLOC 12 3
+         ENUMSET 24
+         POP "MYPOPUP"
+         ENDFIELD
+         FIELD change_pop
+         FLOC 5 6
+         MENUBUTTON "Change" 8 3
+         ENDFIELD
+         FIELD done
+         FLOC 15 6
+         MENUBUTTON "Done" 9 3
+         ENDFIELD
+         FIELD print
+         FLOC 25 6
+         FIELD script
+         FLOC 35 6
+         MENUBUTTON "Script" 11 3
+         POP "SCRIPTP"
+         ENDFIELD
+         ENDTILE
+         ENDFORM
+         The form field "my_popup" originally has thepopup values
+         specified by the filepopup.form ("MyPopup1" and "MyPopup2").
+         The AXL program responds tothe Change button by building the
+         pop-up display and return values with each ofthe three
+         possible types ofarguments:
+         * A list of lists of display and dispatch stringpairs:
+         list( list( "MyPop 1" "myPopValue1")
+                 list( "MyPop 2" "myPopValue2"))
+         * A list of lists ofdisplay/dispatch pairs, where the display
+           value is a string, and the dispatch valueis an integer:
+         list( list( "MyPop 12" 12) list( "MyPop 5" 5))
+         * A list of strings, which means that eachstring represents
+         both the display and dispatch values ofthat popup selection:
+         list( "MyPopValue1" "MyPopValue2")
+         The following program setsthe field my_popup to the value
+         selected by the user and prints it:
+         ; formpop.il - Create and display aform with a popup
+         ; Form call back function to respondto user selection of any
+         ; field in the form
+         (defun _popAction (form)
+          (case form->curField
+          ("done"
+              (axlFormClose form)
+          (axlCancelEnterFun)
+          t)
+          ("change_pop"
+              (case already_changed
+              (0          ;Use display/dispatch string pairs
+                 axlFormBuildPopup(form "my_popup" list(
+                     list("NewPopupA" "mynewpopup_a")
+                     list("NewPopupB" "mynewpopup_b")))
+                 axlFormSetField(form "my_popup" "My FirstPopups")
+              )
+              (1          ;Display string/dispatch integerpairs
+                 axlFormBuildPopup(form "my_popup"
+                     list( list("NewPopup12" 12)
+                     list("NewPopup5" 5)))
+                 axlFormSetField(form "my_popup" "My SecondPopups")
+              )
+              (t          ;String is both display and dispatch
+                 axlFormBuildPopup(form "my_popup"
+                     list( "MyPopNValue1" "MyPopNValue2"))
+                 axlFormSetField(form "my_popup" "My ThirdPopups")
+              )
+          )
+              already_changed++
+          t)
+          ("my_popup"
+              printf( "Got my_popupevent: form->curValue %s", form->curValue)
+              if( form->curValue
+                 (progn
+                     axlFormSetField( form "my_popup" form->curValue)))
+          t)
+         ); case
+         )
+         ; defun _popAction
+         ; User-callable function to set upand
+         ;       display the Extract Selector form
+         (defun myPop ()
+                 form = axlFormCreate( (gensym) "popup"
+                         ("E" "OUTER") _popAction t)
+                 if( axlIsFormType(form)
+                 then (print "Created formsuccessfully.")
+                 else (print "Error! Couldnot create form."))
+                 axlFormTitle( form "Try MyPopup")
+                 mypopvalue = "my_start_popup"
+                 axlFormSetField( form "my_popup" mypopvalue)
+                 axlFormDisplay( form)
+                 already_changed = 0
+         ); defun myPop
+         1. Enter myPop() on the SKILL command line to display the Try
+            My Popup form.
+         2. Press the middle mouse button overthe pop-up field to
+            display the original pop-upspecified by the file popup.form.
+         3. Click left on the Change button.
+         The form displays the firstset of pop-up values set by the
+         program. The first pop-up values also display when you press
+         the middle mouse buttonover the field.
+         4. Make a selection.
+         If, for example, you selected NewPopup B, the program prints
+         the following on the SKILLcommand line:
+         Got my_popup event:form->curValue mynewpopup_b
+         The following form isdisplayed.
+         5. Click on Change again.
+         The program builds displaysthe third set of pop-ups.

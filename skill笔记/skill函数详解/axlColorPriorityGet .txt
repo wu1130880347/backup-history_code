@@ -1,0 +1,17 @@
+优先级颜色获取
+  NAME
+         axlColorPriorityGet - obsolete
+  FUNCTION
+         axlColorPriorityGet(
+                 g_item
+                 [g_item2]
+            ) -> nil
+  SYNOPSIS
+         This obsolete due tochanges in Allegro's color model, use axlLayerPriorityGet.
+  NEEDS
+         items are ignored
+  RETURNS
+         nil
+  SEE ALSO
+         axlColorSet
+  EXAMPLES

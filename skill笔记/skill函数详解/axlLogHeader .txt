@@ -1,0 +1,27 @@
+文件头条
+     NAME
+         axlLogHeader - Interface tocreate a standard log file header entry.
+     SYNOPSIS
+         axlLogHeader(
+              p_port
+              t_titleString
+              [t_prefix]
+         )
+         ==> t/nil
+     FUNCTION
+         Writes the standard Allegrolog file header to the
+         passed open file.
+         Header record includes:
+             Title String
+             Drawing Name
+             Software Release
+             Date/Time
+     NEEDS
+         p_port - Skill port for openfile
+         t_titleString - titlestring in logfile header
+         t_prefix - optional prefix string toheader for easier
+                         parsing (recommend "#")
+     RETURNS
+         t/nil indicatingsuccess/failure.
+     SEE ALSO
+         axlDMOpenFile

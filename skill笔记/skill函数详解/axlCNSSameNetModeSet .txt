@@ -1,0 +1,45 @@
+设置约束相同的间距模式（开/关）
+  NAME
+         axlCNSSameNetModeSet - set same net spacingconstraint modes (on/off)
+  FUNCTION
+         axlCNSSameNetModeSet(
+                 t_name/s_name
+                 t_mode/s_mode
+         )
+         ==> t/nil
+         axlCNSSameNetModeSet(
+                 'all
+                 t_mode/smode
+         )
+         ==> t/nil
+         axlCNSSameNetModeSet(
+                 l_constraintNModes
+                 t_mode/smode
+         )
+         ==> t/nil
+         axlCNSSameNetModeSet(
+                 ll_constraintNModes
+         )
+         ==> t/nil
+  SYNOPSIS
+         Documentation same asaxlCNSSpacingModeSet.
+  NEEDS
+         s_name: symbol name ofcheck.
+         t_name: string name ofcheck.
+         s_mode: mode setting; maybe 'on or 'off.
+         t_mode: string modesetting  "on or "off".
+         'all: set all checks for given tier ofallegro.
+  RETURNS
+         Returns t if succeeds or nil if failure.
+  SEE ALSO
+         axlCNSSameNetModeGet, axlCNSGetSameNet, axlCNSSpacingModeSet
+  EXAMPLES:
+        1) turn off all same net spacingconstraints
+                 axlCNSSameNetModeSet('all 'off)
+         2) turn on line to line check
+                 axlCNSSameNetModeSet('line_line 'on)
+         3) turn two constraints to on
+                 axlCNSSameNetModeSet('(line_shapethrupin_line) 'on)
+         4) set several constraints to differentmodes
+                 axlCNSSameNetModeSet( '((line_line off)
+                                 (thrupin_shape on)) )

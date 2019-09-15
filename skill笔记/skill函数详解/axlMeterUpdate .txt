@@ -1,0 +1,25 @@
+[size=15.555556297302246px]更新进度表
+      NAME
+         axlMeterUpdate
+  FUNCTION
+         axlMeterUpdate(
+                 x_percentDone
+                 t_infoString
+                 [t_infoStr2]
+         ) -> t/nil
+  SYNOPSIS
+         Updates progress meter barand/or info text. The percent
+            done and/or the info stringmay be updated.
+     NEEDS
+         x_percentDone - integertask percent done (0-100)
+            t_infoString - updatetext for progress meter info text line.
+                         Value isone of:
+                           nil - leaveinfo text as it is.
+                           ""  - clear info stringfield.
+                       newText -update field with new text.
+            t_infoStr2  -  (optional) Text for secondline
+  
+   RETURNS
+         t on success, otherwise nil
+   SEE ALSO
+         axlMeterCreate

@@ -1,0 +1,31 @@
+删除一组约束设置
+  NAME
+         axlCNSDelete - delete acontraint set
+  FUNCTION
+         axlCNSDelete(
+                 g_domain
+                 t_name/o_dbidEcset
+         )
+         ==> t/nil
+  SYNOPSIS
+         This deletes a cset. Alsodeletes its references
+         on any objects such as nets, net classes, etc.
+         If the cset is locked itmust first be unlocked before being
+         deleted.
+         If spacing or physical domaincannot delete DEFAULT cset.
+         Cannot delete electricalcsets in PCB L.
+  NEEDS
+         g_domain: domain of cset;'physical, 'spacing, 'sameNet, 'electrical
+         t_name - name of cset
+         o_dbidEcset - if ecset, its dbid
+  RETURNS
+         t  - cset deleted
+         nil - not deleted
+                 - cset does not exist
+                 - cset is locked
+                 - cset is t
+  SEE ALSO
+         axlCNSCreate
+  EXAMPLES
+         1) delete electrical cset UPREV_DEFAULT
+             axlCNSDelete('electrical "UPREV_DEFAULT")

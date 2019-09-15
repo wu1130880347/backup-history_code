@@ -1,0 +1,30 @@
+改变cset 在class table 中的条目
+  NAME
+         axlCnsClassTableChange - change csetassignments for a classtable entry
+  SYNOPSIS
+         axlCnsClassTableChange(
+                 o_dbidClassTable
+                s_csetType/ll_typeAndName
+                 [t_csetName]
+         ) -> o_dbidClassTable/nil
+  FUNCTION
+         This changes the csetsassociated with an existing net class table entry.
+         See axlCnsClassTableCreate for complete family offunctions.
+         You cannot change any tableentries containing a region entry in PCB L
+         or lower tiers.
+         DRC is set out of date.
+  NEEDS
+         o_dbidClassTable - dbid ofan existing classTable entry.
+         s_csetType - symbol for cset type ('spacing, 'phsyical or 'sameNet)
+         ll_typeAndName - listss_csetType and t_csetName
+         t_csetName - cset namestring
+  RETURNS
+         Updated classTable dbid or nil if failure
+  SEE ALSO
+         axlCnsClassTableCreate
+  EXAMPLES
+         Prep by executing examplecode in axlCnsClassTableCreate
+         1) Update the entry created in axlCnsClassTableCreate to add to itspacing
+            cset named 1, physical cset named2 and a same net csetnamed 3.
+                 prop =  '((spacing "1") (physical "2") (sameNet "3"))
+                 tbl = axlCnsClassTableChange(tbl prop)

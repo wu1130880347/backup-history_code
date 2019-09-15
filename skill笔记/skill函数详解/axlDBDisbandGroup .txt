@@ -1,0 +1,21 @@
+É¾³ýGroup
+  NAME
+         axlDBDisbandGroup - disband adatabase group.
+  SYNOPSIS
+         axlDBDisbandGroup(
+                 o_group
+         )
+         ==> t/nil
+  FUNCTION
+         Disbands the database group which is specified by theo_group
+         argument.  This will result in the immediate removal ofthe group.  
+         The members of the groupare not otherwise affected (i.e they are not
+         deleted).
+  NEEDS
+         o_group         The dbid of the group which is to be disbanded.
+  RETURNS
+         t               If the group was disbanded.
+         nil             If the group could not be disbanded (maybe the dbid is
+                         not for a valid group).
+  SEE ALSO
+         axlDBCreateGroup

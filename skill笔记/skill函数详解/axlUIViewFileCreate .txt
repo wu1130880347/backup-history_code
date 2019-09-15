@@ -1,0 +1,45 @@
+创建一个显示文件内容的窗口
+NAME
+         axlUIViewFileCreate - opens a view file window
+  SYNOPSIS
+         axlUIViewFileCreate (
+                 t_file
+                 t_title
+                 g_deleteFile
+                 [lx_size]
+                 [lt_placement]
+                 [g_formToExpose]
+         )
+         -> r_windowMsg/nil
+  FUNCTION
+         Opens a view window to display a file (t_file), it is an error for.
+         file not to exist. Window should be given a title (t_title).
+         File is deleted is g_deleteFile is t when view window is quit or
+         reused. It is suggested that applications not delete view files
+         themselves as the Save and Print buttons will not work.
+         Size of viewable window is controlled by lx_size, default size is 24x80.
+         Unpredicable results may occur for large row/column values.
+         Placement of window is handled by lt_placement list, if nil is provided
+         window is centered on editor.
+         Window may be deleted via program control via axlUIWClose function.
+  NEEDS
+         t_file:         Name of file to display. If t_file is "" then
+                         displayes last registered logfile.
+         t_title:        Title for window
+         g_deleteFile:   Delete file on quit of window.
+         lx_size:        rows & columns of text window
+         lt_placement:   window placement hints. See Window Placement section in
+                         the Allegro Skill Reference manual.
+         g_formToExpose: optional handle of another window. If specified then this
+                         window is brought to the top of the desktop when the
+                         view file window is closed. If not specified then the
+                         main program window is the parent.
+  RETURNS
+         r_windowMsg/nil:        Window id. Fails if can't open window
+  EXAMPLES
+         The following example:
+            - Displays the batch DRC log file, saving the window id.
+            - Deletes the file drc.log when the user exits the window.
+         logWindow = axlUIViewFileCreate("batch_drc.log" "Batch DRC Log" nil)
+         The log file displays in a window. When the user chooses Close,
+         axlUIViewFile deletes the file batch_drc.log.

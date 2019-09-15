@@ -1,0 +1,25 @@
+Allegro Pad ÎÄµµ
+  NAME
+         axlPadDbidDoc - Allegro Padrepresentation in Skill
+  SYNOPSIS
+==============================================================
+  Pad Attributes:     Represents a "pad" type
+     NAME                TYPE    DESCRIPTION
+     ----------------------------------------
+     bBox                bBox    bounding box. Coordinates are alwaysrelative
+     figure              lr_path List of r_paths definingpad's boundary.
+                                lr_path always contains at most one r_path.
+                                 nil denotesa NULL pad.
+     figureName          string  type of pad figure.Examples are "CIRCLE",
+                                 "SQUARE", "SHAPE", "NULL". May be nil if
+                                drill.
+     flash               string  if of type FLASH, name of flashsymbol
+                                otherwise an empty string ""
+                                 (OBSOLETE use nameattribute)
+     layer               string  Pad layer
+     name                string If type is a SHAPE or FLASH name ofsymbol
+     objType             string  "pad"
+     offset              l_point Offset of pad (relative to pin or viaorigin)
+     parent              dbid    padstack dbid
+     readOnly            t       Cannot be modified
+     type                string  "REGULAR", "ANTI" or "THERMAL"

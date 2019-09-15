@@ -1,0 +1,32 @@
+设置 Funckey单按键快捷
+  NAME
+        axlSetFunckey -  sets Allegro environment funckey from Skillenvironment
+  FUNCTION
+         axlSetFunckey(
+                 t_alias
+                 g_value
+                 )
+         ==> t/nil
+  SYNOPSIS
+         Works similar to axlSetAlias except allows alpha-number keys
+         to work like function keys (no Enter keyrequired).
+         See axlSetAlias forcomplete documentation.
+  NOTES
+         1) Funckey settingsonly apply to current session. They are not
+                 saved to user'slocal env file.
+         2) Funckey changes do not effectprograms launched from Allegro
+                 e.g. import logic, refresh_symbol
+  NEEDS
+         t_alias:        name of the Allegro environment alias.
+         g_value:        Value to which the environment alias is tobe set.
+                         Can be astring, or nil.
+  RETURNS
+         t/nil:          Returns t ifsuccessful. Returns nil if invalid data
+                         type of alias ismarked read-only.
+  SEE ALSO
+         axlGetFunckey, axlProtectAlias, axlIsProtectAlias, axlSetAlias
+  EXAMPLES
+         1) Set the funckey alias to move
+                 axlSetFunckey( "m" "move" t)
+         2) Unset the move
+                 axlSetFunckey( "m" nil)

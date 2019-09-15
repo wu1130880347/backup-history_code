@@ -1,0 +1,46 @@
+将某对象指定给某个网络
+  NAME
+         axlDBAssignNet - move an object toa specified net, or move to a dummy net
+  FUNCTION
+         axlDBAssignNet(
+             o_object/lo_object
+             o_net/t_net
+             [g_ripup]
+             [g_ignoreFixed]
+         )
+         ==> t/nil
+  SYNOPSIS
+         Assigns an object or a list of objects to a newnet.
+         Supports pins, vias and shapes. Vias may not stay on new netassigned
+         if they do not connect to an object on the new net (does not apply if
+         new net has RETAIN_NET_ON_VIASproperty).
+  NEEDS
+         o_object        - dbid, or list of dbids, of object(s) to change net
+         o_net           - dbid of destination net, or nil, if intention
+                           is toassign to a dummy net
+         t_net           - can use net name as an alternativeto a dbid net
+         g_ripup         - optional flag to ripup clinesconnected to modified
+                           objects, may be t or nil. Default isnil.
+         g_ignoreFixed   - By default, won't allow net reassign if FIXED property
+                           presenton the object(s) in question.Setting this
+                           argumentto t ignores the FIXEDproperty.
+                           Ifg_ripup is t, and connected clines havethe FIXED
+                           property then the clines willremain and an error message
+                           thrown.
+  RETURNS
+         return - nil if none changed, t if at least one object changed net
+  SEE ALSO
+         axlDBCreateNet, axlDBIgnoreFixed
+  EXAMPLE
+         - Simple re-assignment
+                pin_id->net->name => ""
+                 net_id->name=> "GND"
+                 axlDBAssignNet(pin_id net_id t) => t
+                pin_id->net->name =>  "GND"
+         - Interactive exploration;use the ashOne shareware provided in examples area of
+           cdsroot.
+                 ; select an object
+                 item = ashOne()
+                 ; new net
+                 net = "net1"
+                 axlDBAssignNet(item net t t)

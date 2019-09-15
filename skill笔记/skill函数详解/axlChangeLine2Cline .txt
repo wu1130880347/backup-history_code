@@ -1,0 +1,72 @@
+½« Line ×ªÎª cline        
+  NAME
+         axlChangeLine2Cline - change line tocline
+  FUNCTION
+         axlChangeLine2Cline(
+                 lo_dbid/o_dbid
+         )
+         ==> x_cnt/nil
+  SYNOPSIS
+         Changes provided lines toclines. Lines not on anetch layer are ignored.
+         If a line is converted to acline then it may be assignedto a net
+         otherwise it will be lefton a the standalone branch.
+  NEEDS
+         lo_dbid/o_dbid - a singledbid or list of line dbids
+  RETURNS
+         t if succeeded, nil if failure
+         FAILURES: (for debug purposes set axlDebug(t) to see additionalmessages)
+             - dbid is not a line or a line on ETCH class
+             - line is LOCKED or FIXED
+  EXAMPLES
+         1) Convert a line
+             res = axlDBCreateLine('(0:0 100:100) 5 "ETCH/TOP")
+             res = car(res)
+             cnt = axlChangeLine2Cline(res)
+  SEE ALSO
+         axlTransformObject
+**/
+list
+axlChangeLine2Cline(int argc, list *argv)       // LAMDBA2
+{
+     char           *myFunc = "axlChangeLine2Cline";
+     list            l;
+     int           bufid, i, cnt, cnvCnt = 0;
+     long            err;
+     find_filter_type    filter;
+     int class, subclass;
+     dbptr_type line;
+     list dbidList = argv[0];
+     int inVis = TRUE;
+     if (AIXOKToProceed() == FALSE)
+         return ilcNil;
+     bufid = bufinit0(sizeof(dba_object_handle), 1024, 1024);
+     if (bufid<0)
+         return (ilcNil);
+     CLEAR_FIND_FILTER(&filter);
+     filter.invisible = inVis;
+     filter.line = 1;
+     err = axluGetFilteredDBPtrBuf(NULL, dbidList, bufid,
+                                  ChangeFilterLine2ClineFunc, (void *)&filter);
+     if (err == FALSE) {         /* nothing in buffer */
+         err = 1;
+         goto NOTHING_TO_DO;
+     }
+     cnt = bufcount(bufid);
+     for(i=1; i<=cnt; i++) {
+         bufget(bufid, i, &line);
+         err = utl_lntocl(line);
+         if (!err) cnvCnt++;
+     }
+     err = 0;
+     if (cnvCnt) // we should have utl_lntocl return buffer of ids
+         utl_reconnectStandalone();
+         
+NOTHING_TO_DO:
+     buffree(bufid);
+     if (err)
+         return ilcNil;
+    /*refresh the dbids */
+     for(l = axluAtom2List(dbidList); ilNonnull(l); l =ilCdr(l))
+         axlDBRefreshId(ilCar(l));
+     return cnvCnt ? ilMakeInt(cnvCnt) : ilcNil;
+}

@@ -1,0 +1,24 @@
+É¾³ýÁã¼þµÄpin
+  NAME
+     axlCompDeletePin
+  FUNCTION
+     This function deletes thespecified pin(s) from the parent
+     component and symbol definition.As a result, the pin will
+     also be deleted from allinstances of these definitions, not
+     just the instance the pinpassed in belongs to.
+  SYNOPSIS
+     axlCompDeletePin(o_pin/lo_pins) => t/nil
+  NEEDS
+     o_pin/lo_pins  -- skill dbid of the pin to be deleted, or a list
+                       of pins to bedeleted.
+  RETURNS
+     t if the pin(s) were deleted.
+     nil if there was an error deleting any of thepins, e.g. if a pin
+         had the fixed property.
+   NOTES
+     If many pins are to be delete, it is moreefficient to pass the entire
+     list to this function to process them in one call than tocall
+     axlCompDeletePin with eachindividual pin.
+  SEE ALSO
+     axlCompAddPin
+     axlCompMovePin

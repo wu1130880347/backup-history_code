@@ -1,0 +1,34 @@
+更新shape动态形状
+  NAME
+         axlShapeDynamicUpdate - update dynamicshapes
+  FUNCTION
+         axlShapeDynamicUpdate(
+             o_shapeDbid/nil
+             g_force
+         ) -> x_ood/nil
+  SYNOPSIS
+         Updates a dynamic shape or, if nil, all dynamic shapesare
+         updated. This ignores thecurrent dynamic shape mode setting
+         of the design.
+         By default, will only updatethe shape if it is out of date
+         except if g_forceis t where it updates the shape even if
+         it is up to date.
+         If g_force is nil theshape is only updated if dbid->fillOOD
+         is t. The only shapessupported by this function are those
+         wheredbid->shapeIsBoundary is t.
+         Update a dynamic shapeincludes voiding, artworksmoothing
+         and thermal reliefgeneration.
+  NEEDS
+         o_shapeDbid - dbid adynamic shape
+         g_force - force shape toupdate even if it is up to date.
+  RETURNS
+         x_ood - ifupdating all returns count of all shapes that
+                 failed in updating.If single shape returns 0
+                 if updatesuccessful, 1otherwise.
+                 nil is return if thereis an error; dbid is not
+                 a dynamic shape
+  EXAMPLES
+         1) force update onedynamic shape
+                 axlShapeDynamicUpdate(shapeId, t) -> 0
+         2) update all shapesood
+                 axlShapeDynamicUpdate(nil nil) -> 0

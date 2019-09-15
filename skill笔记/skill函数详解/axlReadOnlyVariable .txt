@@ -1,0 +1,43 @@
+只读/设置/复位/查询 ENV变量
+  NAME
+         axlReadOnlyVariable - set/reset/queryread-onl set of env variable
+  FUNCTION
+         axlReadOnlyVariable(
+                 t_variable
+                 [g_Enable]
+                 )
+         ==> t/nil
+  SYNOPSIS
+         This sets, unsets or queriesthat read-only state of an Allegro
+         environment variable. Oncea variable is set read only it
+         cannot be changed. When youset a variable that is unset readonly,
+         the user then cannot set it.
+         Variable names are caseinsensitive.
+  NEEDS
+         t_variable:     the name of the Allegro environmentvariable.
+         g_Enable: t to setread-only, nil to makewritable and do not
+                 provide if usingto test variable read-only state.
+  RETURNS
+         t/nil:  In query mode (no g_Enable option) returns t ifvariable
+                 is read-only and nil if not. Ifchanging the read-only
+                 mode returns t ifsuccessful and nil if variable is not
+                 currently set.
+  SEE ALSO
+         axlGetVariable
+  EXAMPLES
+         The following example :
+             1. Setspsmpath to readonly
+             2. Queriesthe setting
+             3. Resetspsmpath to writable
+             4. Queriesthe setting
+                 axlReadOnlyVariable("psmpath" t)
+                 axlReadOnlyVariable("psmpath")
+                         ==> t
+                 axlReadOnlyVariable("psmpath" nil)
+                 axlReadOnlyVariable("psmpath")
+                         ==> nil
+          Query all read-onlyvariables:
+                 axlReadOnlyVariable("fxf" t)
+                 axlReadOnlyVariable("psmpath" t)
+                 axlReadOnlyVariable(nil)
+                         ==> ("psmpath" "fxf")

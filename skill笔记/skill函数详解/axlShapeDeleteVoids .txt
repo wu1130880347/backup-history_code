@@ -1,0 +1,40 @@
+É¾³ýshape ¿Õ¶´
+  NAME
+         axlShapeDeleteVoids - delete voids or allvoids within a shape
+  FUNCTION
+         axlShapeDeleteVoids(
+            o_shapeId
+         ) -> t/nil
+         axlShapeDeleteVoids(
+            o_voidId/lo_voidid
+         ) -> t/nil
+  SYNOPSIS
+         This allows the deletion ofvoids in a shape.
+         Supports 3 formsof arguments:
+           - a shape which deletesall voids in that shape
+           - delete single void
+           - delete list ofvoids
+         Non-voids in list ofvoids options are silently ignored.
+         You cannot delete voidsthat are part of auto-generated shapes.
+         If you are making a seriesof modifications to a shape (delete
+         and add void or changeits boundary) then youshould wrap
+         your calls in axlDBOpenShape & axlDBCreateCloseShape for best
+         performance.
+  NEEDS
+         o_shapeId: if given ashape deletes all voids associated with that                              shape
+         o_voidId: deletes the givenvoid
+         lo_voidid: deletes the list ofvoids
+  RETURNS
+         t: deletes voids
+         nil: error
+  SEE ALSO
+         axlDBOpenShape, axlDBCreateCloseShape, axlShapeAutoVoid
+  EXAMPLES
+         See<cdsroot>/share/pcb/examples/skill/axlcore/ashshape.il
+         Assuming you have shapedbid (shapeId) then
+         1) delete a singlevoid
+                 axlShapeDeleteVoids(car(p->voids))
+         2) delete all voids inshape except first
+                 axlShapeDeleteVoids(cdr(p->voids))
+         3) delete all voids inthe shape
+                 axlShapeDeleteVoids(p)

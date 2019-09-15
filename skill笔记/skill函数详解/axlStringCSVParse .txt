@@ -1,0 +1,33 @@
+½âÎöCSVÐÐ
+  NAME
+         axlStringCSVParse - parse a csv line
+  SYNOPSIS
+         axlStringCSVParse(
+                 t_string
+                 [g_stripWhite]
+         ) -> lt_string/nil
+  FUNCTION
+         Parses a comma delinated line (typical from Excel). This differs from the
+         Skill parseString function in several areas which make it compatible with
+         Excel csv file format:
+           - parseString ignores two adjecent commas.
+           - if a comma is contained within a cell, Excel quotes the cell.
+             parseString treats this as two cells.
+           - correctly processes double quotes in a cell.
+  NEEDS
+         t_string - a csv string
+         g_stripWhite - option to strip leading and trailing white space from
+                 each output string. Default is to leave whitespace
+  RETURNS
+         lt_string  - list of strings parsed based on comma separator.
+         nil - error (unlikely to happen)
+  SEE ALSO
+         parseString
+  EXAMPLES
+         - white space strip example
+             ret = axlStringCSVParse(" a ,b" t)
+                 -> ( "a" "b")
+         - properly parse a csv file
+             ret = axlStringCSVParse("a,,c,\"d,e\"" )
+                 -> ( "a" "" "c" "d,e")
+         

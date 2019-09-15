@@ -1,0 +1,21 @@
+分解出一个文件名的组成部分
+  NAME
+         axlDMFileParts - break a filename intoit's component parts
+  FUNCTION
+         axlDMFileParts (
+                 t_filespec
+         ) -> (directory file fileWext ext)
+  SYNOPSIS
+         Breaks given filespec intocomponent parts.
+  NEEDS
+         t_filespec:     filename or full-path spec
+  RETURNS
+         list:     (directory file fileWext ext)
+  SEE ALSO
+         axlDMOpenFile
+  EXAMPLE
+         fileparts =  axlDMFileParts("/usr1/xxx/stuff.txt"))
+                 --> ("/usr1/xxx/" "stuff" "stuff.txt" "txt")
+         fileparts = axlDMFileParts("stuff.txt"))
+                 --> ("/usr1/xxx/" "stuff" "stuff.txt" "txt")
+            **where /usr1/xxx is thecwd

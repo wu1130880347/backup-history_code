@@ -1,0 +1,37 @@
+根据当前精度测试两个浮点数是否相等
+  NAME
+         axlGeoEqual - are two floatingpoint numbers equal within epsilon
+  FUNCTION
+         axlGeoEqual(
+                 f_one
+                 f_two
+         ) -> t/nil
+  SYNOPSIS
+         This performs an equalcomparision between two floating point
+         numbers anddetermine if they are equal within plus or minus
+         the current databaseaccuracy.
+                 
+         This is useful if you arecomparing floating point numbers
+         converted from strings (example using atof function) with
+         those obtained from an AXLdatabase id. Since the conversion
+         of these numbers takedifferent paths (stringto float versus
+         interger to float in the case of thedatabase) you can
+         have different numbers.
+         To understand the basis ofwhy you can't always do a simple
+         equal comparison withfloating point numbers see
+         Rather than try to explainit why you cannot always use a simple
+         '==' comparison between twofloating point numbers, I'll just link
+         to David Goldberg'sexcellent paper on the subject, "What Every Computer
+         Scientist Should Know AboutFloating-Point Arithmetic."  It's very
+         rigorous, and will require somepatient study, but if youwork through
+         the theorems you'll neverbe bitten by this again.
+                http://docs.sun.com/source/806-3568/ncg_goldberg.html
+  NEEDS
+         two floating point numbers
+  RETURNS
+         t if theyare equal within current database accuracy.
+         nil not equal
+  SEE ALSO
+         axlGeo2Str, axlGeoPointsEqual
+  EXAMPLES
+         axlGeoEqual(2.0 2.0)

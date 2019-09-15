@@ -1,0 +1,108 @@
+°´Ãû³ÆÑ¡Ôñ
+  NAME
+         axlSelectByName - select dbid byname
+  SYNOPSIS
+         axlSelectByName (
+             t_objectType
+             t_name/lt_name
+             [g_wildcard]
+         )
+         ==> lo_dbid/nil
+  FUNCTION
+         This is a convenience function thatselects database objects by name.
+         It provides a easier to usewrapper around axlSetFindFilter and
+         axlSingleSelectName.
+         Its interface allows more then onename may be passed but only one
+         object type is supportedper call. For certain object types
+         a single name may returnmultiple objects. The supported object
+         types and theitem it finds is:
+             "NET"       find by net name
+             "COMPONENT" find by componentname
+             "FUNCTION" find by function name
+             "DEVTYPE"   find by device type name
+             "SYMTYPE"   find by symbol type name
+             "PIN"       find by refdes.pinname
+             "REFDES"    find symbol by refdes name
+             "COMPREFDES" find component byrefdes name
+             "GROUP"     find group by name
+             "BUS"       find bus by name
+             "DIFF_PAIR" find diffpair byname
+             "NETCLASS"  find netclass by name
+             "NET_GROUP" find a netgroup byname
+             "REGION"    find region by name
+             "XNET"      find xnet by name. Will return a Net if xnet is
+                         a singlenet xnet. See
+                        <cdsroot>/share/pcb/examples/skill/select/ashfindxnet.il
+             "MATCH_GROUP" find matchgroup byname
+             "MODULE"    find module by name
+         Wildcarding is alsosupported. "*" matches anysequence of zero
+         or more characters. "?" matches any singlecharacter. Use a
+         "\" if you need to send aspecial character (e.g. "\x"). Provide
+         third argument (g_wildcard) set toTRUE.
+  SIDE EFFECTS
+         This saves andrestores the current find filter settings but
+         resets the selection set.
+  NEEDS
+         t_objectType - type ofdatabase name
+         t_name - object to find
+         lt_name - list ofnames to find. If given a list and it will
+                 return all
+         [g_wildcard]    if * or ? appear in name useregexp matching
+  RETURNS
+         List of objects found or nil if nonematching name or illegal
+         objectType name.
+  EXAMPLE:
+         1) Find two nets:
+            Skill > p = axlSelectByName("NET" '("GND" "NET1"))
+            (dbid:28622576 dbid:28639844)
+         2) Find two nets butboard only has GND:
+            Skill > p = axlSelectByName("NET" '("GND" "FOO"))
+            (dbid:28622576)
+         3) Find Component C1
+            Skill > p = axlSelectByName("COMPONENT" "C1")
+            (dbid:28590388)
+            Skill > car(p)->objType
+            "component"
+         4) Find FunctionTF-326
+            Skill >  p = axlSelectByName("FUNCTION" "TF-326")
+            (dbid:28661572)
+            Skill > car(p)->objType
+            "function"
+         5) Find Devices of type CAP1
+            Skill > p = axlSelectByName("DEVTYPE" "CAP1")
+            (dbid:28591032 dbid:28590700dbid:28590388)
+            Skill > car(p)->objType
+            "component"
+         6) Find symbols of type DIP14_3
+            Skill > p = axlSelectByName("SYMTYPE" "dip14_3")
+            (dbid:28688416 dbid:28686192)
+            Skill > car(p)->objType
+            "symbol"
+         7) Find pin U2.1
+            Skill >   p = axlSelectByName("PIN" "U1.1")
+            (dbid:28630692)
+            Skill >  car(p)->objType
+            "pin"
+         8) Find symbol byrefdes U3
+            Skill >  p = axlSelectByName("REFDES" "U3")
+            (dbid:28688416)
+            Skill >  car(p)->objType
+            "symbol"
+         8) Find component byrefdes U3
+            Skill > p = axlSelectByName("COMPREFDES" "U3")
+            (dbid:28621208)
+            Skill > car(p)->objType
+            "component"
+         9) Find group BAR byname
+            Skill > p = axlSelectByName("GROUP" "BAR")
+            (dbid:28593776)
+            Skill > car(p)->objType
+         10) Find all pins onrefdes U1
+            Skill >   p = axlSelectByName("PIN" "U1.*" t)
+            (dbid:28630856 dbid:28630784dbid:28630692 dbid:28629208)
+         11) Find pins withsingle digit number on U1
+            Skill >  p = axlSelectByName("PIN" "U1.?" t)
+            (dbid:28630692 dbid:28630572dbid:28630400 dbid:28630228)
+         12) Find nets startingwith "N"
+            Skill >  p = axlSelectByName("NET" "N*" t)
+            (dbid:28630044 dbid:28634000dbid:28638750)

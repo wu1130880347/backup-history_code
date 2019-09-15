@@ -1,0 +1,27 @@
+锁定某Allegro命令不能被修改
+  NAME
+        axlProtectAlias - markes alias asread-only (orwritable)
+  FUNCTION
+         axlProtectAlias(
+                 t_alias
+                 t/nil
+                 )
+         ==> t/nil
+  SYNOPSIS
+         Control read-only attributeof an alias which means the user cannot
+         change variable.
+         This may also be used withfunckeys
+  NOTE
+         1) Do notunprotect F1 as this is fixed to Help by the OS.
+         2) Alias must bedefined to be protected.
+  NEEDS
+         t_alias:        name of the Allegro environment alias.
+         t/nil:          t protects alias, nilunprotects
+  RETURNS
+         t/nil:          Returns t ifsuccessful. Returns nil if invalid data
+                         or alias is not set.
+  SEE ALSO
+         axlIsProtectAlias, axlSetAlias
+  EXAMPLES
+         1) Protects the the F2function key
+                 axlProtectAlias( "F2" t)

@@ -1,0 +1,34 @@
+显示一个带有是、否按钮的对话框
+NAME
+         axlUIYesNo - puts up a UI blocking yes/no confirmer
+  FUNCTION
+         axlUIYesNo(
+                 t_message
+                 [t_title]
+                 [s_default]
+                 )
+         ==> t/nil
+  SYNOPSIS
+         Provides a Yes/No confirmer displaying the message t_message. Returns t
+         if the user selects yes and nil for no.
+         This function blocks. The user must respond before any further
+         interaction with Allegro.
+         Note: if environment variable, noconfirm is we return default response.
+                 This is t if no Yes and nil if no
+  NEEDS
+         t_message: Message string that the function displays to the user.
+         t_title: Optional, what to put in title bar of confirm. The default
+                 is the program display name
+         s_default: Optional, May be either 'yes or 'no to specify
+                 default response. The default is 'yes.
+  RETURNS
+         t/nil:   Returns t for user yes response and nil for no.
+  SEE ALSO
+         axlUIConfirm
+  EXAMPLES
+         The following examples are a typical overwrite question.
+             axlUIYesNo( "Overwrite module?" )
+             axlUIYesNo( "Overwrite module?" nil 'no )
+             axlUIYesNo( "Overwrite module?" "My Skill Program" )
+         A confirmer window is displayed. If the user selects Yes, the
+         function returns t, otherwise it returns nil.

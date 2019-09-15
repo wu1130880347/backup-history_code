@@ -1,0 +1,23 @@
+
+设置表格样式边框
+  NAME
+     axlSpreadsheetSetStyleBorder
+  FUNCTION
+     axlSpreadsheetSetStyleBorder(l_position, l_color, l_lineStyle, l_weight)
+         ==> t / nil
+  SYNOPSIS
+     Sets the cell border properties for a active style definition.
+  NEEDS
+     position  -- Position must be one of the accepted Microsoft
+                  positions (Left, Right, Top, Bottom, etc).
+     color     -- Microsoft color name or RGB value (e.g. "BLACK" or #FF00AA).
+     lineStyle -- Line style to use (normally "Continuous" for a solid line).
+     weight    -- The thickness of the line, in pixels. Must be positive integer.
+  RETURNS
+     t   -- Border style successfully set.
+     nil -- Border style not set (no active style or invalid parameters).
+            See console for further details.
+  SEE ALSO
+    axlSpreadsheetSetStyle
+    axlSpreadsheetSetStyleProp
+    axlSpreadsheetSetStyleParent

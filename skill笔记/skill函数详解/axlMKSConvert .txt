@@ -1,0 +1,89 @@
+将某个数由某种单位转换为指定单位
+  NAME
+     axlMKSConvert - units conversionfrom one units system to another
+  FUNCTION
+    Function calling sequence iscomplicated enough to warrant multiple synopsi:
+    1. To convert a numberfrom an input units type to an output unit type,
+       general case:
+       axlMKSConvert (
+           n_input
+           t_inUnits
+           [t_outUnits]
+       )
+       => f_output/nil
+    2. To convert a numberfrom an input units type to MKS units:
+       axlMKSConvert (
+           n_input
+           t_inUnits
+           nil
+       )
+       => f_output/nil
+    3. To convert a numberfrom MKS units to an output unit type:
+       axlMKSConvert (
+           n_input
+           nil
+           t_outUnits
+       )
+       => f_output/nil
+    4. To convert an MKS string to anoutput units, i.e. ".5 MILS" to "INCHES":
+       axlMKSConvert (
+           t_input
+           [t_outUnits]
+       )
+       => f_output/nil
+    5. To pre-register aninput units, so that subsequentcalls need not
+       specify units:
+       axlMKSConvert (
+           nil
+           t_inUnits
+       )
+       => t/nil
+    6. To convert a unitfrom a pre-registered input units:
+       axlMKSConvert (
+           n_input
+       )
+       => f_output/nil
+  SYNOPSIS
+      Converts any allowable unit toany other allowable unit. It operates
+      in several ways, depending on thearguments.
+      In all instances witht_outUnits as an argument, if that argument is
+      omitted, the functionconverts to active design units.
+     1) If the firstargument is a number and the second argument is evaluated as
+      the units of that number, the number isconverted to the units
+      specified by the thirdargument.
+  
+      - A special case is if firstargument is a number, thesecond is "design" and
+      the third is a length unit then theinput number is converted from
+      current design units tospecified length units.
+     2) In the case where thefirst argument is a string, that string must be a
+      fully instantiated unitsstring, i.e. "15 MILS". In this case thesecond
+      string is interpreted as theoutput units, and thevalue of the first
+      string is converted to theseunits.
+      
+     3) If the firstargument is nil, then the input units specified by the
+      second argument is remembered for thefuture calls. The output units will
+      default to the active design, and the function willfail as above if no
+      design is active. Note thatpre-registration will not work if there is no
+      active design.
+     4) When only a numberis specified, the function willconfirm that an input
+      unit has been pre-registered, and willconvert that number, in thepre-
+      registered units, to the designunits. Function will issue a warning
+      and return nil if nopre-registered input units, or no active design
+     5) When the second and thirdarguments are present but one is nil, it
+      represents MKS standard units for theinput or output units, respectively.
+      Examples:
+           - Typical use, convert from designunits to another type (design
+             is in mils)
+                 axlMKSConvert(.5 "design" "INCHES") => 0.0005
+           - axlMKSConvert(".5MILS" "INCHES") => 0.0005
+           - pre-register a unit type then use if onfuture conversions
+                 axlMKSConvert(nil "MILS") => t
+                 axlMKSConvert(.5) => 0.0005   
+           - go todefault output conversion (METERS)
+                 axlMKSConvert(.5 "MILS" nil) => 2.54e-05   
+           - Not just length issupported (go tofarads)
+                 axlMKSConvert(1e-09 nil "pF") => 1000.0   
+  NEEDS
+      as specified above
+  RETURNS
+      function will return theconverted value if successful, ilcNil if failed.

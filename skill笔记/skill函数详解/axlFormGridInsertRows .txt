@@ -1,0 +1,24 @@
+插入行到列表
+  NAME
+         axlFormGridInsertRows - insert rows in a list
+  FUNCTION
+         axlFormGridInsertRows(
+                 r_form
+                 t_field
+                 x_row
+                 x_number
+         ) -> t/nil
+  SYNOPSIS
+         Inserts x_number rows atx_row number. Rows are insert empty.
+         A -1 may be used asx_row to add to end of grid.
+         Since grids are 1 based a 1 inserts at top ofgrid.
+         See axlFormGridDoc for grid overview.
+  NEEDS
+         r_form: standard formhandle
+         t_field: standard fieldname
+         x_row: row number for insert
+         x_number: number of rows toadd
+  RETURNS
+         Returns t for success, nil for failure
+  SEE ALSO
+         axlFormGridNewCell

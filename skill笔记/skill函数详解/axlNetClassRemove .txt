@@ -1,0 +1,30 @@
+É¾³ýNetClass×é
+  NAME
+         axlNetClassRemove  - remove members from anetclass
+  FUNCTION
+         axlNetClassRemove(
+                o_netclassdbid/t_netclassName
+                 o_dbid/lo_dbid
+         )==> t/nil
+  SYNOPSIS
+         Removes elements from anexisting net class group. Element
+         must currently be a direct member of thegroup.
+         This will mark DRC out ofdate. It is up to the
+         application to update theDRC system
+  TIP
+         Using dbids is faster then usingnames.
+  NEEDS
+         o_netclassdbid: dbid of a netclassgroup
+         t_netclassName: name of anetclass group
+         o_dbid:   legal database dbid to remove fromgroup
+         lo_dbid:  list of legal databasedbids to remove from group
+  RETURNS
+         t         - removed elements
+         nil       - failed to remove one or moreelements. Object
+                     may not be acset member (rember must be
+                     a direct member).
+  SEE ALSO
+         axlNetClassCreate
+  EXAMPLES
+         - Using the example from axlNetClassAdd remove one of the nets:
+             axlNetClassRemove(nc  car(nets))

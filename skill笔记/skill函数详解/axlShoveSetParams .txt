@@ -1,0 +1,54 @@
+设置推挤参数
+  NAME
+     axlShoveSetParams - set theparameters used for shoving
+  FUNCTION
+     axlShoveSetParams (
+         l_params
+     ) ==> nil
+  SYNOPSIS
+     This function sets the parametersused for shoving by the axlShoveItems
+     function. If you do not provideall of the values then the indicated
+     default is used.
+  NEEDS
+     l_params - This is a listcontaining the desired parameters.
+              It is of the form:
+                 (shoveMode cornerTypegridded smooth oop samenet)
+              shoveMode - Can be oneof the following integer values:
+                  0 - hugpreferred - items passed in will try to mold
+                        around itemsthey are in violation with (default)
+                  1 - shovepreferred - items passed in will try to shove
+                        items theyare in violation with
+              cornerType - Can beone of the following integer values:
+                  90 - for 90 degreecorners. (default)
+                  45 - for 45 degreecorners.
+                  0  - for any angle corners.
+              gridded - Can be oneof the following integer values
+                  0 -ignore grids (default)
+                  1 -performs shoves on grid
+              smooth - Do smoothingof shoved traces
+                  0 - nosmoothing (default)
+                  1 -minimal smoothing
+                  2 - moresmoothing
+                  3 - stillmore smoothing
+                  4 - full smoothing
+              oops - Abort the shoveif DRCs result
+                  0 - oopsoff (default)
+                  1 - oops if drcsare left over
+              samenet - Test for samenet violations.  Note that at the
+                        present time,  this results in a post-shove check for
+                        drcs that ismeaningful only if you also set oops
+                        to the "oops ifdrcs" value.
+                  0 - nosame net tests (default)
+                  1 -enable same net DRC checking
+  RETURNS
+     t/nil Returns t ifsuccessfull, nil if not.
+  EXAMPLE
+     The following example function setsthe shove parameters to shove
+     preferred, 45 degreemode, and snap togrid:
+         (defun SetParams ()
+         (let (params (shoveMode 1) (cornerType 45) (gridded 1))
+             params = list(shoveMode cornerTypegridded)
+             axlShoveSetParams(params)
+         ))
+  SEE ALSO
+     axlShoveItems

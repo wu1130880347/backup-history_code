@@ -1,0 +1,27 @@
+删除电气约束集
+  NAME
+         axlCNSEcsetDelete - delete electricalcontraint set
+  FUNCTION
+         axlCNSEcsetDelete(
+                 t_name/o_dbidEcset
+         )
+         ==> t/nil
+  SYNOPSIS
+         This deletes a ecset and also deletes theELECTRICAL_CONSTRAINT_SET
+         off any nets that has thisassigned ecset value.
+         If the ecset is locked itmust first be unlocked before being
+         deleted.
+  NEEDS
+         t_name - name of ecset
+         o_dbidEcset - or the ecset dbid
+  RETURNS
+         t if ecset is deleted
+         nil - not deleted due to being locked or not an ecset
+  SEE ALSO
+         axlCNSDesignModeSet
+  EXAMPLES
+         1) delete by name
+             axlCNSEcsetDelete("UPREV_DEFAULT")
+         2) delete first ecset in ecset list
+             p = car(axlDBGetDesign()->ecsets)
+             axlCNSEcsetDelete(p)

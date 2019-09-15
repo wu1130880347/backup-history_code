@@ -1,0 +1,24 @@
+获取窗体目录树图标
+  NAME
+         axlFormTreeViewGetImages - Returns handlesof the images associated with this tree view item
+  SYNOPSIS
+         axlFormTreeViewGetImages(
+                 r_form
+                 t_field
+                 g_hItem
+         ) -> l_hImage/nil
+  FUNCTION
+         Returns the image handlesthat refer to the images used by a specified
+         item in the tree view.
+  NEEDS
+         r_form: Form id
+         t_field: Name of field
+         g_hItem: Handle of the itemin the tree view.  This handle was
+                 returned as a result of the callto axlFormTreeViewAddItem
+                 when this item wasinitially added.
+  RETURNS
+         Returns a list of three imagehandles.  The first is the handle of
+         the image used when this item is a leafnode.  The second is the
+         handle of the image used when this item is anexpanded parent node.  
+         The third is the handle ofthe image used when thisitem is an
+         unexpanded parentnode.  nil is returned if an error is encountered.

@@ -1,0 +1,50 @@
+ÒÆ¶¯Áã¼þµÄpin
+  NAME
+     axlCompMovePin
+  FUNCTION
+     This function moves the specifiedpin(s) by the specified
+     delta x/y, rotation, and mirror. Rotation and mirror, if provided,
+     are applied around therotatePoint (defaults to 0,0 if not provided).
+     A rotation to apply to each individualpin may also be provided.
+  SYNOPSIS
+     axlCompMovePin(o_pin/lo_pins
+                    ?move            l_deltaPoint
+                    ?groupMirror     t/nil
+                    ?groupRotation   f_angle
+                    ?rotOrigin       l_rotatePoint
+                    ?pinRotation     f_deltaAngle
+     ) => t/nil
+  NEEDS
+     o_pin/lo_pins  -- skill dbid of the pin to be moved, or a list
+                       of pins to bemoved.
+     move           -- X/Y delta to move each pin in theset by.
+     groupMirror    -- t if the position of each pin in thegroup should
+                       be mirroredaround the supplied rotOrigin.
+     groupRotation -- angle of rotation that should be applied to
+                       each pin inthe group to determine its new
+                       finallocation. Applied around rotOrigin.
+     rotOrigin      -- X/Y origin for group mirror and rotationapplication.
+     pinRotation    -- Rotation to apply to individual pins once placed
+                       at newlocation.
+             e.g. When moving a pinfrom the north side to west side,
+             and the pin isrectangular, you may wish tospecify a
+             rotation of 90 degrees to keep thesame orientation of the
+             pin rectangle relativeto the nearest die edge.
+  RETURNS
+     t if the pin(s) were moved.
+     nil if there was an error moving any of thepins, e.g. if a pin
+         had the fixed property or would be placedoutside the extents.
+   NOTES
+     If many pins are to be moved, it is moreefficient to pass the entire
+     list to this function to process them in one call than tocall
+     axlCompMovePin with eachindividual pin.
+     Also of note: When applyingmultiple transforms at once to the set of pins,
+     the operations are performed inthe following order:
+         #1. group mirror isperformed for the group about thespecified rotOrigin.
+         #2. group rotation is then applied, also around therotOrigin.
+         #3. move delta is then applied.
+     This is important to keep inmind so that you achieve the desired end position
+     for all pins being moved, and so that you use thecorrect rotOrigin point.
+  SEE ALSO
+     axlCompAddPin
+     axlCompDeletePin

@@ -1,0 +1,16 @@
+检索所有的活动的电子表格中定义的工作表的列表。
+  NAME
+     axlSpreadsheetGetWorksheets
+  FUNCTION
+     axlSpreadsheetGetWorksheets()
+         ==> list ofworksheet names / nil.
+  SYNOPSIS
+     Retrieve a list of allthe worksheets defined in the active spreadsheet.
+     If no worksheets currentlyexist, nil will bereturned.
+  NEEDS
+     Nothing.
+  RETURNS
+     list -- List ofworksheet names (asordered in the spreadsheet).
+     nil  -- No worksheets current defined / nospreadsheet active.
+  SEE ALSO
+    axlSpreadsheetSetWorksheet

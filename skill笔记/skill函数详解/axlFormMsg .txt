@@ -1,0 +1,39 @@
+在窗体上显示定义好的信息
+  NAME
+         axlFormMsg - prints a messagedefined in the form file.
+  FUNCTION
+         axlFormMsg(
+                 r_form
+                 t_messageLabel
+                 [g_arg1 ...]
+         ) -> t_msg/nil
+  SYNOPSIS
+         This retrieves and prints a message define in the form file
+         by message label (t_messageLabel). The form fileallows definitions
+         of messages via the "MESSAGE" keyword (see axlFormBNFDoc). This
+         is useful it you wish theuser access to message text
+         but not access to yourskill code.
+         Message are only printed inthe status area of the form
+         owning the message (r_form). You cannot accessmessages ids
+         from one form file and print to another. If theform doesn't
+         have a status line, the main window isused.
+         The message allows standardformating and argumentsubstitution
+         (see Skill's printf).
+  NEEDS
+         r_form: form dbid
+         t_messageLabel: Messagelabel defined in form file with MESSAGE
+                         keyword
+         [g_arg1 ...] Optionalsubstitution parameters (see printf)
+  RETURNS
+         t_msg: message that wasprinted
+         nil: no message found inthis form file by that name
+  SEE ALSO
+         axlFormBNFDoc, axlUIWPrint, axlMsgPut, printf
+  EXAMPLES
+         Form file (level: 0 is info, 1 info but no journalentry,
+                 2 is warning, 3 is error, and 4 is fatal);
+             MESSAGE drccount 0 "Drc Count of%d for %s"
+             MESSAGE drcerrors 2 "DrcErrors"
+         
+         axlFormMsg(fw "drccount" 10 "spacing")
+         axlFormMsg(fw "drcerrors")

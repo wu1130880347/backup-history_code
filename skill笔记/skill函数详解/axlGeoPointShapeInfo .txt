@@ -1,0 +1,28 @@
+获取某点在shape上的信息
+  NAME
+         axlGeoPointShapeInfo - relation of apoint to a shape
+  SYNOPSIS
+         axlGeoPointShapeInfo(
+             l_point
+             o_dbid
+         ) ==> (g_state o_dbid)/nil
+  FUNCTION
+         Given a point and a shapedbid returns relation of point to shape. State may
+         be outside, inside or on.Additional dbid is returned in the second argument
+         to indicate if void or shapeis involved.
+         Return matrix:
+                 G_STATE                 O_DBID
+                 outside                 nil if outsideshape, void dbid if insidevoid
+                 inside                  nil
+                 on                      shape dbid if onshape else void dbid
+  CAUTIONS
+         - Assumes that cross-hatchshapes are solid filled.
+         - Rounds point to databaseunits. If database accuracy is 2 and you pass a
+           3 decimal place point, we will round it to 2 placesbefore doing the test.
+  NEEDS
+             l_point     - the point
+             o_dbid      - dbid of the shape
+  RETURNS
+         nil - if an error sinceas an invalid argument
+         g_state/o_dbid - see above
+  SEE ALSO

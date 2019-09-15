@@ -1,0 +1,63 @@
+设置或清除一个pin或via的测试点属性
+NAME
+         axlTestPoint - set or update pin/via testpoint
+  FUNCTION
+         axlTestPoint(
+                 o_dbid
+                 top|bottom|nil
+         )
+         ==> t/nil/s_error
+  SYNOPSIS
+         This sets or clears a pin/via's testpoint status.
+         It abides by the rules of the testprep parameter form in its
+         ability to add a testpoint (see possible errors below). If
+         if can't add a testpoint due to testprep rules, an
+         error symbol is returned. If the command fails for other
+         reasons a nil is returned. On success a t is returned.
+         If a test point is added to a pin/via already having a testpoint
+         then the existing test point is replaced.
+         Uses current testprep parameter settings except (these may be
+         relaxed in future releases):
+                 - set to flood
+                 - set allow SMT/Blind or Thru pad stack type
+         
+         Not enabled in symbol editor.
+         Adds test point text using same rules as the testpoint manual command.
+         NOTE: does not delete associated test point text. This
+                 may be a future enhancement. For present use
+                 axlDeleteObject and axlDBGetAttachedText
+         Supports axlDebug API to print failure to place error
+  NEEDS
+         o_dbid  - pin or via dbid.
+         g_mode  - add to testpoint to top or bottom or clear one
+  RETURNS
+         t       - was able to change object
+         nil     - error other then test point checks
+         s_error - symbol indicating a error from testprep parameter check
+             PAD_TOO_SMALL  - size doesn't meet parameter minimums
+             PAD_UNDER_COMP - padstack under component
+             PIN_OFF_GRID   - pin is off grid
+             PAD_UNDEFINED  - layer of padstack not defined on required layer
+             PAD_NOT_SMD    - padstack must be a smd
+             PAD_NOT_THRU   - padstack must be a thru pad
+             PIN_IS_VIA     - pin type requires a via or any point
+             PIN_NOT_VIA    - pin type requires a via
+             PIN_NOT_OUTPUT - pin type requires an output pin for testpoint
+             PIN_NOT_IO     - pin type requires an IO pin for testpoint
+             PIN_TOO_CLOSE  - pin to close to another testpoint
+             PAD_UNDER_PIN  - testpoint under another pin
+             PIN_NOT_NODE   - test method requires a node for testpoint
+             PAD_IN_NO_PROBE_AREA - testpoint inside of NO_PROBE area   
+             FIXED_TEST_POINTS - testpoints are fixed and can not be removed
+             OTHER          - unclassified error
+  EXAMPLE
+         Example uses ashone.il file in <cdsroot>/share/pcb/skill/examples
+         to allow user to select objects:
+         1) add testpoint to top
+                 axlUIWPrint(nil 'info1 "Select pin or via to add testpoint")
+                 dbid = ashOne('(VIAS PINS))
+                 ret = axlTestPoint(dbid 'top)
+         2) clear a testpoint
+                 axlUIWPrint(nil 'info1 "Select pin or via to clear testpoint")
+                 dbid = ashOne('(VIAS PINS))
+                 ret = axlTestPoint(dbid nil)

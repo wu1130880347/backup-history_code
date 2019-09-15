@@ -1,0 +1,20 @@
+获得当前错误等级
+  NAME
+         axlMsgTest - determinescurrent error severity level
+  FUNCTION
+         axlMsgTest(
+                 )
+         ==> x_class
+  SYNOPSIS
+         Determines the current errorseverity level. axlMsgTest returns a single number giving
+         the severity level of themost severe message that has been printed since the last
+         axlMsgClear oraxlMsgContextClear/Print/GetMsg call.
+  NEEDS
+         None.
+  RETURNS
+         x_class:        The highest severity level of all themessages currently in the message
+                         buffer.
+  EXAMPLES
+         level = axlMsgTest()
+         ==> 4
+

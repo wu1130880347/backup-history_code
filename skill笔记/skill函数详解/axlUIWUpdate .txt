@@ -1,0 +1,22 @@
+强制更新一个窗口
+  NAME
+         axlUIWUpdate - forces an update of a Window
+  SYNOPSIS
+         axlUIWUpdate (
+                 r_window/nil
+         )
+         -> t/nil
+  FUNCTION
+         Forces an update of a Window. If you made several changes to
+         a window and are not planning on going back to the main loop
+         or doing a Skill call that requires user interaction
+         then this call will update a window. This situation can occur
+         if you are doing some time consuming processing without
+         giving back control to the UI message pump. Only required for
+         Bristol based code all other implementations don't do anything.
+         To use, make all your window changes then make this call.
+         If window id is nil exposes the main window.
+  NEEDS
+         r_window:       Window id or if nil the main window.
+  RETURNS
+         t for success, nil for failure (window already closed or not a window)

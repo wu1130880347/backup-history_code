@@ -1,0 +1,33 @@
+获取命令补充数据
+  NAME
+         axlGetCmdSupplementalData - retrieve thecommand supplemental data
+  FUNCTION
+         axlGetCmdSupplementalData(
+                 )
+         ==> r_suppData/nil
+  SYNOPSIS
+         Gets the current commandsupplemntal data used for storing data pertaining to
+    pre-select mode andapplication modes.
+         By default it contains theproperties:
+    command:             command string forvalidation
+    invocation_method:   how the command is invoked.
+    point:               point at which commandis invoked
+                                            E.g drag start point or
+                                            double click point
+    popup_subcmd_id:  ID that was passed for the subcmd popup
+    applic_data:   storage to pass application specific
+                                     information
+    elem_type:  Work only on elem_type hierarchical
+                                     elements from pre-select items
+  NEEDS
+         None.
+  RETURNS
+         t/nil:          Returns the auxiliary supplemntalData, ifsuccessful.
+                Otherwise it returnsnil.
+  EXAMPLES
+         cmddata = axlGetCmdSupplementalData()
+         userdata->??
+                 ==> (doneState cancel
+         popupId (("Cancel" "axlCancelEnterFun"))
+                 ministatForm nil
+         )

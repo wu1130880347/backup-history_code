@@ -1,0 +1,14 @@
+设置Via Z的系数值。
+  NAME
+     axlCNSSetViaZPVF
+  SYNOPSIS
+     axlCNSSetViaZPVF(g_value)
+     => t/nil
+  FUNCTION
+     Sets a value for Via Z propagationvelocity factor.
+  NEEDS
+     g_value: a string to define the new via Zpropagation velocity factor. A
+              nil value indicatesthat the value is to be deleted.
+  RETURNS
+     t: no errors
+     nil: error detected

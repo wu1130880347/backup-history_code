@@ -1,0 +1,23 @@
+取消高亮（反显）对象
+  NAME
+         axlDehighlightObject
+  FUNCTION
+         axlDehighlightObject(
+                 [lo_dbid]
+                 [g_permHighlight]
+                 )
+         ==> t/nil
+  SYNOPSIS
+         Dehighlights the figureswhose dbids are in lo_dbid.
+  NEEDS
+         lo_dbid:        List of dbids to be dehighlighted.
+         g_permHighlight - if PERM or TEMP highlightcolor is desired.
+                           t             - use PERM highlight color
+                          nil/default   - use TEMP highlightcolor.
+  RETURNS
+         t/nil:          Returns t if it dehighlighted at least onefigure.
+                         It returns nil if it dehighlighted.
+  SEE ALSO
+         axlHighlightObject
+  EXAMPLES
+         See axlHighlightObject for examples

@@ -1,0 +1,50 @@
+等待让用户输入后退出程序。
+  NAME   
+         axlCancelEnterFun -  Causes the wait to get user input toterminate.
+  FUNCTION  
+         axlCancelEnterFun ()  
+         ==> t/nil  
+   
+  SYNOPSIS
+         This function cancels the wait toget the user pick. No pointis
+         returned to the waitingfunction.
+  RETURNS  
+         t if cancell succeeds, nil otherwise.
+  SEE ALSO
+         axlEnterPoint axlFinishEnterFunc
+  EXAMPLES
+         Enter Function Example
+         You use the AXL-SKILL axlCancelEnterFun and axlFinishEnterFun functions
+         when you create an interactive commandthat loops on user input, so the
+         user can terminate thecommand.
+         The following example doesthe following:
+             1. Defines thefunctions axlMyCancel and axlMyDone.
+             2. Defines a pop-upwith those functions as the callbacks for user
+                selections Cancel and Done from thepop-up.
+             3. Loops on the function axlEnterPath gathering userinput to create
+                 a multi-segment line on "etch/top."
+         The user terminates thecommand at any time by selecting Cancel or Done
+         from the pop-up.
+         (defun axlMyCancel ()
+                 axlClearDynamics()
+                 axlCancelEnterFun()
+                 axlUIPopupSet(nil))
+         (defun axlMyDone ()
+                 axlClearDynamics()
+                 axlFinishEnterFun()
+                 axlUIPopupSet(nil))
+         mypopup = axlUIPopupDefine( nil
+                 (list (list "MyCancel" 'axlMyCancel)
+                 (list "MyDone" 'axlMyDone)))
+         axlUIPopupSet( mypopup)
+         ; Clear the dynamic buffer
+         axlClearDynamics()
+         ; Clear mypath to nil, then loopgathering user picks:
+         mypath = nil
+         while( (mypath = axlEnterPath(?lastPath mypath))
+                 progn( axlDBCreatePath(mypath, "etch/top")))
+         The program gathers onepick from the user and extends the database path by
+         that pick during each timearound the while loop. The userterminates the
+         loop by picking Done fromthe pop-up. The user can cancel out at any time
+         by selecting Cancel. Thesegments added become permanent in the database
+         when the loop terminates.

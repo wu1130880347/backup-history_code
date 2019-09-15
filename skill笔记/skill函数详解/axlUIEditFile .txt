@@ -1,0 +1,35 @@
+使用编辑器编辑一个文件
+NAME
+         axlUIEditFile - Allows user to edit a file
+  SYNOPSIS
+         Allows user to edit a file in an OS independent manor (works
+         under both UNIX and WINDOWS).
+         User may override the default editor by setting either environment
+         variable VISUAL or EDITOR.
+         Windows notes:
+                 1) default editor is notepad
+                 2) title bar setting currently is not supported
+         UNIX notes:
+                 1) default editor is vi
+                 2) an additional environment variable, WINDOW_EDITOR,
+                    allows the user to specify a X-based editor such
+                    as xedit. Title bar is not supported in this mode.
+         Note in blocking mode the windows of the main program currently
+         do not repaint until the file editor window is exits.
+         Only axlUIWClose supportes the r_window handle returned by
+         this function.
+  FUNCTION
+         axlUIEditFile(
+                 t_filename
+                 t_title/nil
+                 g_block
+         )
+         -> r_window/t/nil
+  NEEDS
+         filename
+         optional title bar name or nil for a default title bar
+         block (t) or non-block (nil) flag
+  RETURNS
+         Non-blocking mode: returns a r_window handle if success otherwise
+                 nil
+         Blocking mode: returns t if success and nil if failure

@@ -1,0 +1,19 @@
+获得当前设计的单位
+  NAME
+     axlDBGetDesignUnits  -  retrieves the design units and the accuracy number of the active drawing
+  FUNCTION
+     axlDBGetDesignUnits(
+     )
+     => l_value
+  SYNOPSIS
+      Retrieves the units string and the accuracy numberof the active
+      design from the database.
+  NEEDS
+     no arguments needed
+  RETURNS
+      l_value/nil:    Returns a list containing the design units as astring and the
+                      accuracynumber as an integer.
+   EXAMPLES
+           Using the followingexample, the design DrawingParameters form shows Use
+           r Units as Millimeter and Accuracy as 3.
+                   axlDBGetDesignUnits() ==> ("millimeters" 3)

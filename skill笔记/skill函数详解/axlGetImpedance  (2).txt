@@ -1,0 +1,18 @@
+返回一个对象的最小/最大阻抗
+' O6 s2 |8 b. V+ I& C! \
+  NAME
+         axlGetImpedance - return min/maximpedance of an object
+  FUNCTION
+         axlGetImpedance(
+                 o_dbid
+         ) => (f_min f_max)/nil
+  SYNOPSIS
+         Returns minimum and maximumimpedance for given item.
+         Item can be either cline, cline segment, net or xnet.
+         Impedance is in ohms by default.
+  NEEDS
+         segment cline
+  RETURNS
+         impedance in current mksunits.
+  SEE ALSO
+         axlSegDelayAndZ0

@@ -1,0 +1,25 @@
+获得list部件中多个处于选择状态的项
+  NAME
+         axlFormListGetSelItems - get selected items inmulti-select control
+  FUNCTION
+         axlFormListGetSelItems(
+                 r_form
+                 t_field
+                 )
+         ==> lt_selected/nil
+  SYNOPSIS
+         This only applies to amulti-select list box (OPTIONS multiselect
+         in form file).
+         For a multi-select list box returns list of strings for items
+         selected. If no itemsselected or this is not appropriate for
+         control returns nil.
+  NEEDS
+         r_form:         Form contrl.
+         t_field:        Name of the field.
+  RETURNS
+         lt_selected: list of strings for items selected
+         nil: error or nothing selected.
+  SEE ALSO
+         axlFormListGetSelCount, axlFormListSelAll
+  EXAMPLES
+         see axlform.il example

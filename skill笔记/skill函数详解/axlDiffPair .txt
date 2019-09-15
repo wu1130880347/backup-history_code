@@ -1,0 +1,49 @@
+NAME
+         axlDiffPair - add, delete, modify a diffpair
+  SYNOPSIS
+         Add
+             axlDiffPair(
+                 t_diffpair
+                 o_net1/t_net1
+                 o_net2/t_net2
+         Modify
+             axlDiffPair(
+                o_diffpair/t_diffpair
+                 o_net1/t_net1
+                 o_net2/t_net2
+             )
+             ==> o_diffpair/nil
+         Delete
+             axlDiffPair(
+                o_diffpair/t_diffpair/lo_diffpair
+             )==> t/nil
+  FUNCTION
+         This creates, modifies or deletes a diffpair.In all
+         casse you can pass names or a dbid.
+         Note if the diffpair wascreated due to signoise models it
+         cannot be modified or deleted. You cantell this by:
+                diffpair_dbid->prop->DIFFP_ELECTRICAL == t
+         
+         You cannot create adiffpair if two nets belong tothe same
+         xnet.
+  NEEDS
+         o_diffpair      - diffpair dbid
+         lo_diffpair     - list of diffpair dbids (delete mode only)
+         t_diffpair      - diffpair name (string)
+         o_net1/o_net2   - net dbid
+         t_net1/t_net2   - net name (string)
+         g_mode  - add to testpoint to top or bottom or clear one
+  RETURNS
+         Returns depending upon themode
+             nil: error
+             t: delete wassuccessful
+             o_diffpair: dbid ofadded or modified diffpair
+  EXAMPLES
+         Create diffpair and call it DP1
+             dbid = axlDiffPair("DP" "NET1+" "NET2-")
+         Modify it
+             dbid = axlDiffPair(dbid "NET1+" "NET1-")
+         Delete it
+             axlDiffPair(dbid)
+         Delete all  diffpairs in design
+             axlDiffPair(axlDBGetDesign()->diffpair)

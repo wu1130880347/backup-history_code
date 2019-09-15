@@ -1,0 +1,19 @@
+获得钻孔是否电镀
+  NAME
+         axlDBGetDrillPlating - gets the plating type of a padstack
+  SYNOPSIS
+         axlDBGetDrillPlating(
+             t_padstackname
+         )
+         ==>  "PLATED"/"NONPLATED"/"OPTIONAL"/nil
+  FUNCTION
+         This function retrieves theplating type of the padstack
+         passed as an argument tothis function
+  NEEDS
+         t_padstackname          - Name of the padstack
+  RETURNS
+         axlDBGetDrilPlating       - nil in case of an error
+                                     (e.g incorrectpadstack name)
+                                   -"PLATED"
+                                     "NON PLATED"
+                                    "OPTIONAL"

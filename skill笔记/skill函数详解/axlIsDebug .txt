@@ -1,0 +1,31 @@
+判断AXL的调试模式是否可用
+  NAME
+         axlIsDebug - is axl debug enabled
+  FUNCTION
+         axlIsDebug(
+         ) ==> t/nil
+  SYNOPSIS
+         This checks if AXL debug mode isenabled. This is associated
+         with the "axldebug" Allegro environmentvariable.
+         
+         When set thismode is set AXL may print additional AXL API argument
+         warnings whenarguments to AXL functions are incorrect. Many
+         warnings do not obeythis variable because they are considered
+         serious or edgeconditions. Warnings supported are less serious
+         and are known from userfeedback to be troublesome to program around.
+         Typically when a AXLAPI function encounters an argument error
+         it will print awarning and return nil.
+         When not set thecode runs in development mode that will eliminate
+         many of these warnings.
+         You should have this modeenabled when developing Skill code.
+         This functionality wasintroduced in 15.2. Currently few AXL
+         functions take advantage ofthis option. Future releases will
+         make more use of thisoption.
+  NEEDS
+         Nothing
+  RETURNS
+         t if mode isenabled, nilotherwise
+  SEE ALSO
+         axlDebug
+  EXAMPLES
+         when( axlIsDebug() printf("Error\n"))

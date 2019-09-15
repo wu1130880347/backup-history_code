@@ -1,0 +1,18 @@
+»¡¶È
+  NAME
+         axlRadToDeg - radians todegrees
+  SYNOPSIS
+         axlRadToDeg(
+                 n_angle
+         ) => f_angle
+  FUNCTION
+         Converts an angle in radians to degrees.
+  NEEDS
+         n_angle: the angle inradians
+  RETURNS
+         f_angle: the angle indegrees
+  SEE ALSO
+         axlDegToRad, axlMathConstants
+  EXAMPLE
+         axlRadToDeg(0.7853982)
+                 => 45.0

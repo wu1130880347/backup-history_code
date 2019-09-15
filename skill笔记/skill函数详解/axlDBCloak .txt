@@ -1,0 +1,78 @@
+提高函数执行性能，对于需要处理大量数据的时候有效，否则性能反而不好
+  NAME
+         axlDBCloak - cloak databaseupdates to improve performance and memory use
+  FUNCTION
+         axlDBCloak(
+                 g_func
+                 [g_mode]/[lg_mode]
+         ) -> g_return
+  SYNOPSIS
+         If you need to modify manyitems in the database then axlDBCloak
+         can improve performance and program memory use.It works
+         the  to Skill's "eval" function in that you pass ita function
+         and its args using the "tick". -- axlDBCloak( 'MyFunc( myargs) )
+         What function does:
+             - batches any net basedDRC updates
+             - batches connectivityupdate
+             - (optionally) batches dynamicshape updates if g_modehas
+                 'shape
+             - (optionally) ignores the FIXEDproperty.
+             - incorporates a errset around your function so any Skill
+                 errors throw arecaught by axlDBCloak
+         
+         When to use:
+             - if you need to updatemany etch or package symbols in
+               a batch fashion
+         When not to use:
+             - if you areadding/deleting non-connectivity database items
+                 (e.g. loading a bunchof lines to a manufacturing layer)
+             - if you need tointeract with the user. Because
+                 connectivity is not updated you do not want do any
+                 axlEnterXXXfunctions. Instead get the info
+                 from the user then do the cloak update.
+             - if you are reading thedatabase, using cloak is no help
+                 and may actually slowperformance.
+             - if changing a singleusing Cloak will slow performance
+         Side effects:
+              - any database ids areset to nil
+         gmode options (if multiple requiredpass a list of options
+           'shape - Improvesperformance if changesbeing made effect any
+                    dynamic shapeson the design. Generally you should
+                    set this if effecting ETCHlayers with your changes.
+           'ignoreFixed - Have the system ignore the FIXEDproperty
+                    (see axlDBIgnoreFixed)
+         Debugging Hint:
+             call you function directly from thetop level function
+             to get things working then just wrap it in thecloak call.
+  CAUTION
+         A frequent programming error is to leave of thetick (') mark
+         which allows axlDBCloak to evaluate thefunction. The correct
+         model is:
+            axlDBCloak( 'MyFunc(myArgs) '(shape ignoreFixed))
+         INCORRECT: axlDBCloak( MyFunc(myArgs) '(shape ignoreFixed))
+         Both work but in theincorrect case now performancebenefit offered
+         by the cloaking function will by applied toMyFunc.
+  NEEDS
+         g_func: function with any of itsarguments
+         s_mode: option
+         ls_mode: list of options
+  RETURNS
+         what g_func returns
+  SEE ALSO
+         eval, errset
+  EXAMPLES
+      Delete all placed symbols indatabase:
+         procedure( DeleteSymbols()
+         let( (listOfSymbols)
+             listOfSymbols = axlDBGetDesign()->symbols
+             when( listOfSymbols
+                 axlDBCloak( 'DeleteDoit(listOfSymbols) 'shape ))
+             axlShell("cputimestop")
+         ))
+         procedure( DeleteDoit(listOfDatbaseObjects )
+              foreach(c_itemlistOfDatbaseObjects
+                 printf("REFDES %s\n", c_item->refdes)
+                 axlDeleteObject(c_item)
+              )
+              nil
+         )

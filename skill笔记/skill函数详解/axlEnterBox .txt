@@ -1,0 +1,31 @@
+获得用户输入的一个矩形区域
+  NAME   
+         axlEnterBox - gets two pointsdescribing a box.
+  FUNCTION   
+         axlEnterBox (     
+             ?prompts l_prompt
+             ?points l_point
+         )   
+         ==> l_box/nil   
+  SYNOPSIS  
+         If no points are provided, the user isprompted for 1st and 2nd
+         points of a box.  If 1st point is provided, the user isprompted
+         for 2nd point. If both points are provided, no user input is
+         requested.
+         A list of the two pointsis returned.
+  NEEDS   
+         l_prompt        - List of prompt msgs to prompt theuser for a
+                                first and secondpoints of the box.
+         l_point         - list of first or both points of a box.
+      
+  RETURNS   
+         l_box: A list of lower left and upper right pointsof a box is returned.
+  EXAMPLE
+         The following example asksthe user for box input to createa
+         filled rec tangle on layer "etch/top."
+         axlDBCreateRectangle(
+                 axlEnterBox(?prompts
+                  list("Firstrectangle point, please..."
+                   "Secondrectangle point, please..."))
+                    t "etch/top")
+         ==> (dbid:12134523 nil)

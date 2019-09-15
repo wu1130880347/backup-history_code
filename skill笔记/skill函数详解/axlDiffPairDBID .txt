@@ -1,0 +1,17 @@
+根据差分对名获得差分对的
+  NAME
+         axlDiffPairDBID - given a diffpairname returns its dbid
+  FUNCTION
+         axlDiffPairDBID(
+                 t_name
+         ) -> o_dbid/nil
+  SYNOPSIS
+         This returns the dbid ofthe named diffpair (t_name) if it
+         exists in the database.
+  NEEDS
+         t_name: diff pair name
+  RETURNS
+         dbid of diffpair it it exists or nil
+  SEE ALSO
+         list diffpairs: axlDBGetDesign()->diffpair
+  EXAMPLES

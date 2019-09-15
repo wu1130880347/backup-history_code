@@ -1,0 +1,21 @@
+创建一条网络(net)
+  NAME
+         axlDBCreateNet - add a "net" to the database, or return existing net
+  SYNOPSIS
+         axlDBCreateNet(
+             t_netName
+         )
+         ==> o_dbid/nil
+  FUNCTION
+         Create net in database if doesn't exist or return dbid if it exists.
+  NEEDS
+         t_netName               - Net name to create, or find.
+  RETURNS
+         nil if not created, or a axl DBID of net
+  SEE ALSO
+         axlDBAssignNet
+  EXAMPLE
+         net = axlDBCreateNet("gnd")
+             => dbid:123456
+         net->name
+             => "GND"

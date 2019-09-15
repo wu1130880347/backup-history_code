@@ -1,0 +1,439 @@
+Form 文件（语言使用巴科斯范式）
+NAME
+     axlFormBNFDoc - Form FileLanguage Desription (BNFformat)
+FUNCTION
+     This is the BNF grammer for the FormsSpecification Language.
+     New options and field types areadded every release.
+     Form files are always upwardscompatible but
+     may NOT be backwards compatibleif you take advantageof a new
+     feature. Thus a form filecreated in 12.0 Allegro will workin 13.0 Allegro
+     but if you take advantage of the TABcontrol (13.0) or the RIGHTjustification
+     of TEXT (13.5), you will have aform file that will not function with
+     12.0 of Allegro.
+The following outlines theconventions used in the grammar:
+[]      Optional
+{}      May repeat one or more times
+<>      supplied by user
+|       Choose one or the other
+:       Definition of a token
+CAPS    Items in caps are keywords (note form parser is case insensitive)
+(#)    Note, see number at endof this documentation
+-------------------------------------------------------------------------
+BNF:
+form:
+         FILE_TYPE=FORM_DEFNVERSION=2 (1)
+         FORM [form_options]     (3)
+         formtype
+         PORT w h
+         HEADER "text"
+         form_header
+         {tile_def}
+         ENDFORM
+formtype: FIXED | VARIABLE
+             - FIXED forms have aone unlabled TILE stanza
+             - VARIABLE forms haveone or more label TILEstanzas
+             - Skill only supportsFIXED form types.
+PORT:
+         - width and height of form.Height is ignored for fixed forms
+           which auto-calculatesrequired height. Width must be in character
+           units.
+HEADER:
+         - initial string used intitle bar of form (may beoverridden
+           by application).
+form_header:
+         [{default_button_def}]
+         [{popup_def}]
+         [{message_def}]
+default_button_def:
+         DEFAULT <label>
+             - sets the defaultbutton to be <label>. If not present
+               form sets defaultbutton to one of the following
+               ok (done), close, cancel
+             - label must be of type MENU_BUTTON
+popup_def:
+         POPUP<<popupLabel>> {"<display>","<dispatch>"}.
+              - popups may becontinued over several lines by
+                   using thebackslash (\) as the last character on line
+              - popups work slightlydifferently when appliedto fillin
+                versus othersupporting fields (e.g.ENUMs, BUTTONs)
+                With Fillin fields (Strings, long, etc.), the display
+                portion is alwayssent back to the application while
+                other supportingfield types (ENUMs) send the dispatchportion.
+                The same applieswith setting the field. For ENUMs, you must
+                call the form APIwith the dispatch value while fillins
+                expect the display string.
+message_def:
+         MESSAGE messageLabelmessagePriority "text"
+form_options:
+         [TOOLWINDOW]
+             - This makes a form tobe a toolwindow which is afloating
+               toolbar. It istypically used as a narrow temp window to
+               display readouts.
+         [FIXED_FONT]
+             - by default forms usea variable width font, this
+                 sets this form touse a fixed font. Allegro/Apd
+                 use mostly variablewidth while SpectraQuest and
+                 sigxp use fixedwidth fonts.
+         [AUTOGREYTEXT]
+             - when a fillin or enum control isgreyed, grey static
+               text to the left ofit
+         [NOFOCUS]
+             - When a form opensfocus is set to form window which allows
+               you to immediatelyenter data. If you create a form with
+               no editable fields or don't wish to havethe form grab
+               focus set this option.
+         [UNIXHGT]
+             - Works around aproblem with Mainsoft in 15.0 where
+               a button issandwiched vertically between 2 combo/fillin
+               controls. The button then overlaps thesecontrols. This
+               adds extraline-2-line spacing to avoid this. You should
+               only use this optionas a last resort. In a futurerelease
+               it may be treated asa Nop.
+               On Windows this isignored.
+tile_def:
+         TILE[<tileLabel>]      (4)
+         [TPANEL tileType]
+         [{text_def}]
+         [{group_def}]
+         [{list_def}]
+         [{field_def}]
+         [{button_def}]
+         [{grid_def}]
+         [{flex_def}]
+         ENDTILE
+tabset_def:
+         TABSET [label]
+         [OPTIONS tabsetOptions]
+         FLOC x y
+         FSIZE w h
+         {tab_def}
+         ENDTABSET
+tab_def:
+         TAB "<display>"[<label>]       (10)
+         [{text_def}]
+         [{group_def}]
+         [{field_def}]
+         [{grid_def}]
+         ENDTAB
+text_def:
+         TEXT "display" [label]  (9)
+         FLOC x y
+         [FSIZE w h]             (8)
+         text_type
+         [OPTIONS textOptions]
+         ENDTEXT
+text_type:
+         [INFO label w] |
+         [THUMBNAIL[<bitmapFile>|#<resource>] ]
+group_def:
+         GROUP "display" [label] (9)
+         FLOC x y
+         FSIZE w h               (8)
+         [INFO label]
+         ENDGROUP
+list_def:
+         FIELD label
+         FLOC x y
+         LIST "" w h
+         list_options
+         ENDFIELD
+field_def:
+         FIELD label
+         FLOC x y
+         [FSIZE w h]             (8)
+         field_type
+         field_options
+         ENDFIELD
+button_def:
+         FIELD label
+         FLOC x y
+         [FSIZE w h]             (8)
+         MENUBUTTON "display" w h
+         button_options
+         ENDFIELD
+grid_def:
+         GRID fieldName
+         FLOC x y
+         FSIZE w h               (8)
+         [OPTIONS INFO | HLINES |VLINES | USERSIZE | MULTISELROW ]
+         [POP "<popupName>"]
+  
+         [GHEAD TOP|SIDE]
+         [HEADSIZE h|w]
+         [OPTION 3D|NUMBER|MULTI]
+         [POP "<popupName>"]
+         [ENDGREADH]
+         ENDGRID
+field_type:
+         REALFILLIN w fieldLength |
+         LONGFILLIN w fieldLength |
+         STRFILLIN w fieldLength |
+         INTSLIDEBAR w fieldLength |
+         ENUMSET w [h] |                 (11)
+         CHECKLIST "display"["radioLabel"] |
+         LIST "" w h |
+         TREEVIEW w h |
+         COLOR w h |
+         THUMBNAIL[<bitmapFile>|#<resource>] |
+         PROGRESS w h
+         TRACKBAR w h
+field_options:
+         - the OPTIONS line permitsmultiple options
+         [INFO_ONLY]
+             - sets field to be read only
+         [POP "<popupName>"]
+             - assigns a popup withthe field
+             - a POPUP definition bythe same name should exist.
+             - supported byfield_types: xxxFILLIN, INTSLIDEBAR, MENUBUTTON,
+                                ENUMSET
+         [MIN  <value>]
+         [MAX  <value>]
+             - assigns a min and/or max value that fieldmight have
+             - both supported byfield_types: LONGFILLIN, INTSLIDEBAR, REALFILLIN
+             - value by either by an interger or floating pointnumber
+         [DECIMAL  <accuracy>]
+             - assigns a floating min and/or max value that fieldmight have
+             - assigns number ofdecimal places field has (default is 2)
+             - both supported byfield_types: REALFILLIN
+         [VALUE "<display>"]
+             - initial field value.
+             - supported byfield_types: xxxFILLIN
+         [SORT]
+             - alphanumberic sorted list (default order of creation)
+             - supported byfield_type: LIST
+         [OPTIONS dispatchsame]
+             - for enumset fields only
+             - if present willdispatch to application drop-down selection
+               even if the same ascurrent. By default, theform's package
+               filters out any userselection if it is the same aswhat is
+               currently displayed.
+         [OPTIONS prettyprint]
+             - for enumset fields only
+             - displays contents ofENUM field in a visually pleasing way
+         [OPTIONS ownerdrawn]
+             - for enumset fields only
+             - used to display color swatches inan ENUM field. See
+                 axlFormBuildPopup doc.
+         [OPTIONS space]
+             - string type only
+             - preserves leading and trailing whitespace. By default this is stripped.
+         [OPTIONS dropfile]
+             - string and multiline typesonly
+             - Allows a file to bedropped into the field (Windows drag and drop)
+               Shortcuts are not resolved.
+list_options:
+         [OPTIONSsort|alphanumsort|prettyprint|multiselect]
+                 sort - convertionalphabetical sort
+                 alphanumsort - sort so NET10 appearsafter NET2
+                 prettyprint - makemore readable, convert case
+                         Alldispatch entries will be upper case
+                 multiselect -multi-select list box.User can
+                         select morethen one item (follows Microsoft
+                         selectionmodel)
+  x:
+  y:
+  w:
+  h:
+         - display geometry (integers)
+         - all field, group and text locations arerelative to the
+           start of the tile theybelong or to the start of theform
+           in the case of FIXED forms.
+         - x & h are inCHARHEIGHT/2 units
+         - y & w are inCHARWIDTH units
+button_options:
+     [MULTILINE]
+         - wraps button text tomultiple lines if textstring is too
+           long for a single line
+     [BITMAP[<bitmapFile>|#<resource>] ]
+         - display a bitmap for this button.
+dispatch:
+         - string that is dispatchedto the code.
+display:
+         - string that is shown touser
+bitmapFile:
+         - name of a bmp file.Assumes can be found via BITMAPPATH
+resource:
+         - integer resource id (bitmap must be boundin executable
+           via the resource file). '#' indicates itis a resource id.
+         - not support in AXLforms.
+fieldLength:
+         - maximum width of field.Field will scroll if larger then field
+                 display width.
+label:
+         - named used to accessfield from code. All fields should
+           have unique names.
+         - should use lower case
+messageLabel:
+         - name used to allow codeto refer to messages.
+         - case insensitve
+messagePriority:
+         - message priority 0 - info (not in journal file), 1 - info,
+                 2 - warning, 3 - error, 4 - fatal (display in message box)
+radioLabel:
+         - named used to associateseveral CHECKLIST fields as
+           a radio button set. Allcheck fields should be given
+           the same radioLabel.
+         - should use lower case
+textOptions:
+         [RIGHT | CENTER | BORDER |BOLD | UNDERLINE]
+             - TEXT/INFO field type
+             - text justification, default is left
+             - BORDER: draw borderaround text
+         [STRETCH]
+             - THUMBNAIL field type
+             - stretch bitmap to fitthumbnail rectangle, defaultis center
+                 bitmap
+         [MAP3DCOLORS]
+             - THUMBNAIL field type
+             - When set causes the system to search the colortable of the
+               bmp and replaces thefollowing shades of gray with corresponding
+               3-d color:
+                      dk gray RGB(128,128,128) - COLOR_3DSHADOW
+                      gray RGB(192,192,192)    - COLOR_3DFACE
+                      lt gray RGB(223,223,223) - COLOR_3DLIGHT
+               This option istypically used to blend the bmp's background color
+               with the user'sdialog background. If using this option don't
+               reserve these 3 gray colors for background only
+               Whe
+tabsetOptions:
+         [tabsetDispatch]
+              - By default tabsetsdispatch individual tabs as seperate
+                events. This is not always convenient for certain
+                programming styles.This changes the dispatch mode to be
+                upon the tabset where a selection of atab causes the event
+                        field=tabsetLabel value=tabLabel
+                The default is
+                        field=tabLabel value=t
+                Script record/replayremains based upon tab in either mode.
+gridOptions:
+         Several of these optionscan also be controled at run-time via UIFGridVarEvents
+         or UIFGridVarOptions:
+          - INFO  - grid is for info only; can be scrolled but itemscannot be selected
+          - HLINES  - display horizontal seperator lines
+          - VLINES  - display vertical seperator lines
+          - USERSIZE  - user can resize columns
+          - MULTISELROW - grid isopened in multi-select row mode
+gHeadOptions:
+         - 3D - display header in 3d mode
+         - NUMBER - auto-number sideheader (default is blank)
+         - MULTI - display top header asmultiple lines (defaultsingle line with clipping)
+tileLabel:
+         - name used to allow codeto refer to this tile
+         - should use lower case
+         - only applies to VARIABLEforms
+         - not support with AXLforms
+tileType [0|1|2]
+         - 0 top tile, 1 scroll tile, 2 bottom tile
+         - only applies to VARIABLEFORMS
+         - region where tile will beinstantiated. Forms have 3 regions
+           top, bottom and scroll (middle).
+         - not support with AXLforms
+flex_def:       rule based control sizing upon formresize (see axlFormFlex)
+         [FLEXMODE <autorule>[minWidth minHeight]]
+         [FLEX <label> fx fyfw fh]
+FLEXMODE <autoRule> [minWidthminHeight]
+FLEX    fx fy fw fz
+         - see axlFormFlexDoc
+autorule:       - generic sizing placement rule
+fx:
+fy:
+fw:
+fh:
+         - floating value between 0 and 1.0
+   #ifdef:
+   #ifndef:
+   #else:
+   #endif:
+         - Conditionally read portions of theform file based upon the
+           settings of Allegroenvironment variables
+         - These statements may benested.
+         - Note the negationcharacter '!' was added in 15.7. Forms using
+           this capability will not function correctly inearlier releases.
+           Use #ifdef/#endif and #ifndef/#endif tomake items conditionally
+           appear in the menudepending on whether or not a specified
+           environment variable isset.
+           A #ifdef will cause theform item(s) to be ignored unless the
+           environment variable isset. You must have one #endif for each
+           #ifdef or #ifndef to end theblock of conditional menu items.  
+           Also,  the #ifdef, #ifndef and #endif must start at the first
+           column of its line in theformfile. The #ifndef is the negation
+           of #ifdef.
+           The #else statement maybe inserted between the #if/#endif
+           statements.
+           The condition syntaxsupports multiple variables with OR '||' or
+           AND '&&'conditions. Also the negation character '!' is supported
+           for the variables:
+           The simple syntax is:
+                 #ifdef <envvariable name>
+                 [form items which appear if the env variable is set]
+                 #endif
+                 #ifndef <envvariable name>
+                 [form items which appear if the env variable is NOTset]
+                 #endif
+                 # logicallyequivalent to above state using negation character
+                 #ifdef !<env variable name>
+                 [form items which appear if the env variable is not set]
+                 #endif
+                 #ifdef <envvariable name>
+                 [form items which appear if the env variable is set]
+                 #else
+                 [form items which appear if the env variable is set]
+                 #endif
+             Also logicalstatements:
+              1) if variable1 and variable2 are both set do the includedstatement
+                 #ifdef <var1>&& <var2>
+                 [form items which appear if both variables areset]
+                 #endif
+              2) if either variable1 or variable2 is do the includedstatement
+                 #ifdef <var1>|| <var2>
+                 [form items which appear if either variable isset]
+                 #endif
+Notes:
+         1) FILE_TYPE line must always appear asthe first line of form
+            file in format shown.
+         2) Form files must have a .formextension.
+         3) There may only be one FORM in a formfile.
+         4) There must be one and only one TILEdefintion in a FIXED
+                 form file.<tileLabel> and TPANEL are not required
+         5) Unless otherwise noted limits are asfollows:
+                 labels - 128
+                 title - 1024
+                 display - 128 except for xxxFILLIN types which are 1024
+         6) Additional items may appear inexisting form files (FGROUP)
+                 but they areobsolete and are ignored by theform parser.
+                 REALMIN &REALMAX are obsolete and replaced by MIN and MAX
+                 respectively. Theywill still be supported and are mapped
+                 to MIN and MAX.
+         7) For grid_def two headers (side and top) are maximum
+         8) FSIZE - most controls determine thesize from the text string.
+                 You are required toprovide FSIZE for GROUP,
+                 GRID, TREEVIEW and LIST controls. ForTEXT controls if FSIZE
+                 is provided afterit overrides the width calculated
+                 by the text length and if present the INFOwidth. If
+                 the INFO lineappears you should put the FSIZE line
+                 after it.
+         9) Both TEXT and GROUP supportoptional label on their definition
+            line. This was added asa convience in supporting FLEX
+            capability. Ifapplication wishes to dynamically modify
+            the text the INFOkeyword is normally used. When both are
+            present the INFOkeywords takes precedence.
+         10) If the optional label for TABS is not provided, the field
+            display name is used. Anyspaces within the field display
+            name are replaced byunderscores ("_").
+         11) The height ([h]) for ENUMSET is option. When not set
+            (the default) the drop-down is only presentedunder user
+            control. When heightgreater then 1 then the dropdown
+            is always visible (Microsoft SIMPLEdrop-down). You only
+            want to use this featurein forms that can afford the
+            space consumed by thedrop-down.
+-------------------------------------------------------------------------
+The forming syntaxes are NOTsupported by the formeditor.
+This following syntax is supported and may be placedanywhere
+in the form file to supportconditional processing of the
+form file:
+#ifdef <variable>
+{ }
+{ #elseif <variable>
+    }
+{ #else
+{ } }

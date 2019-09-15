@@ -1,0 +1,36 @@
+返回约束域被锁定
+  NAME
+         axlCNSIsLockedDomain - is constraintdomain locked
+  FUNCTION
+         axlCNSIsLockedDomain(
+                 g_domain
+         )
+         ==> t/nil
+  SYNOPSIS
+         Returns if a constraint domainis locked. A locked constraint domain
+         has the followingcharacteristics:
+           - csets can't be edited (although new csetscan be added)
+           - any object (e.g. net) level propertyoverrides are ignored.
+         
+         NOTES:
+            - The spacing and sameNet domains arelocked as a single domain.
+            - Locking is typicallydone via the techfile. In the techfile, you can
+              lock individual csets.If one cset is locked, Allegro treats
+              the entire domain aslocked from the DRC perspective. When a domain is
+              locked, any object levelproperty constraint override is ignored.
+            - If a cset is locked it cannot bemodified (including deleted)
+  TIP
+         Use axlCnsList(nil) to get a list all domains
+  NEEDS
+         g_domain: domain of cset;'physical, 'spacing, 'sameNet, 'electrical
+  RETURNS
+         t if ecset is deleted
+         nil - not deleted due to being locked or not an ecset
+  SEE ALSO
+         axlCNSCsetLock, axlCNSIsCsetLocked, axlCNSLockDomain
+         axlCNSDesignModeSet, axlCnsList
+  EXAMPLES
+         - Is Electrical domainlocked
+             axlCNSIsLockedDomain('electrical)
+         - List of locked domains
+             lockedDomains = setof( x axlCnsList(nil) axlCNSIsLockedDomain(x))

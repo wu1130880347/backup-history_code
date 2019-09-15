@@ -1,0 +1,23 @@
+释放在存储器中的电子表格文档。
+  NAME
+     axlSpreadsheetClose
+  FUNCTION
+     axlSpreadsheetClose()
+         ==> t
+  SYNOPSIS
+     Releases the spreadsheetdocument in memory. All information is freed.
+     This function should be calledwhenever you have completed working with
+     the active spreadsheetdocument.
+     Once the spreadsheet informationis released, you cannot accessany data
+     about it. This includesretrieving style information, cell contents,
+     lists of worksheets, etc. Any suchinformation that you need to reference
+     after the spreadsheet is freedshould be retrieved prior to this call.
+     If there is no activespreadsheet, this function doesnothing.
+  NEEDS
+     Nothing.
+  RETURNS
+     t -- Spreadsheetinformation successfully freed.
+  SEE ALSO
+    axlSpreadsheetInit
+    axlSpreadsheetRead
+    axlSpreadsheetWrite

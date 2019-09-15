@@ -1,0 +1,23 @@
+退回最后标记或启始标记
+  NAME
+         axlDBTransactionOops - oops back to last mark or start mark
+  SYNOPSIS
+         axlDBTransactionOops(
+             x_mark
+         ) ==> t/nil
+  FUNCTION
+         Undo transaction back to last mark or to start if no more
+         marks. This supportsAllegro "oops" model for database
+         transactions.
+         When a transaction mark iscommited or rollbacked all then
+         that mark is no longervalid for oopsing.
+         It returns t if did oops or nil if transaction is back
+         to starting mark and there is nothingleft to oops.
+  NEEDS
+         x_mark - databasetransaction mark returned from axlDBTransactionStart
+  RETURNS
+         t if successful, nil if no more transactions to oops
+  EXAMPLE
+         see axlDBTransactionStart
+  SEE ALSO
+         axlDBTransactionStart axlDBTransactionMark

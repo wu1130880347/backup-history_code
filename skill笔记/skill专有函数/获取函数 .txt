@@ -1,0 +1,52 @@
+获取函数
+
+allegro skill选择和获取函数对Allegro中的对象进行操作，比如移动、删除，都需要先选择和获取该对象的dbid。选择操作包含一些选择设置比如是只选择Symbol还是 Symbol和Via都可以选等等，然后通过axlSelect相关函数来选择具体的对象，然后是axlGetSelSet函数来得到那些被选择的 dbid。
+
+    AXL-Skill函数支持多种选择的方式，比如单选择一个对象，或者是框选多个对象，又或者说是使用Temp Group的方式来选择多个对象，不过通常对象只有在当前可见(Visible)的情况下才可以被选择上(除非设置了invisible选项)。选择设置 和被选择了对象的有效性会一直持续到用户使用其它的系统命令，比如allegro的Add Cline命令，因为allegro的命令将会改变一些系统的dbid，所以的Skill之前获取的bdid都会变成无效的(removed)。通常的选 择和获取操作如下，
+    设置Find Filter来控制将要被选则的对象类型；    选择对象的三种模式：单选，多选或通过名字来选择；    从被选择的对象中添加和移除对象
+    3.1 FindFilter设置函数
+函数定义axlSetFindFilter(?enabledlt_enabled ?onButtons lt_filterOn)   
+功能：该函数最直观的理解是，它可以设置allegro的Find Filter。    
+参数：lt_enabled，该参数将决定哪些Find Filter中的元素可以被选择；              
+lt_filterOn，该参数将决定可以被选择的元素中，哪些已经被选中了。              
+参数支持的类型如下："PINS"，"VIAS"，"CLINES"，"CLINESEGS"，"LINES"，"LINESEGS"，"DRCS"，"TEXT"，"SHAPES"，"SHAPESEGS"，"BOUNDARY_SHAPES"，"VOIDS" ，"VOIDSEGS"，"SYMBOLS"，"FIGURES"，"COMPONENTS"，"FUNCTIONS"，"NETS"，"INVISIBLE"，"NAMEFORM"，"ALLTYPES"，"ALL"，
+
+"DYNTHEMALS"，"GROUPS"，"GROUPMEMBERS"
+用法示例：axlSetFindFilter( ?enabledlist( "vias" "pins" "nets") ?onButtonslist( "vias" "pins")) => 设置Find Filter中的vias，pins，nets为可以被选择的，而其它的选项将被设置成不可操作的，默认选择了vias和pins。
+
+    3.2 点选函数
+    axlSingleSelectPoint()  => 运行该命令之后，allegro将提示你点选一个design中的对象。 
+    axlAddSelectPoint()   
+    axlSubSelectPoint()
+
+    3.3 框选函数
+    axlSingleSelectBox() => 在allegro中框选    axlAddSelectBox()    axlSubSelectBox()
+
+    3.4 通用选择函数
+    axlSelect()  => 支持多种选择方式于一身，单选，框选，TempGroup
+
+    3.5 其它选择函数
+axlAddSelectAll()  =>不需要用户交互的选择方式，只根据FindFilter的条件     
+axlSubSelectAll()    
+axlSingleSelectName()     
+axlAddSelectName()     
+axlSubSelectName()     
+axlSingleSelectObject()     
+axlAddSelectObject()     
+axlSubSelectObject()
+
+    3.6 获取和清除函数
+    axlGetSelSet() => 获取之前的选择函数选择的dbid     
+    axlGetSelSetCount()     
+    axlClearSelSet()  => 清除之前选择函数选择的dbid(注：当一个对象被选择了以后，将会被自动的以Temp Highlight的方式高亮，而该函数运行以后将会清除这个对象的选择状态，同时该对象也不再高亮)
+
+    3.7 示例：选择一个Symbol，并将其移动到另一个相对位置
+axlClearSelSet()            ; 清除之前可能存在的被选择函数选择的元素，避免引入不合适的dbid，这是个好习惯  
+axlSetFindFilter(?enabled '("noall" "symbols" ) ?onButtons'("noall" "symbols" )); 设置Find Filter的Symbols选项处于选中状态   
+axlSingleSelectPoint();  请通过点击选择的方式，选择一个Symbol对象   
+dSym = axlGetSelSet(); =>(dbid)，将得到被选择的dbid列表，尽管这个列表只有一个元素   
+axlClearSelSet(); 清理掉你自己做过的选择，避免给别的程序带来错误，同样是个好习惯   
+dSym = car(dSym); =>dbid，的到Symbol的dbid    ;dSym->?? ;=> 将得到这个Symbol的相关属性    ix = 100;   iy = 200;    
+axlTransformObject(dSym, ?move ix:iy); =>将该Symbol右移100mil，上移200mil    ;
+axlTransformObject() 函数的作用是将一个或多个symbol由一个地方移动、翻转、旋转到另一个新的位置。    ;
+axlTransformObject(    ;    lo_dbid/o_dbid    ;   ?move l_deltaPoint    ;   ?mirror t/nil    ;   ?angle f_angle    ;     ?origin l_rotatePoint    ;    ?allOrNone t/nil )

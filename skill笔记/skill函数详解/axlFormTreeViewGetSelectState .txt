@@ -1,0 +1,28 @@
+获取窗体目录选择状态
+  NAME
+         axlFormTreeViewGetSelectState - Returns selectstate of a treeview item when multi select mode is enabled
+  SYNOPSIS
+         axlFormTreeViewGetSelectState(
+                 r_form
+                 t_field
+                 g_hItem
+         ) -> x_selectState
+  FUNCTION
+         In multi select mode, returns the selectstate. This is diferent
+         than the current selecteditem in signle select tree views. In
+         multi select mode, users can change theselect state by clicking
+         on the select checkboxassociated with each item.
+  NEEDS
+         Takes 3 args; form id, field name (string), treeview item
+  
+         Item is the handle of anitem in the tree view control. This handle
+         was returned as result ofthe call to axlFormTreeViewAddItem().
+  
+  RETURNS
+         Multi select mode:
+             returns 0 if select checkbox isunckecked
+             returns 1 if select checkbox ischecked,
+             returns 2 if select checkbox isdsiabled (for 3 state mode),
+         Single select mode:
+             returns -1
+         Failure: -1

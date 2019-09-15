@@ -1,0 +1,24 @@
+创建结构添加/更改网格
+  NAME
+         axlFormGridNewCell - create structureto add/change grid cell
+  FUNCTION
+         axlFormGridNewCell(
+         ) -> r_cell
+  SYNOPSIS
+         This creates a new instanceof r_cell. This is the required
+         as input to axlFormGridBatch or axlFormSetField for form grid
+         controls. As a convience, the comsuming APIs do not modify the
+         cell attributes so you do not need to reset all attributesbetween
+         API calls.
+         See axlFormGridDoc for grid overview.
+         See axlFormGridSetBatch for a completedescription of cell attributes.
+  NEEDS
+         nothing
+  RETURNS
+         r_cell: new list gridcell handle
+  SEE ALSO
+         axlIsGridCellType, axlFormGridInsertRows, axlFormGridDeleteRows
+         axlFormGridCancelPopup, axlFormGridCancelPopup, axlFormGridEvents
+         axlFormGridOption, axlFormGridSetBatch, axlFormGridBatch
+         axlFormGridGetCell, axlFormGridReset,
+         axlFormGridSelected, axlFormGridSelectedCnt, axlFormGridSetSelectRows

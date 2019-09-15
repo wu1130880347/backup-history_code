@@ -1,0 +1,21 @@
+获得临时目录下的唯一的一个临时文件名
+NAME
+     axlTempFile - return a temporary filename
+  SYNOPSIS
+     axlTempFile(
+         [g_local]
+     )
+     ==> t_tempFileName
+  FUNCTION
+     This function returns a unique temp file name.
+     The tempfile should be removed (even if not actually used)
+     by axlTempFileRemove.
+     By default, the files are written to /tmp but this can be modified
+     by the environm variable TEMPDIR
+  NEEDS
+      g_local optional flag if t creates a temp file name in current
+         directory. Most applications should use the default tmp directory.
+         The local directory should only be used if the file will be
+         large (more the 2 megabytes).
+  RETURNS
+     t_tempFileName - name of unique temp file

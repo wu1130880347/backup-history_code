@@ -1,0 +1,42 @@
+½â¹Ì¶¨
+  NAME
+     axlIgnoreFixed - disable fixedproperty testing
+  SYNOPSIS
+     axlDBIgnoreFixed(
+         [g_ignore]
+     ) -> t/nil
+  FUNCTION
+     This provides similarfunctionality to that offered by many
+     Allegro batch programs which allowsFIXED property to be
+     ignored (e.g. netrev -z).
+     If g_ignore is t FIXEDtesting is ignored, nilrestores
+     FIXED testing. No argumentreports the current state
+     of FIXED testing.
+     This does NOT disable LOCKED orREAD-ONLY states. A parent
+     can be locked which meansthe children cannot be modified
+     (e.g. symbols locked to preventediting of its components).
+     READ-ONLY objects are typicallyseen when you are in the
+     partition editor.
+  CAUTION
+     It is important that FIXEDproperty testing be restored.
+     Allegro automatically restoresFIXED testing if your
+     Skill program returns toAllegro. This includes calling
+     axlShell.
+  NEEDS
+     g_ignore - if t turnoff FIXED testing, nilrestore.
+         no argument return currentstate of FIXED testing.
+  RETURNS
+     old fixed (nil FIXEDis enable, t isenabled)
+  SEE ALSO
+     axlDBIsFixed
+  EXAMPLES
+         ; Select an object
+         p = ashOne()
+         ; Add fixed property
+         axlDBAddProp(p, '("FIXED" t))
+         ; Attempt to delete it
+         axlDeleteObject(p)
+         ; now delete it
+         axlDBIgnoreFixed(t)
+         axlDeleteObject(p)
+         axlDBIgnoreFixed(nil)

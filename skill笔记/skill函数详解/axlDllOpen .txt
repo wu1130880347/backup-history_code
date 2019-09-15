@@ -1,0 +1,40 @@
+´ò¿ª²å¼þ¿â
+  NAME
+         axlDllOpen - open a pluginlibrary
+  SYNOPSIS
+         axlDllOpen(
+                 t_dllname
+         )
+         ==> o_plugin/nil
+  FUNCTION
+         This binds a dll/sharedlibrary with to the current program.
+         While this can load any dll only thosebuilt to be compatible
+         with the axl Plugin modelcan be utilize via Skill (see
+         axlDllDoc for information or building compatibledlls).
+         If the dll name does not have a directorypath component then
+         AXLPLUGINPATH environmentvariable is used to search for the
+         Dll.
+         After a dll is successfullyloaded you need to import one
+         or more symbols (axlDllSym).
+  Plugin Attributes
+     NAME               TYPE    DESCRIPTION
+    ----------------------------------------
+     name                string  Name of plugin file (dll name)
+     functions           l_dbid  Disembodied property list name/value pairs
+                                 ofimported symbols (t_nameo_pluginFunc)
+     objType             string  "plugin"
+     NOTE: to access imported pluginfunction types do a
+        <o_plugin>->functions-><pluginFuncName>
+  NEEDS
+         t_dllname: Name of dll. Forplatform indendence it is strongly
+                 suggested that you do not include the file extension
+                 or a directory pathcomponent.
+  RETURNS
+         o_plugin
+         nil: can't locate library or not a dll.
+  SEE ALSO
+         axlDllDoc, axlDllSym, axlDllCall, axlDllCallList axlDllClose
+         axlDllDump
+  EXAMPLES
+         1) Open Cadence test dll
+             _ashTestDll = axlDllOpen("axlecho_plugin")

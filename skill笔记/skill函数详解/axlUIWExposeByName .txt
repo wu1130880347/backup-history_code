@@ -1,0 +1,25 @@
+按窗口名称将其显示在其他所有窗口之上
+NAME
+         axlUIWExposeByName - exposes a possibly hidden window by name
+  SYNOPSIS
+         axlUIWExposeByName (
+                 t_windowName
+         )
+         -> t/nil
+  FUNCTION
+         Finds window by name and exposes it (raises it to top of
+         window stack and will de-iconify it if iconify).
+         Allegro window names can be obtained via scripting by using
+         the setwindow command argument. If a form you should remove the
+         "form." prefix to obtain the name.
+         
+         CAUTION: The name of windows may change from release to release.
+                 Thus names passed to this function may not
+         
+         If you wish to raise an item in the control panel (e.g. Options)
+         use the axlControlRaise() function.
+            
+  NEEDS
+         t_windowName:   window name -- see above
+  RETURNS
+         t if found window and nil if not found

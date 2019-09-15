@@ -1,0 +1,57 @@
+
+skill 命令窗口历史记录
+  NAME
+         axlHistory - history for Skillcommand window
+  SYNOPSIS
+         Report history buffer (first to last)
+             axlHistory(
+                 [x_num]
+             ) -> t
+         Read or write historyto a file
+             axlHistory(
+                 s_operation
+                 t_filename
+             ) -> t/nil
+  FUNCTION
+         This is a developers aidonly. Do NOT use it in a Skill program.
+         
+         Provides command recallcapability to the Skill development window.
+         Functionality also appliesto the Allegro command line except the
+         command is: "history<n>" where n is the print the last N commands.
+         The command line has noability to read or write history files. They
+         are automatically read onprogram startup and saved on exit
+         History environmentvariables:
+            allegro_history =<n>        (default is 200 commands)
+                 Comand recallbuffer length.
+            allegro_savehist = <n>       (default off)
+                 Save history filebe saved on progrem exit. Will be read next time on
+                 startup. File issave to: <HOME>/pcbenv/history_<name>.txt
+                    where<name>
+                         - is skill for theskill command area
+                         - programname for Allegro command area
+         History support:
+            !! - last command(same as !-1)
+            !<num> - redocommand number (ex !5)
+            !-<num> - redorelative to last cmd (ex !-2)
+            !<str> - redo cmdstrarting with string last to first search (ex !echo)
+            !?<str> - redocmd matching with string last to first search (ex !?unnamed)
+  NEEDS
+         x_num - print last<num> commands, 0 or noargument prints entire recall buffer
+         s_operation - 'read - read historybuffer from provided file and append to history
+                       'write - write historybuffer to provided file
+         t_filename - a history file(default extension is.txt)
+  RETURNS
+         t - operationsucceeded
+         nil - failed
+         Also prints history buffer if runningwith option 1.
+  EXAMPLES
+         - report history buffer
+                 a = 1
+                 b = 2
+                 axlHistory()
+         - Save history
+                 axlHistory('write "skillhist")
+         - Read history
+                 axlHistory()
+                 axlHistory('read "skillhist")
+                 axlHistory()

@@ -1,0 +1,57 @@
+»ñÈ¡¸½¼þ
+  NAME
+     axlGetAttachment - Retrieve anattachment from the Allegro database.
+  SYNOPSIS
+     axlGetAttachment (
+         t_attachmentId
+         [s_dataFormat]
+     )
+     ==> o_attachment/nil
+  FUNCTION
+     Returns the database attachmentwith the given id.  If the
+     attachment exists, then anattachment record will be returned containing
+     information about theattachment.  The data will be in theformat specified
+     by the s_dataFormatargument.  If 'file, then the "data" attribute will
+     be contain a temporary filename to which the data was written. If
+     'string, then the "data" attribute willcontain the attachment data
+     itself.  If the s_dataFormat argument is omitted or is nil, then the "data"
+     attribute will be nil.  The attachment record has the followingattributes:
+         name        type    Set? description
+         =========   ====== ==== ========================================
+         objType     string NO    Is always "attachment".
+         id          string  NO   Id (name) of the attachment
+         password    boolean NO    t/nil - Indicates if attachment is
+                                  password protected.
+         timeStamp   integer NO   Indicates time last modified in seconds.
+         revision    integer YES    User defined revision number for the
+                                  attachment data.
+         dataFormat  symbol YES   This indicates the format ofthe data stored
+                                  in the "data" attribute and will beequal to
+                                  either 'file, 'string, or nil (in which
+                                   case thedata will not be displayed).
+         data        string YES   The attachment data.  This may be a file name,
+                                   the data itself, or nildepending on the value
+                                  of the dataFormat attribute.
+         timeStamp   integer NO   Size of attachment
+  
+  CAUTION
+         We allow access toattachments in the database that are considered private.
+         Please do not create, change or deletethese attachments.
+         The rule forattachments access is:
+             If your application didNOT create the attachment do NOT change it.
+  NEEDS                             
+     t_attachmentId - The id, or name, of the attachmentto retrieve (31
+                      characters max).
+     s_dataFormat   - The format in which the attachment datawill be stored in
+                      the "data" attribute.  Must be 'string, 'file,
+                      ornil.      
+  RETURNS                           
+     Returns an AXL id for theattachment structure, which can then bequerried using
+     the right arrow (->) operator, or nil if theattachment does not exist.     
+                                    
+  EXAMPLE                           
+     attachment = axlGetAttachment("attachmentOne" 'file)
+         =>attachment:attachmentOne
+  SEE ALSO
+         axlIsAttachment, axlGetAllAttachmentNames,
+         axlCreateAttachment, axlSetAttachment, axlDeleteAttachment

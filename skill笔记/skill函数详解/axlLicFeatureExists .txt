@@ -1,0 +1,18 @@
+判断lic功能是否存在
+  NAME
+         axlLicFeatureExists - does licenseexist
+  SYNOPSIS
+         axlLicFeatureExists(
+                 t_license
+                 [f_version]
+         )-> t/nil
+  FUNCTION
+         Checks if licensefeature exists. Does not verify that the license is available
+         If no version provided usesthe tool default version (see axlLicDefaultVersion)
+  NEEDS
+         t_license - license name
+         f_version - floating pointnumber (e.g. 16.3)
+  RETURNS
+         t - checkout/nilfailed
+  SEE ALSO
+         axlLicIsProductEnabled

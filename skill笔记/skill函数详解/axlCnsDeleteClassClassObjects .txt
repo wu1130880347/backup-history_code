@@ -1,0 +1,14 @@
+删除所有 Class-Class 对象设置
+  NAME
+         axlCnsDeleteClassClassObjects - delete allClass-Class objects.
+  SYNOPSIS
+        axlCnsDeleteClassClassObjects(
+        ) => x_delCount
+  FUNCTION
+         Delete all Class-Classentries.
+  NEEDS
+         nothing.
+  RETURNS
+         the count of the objectsdeleted.
+  SEE ALSO
+         axlCnsPurgeCsets

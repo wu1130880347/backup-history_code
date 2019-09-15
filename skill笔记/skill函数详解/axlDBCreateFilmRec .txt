@@ -1,0 +1,69 @@
+在光绘列表中创建一个新的光绘层
+  NAME
+     axlDBCreateFilmRec -    creates a film record in active Allegroboard db
+  SYNOPSIS
+    axlDBCreateFilmRec (
+      t_filmname
+      n_rotate_code
+      n_x_offset
+      n_y_offset
+      n_undef_line_width
+      n_shape_bound
+      n_plot_mode
+      n_mirrored
+      n_full_contact
+      n_supp_unconnect
+      n_draw_pad
+      n_aper_rot
+      n_fill_out_shapes
+      n_vector_based
+    )
+    ->name/nil
+  FUNCTION
+    This function is most commonly called through thefilm control form's film record
+    "load" option, which evaluates a call ofthe form:
+    (axlfcreate t_name l_params l_vis), where:
+   
+    name is the name of the recordto be created, of the form "NAME"
+    l_params is a list consisting of 13 numbers, form '(0 0 0 ...), which correspond to
+    the "Film Options" fields in the filmcontrol form
+    l_vis is the list of visible layers, each layer enclosedin quotes, space delimited,
+    form '("ETCH/TOP" "VIA/TOP"...)
+   
+    axlfcreate makes the specifiedlayers visible and then calls this function (axlDBCreateFilmRec)
+    with the filmname it was passed and the 13 numbers it waspassed as l_params.  axlDBCreateFilmRec
+    creates a film record with thesespecified parameters and the layers that are currently visible.
+  NEEDS
+    filmname - the name of the filmrecord to be created
+    rotate_code - 0, 2, 4, or 6, corresponding to 0, 90, 180, 270 degree rotation
+    x_offset - film record blockorigin x offset
+    y_offset - film record blockorigin y offset
+    undef_line_width - film recordundefined line width
+    shape_bound - shape bounding boxsize
+    plot_mode - film record plotmode--boolean; 0 =NEGATIVE, 1 = POSITIVE
+    mirrored - flag denotingmirroring
+    supp_unconnect - indicator to not flash unconnectedpads
+    draw_pad - indicator to drawpads
+    aper_rot - boolean indicator for aperture rotation
+    fill_out_shapes - booleanindicator to fill outside shapes.
+         This is the the "opposite" of the "suppress shapefill"
+         switch in the film controlform (ex:  if suppress shape fill is
+         selected, fill_out_shapesshould be 0).  This is named
+         this way becauseart_film_block_type structures have
+         fill_out_shapes fieldsinstead of suppress_shape_fill fields.
+    vector_based - boolean indicatorfor vector-based padbehavior
+  RETURNS
+      the name of the film recordcreated, or nil if failure
+  EXAMPLE 1 (called through film control form)
+    Film control form's film record "save" option iscalled.  This creates a .txt filecontaining
+    the following:
+    (axlfcreate "TRACE_2" '(0 0 0 0 0 1 0 0 0 0 0 0 1) '("ETCH/TRACE_2" "PIN/TRACE_2" "VIACLASS/TRACE_2" ))
+    The "load" option is selected, which evaluates thecontents of this file, calling axlfcreate.
+   
+    axlfcreate changes layervisibility and calls:
+    (axlDBCreateFilmRecord "TRACE_2" 0 0 0 0 0 1 0 0 0 0 0 0 1)
+   
+  EXAMPLE 2
+    (axlDBCreateFilmRecord "TOP" 0 0 0 0 0 0 0 0 0 0 0 0 0)
+   
+    creates film record TOP withcurrent visible layers and fields initialized to 0/false/default

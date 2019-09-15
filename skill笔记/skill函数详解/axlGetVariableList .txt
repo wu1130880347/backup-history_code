@@ -1,0 +1,33 @@
+获得某环境变量列表
+  NAME
+         axlGetVariableList - get currentsetting of environment variable
+  FUNCTION
+         axlGetVariableList(
+                 t_variable/nil
+                 )
+         ==> t_value/lt_value/nil
+  SYNOPSIS
+         Requests the value of thespecified Allegro environment variable,
+         t_variable. Unlike axlGetVariable this will return a list
+         of strings if thevariable is an array such as one of Allegro's
+         path variable. If variable is a singleitem the return is the
+         same as axlGetVariable.
+         Since path variables cancontain spaces, using the axlGetVariable
+         interface and then Skill'sparseString to break them back in their
+         component pieces will not givethe correct result.
+         Variable names are caseinsensitive.
+         Note: Variable names/valuescan change from release to release.
+  NEEDS
+         t_variable:     the name of the Allegro environment variable.
+         nil:    if nil returnsa list of all set variables in Allegro
+  RETURNS
+         t_value/nil:    the string value of the Allegro environmentvariable.
+                         Returns nil if thevariable is not set.
+         lt_names: if passed nil returnslist of variable names
+  SEE ALSO
+         axlGetVariable
+  EXAMPLES
+         The following example:
+         1. Then gets thevalue of the Package Symbol search path
+                 path = axlGetVariableList("psmpath")
+                   ==> ( "." "symbols" "/cds/root/share/pcb/allegrolib/symbols")

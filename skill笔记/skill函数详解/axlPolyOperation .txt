@@ -1,0 +1,44 @@
+两个多边形数据的逻辑操作
+  NAME
+         axlPolyOperation -  logical on two sets of polygons
+  FUNCTION
+         axlPolyOperation (
+                o_polygon1/lo_polygon1
+                o_polygon2/lo_polygon2
+                 s_operation
+                 )
+         ==> lo_polygon/nil
+  SYNOPSIS
+         Performs the logicaloperation specified on the two sets of polys. Will not
+         allow hole polys as input.When holes are passed as input, the following
+         warning is displayed:
+         Invalid polygon id argument<argument>
+         Cautions:
+          - This function isprovided "as-is". Result, in certain cases, may fail
+            or deliver incorrectresults. No commitment can be made to address issues
+            uncovered when usingthis API.
+          - Underlying logicalop function failsin rare dense geometrical situations,
+            nil will be returned inthat case.
+  NEEDS
+         o_polygon1 / lo_polygon1
+         o_polygon / list ofo_polygons on which the operation is to be done.
+         o_polygon2 / lo_polygon2
+         o_polygon / list ofo_polygons on which the operation is to be done.
+         s_operation:    string specifying the type oflogical operation, one of
+                         'AND, 'OR, or'ANDNOT.
+  RETURNS
+         lo_polygon/nil: Returns a list ofo_polygons which represent the
+                         resultinggeometry after performing the operation
+                         on thearguments. In case of an error, it returns nil.
+         For example:
+         (o_polygon_out1 o_polygon_out2  ...) is returned if theresult after
+         performing the operation isa list of polys.
+         (nil) is returned if theresult after performing the operation is a
+         nil poly, that is considerperforming the AND operation on two
+         non-overlapping set ofpolys.
+         nil  is returned if the operationfails. A descriptive error message
+         can be obtained by calling axlPolyErrorGet().
+  EXAMPLES
+         poly1_list = axlPolyFromDB(cline_dbid)
+                 poly2_list = axlPolyFromDB(shape_dbid)
+                 res_list = axlPolyOperation(poly1_list poly2_list 'OR)

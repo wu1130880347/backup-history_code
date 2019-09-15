@@ -1,0 +1,31 @@
+一个数据对象的标准allegro名称
+  NAME
+         axlDbidName - report standardallegro name of a dbid
+  FUNCTION
+         axlDbidName(
+                 o_dbid
+         ) -> t_name/nil
+  SYNOPSIS
+         This returns the standardAllegro name of a database object.
+         Many of the named Allegroobjects like nets have their
+         names defined in the nameattribute (e.g. dbid->name) but
+         other objects like clines and pins either do not have the
+         desired reporting name or are unnamed.
+  NEEDS
+         o_dbid: An Allegro databaseid. Note some Allegro database
+                 id's are pseudo ids(like axlDBGetDesign() and pads)
+                 and will generate a nil return
+  RETURNS
+         Allegro name of object or nil if not a dbid and not a true
+                 Allegro databaseobject
+  EXAMPLES
+         This uses the ashOneselection function found @
+            <cdsroot>/share/pcb/examples/skill/examples/ash-fxf/ashone.il
+         1) Pin name
+             pin = ashOne()
+             axlDbidName(pin)
+                 -> "U1.1"
+         2) Cline name
+             cline = ashOne()
+             axlDbidName(cline)
+                 -> "Net3, Etch/Top"

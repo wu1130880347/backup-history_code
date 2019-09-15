@@ -1,0 +1,59 @@
+捕捉到的逻辑对象连接点
+  NAME
+         axlSnapToObject - snap to logicobject connect point
+  FUNCTION
+         axlSnapToObject(
+                 g_mode
+                 xy
+         ) ==> xy/nil
+  SYNOPSIS
+         Supports snapping to alogic objects connect point. A logic object is a
+                 - Cline
+                 - Clines segments (lines or arcs)
+                 - Via
+                 - Pin
+         For cline objects the twoend points are considered the connect
+         points while for padobjects the connect point is defined in the
+         padstack.
+         Snapping is based upon thetrap size which varies based upon the
+         zoom factor (see axlGetTrapBox). Thetrap size is smaller the
+         higher the zoom. If noobject is found within the the original xy
+         location is returned.
+         NOTE: If is advised thatyou should not use the grid snapping option
+                 with axlEnterPoint as it might move the user pick outside
+                 the trap size.
+  NEEDS
+         g_mode:
+                 nil - use active sel set todetermine snapping
+                 t   - snap based upon the visible layers in thedatabase.
+         xy: location in designunits to snap (list ofdesign units x:y)
+  RETURNS
+         xy      - object snapped point (list ofdesign units x:y)
+         nil     - If not object exists forsnapping returns nil.
+                         Also nil ifarguments are incorrect
+  SEE ALSO
+         axlGetSelSet, axlGetTrapBox,axlLastEvent
+  EXAMPLES
+         - Pseudo code to move  objects
+         ; select object(s); do not do aaxlClearSelSet
+         _clpSelect
+         ; first snap to an object that is theselection list
+         gridSnap = axlEnterPoint(?prompts list("Pick originpoint")
+                         ? gridSnap t)
+         ; for better results use theunsnapped pick
+         origin = axlSnapToObject(nil axlLastPick(nil))
+         ; if no object found fallback to thegrid snapped pick
+         unless( origin origin =gridSnap)
+         ; ok to do clear now
+         axlClearSelSet()
+         ; now ask user for a destination
+         gridSnap = axlEnterPoint(?prompts list("Pick originpoint")
+                         ? gridSnap t)
+         ; Now snap the destination pointbased upon what can be found at that
+         ; location
+         ; for better results use theunsnapped pick
+         dest = axlSnapToObject(nil axlLastPick(nil))
+         ; fallback to grid snapped locationif nothing found
+         unless( origin dest =gridSnap)
+         ; modify coordinates  with dest location
+         axlTransformObject(....)

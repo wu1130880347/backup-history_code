@@ -1,0 +1,32 @@
+ÏÔÊ¾Ë¢ÐÂ
+  NAME
+         axlFlushDisplay - flush to display buffered items
+  SYNOPSIS
+         axlFlushDisplay(
+             [r_window]
+         )
+         ==> t
+  FUNCTION
+         Flush the following display related items thatmay be needed :
+                 Selection set highlighting
+                 Messages
+                 Display repair /updates
+         This is not normally requiredsince the system will perform
+         this flush everytime itinteracts with the user (e.g.
+         axlEnterPoint) or does a cancel test (axlCancelTest). If used,
+         care should be taken inthat it can hurt performance or cause
+         unnecessary updates.
+  NEEDS
+         r_window        - ignored
+  RETURNS
+         t      - always
+  EXAMPLES
+         The following examplecreates a path and display it immediately
+         using axlFlushDisplay, regardless ofwhether the user has caused
+         a display event such asmoving the cursor into the Allegro window:
+         mypath = axlPathStart( list(8900:4400))
+         axlPathArcRadius(mypath, 12., 8700:5300, nil, nil, 500)
+         myline = axlDBCreatePath( mypath, "etch/top" nil)
+         ; Arc is not yet visible
+         axlFlushDisplay()
+         ; Now arc is visible

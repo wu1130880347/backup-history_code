@@ -1,0 +1,32 @@
+创建一个Module
+  NAME
+         axlDBCreateModuleDef - Create a moduledefinition.
+  SYNOPSIS
+         axlDBCreateModuleDef(
+             t_name
+             l_origin
+             l_objects
+         )
+         ==> t/nil
+  FUNCTION
+         AXL interface to the C function that creates amodule definition
+         file based on theparameters passed in.
+  NEEDS
+         t_name                  A string providing the nameof the module
+                                definition.  The file name will bethe module
+                                 definition nameappended with .mdd.
+         l_origin                Coordinate to serve as theorigin of the
+                                module definition.
+         l_objects               List of objects to add to themodule.
+  RETURNS
+         t               The module definition wassuccessfully created.
+         nil             The module definition could not be created.
+  EXAMPLE
+         Create a module definitionfile containing two components:
+            axlSetFindFilter(?enabled '("noall" "components") ?onButtons '("noall" "components"))
+            axlSingleSelectName("COMPONENT" "U1")
+            comp1 = car(axlGetSelSet())
+            axlSingleSelectName("COMPONENT" "U2")
+            comp2 = car(axlGetSelSet())
+            axlDBCreateModuleDef("comps" '(0 0) '(comp1 comp2))
+         A module definition filenamed comps.mdd is created.

@@ -1,0 +1,21 @@
+设置表格父样式
+  NAME
+     axlSpreadsheetSetStyleParent
+  FUNCTION
+     axlSpreadsheetSetStyleParent(parent)
+         ==> t / nil
+  SYNOPSIS
+     Sets the active style's parent. Style will inherit default properties
+     from its parent style, therefore only changes need to be specified
+     in the child style. Parent must already be defined for spreadsheet.
+  NEEDS
+     parent -- Style ID of parent to link to. Note that the parent must
+               already be defined before it can be referenced by children.
+  RETURNS
+     t   -- Style parent successfully set.
+     nil -- Parent not set (no active style or parent style doesn't exist).
+            See console for further details.
+  SEE ALSO
+    axlSpreadsheetSetStyle
+    axlSpreadsheetSetStyleBorder
+    axlSpreadsheetSetStyleProp

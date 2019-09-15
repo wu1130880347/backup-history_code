@@ -1,0 +1,71 @@
+ÉèÖÃ¿ì½Ý¼ü
+  NAME
+        axlSetAlias -    sets Allegro environment alias fromSkill environment
+  FUNCTION
+         axlSetAlias(
+                 t_alias
+                 g_value
+                 )
+         ==> t/nil
+  SYNOPSIS
+         Sets the Allegro environmentalias with the name given by the string
+         t_alias to the valueg_value. g_value can be a string, int, t, or
+         nil. Returns the stringassigned to the alias or nil if the alias
+         cannot be set inAllegro.
+         May use function keysF2-F12, most Alpha-numberickeys with control
+         modifier (although Control - C, V and X arereserved for copy, paste
+         and cut) andNavigation Keys (Home, Up arrow, Esc, etc.) These items
+         may be modifed by thefollowing:
+            Modifier          Indicator               Example
+              Shift              S                     SF2
+              Control            C (function keys)     CF2
+              Control            ~ (alpha-numeric)     ~N
+              Meta               A                     AF2
+        Modifiers may be combined.Some examples:
+              CSF2              Control-Shift F2
+              ASF2              Meta-Shift F2
+              CAF2              Control-Meta F2
+              CASF2             Control-Meta-Shift F2
+              ~SZ               Control-Shift Z
+              SUp               Shift-Up Arrow
+              CUp               Control-Up Arrow
+         Both axlSetFunckey and axlSetAlias share the same datastorage.
+  NOTES
+         1) Alias settings onlyapply to current session. They are not
+                 saved to user'slocal env file.
+         2) Alias changes do not effectprograms launched from Allegro
+                 e.g. import logic, refresh_symbol
+         3) To setfunckeys see axlSetFunckey
+  NEEDS
+         t_alias:        name of the Allegro environment alias.
+         g_value:        Value to which the environment alias is tobe set.
+                         Can be astring, or nil.
+  RETURNS
+         t/nil:          Returns t ifsuccessful. Returns nil if invalid data
+                         type of alias ismarked read-only.
+  SEE ALSO
+         axlGetAlias, axlProtectAlias, axlIsProtectAlias, axlSetAlias
+  EXAMPLES
+         1) Set the the F2 function key tosave command.
+                 axlSetAlias( "F2" "save")
+         2) Unset the control Salias
+                 axlSetAlias( "~S" nil)
+   NAME
+          axlSetAllProfilesVisible
+   FUNCTION
+          axlSetAllProfilesVisible(visible)
+             ==> t / nil
+   SYNOPSIS
+          Turns all wire profiles inthe design on or off.
+   NEEDS
+          visible -- t to turnall profiles on, nil to turnthem off.
+   RETURNS
+          t/nil to indicate success orfailure.
+"\nHelloWorld\n")/ ?8 e$ C% o( }: h
+                 close(fp)
+                 t
+            ))
+         2) Unregister abovereport
+             axlReportRegister('MyReport, nil nil)
+   SEE ALSO
+         axlReportList axlLogHeader

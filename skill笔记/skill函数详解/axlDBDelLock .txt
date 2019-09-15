@@ -1,0 +1,23 @@
+删除设计文件锁定信息
+         NAME
+                 axlDBDelLock - delete lock ondatabase
+         FUNCTION
+                 axlDBDelLock(
+                 [t_password]
+                 ) -> t/nil
+         SYNOPSIS
+                 This deletes a lockon the database. If the database is locked
+                 with a password youmust supply the correct password to unlock
+                 the database.
+         NEEDS
+                 t_password -optional password string (no more then 20 characters)
+         RETURNS
+                 t - if lock removed or no lock
+                 nil - failed to remove lock (bad password)
+         SEE ALSO
+                 axlDBSetLock axlDBGetLock
+         EXAMPLES
+                 1) Delete lock, no password
+                 axlDBDelLock()
+                 2) Delete lock with password, "foobar"
+                 axlDBDelLock("foobar")

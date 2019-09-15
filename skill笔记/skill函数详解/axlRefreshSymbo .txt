@@ -1,0 +1,36 @@
+¸üÐÂÁã¼þ
+  NAME
+          axlRefreshSymbol - refresh a symbol
+  SYNOPSIS
+         axlRefreshSymbol(
+                 t_symName/o_SymDef
+                 [g_options]
+         )
+         ==> t/nil
+  FUNCTION
+         Refreshes a symbol fromfile on disk which is located by current PSMPATH.
+         Works the same as therefresh_symbol functionality except updates one symbol definition.
+         Unlike refresh_symbol thisdoes not support the reset custom drill optionsince
+         this is done at thepadstack level not the symbol level.
+  TIPS
+         - If updating multiplesymbols use axlDBCloak for best performance and minimalmemory use.
+         - To ignore the FIXEDproperty see axlDBIgnoreFixed.
+  NEEDS
+         t_symName       -- existing symbol name
+         o_SymDef        -- symbol defintion dbid
+         g_options       -- Options:
+                                'text - reset text locations
+                                'fanout - reset fanouts (if design has fanouts delete them)
+                                        default is to only delete fanouts if disk symbol hasthem.
+  RETURNS
+         o_SymDef        -- refreshed symdef
+         nil             -- fails; typically if can'tfind symbol on disk or if a FIXED
+                                property is present.
+  SEE ALSO
+         axlDBCloak, axlDBIgnoreFixed, axlReplacePadstack
+  EXAMPLE
+      1) Update the DIP14 and reset textlocations
+         axlRefreshSymbol("DIP14" 'text)
+      2) Update first symboldef off database root and set boththe text and pin escape option
+         symdef = axlDBGetDesign()->symdefs
+         axlRefreshSymbol(car(symdef) '(text fanout))

@@ -1,0 +1,17 @@
+判断是否是接合线
+  NAME
+         axlDBIsBondwire - Verify if a dbid is abondwire
+  FUNCTION
+         axlDBIsBondwire (
+                 o_dbid      
+         )
+         ==> t or nil
+  SYNOPSIS
+         This function verifies thatwhether the given element dbid is a
+         "bonding wire".  A "bonding wire" is a 3D wire object connecting
+         a die pad to one of afinger, ring, or other die pad.
+  NEEDS
+         o_dbid          dbid of the element to be checked.
+  RETURNS
+         t               If is a bond wire.
+         nil             If is not a bond wire.

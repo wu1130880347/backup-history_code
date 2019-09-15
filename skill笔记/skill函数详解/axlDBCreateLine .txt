@@ -1,0 +1,31 @@
+创建一条线
+  NAME
+         axlDBCreateLine - create a path offixed width straight segments
+  SYNOPSIS
+         axlDBCreateLine(
+             l_points
+             [f_width]
+             [t_layer]
+             [t_netname]/['line]
+             [rd_parent]
+         )
+         ==> l_result/nil
+  FUNCTION
+         Create a line with seriesof provided points. If line is on an ETCH
+         layer a cline will becreated unless overrided with'line symbol.
+         All points are absolute (in user units).
+         If <n> points areprovided, then <n-1>segments are created.
+  NEEDS
+         l_points                - list of vertices (at least two)
+         f_width                 - width for all segments (defaults to 0)
+         t_layer                 - layer (defaults to currentactive layer)
+         t_netname               - net name
+         rd_parent               - axl DBID of object to add theline to
+                                        (symbol instance or nil for design)
+  RETURNS
+         - nil if not created or
+         - a list containing
+              (car) list of axl DBID of allpaths created ormodified
+              (cadr) t if DRCs created or nil.
+  SEE ALSO
+         axlDBCreatePath

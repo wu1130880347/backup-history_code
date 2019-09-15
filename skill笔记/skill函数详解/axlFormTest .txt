@@ -1,0 +1,21 @@
+设置某个部件显示的内容+ r* E; B5 k# @' f. ?
+  NAME
+         axlFormTest - open a form file for test viewing
+  FUNCTION
+         axlFormTest(
+                 t_formName
+         ) r_form/nil
+  SYNOPSIS
+         This is a development function for test purposes.
+         Given a form file name thisopens a form file to check for
+         placement of controls. Ifform use's standard button names
+         (ok, done, close, cancel), you can close it be hitting the
+         button. Otherwise use thewindow control.
+         If form is currently open, exposes form and returns.
+  NEEDS
+         t_formName -- name of form
+  RETURNS
+         form handle if succesfully opens
+  EXAMPLES
+         1) open allegro drawing parameter form
+                 axlFormTest("status")

@@ -1,0 +1,43 @@
+Áã¼þ¸½¼þ
+  NAME
+         axlSymbolAttach - Assign an object to a symbol instance
+  SYNOPSIS
+         axlSymbolAttach(
+                 o_symInstDbid
+                 o_dbid/lo_dbid
+         )
+         ==> t/nil
+  FUNCTION
+         Attaches an object or list of objects to symbol instance.
+         For etch objects, provides the ability to associate pin escapes with
+         a symbol.
+         Attach/detach rules:
+             - For detaching, object must be linked to the symbol instance provided.
+               For attaching, the object can't be linked to any other symbol.
+             - If text appears of a REFDES class, it can't be linked or unlinked
+             - Linking or unlinking non-etch objects cause them to be deleted
+               or duplicated if refresh symbol is run. Etch objects is more fully
+               supported by refresh sysbol.
+             - CLINES, LINES, SHAPES, RECTS, FRECTS and TEXT are supported with
+               the layer limits noted below:
+               - Items on BOUNDARY class items are NOT supported.
+               - Shapes cannot be dynamic or generated from a dynamic shape.
+               - Objects cannot be on the DRC class.
+  CAUTION
+         Running refresh_symbol may result in deletion of design level attachments.
+  NEEDS
+         o_symInstDbid   - symbol instance
+         o_dbid - dbid to assign to symbol
+         lo_dbid - lsit of dbid to assign to symbol
+  RETURNS
+         t       - was able to change object
+         nil     - otherwise
+  SEE ALSOE
+         axlSymbolDetach
+  EXAMPLES
+         Examples use ashOne which is a shareware utility that allows user to select
+         an object (see <cdsroo>/share/pcb/examples/skill/ash-fxf/ashone.il)
+         - Attach an object to a symbol:
+             symdbid = ashOne("SYMBOLS")
+             dbid = ashOne("NOALL")
+             ret = axlSymbolAttach(symdbid dbid)

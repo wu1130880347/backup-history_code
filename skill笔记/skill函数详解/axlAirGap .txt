@@ -1,0 +1,119 @@
+测量各元素间的两点距离，show measure 命令一样。
+  NAME
+     axlAirGap - element air gapmeasurement, same as showmeasure command
+  SYNOPSIS
+     axlAirGap(
+         o_item1DBID
+         o_item2DBID
+         [t_layer]/nil
+         [s_mode]
+     )
+     ==> l_airGapData/nil/(s_error l_airGapData/l_errorData)
+  FUNCTION
+     This function finds the air gap and location betweentwo given items.
+     Gap is the same as reported bythe show measure command.
+     Any geometric objects; logical, group or symbols not supported
+     (same as show measure). Unfilled shapesare currently treated as
+     filled but this may change inthe future.
+     You only need to provide alayer option whenmeasuring between
+     to pin or vias (also called padcomparison). When doing pad
+     comparision without the layer, we use the currentactive layer.
+     The layer syntax should eitherbe "ETCH/<subclass>" or "<subclass>"..
+     If you desire spacing to thespecial via or pinsubclasses;
+     SOLDERMASK_TOP, SOLDERMASK_BOTTOM, PASTEMASK_TOP, PASTEMASK_BOTTOM,
+     FILMMASKTOP, FILMMASKBOTTOM youshould either provide "PIN or "VIA CLASS"
+     as the class name. If does not matter what ofthese two class names
+     you use as both will workequally well with pins and vias. If
+     you want the soldermask top spacingbetween a pin and via then use
+     "PIN/SOLDERMASK_TOP".
+               
+     Output data is returned severalformats depending on the
+     s_mode option. The defaults_mode (s_mode==nil) returns the
+     l_airGapData or a nil if an error. If s_modeis t then data is
+     returned as (s_error l_airGapData) where s_error is one ofthe
+     following:
+          t - success
+                     (t  (l_airGapData))
+         'NOMATCH - no subclassmatches between pin/via and object.
+                    Returns object'slayer.
+                     (NOMATCH (t_layer))
+         'RANGE - no subclass matchbetween two the etch elements (one
+                 or both must be a padelement (pin or via).  If common
+                 layers exist then we return the top and bottom layer where
+                 matches existotherwise returns nil:
+                     (ETCH (t_topMatcht_bottomMatch))
+         'INVALID - one or both elements areinvalid. Data return format:
+                     (INVALID nil)
+     Enhanced out (s_mode = 'enhanced) offers anyLayer airgap and
+     returns a disembodied property list of:
+         airGap = <spacingbetween objects> (floatingpoint)
+         location1 = xy locationfirst item where air gap measured
+         location2 = xy location ofsecond item where air gapmeasured
+         layer1 = layer (class subclass) of where first objectmeasured (string)
+         layer2 = layer (class subclass) of where second objectmeasured (string)
+         isEtch = both objects of type ETCH (boolean)
+     For distance between two padsthe return gap based upon theactive etch
+     subclass if t_layer is nil, otherwise uset_layer to determine gap.
+     If one or both pads don'texist on the layer
+        - in anyLayer mode we will return the distancebetween the closest
+          pad layers.
+        - it is an error in s_mode=nil or s_mode=t
+     For distance between a pad and non-pad element;use the layer of the
+     pad that you want themeasurement if layeris not provided we use
+    the active layer or the top layer of the padstack.
+     If performance is a concern useanyLayer mode over enhanced output.
+     The distance if objects do not share the samelayer do NOT take into
+     account board thickness.
+  PROGRAMMING TIP
+     For legacy purposes, this interface doesnot return an air gap if
+     the two objects don't share thesame layer. If you want the air gap
+     any layer use (s_mode = 'anyLayer or 'enhanced).
+  NEEDS
+     o_item1DBID - the dbid of thefirst item
+     o_item2DBID - the dbid of thesecond item
+     t_layer - optional layer usedto resolve gap comparison between two
+                 pin/via elements.If in 'anyLayer or'enhanced mode this
+                 targets aparticular layer forcomparson. It is most
+                 useful in measuringmask layer gaps.
+     s_mode - return additional info to clarify error may be
+         nil - default mode (objects must be onsame layer)
+         t - ("full mode") return l_airGapData or if not share see above
+                 (objects must be onsame layer)
+         anyLayer - support anylayer measure return just gap
+         enhanced - return disembodiedproperty list of additional airgap
+                 criteria (see above)
+  RETURNS
+     l_airGapData - a list containing thefollowing items:
+                     (l_airGapPt1l_airGapPt2 f_airGapDistance)
+                    where:
+                       l_airGapPt1is the (X,Y) point on the firstitem where the
+                                  air gap is measured.
+                       l_airGapPt2is the (X,Y) point on the seconditem where the
+                                  air gap is measured.
+                      f_airGapDistance is the distance between the two points
+     nil - input data error, element 1 and 2 are the same or no air gap
+           can be computed betweenthe two items. Also, if t_layer is used
+           but does not specify and ETCH layer.
+     s_error - See error symbols listedabove
+   EXAMPLES:
+         - Basic input
+                 axlAirGap(el1 el2)
+                         -> ((1337.5 1100.0) (1362.5 1100.0) 25.0)
+         - Basic input layer
+                 axlAirGap(el1 el2 "TOP")
+                         -> ((1337.5 1100.0) (1362.5 1100.0) 25.0)
+         - Full output success
+                 axlAirGap(el1 el2 nil t)
+                         -> (t ((1337.5 1100.0) (1362.5 1100.0) 25.0))
+         - Any layer airgap
+                 q = axlAirGap(el1 el2 nil 'anyLayer)
+                        
+         - Enhanced output
+                 q = axlAirGap(el1 el2 nil 'enhanced)
+                 
+         - Obtain Soldermask spacing
+                 axlAirGap(el1 el2 "PIN/SOLDERMASK_TOP" )
+                         -> (((1337.5 1100.0) (1362.5 1100.0) 40.0))
+         - Full output failure
+                 axlAirGap(el1 el2 nil t)
+                         -> (RANGE ("TOP" "GND"))

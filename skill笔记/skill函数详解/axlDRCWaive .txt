@@ -1,0 +1,46 @@
+�鿴DRC ״̬
+  NAME
+         axlDRCWaive - manage waive DRCstate
+  FUNCTION
+         axlDRCWaive (
+               g_mode
+               o_DrcDbid/lo_DrcDbid
+               [t_comment]
+         ) -> t/nil
+  SYNOPSIS
+         This provides access to theWaive DRC functionality. It supports
+         both waiving and restoring (unwaive) DRC markers. Theinterface
+         supports both a single and a list of DRC dbids.
+         If restoring a DRC marker, it will reappearbut it may no longer
+         reflect an actual DRCerror. This may be due to:
+            - constraint expected value waschanged
+            - object(s) causing DRC werechanged
+            - DRC mode settings aredifferent
+         The only way of determiningif DRC still shouldexist is
+         to perform a axlDRCItem on the first itemin the DRC's dbid
+         violation attribute. Theexception to this rule is external
+         DRCs where the tool thatcreated the DRC must be re-run.
+         Note: comment can also beadded by adding the comment property
+         to the DRC by:
+            axlDBAddProp(drcDbid '("COMMENT" "This drc isOK"))
+  NEEDS
+         g_mode: t - waive DRC; nil unwaive DRC
+         o_DrcDbid: A single DRCmarker
+         lo_DrcDbid: A list of DRC markers
+         t_comment: Optional, add a comment towaived DRC. Only applies
+                 in waive mode.
+  RETURNS
+         t - success
+         nil - failed due to incorrect arguments
+  SEE ALSO
+         axlDBControl, axlDRCWaiveGetCount
+  EXAMPLES
+         1) Waive 1st DRC in drc list
+             p = axlDBGetDesign()->drcs
+             axlDBGetDesign(t car(p) "This DRC isOK")
+         2) Waive all drcs in design
+             p = axlDBGetDesign()->drcs
+             axlDBGetDesign(t p)
+         3) Restore all waived DRCs
+             p = axlDBGetDesign()->waived
+             axlDBGetDesign(nil p)

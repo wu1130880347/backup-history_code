@@ -1,0 +1,53 @@
+坐标点转为字符串
+  NAME
+         axlGeo2Str - Convent a dbpoint to string using same rounding as Allegro
+  FUNCTION
+         axlGeo2Str(
+                 f_dbrep/point
+         ) -> t_result/nil
+  SYNOPSIS
+         When converting floatingpoint numbers to strings you may find
+         the number printed isslightly differently then the value
+         Allegro reports. This is difference is due to how floating point
+         numbers are represented inthe computer. The following article
+         is an excellant paper onthe subject:
+           "What Every ComputerScientist Should Know About Floating-Point
+           Arithmetic." by David Goldberg's
+          http://docs.sun.com/source/806-3568/ncg_goldberg.html
+         This article also explainswhy sometimes the comparison of two floating
+         numbers that appear the same results in anon-equal result.
+         The results only differfrom printf when a "5" exists at thelocation
+         one place more then thedatabase accuracy.  The behavior is as
+         follows forrounding:
+             if digit at dbaccuracy is odd and then 5 round up
+             if digitat db accuracy is even and then 5 round down
+         See examples below.
+         This supports two modes, a single floatingpoint number and a point
+         (a list of two floatingpoint numbers).
+                 
+  NEEDS
+         dbrep - a floating pointnumber
+         point - a xy point
+  RETURNS
+         returns a string withAllegro rounding. If a point is passed
+            then the return formatis: "<x><xy>"
+         nil: not a legalargument
+  SEE ALSO
+         axlGeoEqual
+  EXAMPLES
+         1) Assume database istwo decimal places
+         procedure( testit( f)
+             printf("printf=%.2f\taxlGeo2Str=%s\toriginal value %.3f\n"
+                          f axlGeo2Str(f) f)
+             )
+             testit(1.115)
+             testit(1.125)
+             testit(-1.115)
+             testit(-1.125)
+         Results:
+         printf=1.11     axlGeo2Str=1.12         original value 1.115
+         printf=1.12     axlGeo2Str=1.12         original value 1.125
+         printf=-1.11    axlGeo2Str=-1.12        original value -1.115
+         printf=-1.12    axlGeo2Str=-1.12        original value -1.125
+         2) Using a point
+                 axlGeo2Str(100.124:123.345)

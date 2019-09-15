@@ -1,0 +1,25 @@
+获得选择对象的个数
+  NAME
+         axlGetSelSetCount - return count inselect set
+  FUNCTION
+         axlGetSelSetCount(
+         )
+         ==> x_selCount/nil
+  SYNOPSIS
+         Returns the number of dbidscurrently in the select set.
+  NEEDS
+         None
+  RETURNS
+         x_selCount      - count of objects in selset. Can be 0.
+         nil             - if sel set has not beeninitialized.
+  EXAMPLES
+         The following example setsthe Find Filter to find pins, selects a
+         box around a 14 pin dipand prints the number of dbids in the select
+         set. It is 14, as exp ected.
+         axlClearSelSet()
+         axlSetFindFilter(?enabled list("noall"))
+         axlSetFindFilter(?enabled list("pins")
+                 ?onButtons list("pins"))
+         axlAddSelectBox()
+         axlGetSelSetCount()
+         ==> 14

@@ -1,0 +1,48 @@
+获得pad,属于padstack的一部分
+  NAME
+     axlDBGetPad - instantiates anaxl PadInst
+  FUNCTION
+    axlDBGetPad (
+        o_dbid
+        t_layer
+        t_type
+    ) =>o_pad/nil
+  SYNOPSIS
+      For the pin or via specified byo_dbid, axlDGGetPad gets the pad of type
+      t_type associated with layert_layer.
+      Note: smd pads will not have a defaultinternal layer.
+  NEEDS
+      o_dbid     - either a pin, a via, or a padstack definition
+      t_layer    - string representation of a layer. i.e. "ETCH/TOP"
+                    Special layers:
+                         'internal -default internal layer (not present on SMD padstacks)
+                         'composite- sum of all the layers (worse case)
+                                     this option ignores the t_type argument
+      t_type     - "REGULAR", "ANTI", or "THERMAL"
+  RETURNS
+         o_pad/nil:   Returns the dbid of the pad of the type associated witho_dbid
+                      on the layer specified. If axlDBGetPad cannot get the pad, it
+                      returns nil.
+  EXAMPLES
+         The following example letsthe user pick any pin or via and shows the
+         figureName attribute of theselected pad.
+                 (defun showPad ()
+                         mypopup = axlUIPopupDefine( nil
+                                 (list (list "Done" 'axlFinishEnterFun)
+                                 (list "Cancel" 'axlCancelEnterFun)))
+                 axlUIPopupSet( mypopup)
+                 axlSetFindFilter( ?enabled list("noall")
+                         ?onButtons "noall")
+                 axlSetFindFilter( ?enabled list("pins" "vias")
+                                 ?onButtons list("pins" "vias"))
+                 (while axlSelect()
+                         progn(
+                             mypad =axlDBGetPad(car(axlGetSelSet())
+                                        "etch/top" "regular")
+                             printf( "Pad figuretype : %s\n",mypad->figureName)))
+         To fetch default internalregular pad:
+                 r = axlDBGetPad(car(axlGetSelSet() 'internal "REGULAR")
+         Run showPad() and pick a pin with asquare pad on "etch/top", then a circular
+         pad. The function prints thefollowing:
+                 Pad figure type : SQUARE
+                 Pad figure type : CIRCLE

@@ -1,0 +1,27 @@
+创建一个圆  
+  NAME
+         axlDBCreateCircle - create a circle
+  SYNOPSIS
+         axlDBCreateCircle(
+             l_location
+             [f_width]
+             [t_layer]
+             [rd_parent]
+         )
+         ==> l_result/nil
+  FUNCTION
+         Create a circle atindicated location and with indicated diameter.
+  NEEDS
+         l_location      - center and radius as (X:Y R)
+         f_width         - width of the circle
+         t_layer         - layer (defaults to current active layer)
+         rd_parent       - DBID of object to add the circle to
+                                        (symbol instance or nil for design)
+  RETURNS
+          nil if not created or
+          list containing
+                 (car) list of axl DBID ofcircle (there is always
+                         one DBID inthe list)
+                 (cadr) t if DRCs created or nil.
+  SEE ALSO
+         axlDBCreatePath

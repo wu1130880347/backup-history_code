@@ -1,0 +1,50 @@
+与axlEnterEvent配套使用的鼠标右键菜单
+  NAME
+         axlEventSetStartPopup - Set a pre-popupcall back function
+  SYNOPSIS
+         axlEventSetStartPopup(
+                 [s_callback]
+         ) -> t/nil
+  FUNCTION
+         Sets a SKILL callback function that is calledprior to a popup
+         getting displayed on thescreen. This allows axl apps to reset
+         the popup (seeaxlUIPopupSetsee.), thusproviding context
+         sensitive popups support.
+         The callback function is passed a list structure that isthe
+         same as return list in axlEnterEvent.This function should be
+         used in conjunction withaxlEnterEvent.
+         The callback function is removed when an axl app is finished.
+         It must be set at app start if needed.
+  NEEDS
+         s_callback - axl callbackfunction.
+         no arg     - unsets the callback function which disables the
+                      callbackmechanism.
+  RETURNS
+         Returns t
+EXAMPLE
+     Typical use is in conjuctionwith AXLEnterEvent:
+     (defun startpopupcallback (event)
+         ......
+         newpopup = get a new popup basedon event x,y values
+         axlUIPopupSet(newpopup)
+     )
+     axlEventSetStartPopup('startpopupcallback)
+     .....
+     let( (eventMask event, loop)
+         eventMask = list( 'PICK 'DBLPICK )
+         loop = t
+         while( loop
+                 event =AXLEnterEvent(eventMask, nil)
+                 case(event->type
+                     ('PICK
+                                .... )
+                     ('DBLPICK
+                                .... )
+                     ('DONE
+                                loop = nil)
+                     ('CANCEL
+                                 loop = nil)
+         )
+     )
+     ....
+     axlEventSetStartPopup()

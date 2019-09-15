@@ -1,0 +1,16 @@
+检索所有活动的电子表格中定义的样式列表。
+  NAME
+     axlSpreadsheetGetStyles
+  FUNCTION
+     axlSpreadsheetGetStyles()
+         ==> list ofstyle names + IDs / nil.
+  SYNOPSIS
+     Retrieve a list of allthe styles defined for the active spreadsheet.
+     If no worksheets currentlyexist, nil will bereturned.
+  NEEDS
+     Nothing.
+  RETURNS
+     list -- List of stylenames and IDs as pairs (ID, name)).
+     nil  -- No worksheets current defined / nospreadsheet active.
+  SEE ALSO
+    axlSpreadsheetSetWorksheet

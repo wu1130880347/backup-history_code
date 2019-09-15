@@ -1,0 +1,16 @@
+»ñÈ¡°æ±¾ID
+  NAME
+     axlVersionIdGet - Get version a current ID used to mark database
+  FUNCTION
+     axlVersionIdGet(
+     )
+     ==> x_time
+  SYNOPSIS
+     This returns an id stampd based upon computer time. If is in
+     seconds since computer time started.
+  NEEDS
+     zip
+  RETURNS
+     x_time - returns current time in seconds
+  SEE ALSO
+      axlVersionIdPrint

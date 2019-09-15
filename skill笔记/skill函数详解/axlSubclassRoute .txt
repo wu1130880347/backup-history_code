@@ -1,0 +1,37 @@
+ETCH布线层面列表
+  NAME
+      axlSubclassRoute - list of subclasses that make up class ETCH
+  SYNOPSIS
+         axlSubclassRoute(
+            ?field s_name
+            ?value g_value
+         ) -> lt_subclasses
+  FUNCTION
+      If no options provided returns a list of subclasses making up the
+      class ETCH (CONDUCTOR if non-PCB product).
+      
+      The field and value options provide additional filtering based upon
+      the characteristics of the layer. See Allegro Skill doc
+      "Layer Parameter Attributes (Allegro Subclasses)" or do
+         axlLayerGet("ETCH/TOP")->??
+      to get a attributes and values permitted on a layer.
+      The base call is actually just:
+         axlGetParam("paramLayerGroup:ETCH")->groupMembers
+  NEEDS
+         field - optional field for filtering. If value option is not
+                 present filters on basis of a non-nil value.
+         value - optional value of field to use for filtering. Requires
+                 field option to be passed.
+  RETURNS
+         list of subclass as strings
+  SEE ALSO
+      axlSubclasses, axlGetParam
+  EXAMPLES
+         1) all etch subclasses
+             axlSubclassRoute() -> ("TOP" "GND" "VCC" "BOTTOM")
+         2) all subclasses that are of type etch
+             axlSubclassRoute(?field 'isEtch)
+         3) all subclasses that are not etch (e.g dielectric)
+             axlSubclassRoute(?field 'isEtch ?value nil)
+         4) all  subclasses with material FR-4
+             axlSubclassRoute(?field 'material ?value "FR-4")

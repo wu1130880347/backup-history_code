@@ -1,0 +1,77 @@
+获取电气约束ecset值
+  NAME
+         axlCNSEcsetValueGet - inquireelectrical constraint values for a given ecset
+  FUNCTION
+         axlCNSEcsetValueGet(
+                 nil
+                [g_returnNameString]
+         ) ==> ls_constraints
+         axlCNSEcsetValueGet(
+                 o_ecsetDbid/t_ecsetName
+                 'all
+                 [g_returnString]
+         ) ==>lls_constraintNValues
+         axlCNSEcsetValueGet(
+                o_ecsetDbid/t_ecsetName
+                 s_name
+                 [g_returnString]
+         ) ==> f_value/t_value/nil
+  SYNOPSIS
+         This fetches the constraintvalues for a given ECSET.
+         Electrical Constraint Set (ECSet) is a mechanism for packaging
+         up a set of electricalconstaints into a group and appling
+         them to set of nets.
+         Use axlCNSEcsetValueGet(nil) to determine the set of allowable
+         constraints. The set of constraints is asuper-set of the set
+         returned by axlCNSEcsetModeGet() since Max stub length & Net
+         schedule checks share thesame drc mode.
+         Each cset may have none or all of the allowedconstraints.
+         The cset values may befetched either by the name of the ECSET
+         or by its dbid. The dbids can beobtained either from
+         axlDBGetDesign()->ecsets or by axlCNSECsetCreate().
+         The values can also beobtained off the ecset dbid by its
+         members attribute.
+         Certain values may not be accessibledepending upon the
+         Allegro tier. The Allegrodatabase mantains the value
+         of these properties in thelower Allegro tiers.
+  CAUTION
+         Future releases may add or subtract constraintchecks. The
+         axl interface doesguarantee the checks returned by this
+         interface will remainconstant from release to release.
+  NEEDS
+         o_ecsetDbid: electricalcset dbid
+         t_ecsetName: electricalcset name
+         nil: returns all checksthat support values
+         'all: returns all checkswith values and currentvalue
+         s_name: symbol name ofvalue.
+         t_name: string name of value
+         g_returnNameString: Formode that supports this returns
+                 constaint names asstrings (default is symbol return)
+         g_returnString: Default isto return native type, for all checks
+                 currently supported this is in user units (a float).
+                 If t, return is a MKS string where nil returns native.
+  RETURNS
+         ls_names - list of all controlssupport values (symbol).
+         lls_constraintNValues - list of all controlswith their values
+                 '((s_namef_value/t_value) ....)
+         f_value - user unit value
+         t_value - MKS string value.
+  SEE ALSO
+         axlCNSEcsetModeGet, axlCNSEcsetValueSet, axlMKS2UU
+         axlCNSECsetCreate, axlDBGetDesign()->ecsets
+  EXAMPLES:
+         1) get current list of design constaints that supportvalues
+            (less then what axlCNSDesignModeGet(nil) returns):
+                 axlCNSEcsetValueGet(nil)
+         2) get list of settings for all designconstraints with values
+            returned as MKS strings:
+                 ecsets = axlDBGetDesign()->ecsets
+                 ecset = car(ecsets)
+                 axlCNSEcsetValueGet(ecset 'all t)
+         3) get current setting of Maximum_Via_Counton Ecset UPREVED_DEFAULT
+                 axlCNSEcsetValueGet("UPREVED_DEFAULT" 'Maximum_Via_Count)
+                         = 10
+         4) current setting ofPad_Soldermask_Alignment as a MKS
+            string (this passes ininquiry as a string):
+                 axlCNSEcsetValueGet("UPREVED_DEFAULT" "Pad_Soldermask_Alignment" t)
+                         = "10 MILS"

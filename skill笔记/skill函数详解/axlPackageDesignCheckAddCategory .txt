@@ -1,0 +1,32 @@
+检查包装：添加类别
+  NAME
+         axlPackageDesignCheckAddCategory
+         
+  SYNOPSIS
+         axlPackageDesignCheckAddCategory(t_name t_bitmapt_description)
+         ==> defstruct defining category.
+  FUNCTION
+     This function will register a newcategory inside the
+     IC Packaging tools' "packageintegrity" command check tree.
+     
+     You must define acategory before adding checks to it. So, this
+     function should always becalled prior to axlPackageDesignCheckAddCheck.
+     A newly added category will beinserted into the tree in alphabetically
+     sorted order. Therefore, you do not need tomanage the order categories
+     are added by yourself.
+     
+     NOTE: If the category namealready exists, it will not be redefined.
+  NEEDS
+         t_name - Name of thecategory of checks as it should appear in the
+         user interface. This nameshould be used when calling
+             axlPackageDesignCheckAddCheck to add specific checks.
+         t_bitmap - Name of thebitmap file which should be shown when this
+             check category isactive in the user interface. This
+             should be a full pathto the bitmap or else the bitmap
+             must be resolvablethrough BMPPATH.
+         t_description - Thedescription to be displayed in the GUI when this
+             category ishighlighted.
+  RETURNS
+     Skill defstruct defining thecategory.
+  SEE ALSO
+     axlPackageDesignCheckAddCheck

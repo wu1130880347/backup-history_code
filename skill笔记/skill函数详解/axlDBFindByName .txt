@@ -1,0 +1,31 @@
+查找对象名称
+  NAME
+         axlDBFindByName - find dbid by name
+  FUNCTION
+         axlDBFindByName(
+                 s_type
+                 t_name
+         ) o_dbid/nil
+  SYNOPSIS
+         Finds dbid of an object byname without involving the selection set.
+         This means you can run thiscommand at anytime without effecting what
+         is present in the selectionset
+         The following object lookuptypes are supported
+            type         t_name          return type
+            -------------------------------------------
+            'net         net name        dbid of a net
+            'refdes      refdes          dbid of a component instance
+            'padstack    padstack name   dbid of a padstack
+         This is restricted to a singleobject. To find objects using wildcards
+         use axlSelectByName.
+  NEEDS
+         s_type: type symbol see above
+         t_name: object's name (this is case insensitive)
+  RETURNS
+         o_dbid: dbid of object or nil
+  SEE ALSO
+         axlSelectByName
+  EXAMPLES
+         db = axlDBFindByName('net "GND")
+         db = axlDBFindByName('padstack "VIA")
+         db = axlDBFindByName('refdes "U1")

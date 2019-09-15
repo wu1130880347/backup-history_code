@@ -1,0 +1,18 @@
+获得窗体上某个部件的类型
+  NAME
+         axlFormGetFieldType - gets field Type.
+  FUNCTION
+         axlFormGetFieldType(
+                 r_form
+                 t_field
+                 )
+         ==> g_fieldType/nil
+  SYNOPSIS
+         Returns the control type for a form field. See the keywords
+         in axlFormCallback for a list of supported field types.
+  NEEDS
+         form:   Form dbid.
+         t_field:        Name of the field.
+  RETURNS
+         g_fieldType/nil:        nil if field doesn't exist or one of
+                         the types shown above.

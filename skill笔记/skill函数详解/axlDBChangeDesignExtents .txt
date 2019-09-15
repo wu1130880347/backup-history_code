@@ -1,0 +1,27 @@
+ÐÞ¸ÄÉè¼Æ·¶Î§³ß´ç
+  NAME
+     axlDBChangeDesignExtents - change designextents
+  SYNOPSIS
+     This allows changing of thedesign extents.
+     If may fail if an object fallsoutside the new extents.
+     If may also fail if the extents exceedthe database range since
+     it is an integer baseddatabase.
+  FUNCTION
+     axlDBChangeDesignExtents(
+         l_bBox
+     ) -> t/nil
+  NEEDS
+         l_bBox - new design extents
+  RETURNS
+         t if size changed
+         nil if failed to make change
+  CAUTIONS
+         1) On large designs this make take time
+  EXAMPLES
+     1) shrink db to its smaller extent
+         extents = axlExtentDB('obstacle)
+         axlDBChangeDesignExtents(extents)
+     2) minumin size plus 100 mils all around
+         extents = axlExtentDB('obstacle)
+         extents = bBoxAdd(extents '((-100 -100) (100 100))
+         axlDBChangeDesignExtents(extents)

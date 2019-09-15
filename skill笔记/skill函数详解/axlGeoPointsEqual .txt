@@ -1,0 +1,22 @@
+某两点是否相同
+  NAME
+         axlGeoPointsEqual - are two xy pointsalmost equal
+  FUNCTION
+         axlGeoPointsEqual(
+                 l_point1
+                 l_point2
+         ) -> t/nil
+  SYNOPSIS
+         This performs an equalcomparision between two xy points and
+         determines if theyare equal within db accuracy
+  NEEDS
+         two xy points
+  RETURNS
+         t if they are equal withincurrent database accuracy.
+         nil not equal
+  SEE ALSO
+         axlGeoEqual
+  EXAMPLES
+         pt1 = '(2.0 1.1)
+         pt2 = '(2.0 1.1)
+         axlGeoPointsEqual(pt1 pt2)

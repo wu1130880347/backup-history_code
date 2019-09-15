@@ -1,0 +1,42 @@
+
+[size=15.555556297302246px]Ìí¼Ó»òÉ¾³ýGroupÊôÐÔ
+  NAME
+         axlMatchGroupProp  - adds/removes relative propogation delayproperty
+  FUNCTION
+         axlMatchGroupProp(
+                 o_mgdbid/t_mgName
+                 o_dbid
+                 t_value/nil
+         )==> t/nil
+  SYNOPSIS
+         Adds or removesa relative propogation delay property from a member of
+         a match group. Propertymust use a legal RPD syntax which must
+         include the RPD name.
+         Command fails in producttiers that do not support electrical
+         constraints or thesymbol editor.
+         See discussion inaxlDBMatchGroupCreate.
+  TIP
+         Using dbids is faster then usingnames.
+  NEEDS
+         o_mgdbid: dbid of a matchgroup
+         t_mgName: name of a matchgroup
+         o_dbid:   legal database dbid to of a member of thematch group
+         t_value:  relative propogation delay value in legalsyntax. If
+                   value is nil removesthe property
+  RETURNS
+         t         - added elements
+         nil       - failed one or more element adds
+  SEE ALSO
+         axlMatchGroupCreate
+  EXAMPLES
+         - To match group created inaxlMatchGroupCreate add two nets
+             mg = car(axlSelectByName("MATCH_GROUP" "MG1"))
+             nets = axlSelectByName("NET" '("B1_OUT" "B2_OUT"))
+             n1 = car(nets)
+             n2 = cadr(nets)
+             axlMatchGroupAdd(mg  nets)
+         - now add propeties
+             axlMatchGroupProp(mg n1 "MG1:G:::100 ns:5 %")
+             axlMatchGroupProp(mg n2 "MG1:G:AD:AR:0 ns:5 %")
+         - oops removeproperty from n2
+             axlMatchGroupProp(mg n2 nil

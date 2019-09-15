@@ -1,0 +1,42 @@
+给shape指定网络名(net)
+  NAME
+         axlChangeNet - change net anobject is on
+  SYNOPSIS
+         axlChangeNet(
+                 o_dbid
+                 t_netName/o_netdbid
+         )
+         ==> t/nil
+  FUNCTION
+         This changes the net anobject is currently on. It is currently
+         restricted to shapes, filled rectangles, pins, and vias. If it
+         succeeds it returns "t". It will not ripup clines or vias.
+         It can fail for the followingreasons.
+                 - object is not supported
+                 - netName does not exist
+         
+         Restrictions:
+                 - Pins must beassigned. Pins must have an associated
+                   component.Mechanical pins are un-assigned.
+                 - Vias netassignment is advisory. The via must be able to
+                   connect tosomething on the provided net to remain on
+                   that netotherwise it will fall back to the original
+                   or possibly anothernet.  
+                  
+                   If a via is inopen space it will be on dummy net. This
+                   API cannot beused to force it onto a net.
+                   This API isuseful for a via, if a it touchsmultiple
+                   shapes but it isassigned to the wrong shape's net.
+         Side effects:
+              1) It may not properly reconnect two touching clines
+                 segments that werepreviously connected via the shape.
+              2) clines onlyattached to the shape will inherit the new
+                 net of the shape
+              3) vias attached tothe shape will NOT inherit the new net.
+                 This is differentfrom the Allegro change net command.
+  NEEDS
+         o_dbid  - shape dbid.
+         t_netName/o_netdbid - nameof a net or a netdbid (for dummy nets)
+  RETURNS
+         t      - was able to change object
+         nil    - otherwise

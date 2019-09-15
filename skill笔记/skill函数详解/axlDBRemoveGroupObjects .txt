@@ -1,0 +1,31 @@
+从一个Group中移除某个对象
+  NAME
+         axlDBRemoveGroupObjects - remove database objectsfrom a group
+  SYNOPSIS
+         axlDBRemoveGroupObjects(
+                 o_group
+                 lo_members
+         )
+         ==> t/nil
+  FUNCTION
+         Removes the specifieddatabase objects from the specified group. The
+         database objects areotherwise unaffected (i.e. the ex-members are not
+         deleted).
+  NEEDS
+         o_group         The dbid for the group
+         lo_members      A list of database objects which are to be removedfrom
+                         thegroup.  A single dbid can be substituted for a
+                         list.
+  RETURNS
+         t               If some of the objects could beremoved from the
+         group.
+         nil             If lo_members contained no dbid'sof objects which
+                         could be removed from the group.
+  SEE ALSO
+         axlDBCreateGroup
+  NOTE
+         If a group if left with nomembers,  the group is tagged for deletion
+         (but will not be removed immediately).
+         You do not need to explicitly remove objects from agroup before
+         deleting the object (i.e. with axlDeleteObject).  The act of deleting
+         an object will remove it from all groupsto which it is a member.

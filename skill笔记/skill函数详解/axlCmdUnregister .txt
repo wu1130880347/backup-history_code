@@ -1,0 +1,21 @@
+从 Allegro 应用中取消注册一个用户自定义 Skill 命令
+  NAME
+         axlCmdUnregister - unregister askill command from Allegro
+  SYNOPSIS
+         list axlCmdUnregister (
+                 t_allegroCmd
+         ) ==> t/nil
+   
+  FUNCTION
+         Unregisters a command namedt_allegroCmd form Allegro Shell
+         system. If command alreadyexisted as a base Allegro cmd,
+         it will be available again.If the command existed because it
+         was registered using axlCmdRegister, it will be lost.
+  NEEDS
+         t_allegroCmd            - Name of command to be registered.
+  RETURNS
+         t/nil for SUCCESS/FAILURE
+  SEE ALSO
+         axlCmdRegister
+  EXAMPLE
+         (axlCmdUnregister "interboxcmd")

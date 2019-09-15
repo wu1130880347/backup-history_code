@@ -1,0 +1,14 @@
+获得当前缩放窗口区域数据
+NAME
+         axlWindowBoxGet - Get current zoom window
+  FUNCTION
+         axlWindowBoxGet(
+         )
+         ==> l_box
+  SYNOPSIS
+         Returns the bounding box of that is currently visible to the user
+         in design units.
+  NEEDS
+         none
+  RETURNS
+         l_box   - bBox of the current window.

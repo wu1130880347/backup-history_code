@@ -1,0 +1,34 @@
+Êä³ö±à¼­
+  NAME
+         axlPrintDbid - debug function to print dbids
+  SYNOPSIS
+         axlDumpDbid(
+                 o_dbid/lo_dbid
+                 [o_port]
+         ) -> t
+  FUNCTION
+         This is a debug function to print one or a list ofdbids. Output format
+         is terse andparsable. This will not print all attribute data in a dbid
+         but is customized to aid inunderstanding the dbid data.
+         Format: <key><attribute> <value>
+            where key can be
+                 c - common value ofattribute (objType, name, xy)
+                 a - otherattributes
+                 l - printabledetail on list of dbids associated with elemnt
+                     Not all list ofdbids are reported.
+                 g - what groupshave the object
+                     format: g group<type> name= <name>
+         Output is either directedto the Skill window or if port is provided
+         written to a file.
+         Note using the environemntvariable, pv_showelem you canget the same
+         data in the show elementcommand.
+  NEEDS
+         o_dbid/lo_dbid - dbid or a list ofdbids
+         o_port - option port object(from outfile)
+  RETURNS
+         t
+  SEE ALSO
+         axlShowObject
+  EXAMPLES
+         l = axlGetDesign()
+         axlPrintDbid(l)

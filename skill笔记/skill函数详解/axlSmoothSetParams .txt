@@ -1,0 +1,59 @@
+设定的路线平滑参数
+  NAME
+     axlSmoothSetParams - set routesmoothing params
+  SYNOPSIS
+     axlSmoothSetParams (
+         l_params
+     ) ==> t/nil
+  FUNCTION
+     Sets the parameters used forsmoothing. All parameters must be supplied but
+     a nil as a parameteroption will leave the existing setting.
+     The smooth functionality isprovided on an "as-is" basis. It works well
+     on many designs put has thefollowing restrictions:
+         - not diffpair aware.
+         - may have issues withelectrically constrained nets
+     TIP: See axlDBIgnoreFixed if you want to temporary disable FIXEDtesting.
+  NEEDS
+     params - List containing theparameters, the list is ofthe form:
+                 (cornerTypemaxCornerLength padEntryRestriction
+                                            minPadEntryLength sortDirection)
+              cornerType - Can beone of the following string values:
+                  "90" - for 90 degreecorners.
+                  "45" - for 45 degreecorners.
+                  "0"  - for any angle corners.
+                  "-1" - for arccorners.
+              maxCornerLength - Thisis an integer value indicating the
+                  maximum length of a bubble or jog indbunits.  A negative
+                  value indicatesUNLIMITED.
+              padEntryRestriction -Can be one of the following string values:
+                  "2" - Indicates thatthere are no restrictions.
+                  "1" - Indicates thatall pad entry segments be fixed.
+                  "0" - Indicates thatthe entry segments for all rectangular
+                        pads befixed.
+              minPadEntryLength -This is an double value indicating the
+                  minimum length offixed pad entry segments in user units.
+                  If a pad entrysegment is longer than this length, it will
+                  be broken at or nearthat point so that smoothing can occur
+                  on that segment.  A negative value indicates UNLIMITED.  This
+                  value is notapplicable if padEntryRestriction is "2".
+              sortDirection - Thisindicates how the clines are to be sorted
+                  before smoothingbegins.  This can be one of the following
+                  integer values:
+                  0 - Nosorting.
+                  1 - Sortfrom the North.
+                  2 - Sortfrom the NorthEast.
+                  3 - Sortfrom the East.
+                  4 - Sort from the SouthEast.
+                  5 - Sortfrom the South.
+                  6 - Sortfrom the SouthWest.
+                  7 - Sortfrom the West.
+                  8 - Sortfrom the NorthWest.
+  RETURNS
+     t ifsuccessfull, nil if not.
+  EXAMPLE
+     1) set params
+          axlSmoothSetParams(list("45" -1.0 "0" 10.0 0))
+     2) Update cornertyp to90
+          axlSmoothSetParams(list("90" nil nil nil nil))
+  SEE ALSO
+     axlSmoothItems, axlSmoothDesign, axlDBIgnoreFixed

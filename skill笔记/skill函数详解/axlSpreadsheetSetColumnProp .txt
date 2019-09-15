@@ -1,0 +1,18 @@
+设置表格列
+NAME
+     axlSpreadsheetSetColumnProp
+  FUNCTION
+     axlSpreadsheetSetColumnProp(column propName propVal)
+         ==> t / nil
+  SYNOPSIS
+     Sets a property for the given column of the active worksheet.
+  NEEDS
+     column   -- Column index to set property for.
+     propName -- Propety to set. Allowable values are:
+                     AUTO_FIT_WIDTH, WIDTH, STYLE.
+     propVal  -- Value to set this property to.
+  RETURNS
+     t    -- Property set on column.
+     nil  -- Property not set. Reason printed to console.
+  SEE ALSO
+    axlSpreadsheetSetRowProp

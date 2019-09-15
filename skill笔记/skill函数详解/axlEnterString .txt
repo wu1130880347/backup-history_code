@@ -1,0 +1,31 @@
+获得用户输入的字符串- E# m. ?: A% |& X1 m' Y4 X
+  NAME   
+         axlEnterString - get a string form theuser
+  FUNCTION
+         axlEnterString (
+             ?prompts l_prompts
+         )
+         ==> t_string/nil
+  SYNOPSIS
+        Displays a fillin with afield where the user must type in a
+         string and then either press Returnon the keyboard or clickOK
+          or Cancel in thefillin. The default prompt in the fillin is
+         "Enter text" You can supply aprompt string with the
+         ?prompts keyword.  The function returns the string entered by the
+         user, if any. Otherwise itreturns nil.
+         Note: This function is a blocker.Allegro will not respond
+                 to any user input until the fillin hascompleted.
+  NEEDS
+         l_prompts       - List of prompt msgs to prompt the userfor a string.
+  RETURNS
+         t_string - user typedstring
+         nil - user canceled request
+  EXAMPLE
+         The following exampleprompts the user for his or her name
+         and collects the response in user_name.
+                 user_name = axlEnterString(
+                         ?prompts list("Please enteryour name:"))
+         This displays a fillin and the prompt. Theuser types in their
+         name.  When the user presses the Return key, the function returns
+         the string entered:
+                 ==> "username"

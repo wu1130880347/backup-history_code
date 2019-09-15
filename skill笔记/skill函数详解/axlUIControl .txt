@@ -1,0 +1,62 @@
+获取图形画布(控制区)
+  NAME
+         axlUIControl - inquire about graphics canvas
+  FUNCTION
+         axlUIControl(
+                 s_name
+                 [g_value]
+         )
+         ==> g_currentValue/ls_names
+  SYNOPSIS
+         Inquires and/or sets the value dealing with the graphics.
+         If setting a value, the return is the old value of the control.
+         A side effect of most of these controls is if a form is active that
+         is displaying the current setting it may not be updated. Additional
+         side effects of individual controls are listed.
+         Items will be added over time.  Items currently supported:
+         Name:   screen
+         Value:  (x_width x_height)
+         Set?:   No
+         Description: Retrieves the screen's width and height in pixels
+         Equiv:  none
+         Side Effects: none
+         Name:   vscreen
+         Value:  (x_width x_height)
+         Set?:   No
+         Description: Retrieves the screen's virtual width and height in
+                 pixels. This will not be the same as 'screen if running
+                 Windows XP and enabled monitor spanning option. Also
+                 requires multiple monitors and graphic card(s) capable of
+                 supporting multiple monitors.
+         Equiv:  none
+         Side Effects: On UNIX always returns the same size as screen.
+         Name:   monitors
+         Value:  x_number
+         Set?:   No
+         Description: Retrieves the number of monitors available.
+         Equiv:  none
+         Side Effects: On UNIX always returns 1 since we currently do
+                 not support multi-monitors on UNIX.
+         Name:   pixel2UserUnits
+         Value:  f_number
+         Set?:   No
+         Description: Returns number user units per pixel taking into
+                 account the current canvas size and zoom factor.
+                 Changes with the current zoom factor.
+         Equiv:  none
+         Side Effects: none
+  NEEDS
+         s_name: symbol name of control. nil returns all possible names
+         s_value: optional symbol value to set. Usually a t or a nil.
+  RETURNS
+         See above
+         ls_names - If name is nil then returns a list of all controls.
+  SEE ALSO
+         axlOSControl
+  EXAMPLES:
+         1) get screen size
+                 size = axlUIControl('screen)
+                         -> (1280 1024)
+         2) get pixel to user units
+                 axlUIControl('pixel2UserUnits)
+                         -> 17.2

@@ -1,0 +1,47 @@
+计算给出圆弧角度的半径
+  NAME
+         axlGeoArcCenterRadius - calculate thecenter of an arc given radius
+  FUNCTION
+         axlGeoArcCenterRadius(
+             l_startPoint
+             l_endPoint
+             f_radius
+             [g_clockwise]
+             [g_bigArc]
+         )
+         ==> l_center/nil
+  SYNOPSIS
+         Calculates the center of anarc given its radius. axlGeoArcCenterRadius
+         calculates l_center either for one arcor another depending on the arguments.
+  NEEDS
+         l_startPoint:   Start point of the arc
+         l_endPoint:     End point of the arc
+         f_radius:       Radius of the arc
+         g_clockwise:    Rotational sense of the arc: t isclockwise. nil (default)
+                         iscounterclockwise.
+         g_bigArc:       Flag telling whether the arc extends asthe larger or the
+                         smaller ofthe two arcs possible between the start and
+                         endpoints.
+  RETURNS
+         l_center/nil:   Returns the arc center as a list: (X Y).
+                         Returns nil if for anyreason it cannot calculate the
+                         center fromthe given arguments.
+  EXAMPLES
+         The following exampleprints the two possible centers for the arcs going
+         through the points (7500:5600) and (8000:4700) using axlGetArcCenterRadius,     then adds arcs throughthose points using axlPathArcRadius, and compares
+         their centers:
+         print axlGeoArcCenterRadius( 7500:5600 8000:4700 1000)
+                 ==> (8499.434 5566.352)
+         mypath = axlPathStart(list( 7500:5600))
+         axlPathArcRadius(mypath, 0., 8000:4700, t, nil, 1000)
+         axlDBCreatePath( mypath, "etch/bottom")
+         print axlGeoArcCenterRadius( 7500:5600 8000:4700 1000 t)
+                 ==> (7000.566 4733.648)
+         mypath = axlPathStart(list( 7500:5600))
+         axlPathArcRadius(mypath, 0., 8000:4700, nil, nil, 1000)
+         axlDBCreatePath( mypath, "etch/top")
+         Do Show Element on each arcto show its center coordinate:
+         The solid arc on the leftlists: "center-xy(8499,5566)" which agrees
+         with the (8499.434 5566.352) printed by axlGeoArcCenterRadius above. The
+         dotted arc on the rightlists: "center-xy(7001, 4734)", which agrees
+         within rounding with (7000.566 4733.648) printed for theother arc.

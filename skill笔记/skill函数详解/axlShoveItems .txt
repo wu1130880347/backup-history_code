@@ -1,0 +1,32 @@
+推挤一些对象，以便消除DRC
+  NAME
+    axlShoveItems - shoves a list ofdbitems to remove drcs
+  FUNCTION
+     list
+     axlShoveItems (
+         l_itemList
+     ) ==> t/nil
+  SYNOPSIS
+     Takes a list ofdbids and shoves them according to the parameters set using
+     the axlShoveSetParams function.
+  NEEDS
+     l_itemList - List of dbids (clines, pins or vias) to be shoved.
+  RETURNS
+     t/nil: Returns t ifsuccessful, or nil if afailure occurs.
+  NOTES
+     Pins and vias will not beshoved, but the clinesaround them will be
+     shoved in an attempt toeliminate any DRCs between the pin/via and the
+     cline.
+     The list of dbids passed inwill not reflect the results of the shove,
+     as the original item may bedeleted and/or replaced.
+  EXAMPLE
+     The following example function shovesan item (or items) interactively
+     selected by the user:
+         (defun ShoveElement ()
+             axlSetFindFilter(?enabled '("CLINES" "VIAS")
+                               ?onButtons '("CLINES" "VIAS"))
+             axlSelect()
+             axlShoveItems(axlGetSelSet())
+         )
+  SEE ALSO
+     axlShoveSetParams

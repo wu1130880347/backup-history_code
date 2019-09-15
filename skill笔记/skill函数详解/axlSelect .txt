@@ -1,0 +1,75 @@
+是否可以进行选择操作
+  NAME
+         axlSelect - Combines allselection modes into a single interactive
+                     procedure.
+  FUNCTION
+         axlSelect(
+                   ?firstEventCallback   s_callback
+                   ?groupMode            t/nil
+                   ?prompt               t_prompt
+                  )
+                  => t/nil
+  SYNOPSIS
+         axlSelect attempts tosimulate the selection environment of
+         allegro interactivecommands by combining all selection modes to
+         selection objects in the allegro database.Automatically sets up
+         the pop-up to p rovide anyof the possible Allegro selection methods:
+                 * Single pointselect
+                 * Window select
+                 * Group select
+         axlSelect does not return untilit finds something or is canceled by
+         axlCancelEnterFun() or axlFinishEnterFun() called via Skill.
+         You can set up thepop-up to display other options such as Done and
+         Cancel, but the function alsodisplays the find options. See the example
+         below.
+         Before axlSelect returns, it puts in theselect set a list of the dbids
+         of the objects the userselected.
+         Use axlSelect when you create interactive commands that allow the user
+         to select objects in thesame way as existing Allegro interactive
+         commands such as move or delete.axlSelect allows the user to select
+         objects using the standardmethods of mouse pick, window, and group. It
+         returns when theuser has selected one or more objects or picksDone or
+         Cancel, depending on thepop-up selections you set up before calling it.
+         The default mode for axlSelect is selecting a single object by point,
+         equivalent to axlSingleSelectPoint.
+         axlSelect removes any dbidsthat might previously have been in the
+         selection set when theuser first selects one or more objects.
+         You must set up thefind filter to your requirements before calling
+         axlSelect.
+  NEEDS
+         firstEventCallback      Procedure that will be called the first
+                                user event occurs.  The callbacktakes
+                                 noargs.
+         groupMode               Default is for axlSelect to return when the
+                                user make a selection.  IfgroupMode if 't,
+                                 axlSelect won't return until you do an
+                                 axlCancelEnterFun or axlFinishEnterFun.  You
+                                perform all of your activity in popup callbacks
+                                instead of when axlSelect returns.  In
+                                groupMode,axlSelelect will not clear existing
+                                selections.  If you want that doneafter the
+                                first event,  do it in yourfirstEventCallback.
+         prompt                  Prompt to the user.  Default is:
+                                     "Enter selectionpoint"
+  NEEDS
+         None.
+  RETURNS
+         t/nil:          Returns t if axlSelect put any objects into the select
+                         set duringthe call. The select set is a list of the
+                         dbids of the objects the user selected. If axlSelect did
+                         not put anyobject dbids into the select set, then it
+                         returnsnil.
+  EXAMPLES
+         The following exampledefines a function that loops, performing the
+         Show Element command oneach object selected by the user:
+         (defun showElement ()
+         mypopup = axlUIPopupDefine( nil
+                 (list (list "Done" 'axlFinishEnterFun)
+                 (list "Cancel" 'axlCancelEnterFun)))
+         axlUIPopupSet( mypopup)
+         axlSetFindFilter( ?enabled list( "NOALL" "ALLTYPES" "NAMEFORM")
+                 ?onButtons "ALLTYPES")
+         while( axlSelect()
+                 axlShowObject( axlGetSelSet()))
+         Although you explicitly set Done and Cancel for thiscommand, AXL also
+         adds Group, Window Select, andFindFilter to the pop-up.

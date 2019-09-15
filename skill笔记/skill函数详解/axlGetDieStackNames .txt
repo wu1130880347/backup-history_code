@@ -1,0 +1,13 @@
+列出die-stack 的名字/nil
+  NAME
+         axlGetDieStackNames
+  SYNOPSIS
+         axlGetDieStackNames() ==> list ofdie-stack names/nil
+  FUNCTION
+         This function returnsa list of the names of all die stacks in the
+         current design.
+         Only available in ICPproducts.
+  NEEDS
+         Nothing
+  RETURNS
+         List of die-stack names or nil if noneexist

@@ -1,0 +1,22 @@
+图形绘制：添加文字
+  NAME
+      axlGRPDrwText
+  FUNCTION
+      axlGRPDrwText(
+               r_graphics,
+               l_origin,
+               t_text
+      )-tnil
+  SYNOPSIS
+     This function draws text into thearea identified by the r_graphics
+     handle, at the origin specified. Optionproperties attached to the
+     r_graphics handle are applied, when drawingthe text.
+     
+  NEEDS
+     r_graphics - The graphicshandle.
+     l_origin   - A list noting the x and ycoordinate of the origin.
+     t_text     - Text string to be drawn.
+  RETURNS
+     nil if an erroroccurred, otherwise t.
+  SEE ALSO
+     axlGRPDoc

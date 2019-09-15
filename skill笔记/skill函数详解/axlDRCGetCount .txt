@@ -1,0 +1,13 @@
+获取DRC个数
+  NAME
+         axlDRCGetCount
+  FUNCTION
+         axlGetDRCCount (
+         )      -> x_count
+  SYNOPSIS
+         Returns total number ofDRC's in the design. Note design DRC may be
+         out of date.
+  NEEDS
+         Nothing
+  RETURNS
+         x_count         Returns DRC count.

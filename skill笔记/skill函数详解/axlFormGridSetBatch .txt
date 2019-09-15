@@ -1,0 +1,85 @@
+再添更新多个单元中的一个网格
+  NAME
+         axlFormGridSetBatch - Adds updatesmultiple cells in a grid
+  FUNCTION
+         axlFormGridSetBatch(
+                 r_form
+                 t_field
+                 s_callback
+                 g_pvtData
+         ) -> t/nil
+  SYNOPSIS
+         Change grid cells eithervia this interface or axlFormSetField.
+         For changing multiple cellsthis interface
+         is much faster then axlFormSetField.Both APIs require
+         a grid cell data type (see axlFormGridNewCell).
+         When axlFormGridSetBatch is used, the grid performssingle callback
+         via s_callback to populatethe grid. In the callback you
+         must call axlFormGridBatch to update gridcells. See
+         programming example (grid.il) at
+                <CDS_INST_DIR>/share/pcb/etc/skill/examples/ui
+         You should create the rows and columns beforecalling this
+         Batch API.
+         Within the callback, only axlFormNewCelland axlFormGridBatch
+         should be used from theaxlForm API.
+         As always after changingthe cells you need to update the
+         display via axlFormGridUpdate which should be doneoutside
+         of the callback.
+         A grid cell data type (r_cell) attributes are asfollows:
+             x_row - row to update
+             x_col - column toupdate
+             g_value - value (may be string, integer or float) if nil
+                 preserve current grid setting for cell
+             s_backColor - optionalbackground color
+             s_textColor - optionaltext color
+             s_check - for CHECKITEM cells set or clear check mark. It is
+                 ignored for non-check cells.Value my be t or nil.
+             s_noEdit - If cell iseditable this disables edit
+                 Ignored for TEXT columns sincethey are not editable.
+                 Current cellsettings are preserved.
+             s_invisible - Make cellinvisible. Current cell settings
+                 are preserved bygrid.
+             s_popup - use popupname in form file to set or "" to unset.
+                If enum, string, long or real cell overridecolumn popup
+                   else restore back topopup of column
+                for all other celltypes this is ignored.
+             t_objType - object name"r_cell" (read-only)
+         NOTE: previous grid cellsettings are override by values in
+                 in s_noEdit and s_invisible.
+         Column and Row access
+             Rows and columns are 1 based. This means if you want to
+             set the cell in thefirst column and row youneed set the
+             row and col number to 1.
+             Via reserved row and column values youcan control header
+             and script text withthe following follows (<row>,<col>):
+                 (<row>, 0) - set side header display text
+                 (<row>, -1) - set side headerscripting text
+                         Case isignored and text must be not have spaces
+                                 or '!'
+                 (0, <col>) - set top header display text. You may also
+                         set top header text atcolumn creation time
+                         (axlFormGridInsertCol)
+                 (0,0) - setting iscurrently not supported.
+             For headers and script text, the g_value is theonly
+             valid attribute other then row and col.
+         Colors available for s_backColor and s_textColor
+             nil - use system defaults color (typically white for
+                 background and black for text)
+             black
+             white
+             red
+             green
+             yellow
+             button - draw incurrent button background color
+  NEEDS
+         r_form - form handle
+         t_field - field name
+         t_callback: Function tocallback It takes a single argument;
+                         g_pvtData
+         g_pvtData: private data (pass nil if don't care)
+  RETURNS
+         t if arguments are valid, nil otherwise.
+         will return nil either if axlFormGridSetBatch fails or if
+         the application callbackreturns nil
+  SEE ALSO
+         axlFormGridNewCell

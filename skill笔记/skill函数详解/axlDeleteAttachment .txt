@@ -1,0 +1,24 @@
+É¾³ý¸½¼þ
+  NAME
+     axlDeleteAttachment - Delete an Allegrodatabase attachment.
+  SYNOPSIS
+     int axlDeleteAttachment (
+         t_attachmentId
+         [t_passwd]
+     )
+     ==> t/nil
+  FUNCTION
+     Deletes the givenattachment.  If the attachment ispassword
+     protected, then the correctpassword must also be given.
+  CAUTION
+     Do NOT delete attachments you do not own. This includesany predefined
+     Allegro attachments like DFA or quickviews.
+  NEEDS
+     t_attachmentId - The id, or name, of the attachmentto retrieve (31
+                      characters max).
+     t_passwd       - The password for this attachment (if needed).
+  RETURNS
+     Returns t if the attachment wassuccessfully deleted, nil
+     if not.
+  SEE ALSO
+      axlGetAttachment

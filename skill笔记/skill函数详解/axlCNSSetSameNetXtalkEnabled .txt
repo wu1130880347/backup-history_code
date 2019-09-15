@@ -1,0 +1,12 @@
+启用或禁用相同Net Xtalk.
+  NAME
+     axlCNSSetSameNetXtalkEnabled
+  SYNOPSIS
+     axlCNSSetSameNetXtalkEnabled(g_value)
+         => t
+  FUNCTION
+     Enables or disables Same NetXtalk.
+  NEEDS
+     g_value: t or nil to indicate if same net Xnet isturned on or off.
+  RETURNS
+     t

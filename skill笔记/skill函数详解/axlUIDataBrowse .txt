@@ -1,0 +1,71 @@
+UIÊý¾Ýä¯ÀÀ
+  NAME
+     axlUIDataBrowse - browser dialogue for database or library object selection
+  SYNOPSIS
+              axlUIDataBrowse (
+               s_dataType
+               ls_options
+               t_title
+               g_sorted
+               [t_helpTag]
+               [l_callback]
+               [g_args]
+           ) => lg_return
+  FUNCTION
+      function analyzes all objects requested by caller, passing each through
+      the callers callback function, and puts them in a single-selection list.
+      This list blocks until a user has made a selection.  That selection is
+      then passed back the caller in a list containing two objects, the first
+      of which is the selected name, which may be either a database or library
+      name, and the second being the AXL DBID of the object, if it was a
+      database object.
+  NEEDS
+       s_dataType is one of:
+                                 'NET
+                                 'PADSTACK
+                                 'PACKAGE_SYMBOL
+                                 'DEVICE
+                                 'PARTNUMBER
+                                 'REFDES
+                                 'BOARD_SYMBOL
+                                 'FORMAT_SYMBOL
+                                 'SHAPE_SYMBOL
+                                 'FLASH_SYMBOL
+                                 'BRD_TEMPLATE
+                                 'SYM_TEMPLATE
+                                 'TECH_FILE
+       ls_options is a list containing at least one of:
+'EXAMINE_DATABASE
+                                 'RETRIEVE_OBJECT or 'RETRIEVE_NAME
+                                 'EXAMINE_DATABASE or 'EXAMINE_LIBRARY
+                                 'DATABASE_FIXED
+                                 'LIBRARY_FIXED
+         RETRIEVE_OBJECT - when object selected return dbid
+         RETRIEVE_NAME - when object selected return its name (string)
+         EXAMINE_DATABASE - Initially look in database for list of objects
+         EXAMINE_LIBRARY - Initially look via appropriate env PATH variable
+                         for list ofobjects
+         DATABASE_FIXED - read-only checkbox for database
+         LIBRARY_FIXED - read-only checkbox for files (library)
+       t_title is the prompt for the title of the dialog
+       g_sorted is the switch indicating whether or not the list should be
+           sorted
+       [t_helpTag] is the optional help tag for the browser
+       [l_callback] is the callback filter function, which takes
+           three arguments: The name, the object, and the the
+           g_arg passed in, and returns t or nil based on whether
+           or not the object is eligible for browsing
+       [g_arg] - generic argument passed through to l_callback as
+           the third argument
+  RETURNS
+      nil: if no object selected (cancelled)
+      (t_name o_dbid): if selection made and RETRIEVE_OBJECT
+EXAMPLES
+      (t_name nil): if selection made and RETRIEVE_NAME
+  EXAMPLES
+      axlUIDataBrowse('NET '(RETRIEVE_NAME) "hi" t)
+      axlUIDataBrowse('PADSTACK '(RETRIEVE_NAME) "hi" t)
+      axlUIDataBrowse('PACKAGE_SYMBOL '(EXAMINE_DATABASE EXAMINE_LIBRARY RETRIEVE_NAME) "hi" t)
+      axlUIDataBrowse('PACKAGE_SYMBOL '(EXAMINE_LIBRARY RETRIEVE_OBJECT) "hi" t)
+      axlUIDataBrowse('PACKAGE_SYMBOL '(EXAMINE_LIBRARY RETRIEVE_NAME) "hi" t)
+      axlUIDataBrowse('PARTNUMBER '(RETRIEVE_OBJECT) "Part Number" t)

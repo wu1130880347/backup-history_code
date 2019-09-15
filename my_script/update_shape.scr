@@ -1,0 +1,18 @@
+# Allegro script
+#	file: J:/ZWSD/design2018/NodeScreenV1_0/Revsion2/Finally/main/pcb/play/update_shape.scr
+#	start time: Fri Sep 07 20:39:10 2018
+#	Version: 17.2-2016 S031 (3682489) Windows SPB 64-bit Edition
+scriptmode +i +n
+version 17.2
+
+setwindow pcb
+trapsize 7771
+generaledit
+shape global param 
+generaledit 
+setwindow form.dyn_xshape
+FORM dyn_xshape force_update  
+FORM dyn_xshape done  
+setwindow pcb
+
+#	stop time: Fri Sep 07 20:39:33 2018

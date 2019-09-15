@@ -1,0 +1,32 @@
+标准颜色选择对话框
+  NAME
+         axlUIColorDialog - standard color chooser dialog
+  FUNCTION
+         axlUIColorDialog(
+                 r_window/nil
+                 l_rgb
+         ) -> l_rgb/nil
+  SYNOPSIS
+         This invokes standard color chooser dialog. This dialog is
+         blocking so you must provide a parent window, system will
+         default to the main window of the application.
+         The l_rgb is a, red, green, blue palette list. Each item
+         in the list is an integer between the values of 0 and 255.
+         0 has the color off, when 255 is complete on. A '(255 255 255)
+         is white, for example.
+  NEEDS
+         r_window: Parent window. If nil use main program window.
+                 Return handle of axlFormCreate is of type r_window.
+         l_rgb: seeded red green blue
+  RETURNS
+         l_rgb: user selected values
+         nil: User canceled dialog
+  SEE ALSO
+         axlColorSet, axlColorGet
+  EXAMPLES
+         1) get color 1 and have user change it
+                 rgb = axlColorGet(1)
+                 rgb = axlUIColorDialog(nil rgb)
+                 when(rgb
+                     axlColorSet(1 rgb)
+                     axlVisibleUpdate(t))

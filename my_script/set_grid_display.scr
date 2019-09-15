@@ -1,0 +1,27 @@
+# Allegro script
+#	file: J:/ZWSD/design2018/NodeScreenV1_0/Revsion2/Finally/main/pcb/play/set_grid_display.scr
+#	start time: Fri Sep 07 20:44:12 2018
+#	Version: 17.2-2016 S031 (3682489) Windows SPB 64-bit Edition
+scriptmode +i +n
+version 17.2
+
+setwindow pcb
+trapsize 3886
+generaledit
+prmed 
+setwindow form.prmedit
+FORM prmedit design  
+FORM prmedit display  
+FORM prmedit view_grids_button  
+setwindow form.grid
+FORM grid display NO 
+FORM grid display YES 
+FORM grid all_etch all_etch_x_grids 0.01 
+FORM grid all_etch all_etch_y_grids 0.01 
+FORM grid done  
+setwindow form.prmedit
+FORM prmedit done  
+setwindow pcb
+generaledit 
+
+#	stop time: Fri Sep 07 20:45:02 2018

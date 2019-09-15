@@ -1,0 +1,40 @@
+约束改变后更新DRC
+  NAME
+         axlCNSMapUpdate - DRC updateconstraint changes since last clear
+  FUNCTION
+         axlCNSMapUpdate(
+         ) -> x_drcCount/nil
+  SYNOPSIS
+         This function along with axlCNSMapClear batches and tunes DRC
+         updates due to constraintchanges made by axlCNS<xxx> functions.
+         None of the axlCNS<xxx> functions willperform a DRC
+         update, they just set the DRC system out-of-date.
+         The reason this function exists is that running DRCsystem
+         once on a set of constraintmodifications is much more
+         efficient then running it as part of each change.This
+         is only noticable on largeboards.
+         Currently this does not support nesting.
+  NEEDS
+         nothing
+  RETURNS
+         nil if no matching axlCNSMapClear
+         x_drcCount - number of DRCcaused by batch changes
+  SEE ALSO
+         axlCNSMapClear,
+         axlCNSEcsetModeSet, axlCNSDesignModeSet, axlCNSDesignValueSet
+  EXAMPLES
+         The following turns offelectrical max via check, turns
+         all design checks on and sets the islandtolerance to 10.
+         The Clear/Update callsbatch up and optimize the drcupdate
+         required by these changes.
+             axlCNSMapClear()
+             axlCNSEcsetModeSet('Maximum_Via_Count'off)
+             axlCNSDesignModeSet('all 'on)
+             axlCNSDesignValueSet('Negative_Plane_Islands10.0)
+             axlCNSMapUpdate()
+         Doing one change:
+             axlCNSMapClear()
+             axlCNSEcsetModeSet('Maximum_Via_Count'on)
+             axlCNSMapUpdate()
+         Real examples:
+                 see<cdsroot>/share/pcb/examples/skill/constraints

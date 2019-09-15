@@ -1,0 +1,93 @@
+testprep×ÊÁÏÎÄµµ
+  NAME
+         axlParamTestprepDoc - testprepparameter record Skill interface summary
+  FUNCTION
+         p = axlGetParam("testprep")
+         axlSetParam(p)
+  SYNOPSIS
+         This supports access toAllegro's testprep parameter record.
+         The Allegro database isonly updated when axlSetParam is called
+         with the parameter record.
+         
+         Notes:
+         1) specifing padstackstestVia or testPad will load them into
+                 the currentdatabase if not already loaded. Changing
+                 to another padstackwill not delete the old padstack
+                 in the database.
+==============================================================
+  TESTPREP Attributes:
+     NAME          Set?    TYPE      DESCRIPTION
+    ------------------------------------------------
+    allowUnderComp yes     t/nil     allows test pads under components
+    autoInsert     yes    t/nil      allows automaticgeneration of
+                                        testpoints as needed
+    bareBoard      yes    t/nil      if nilcomponent pins can only be
+                                        tested on noncomponent design side.
+                                        if t then pins can be checkedon
+                                         either side of design as long as
+                                        padstack is defined on that side.
+    directTest     yes    t/nil      allows pins to beselected as testpoint
+    executeInc     yes    t/nil      if t retunsin incremental mode where
+                                        only nets without test points are
+                                        analyzed. If nil removes all tp
+                                        at begining of run
+    layer          yes     symbol    layer for test, top, bottom or either
+    minPadSize     yes    float      minimumpadstack size. Will work with
+                                        replaceVias to up scale padstacks.
+    minTestSpacing yes     float      minimum spacing between testpoints.
+    minTestDisplacement yes float     minimum distance from pin or via where
+                                        a test point can be placed. A value
+                                        of 0 indicates DRC distance should
+                                         be used.
+    maxTestDisplacement yes float     maximum distance from pin or via where
+                                        test point can be placed.
+    objectType     no     string     "testprep"
+    pinType        yes    symbol     Type of pin selectable fortesting.
+                                        Values supported are input, output,
+                                        pin, via or point
+    replaceVias    yes    t/nil      if treplaces existing vias that are
+                                        too small with larger via.
+    testGridX      yes    float      testprep grid
+    testGridY      yes    float      testprep grid
+    testMethod     yes    symbol     method used for test;single, node
+                                         or flood.
+    testPadType    yes    symbol     type ofpadstacks for probes (smd,
+                                        through, or either)
+    testPad        yes    nil/string padstack that should be used for test
+                                        pads on the probe side of the
+                                        design. Must meet criteria specified
+                                        in the testPadType attribute.
+                                         If relative name is given uses
+                                        database then PSMPATH to find pad.
+    testPadDB      no     dbid       Dbid of testPad
+    testVia        yes    nil/string padstack that should be used for test
+                                         pads on the probeside of the
+                                        design. Must be through hole.
+                                        If relative name is given uses
+                                        database then PSMPATH to find pad.
+    testViaDB      no     dbid       Dbid of testVia
+    unusedPins     yes    t/nil      Allow testpoints onpins not on a net
+The Following are Text Controls
+    alpha          yes     t/nil     If t use Alphabetic extension, nil
+                                        use numberic extension
+    displayText    yes    t/nil      Displays text for eachtest point
+    textOffsetX    yes    float      X offset oftext from pad center
+    textOffsetY    yes    float      Y offset oftext from pad center
+    textRotation   yes    integer    Rotation of text labels, values are
+                                        0, 90, 180 or 270degress. Other
+                                        values will be moduled and
+                                         truncated.
+  NEEDS
+         axlGetParam requires "testprep"
+         axlSetParam requires return of axlGetParam
+  RETURNS
+         axlGetParam returns testprepparameter record
+         axlSetParam returns parameterdbid if successful, nil otherwise
+  SEE ALSO
+         axlDBControl for accessto testPointFixed
+  EXAMPLES
+         1) Turn on text display and set testmethod to flood
+                 p = axlGetParam("testprep")
+                 p->displayText =t
+                 p->testMethod = 'flood
+                 axlSetParam(p)

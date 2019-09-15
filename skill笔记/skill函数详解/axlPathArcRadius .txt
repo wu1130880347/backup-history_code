@@ -1,0 +1,70 @@
+ÉèÖÃ»¡ÏßµÄ°ë¾¶
+  NAME
+         axlPathArcRadius axlPathArcAngleaxlPathArcCenter
+  FUNCTION
+         axlPathArcRadius(
+                 r_path
+                 f_width
+                 l_end_point
+                 g_clockwise
+                 g_bigarc
+                 f_radius
+                 )
+         ==> r_path/nil
+         axlPathArcAngle(
+                 r_path
+                 f_width
+                 l_end_point
+                 g_clockwise
+                 f_angle
+                 )
+         ==> r_path/nil
+         axlPathArcCenter(
+                 r_path
+                 f_width
+                 l_end_point
+                 g_clockwise
+                 l_center
+                 )
+         ==> r_path/nil
+  SYNOPSIS
+         Each of these three functions providesa different way to construct
+         an arc segment from thecurrent endpoint of r_path to the given
+         l_end_point in thedirection specified by the Boolean g_clockwise,
+         as described below.
+  
+         Attempting to create smallarcs using many decimal points of
+         accuracy may not succeeddue to round off errors.
+  NEEDS
+         r_path:         Handle of an existing r_path toreceive arc segment
+         f_width:        Width of arc segment in user units.Overrides, for
+                         thissegment only, any widthoriginally given in
+                        axlPathStart; nil = use current width.
+         l_end_point:    End point to which arc is to beconstructed. The
+                         start point is the last pointcurrently in r_path
+                         in absolutecoordinates.
+         g_clockwise:    Direction to create arc: t -->create arc clockwise
+                         from startto endpoint nil --> create
+                        counterclockwise. Default is counterclockwise.
+         g_bigarc:       axlPathArcRadius: Create arc greaterthan or equal
+                         180degrees.
+         f_radius:       axlPathArcRadius: Arc radius in userunits
+         f_angle:        axlPathArcAngle: Angle in degreessubtended by arc.
+         l_center:       axlPathArcCenter: Arc center point inabsolute
+                         coordinates
+  RETURNS
+         r_path/nil:     Returns current path handle ifsuccessful.
+                         Otherwiseit returns nil.
+  EXAMPLES
+         Example of axlPathArcRadius
+         This example adds asmaller-than-180 degree counterclockwise arc by radius:
+                 mypath = axlPathStart( list( 8900:4400))
+                 axlPathArcRadius( mypath 12. 8700:5300 nil nil 500)
+                 axlDBCreatePath( mypath "etch/top")
+         Example of axlPathArcAngle
+         This example adds acounterclockwise arc subtending 330 degrees:
+                 mypath = axlPathStart( list( 8900:4400))
+                 axlPathArcAngle( mypath 12. 8700:5300 nil 330)
+                 axlDBCreatePath( mypath "etch/top")
+         Example of axlPathArcCenter
+                 See Path Functions

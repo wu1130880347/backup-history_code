@@ -1,0 +1,71 @@
+添加一个externalDRC标记到数据库
+9 x0 s7 W# p/ S0 `8 F  r1 a& J
+  NAME
+         axlDBCreateExternalDRC - add an externalDRC marker to the database
+  FUNCTION
+         axlDBCreateExternalDRC(
+            t_constraint/lt_constraint
+             l_anchorPoint
+             t_layer
+             [lo_dbid]
+             [l_secondPoint]
+             [t_actualValue]
+         )
+         ==> l_result/nil
+  SYNOPSIS
+         Creates an externallydefined (by user) DRC containing thevalues
+         given in thearguments.  An externally defined DRCmarker always
+         has the two characters "X D" in it.
+         You may pass the constraintas the tradition argument (t_constraint)
+         where this contains both the constraint and expected value in
+         a one string. The downsideof this method is that show element
+         and reports will report a 0 for the exepctValue.Alternatively
+         you can pass it as a list of containing twostrings; contraint
+         name and expected value.This format will report properly in
+         both show element and reports. Noteconstraint and expectValue
+         are actually implemented aspropertyies on the external drc dbid
+         whose names areEXTERNAL_VIOLATION_DESCRIPTION, EXTERNAL_DRC_VALUE.
+         The t_actualValue isoptional and provides anexternally-defined
+         actual value for the DRC with units.
+         Attempting to create a DRCobject on a non-DRC class is an error.
+         Note: This function is available in thelayout editor, but not
+                 in the symboleditor.
+  NEEDS
+         t_constraint            - Name of the "constraint" that was violated.
+                                        This string should contain both the
+                                        type of constraint aswell as the
+                                         "required" value and comparison.
+         lt_constraint           - Alternative method it is a list of
+                                 (t_constraintt_expectValue)
+         l_anchorPoint           - The location of the DRC
+         t_layer                 - Layer for the marker. Thiseither must
+                                 include the "drc errorclass" or just
+                                 thesubclass name.
+         lo_dbid                 - Optional list of the objects thatcaused
+                                        the DRC (maximumof two).
+         l_secondPoint           - Second reference point. Make thisa
+                                coordinate on the object of the DRC pair
+                                 that does not have the DRC markeron it.
+                                This point shows what the second object is
+                                 when you read the DRC data inlater processes.
+         t_actualValue           - actual (calculated) value for the constraint
+  RETURNS
+         l_result/nil            - nil if not created, or a list containing
+                                        (car) axl DBID of the DRC
+                                        (cadr) t always (in future, t if DRC
+                                                is new, else nil if DRC
+                                                existed already)
+   EXAMPLES
+         The following examplecreates a user defined DRC marker at x,y
+         (1500, 1800) to mark a violationof user rule:
+                 "Line toPin--MY SPACING RULE" with a required value 12
+                 and actual value of 10.
+         1) original method
+             axlDBCreateExternalDRC(
+                 "MY SpacingLine to Pin/req:12"
+                 1500:1800 "drc errorclass/top" nil nil "10 MILS")
+         2) new method for better show elementand report behavior
+             axlDBCreateExternalDRC(
+                 '("My SpacingLine to Pin" "12")
+                 1500:1900 "top", nil nil "10 MILS")
+         Adds "X D" DRC markers at (1500 1800) and (1500 1900).

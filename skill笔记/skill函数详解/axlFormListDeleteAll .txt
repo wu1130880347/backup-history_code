@@ -1,0 +1,31 @@
+删除窗体上某个list部件中的内容) u1 D5 G" L4 e# t! k6 k+ g: F4 C( z( d, ~
+  NAME
+         axlFormListDeleteAll - deletes all itemsin a list
+  FUNCTION
+         axlFormListDeleteAll(
+                 r_form
+                 t_field
+                 )
+         ==> t/nil
+  SYNOPSIS
+         Deletes all the items fromthe form list field, t_field. Use axlFormListDeleteAll to
+         clear an entire list field in order toupdate it using axlFormSetField, then displaying
+         it using axlFormSetField on the field with anil field value.
+  NEEDS
+         r_form:         Form control.
+         t_field:        Name of the field.
+  RETURNS
+         t/nil:          Returns t if it deleted all items properly.Otherwise it returns nil.
+  EXAMPLES
+         In this example you do the following:
+         1. Use the axlFormCreate examples to create and display the ExtractSelector dialog box.
+         2. On the SKILL command line, enter
+                 axlFormListDeleteAll(form "file_list")
+                         ==> nil
+         The list is removed from thedialog box .
+         3. On the SKILL command line, enter
+                 axlFormSetField(form "file_list" "fu")
+                 axlFormSetField(form "file_list" "bar")
+                 axlFormSetField(form "file_list" nil)
+                 ==> t
+         The Extract Selector formis displayed with new list.

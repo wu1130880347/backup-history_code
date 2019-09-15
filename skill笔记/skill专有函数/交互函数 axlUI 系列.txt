@@ -1,0 +1,38 @@
+Skill 交互函数 axlUI 系列集锦 Interface 指和用户交互，allegro 给出一些 Message 提醒用户进行相关的操作，比如说Pick a Point就是让用户用鼠标选择一个点；又比如说allegro弹出一个 Confirm 对话框，需要用户选择Yes/No的情况。在allegro的 skill窗口输入_lfn("axlUI")一般会查到如下的函数： axlUICmdPopupSetaxlUIConfirm
+axlUIControl（ do not use ）
+axlUIEditFile
+axlUIGetUserData
+axlUIMenuDump
+axlUIMenuLoad
+axlUIMultipleChoice
+axlUIPopupDefine
+axlUIPopupSet
+axlUIPrompt
+axlUIViewFileCreate
+axlUIViewFileReuse
+axlUIViewFileScrollTo
+axlUIWBeep
+axlUIWBlock
+axlUIWClose
+axlUIWDisableQuit
+axlUIWExpose
+axlUIWExposeByName
+axlUIWPerm
+axlUIWPrint
+axlUIWRedraw
+axlUIWSetHelpTag
+axlUIWSetParent
+axlUIWShow
+axlUIWUpdate
+axlUIYesNo
+axlUIYesNoCancel
+这里介绍一下其中几个很常用的函数的用法
+
+axlUIConfirm => axlUIConfirm("Who are you?")
+axlUIYesNoCancel => axlUIYesNoCancel("are yousure to delete all highlight shapes?" "DeleteShape Command")
+axlUIYesNo => axlUIYesNo("are yousure to delete all highlight shapes?" "DeleteShape Command")
+axlUIMultipleChoice => axlUIMultipleChoice("Pick alayer" '("top" "bottom" ) "ViewLayer")
+axlUIPrompt =>axlUIPrompt( "EnterYour Name" "user name" )
+    前3个差不多，但是axlUIConfirm只是个提醒，返回值总是t，另外两个返回值是数字0=>Yes, 1=>No, 2=>Cancel。 axlUIMultipleChoice的返回值也是数字，0对于这个函数中间那个列表的第一个参数，顺序下来。 axlUIPrompt这个函数提供了用户输入信息的功能，返回值为字符串，如果你想要数字，需要自行转换，atoi/atof之类。 axlUIPrompt示例
+
+最后还有一个 axlUIWBeep()，就是一个beep提示音

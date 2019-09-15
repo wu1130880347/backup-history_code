@@ -1,0 +1,5 @@
+总是允许用户取消Skill 代码测试。红绿灯会改变红色。
+  NAME
+         axlCancelOff - control-Cinterface
+  SYNOPSIS
+         see axlCancelOn

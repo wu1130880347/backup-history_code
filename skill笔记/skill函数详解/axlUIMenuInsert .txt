@@ -1,0 +1,87 @@
+²åÈë²Ëµ¥Ïî
+  NAME
+     axlUIMenuInsert - insert menu items
+  SYNOPSIS
+     1a) command item menu add
+         axlUIMenuInsert(
+             x_menuId
+             t_display
+             t_command
+         ) -> t/nil
+     1b) Separator add
+         axlUIMenuInsert(
+             x_menuId
+             'separator
+         ) -> t/nil
+     2a) Sub-menu add
+         axlUIMenuInsert(
+             x_menuId
+             'popup
+             t_display
+         ) -> x_subMenuId/nil
+     2b) Sub-menu end (optional)
+         axlUIMenuInsert(
+             x_menuId
+             'end
+         ) -> t/nil
+     3) Multi-item add
+         axlUIMenuInsert(
+             x_menuId
+             ll_items
+         ) -> t/nil
+  FUNCTION
+         Adds menu item to an existing menu. Several modes are supported:
+           1a) Add a new menu item with dispatchs a command when selected by user.
+           1b) Add a new visual separator to menu.
+           2a) Add a new sub-menu item. Assumption is that it
+                 will be populated by additional menu insert calls.
+           2b) End a sub-menu. This is optional, see menu stack discussion below.
+           3) Add multiple menu items
+         This is implemented using a menu stack. axlUIMenuFind resets the
+         stack and each submenu created increments the stack. The
+         'end mode (submenu) decrements the stack. The menu stack allows
+         the building of a menu tree with very little coding overhead. The
+         stack depth is restricted to 8.
+  CAUTION
+         Menu items should not be created outside a menu trigger. See
+         discussion in axlUIMenuFind. For development purposes you
+         can create menu items outside of the menu trigger.
+  NEEDS
+         x_menuId - menu id which can be obtained from axlUIMenuFind
+                 or creating a submenu via this API. If nil uses
+                 the current menu on the menu stack
+         t_display - text that is shown in the menu
+                 'separator - add a separator (horizontal line)
+                 'popup - create a new submenu
+         t_command - command to run
+                 - this is ignored for a 'separator
+                 - this is the display string for 'popup option
+         'end - pops the menu stack if creating a menu tree
+         ll_items - this is a list of t_display/t_command value pairs which
+                 instruct this interface to add multiple menu items and
+                 subenus in a single call. Both the 'separator and 'end
+                 options do not have to be a list
+  RETURNS
+         t - successful
+         nil - failed
+         x_menuId - if creating a new submenu, the nesting id of new submenu
+  SEE ALSO
+         axlUIMenuFind
+  EXAMPLES
+         - add a separator before the add rect command
+                 q = axlUIMenuFind( nil "add rect")
+                 z = axlUIMenuInsert(q 'separator )
+         - add a web link at the top of the help menu
+                 q = axlUIMenuFind( nil -1 'top)
+                 z = axlUIMenuInsert(q "Google" "http http://google.com" )
+         - add a new submenu to the right of the help menu with 2 cmmmands
+                 q = axlUIMenuFind( nil -1)
+                 ; the nil is intention in here since it demostrates
+                 ; the use of the currrent menu from find.
+                 z = axlUIMenuInsert(nil 'popup "MyMenu")
+                 ;  the nil is required for the next 2 calls since we want to
+                 ;  insert these these items into MyMenu
+                 z = axlUIMenuInsert(nil "1" "echo hello 1" )
+                 z = axlUIMenuInsert(nil "2" "echo hello 2" )
+         - more nested menu
+                 see <cdsroot>/share/pcb/examples/skill/ui/menu.il

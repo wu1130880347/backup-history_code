@@ -1,0 +1,38 @@
+NAME
+          axlCreateBondWire
+   FUNCTION
+          axlCreateBondWire(
+             parentSymbol
+             list(wireStartOwner wireStartLocation)
+             list(wireEndOwnerwireEndLocation)
+             list(wireDiameterwireProfile)
+          )
+          ==>dbidt/nil
+   SYNOPSIS
+          This function adds a valid, fully-instantiatedbond wire to the
+          database. Bond wirescreated through this interface can be
+          safely manipulated by thewirebond toolset and willalso be
+          properly recognized by allaspects of the database (DRC,
+          signal integrity, 3D viewer, etc).
+   NEEDS
+          parentSymbol - dbid of thesymbol (generally a die) with
+                      which this wire should beassociated when performing
+                      operationslike a move or delete.Optional.
+          wireStartOwner/Location -This is a list with the first itembeing,
+                      the dbid ofthe object to which thestart of the wire
+                      attaches. Ifthis object is a pin or finger, the location
+                      will bederived from the object's origin. If the object
+                      is a shape, you must pass the location for the connection
+                      as well.
+          wireEndOwner/Location -This is a list with the first itembeing,
+                      the dbid ofthe object to which the endof the wire
+                      attaches. If this object is a pin or finger, the location
+                      will bederived from the object's origin. If the object
+                      is a shape, you must pass thelocation for the connection
+                      as well.
+          wireDiameter/Profile -This list of two itemsdescribes the
+                      physicalplacement of the wire in terms of its 3D profile
+                      (a string) and the wire diameter (a number).
+   RETURNS
+          dbid of newly created bondwire if successful.
+          nil  if an error occured (message printed to status window).

@@ -1,0 +1,24 @@
+删除列表中的行
+  NAME
+         axlFormGridDeleteRows - deletes rows in alist
+  FUNCTION
+         axlFormGridDeleteRows(
+                 r_form
+                 t_field
+                 x_row
+                 x_number
+         ) -> t/nil
+  SYNOPSIS
+         Deletes x_number rows atx_row number.
+         A x_row=<n>, x_number=-1 deletesfrom that row to the end of the
+         grid as a result a x_row=1, x_number=-1 deletesentire grid.
+         A x_row=-1, x_number-1 may beused to delete last row inthe grid.
+  NEEDS
+         r_form: standard formhandle
+         t_field: standard fieldname
+         x_row: row number startdelete
+         x_number: number of rows todelete
+  RETURNS
+         Returns t for success, nil for failure
+  SEE ALSO
+         axlFormGridNewCell

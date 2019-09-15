@@ -1,0 +1,8 @@
+          添加部分实用YLCskill,详见<Skill 功能简介>。
+
+ 
+YLCskill_2012.7z 解压到路径下：D:\Cadence\YLCskill_2012
+
+Allegro.ilinit 放到 D:\Cadence\SPB_15.5\share\local\pcb\skill
+
+Allegro.men 放到D:\Cadence\SPB_15.5\share\local\pcb\menus

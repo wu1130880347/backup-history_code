@@ -1,0 +1,22 @@
+关闭所有非永久窗口
+  NAME
+         axlUIWCloseAll - close all non-permanent windows
+  SYNOPSIS
+         axlUIWCloseAll (
+         )
+         ==> t / nil
+  FUNCTION
+         This closes all temporary windows (dialogs and text view windows).
+         A temporary window is a dialog that closes if you open another
+         design (e.g. brd). Via Skil,l this window attribute is set by
+         the axlUIWPerm API.
+         The constraint manager is currently considered a permanent
+         window but this may change in future releases.
+         A blocking window (e.g. File Browser dialogs) cannot be closed
+         via this call.
+  NEEDS
+         nothing
+  RETURNS
+         t       always
+  SEE ALSO
+         axlUIWPerm

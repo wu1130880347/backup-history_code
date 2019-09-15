@@ -1,0 +1,20 @@
+Í¼ÐÎ»æÖÆ£º»­¿ò
+  NAME
+      axlGRPDrwMapWindow
+  FUNCTION
+      axlGRPDrwMapWindow(
+               r_graphics,
+               x_hgt,
+               x_width
+      )->t/nil
+  SYNOPSIS
+     This function allows theapplication to denote the coordinate
+     system that is mapped intothe drawing area of the graphics field.
+  NEEDS
+     r_graphics - The graphicshandle.
+     x_hgt      - Height of the drawing window.
+     x_width    - Width of the drawing window.
+  RETURNS
+     nil if an erroroccurred, otherwise t.
+  SEE ALSO
+     axlGRPDoc

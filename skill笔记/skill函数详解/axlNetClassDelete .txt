@@ -1,0 +1,29 @@
+É¾³ýÒ»¸öNetClass×é
+  NAME
+         axlNetClassDelete - deletes a netclass group
+  FUNCTION
+         axlNetClassDelete(
+                o_netclassdbid/t_netclassName/lg_netclassdbid
+         ) -> t/nil
+  SYNOPSIS
+         This deletes a net classgroup. It does not delete the
+         objects belonging to thegroup.
+         
+         It is up to the applicationcode to update DRC.
+  TIP
+         Using dbids is faster then usingnames.
+  NEEDS
+         o_netclassdbid: dbid of anet class group
+         t_netclassName: name of anet class group
+         lg_netclassdbid: list of netclass groups (dbids or names)
+  RETURNS
+         t: net class group deleted
+         nil: failed
+  SEE ALSO
+         axlNetClassCreate
+  EXAMPLES
+         1) Delete net classgroup created in axlNetClassCreate
+                 nc = car(axlSelectByName("NETCLASS" "5_MIL"))
+                 axlNetClassDelete(nc)
+            or
+                 axlNetClassDelete("5_MIL")

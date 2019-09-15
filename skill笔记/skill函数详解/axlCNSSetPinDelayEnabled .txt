@@ -1,0 +1,11 @@
+ÆôÓÃ»ò½ûÓÃ Pin Delay
+  NAME
+     axlCNSSetPinDelayEnabled
+  SYNOPSIS
+     axlCNSSetPinDelayEnabled(g_value) => t
+  FUNCTION
+     Enabels or disables Pin Delay.
+  NEEDS
+     g_value: t or nil to indicate if Pin Delay is turnedon or off.
+  RETURNS
+     t

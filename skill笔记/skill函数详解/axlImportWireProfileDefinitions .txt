@@ -1,0 +1,25 @@
+NAME
+          axlImportWireProfileDefinitions
+   FUNCTION
+          axlImportWireProfileDefinitions(
+             xmlFileName
+             setAsMaster
+          )
+          ==> x/nil
+   SYNOPSIS
+          This function willimport the bond wire profiles defined in the
+          xml file specified. If a profile isdefined both in the XML file
+          and in the currentdesign, the design's definitionwill be updated
+          to match the newdefinition being imported.
+   NEEDS
+          xmlFileName - The name ofthe XML file on disk which includes the
+             bond wire profiledefinitions to be read. If not in the current
+             working directory, this should include theabsolute or relative
+             path to the XML file.
+          setAsMaster - If true, this XML file willbe set as the master
+             profiledefinitions file for this database. The master file is
+             where the user canrefresh profile definitions from if they are
+             changed. Only one fileis allowed to be the master.
+   RETURNS
+          x, the number of profiledefinitions successfully imported.
+          nil if an error occured(message printed to status window).

@@ -1,0 +1,58 @@
+查询设计约束值
+  NAME
+         axlCNSDesignValueGet - inquire designconstraint values
+  FUNCTION
+         axlCNSDesignValueGet(
+                 nil
+                [g_returnNameString]
+         ) ==> ls_constraints
+         axlCNSDesignValueGet(
+                 'all
+                 [g_returnString]
+         ) ==>lls_constraintNValues
+         axlCNSDesignValueGet(
+                 s_name
+                 [g_returnString]
+         ) ==> f_value/t_value/nil
+  SYNOPSIS
+         This fetches the constraintvalues for those designcontraints
+         that support values. Use axlCNSDesignValueGet(nil) to determine
+         the set of theseconstraints. This set of constraints
+         is a subset of the total set of designconstraints (values
+         return by axlCNSDesignModeGet).
+  CAUTION
+         Future releases may add or subtract constraintchecks. The
+         axl interface doesguarantee the checks returned by this
+         interface will remain constantfrom release to release.
+  NEEDS
+         nil: returns all checksthat support values
+         'all: returns all checkswith values and currentvalue
+         s_name: symbol name ofvalue.
+         t_name: string name ofvalue
+         g_returnNameString: Formode that supports this returns
+                 constaint names asstrings (default is symbol return)
+         g_returnString: Default isto return native type, for all checks
+                 currently supportedthis is in user units (a float).
+                 If t, return is a MKS string where nil returns native.
+  RETURNS
+         ls_names - list of all controlssupport values (symbol).
+         lls_constraintNValues - list of all controlswith their values
+                 '((s_name f_value/t_value) ....)
+         f_value - user unit value
+         t_value - MKS string value.
+  SEE ALSO
+         axlCNSDesignModeGet, axlCNSDesignValueSet, axlMKS2UU
+  EXAMPLES:
+         1) get current list of design constaints that supportvalues
+            (less then what axlCNSDesignModeGet(nil) returns):
+                 axlCNSDesignValueGet(nil)
+         2) get list of settings for all designconstraints with values
+            returned as MKS strings:
+                 axlCNSDesignValueGet('all 't)
+         3) get current setting of Negative_Planes_Islands in userunits:
+                 axlCNSDesignValueGet('Negative_Plane_Islands)
+                         = 10.0
+         4) current setting ofPad_Soldermask_Alignment as a MKS
+            string (this passes ininquiry as a string):
+                 axlCNSDesignValueGet("Pad_Soldermask_Alignment" t)
+                         = "10 mils"

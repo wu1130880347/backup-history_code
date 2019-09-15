@@ -1,0 +1,20 @@
+查询某个点是否在某条线上
+  NAME
+         axlIsPointOnLine - is a point pointon a line
+  SYNOPSIS
+         This returns t if pointis on a given line nil if not on a line.
+  FUNCTION
+         axlIsPointOnLine(
+                 l_point
+                 ll_line
+         ) -> t/nil
+  NEEDS
+         l_point: a point
+         ll_line: two end points
+  RETURNS
+         t if online; false others
+  SEE ALSO
+         axlIsBetween
+  EXAMPLE
+         axlIsPointOnLine(10:20 list(5:20 15:30)) = nil
+         axlIsPointOnLine(10:30 list(5:30 15:30)) = t

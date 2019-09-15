@@ -1,0 +1,37 @@
+生成封装，即生成PSM文件3 A8 X  n* D9 r! e) I$ k+ M+ b# D
+  NAME
+         axlCompileSymbol - compile currentsymbol drawing
+  FUNCTION
+         axlCompileSymbol(
+             [?symbol t_name]
+             [?type t_type]
+             [?silent t/nil]
+             [?silentOnOverwritet/nil]
+         )
+         ==> t_symbolName/nil
+  SYNOPSIS
+         Compile and edit checks the current (symbol) design and saves the
+         compiled version on diskunder the name t_name. If ?symbol is not
+         provided, then t_name will be thecurrent drawing name. If ?symbol
+         is provide as nil, then the user isprompted for the name.  This
+         command uses the symbol type in determining someof the edit checks.
+  NEEDS
+         t_design                - The name of the compiledsymbol
+         t_type                  - The type of symbol, the default is the
+                                  current symbol type (see axlDesignType)
+         silent                  - by default compile symbolissues
+                                progress messages to user and displays
+                                 alogfile on error. When t this
+                                disables all messages
+         silentOnOverwrite       - by default will ask user if they
+                                want to overwrite an existing file.
+                                When t if will silentlyoverwrite file.
+  RETURNS
+         t_symbolName if successful, or nil if error
+  NOTE
+         This function is only availablein the symbol editor.
+         This is a Skill interfaceto the Allegro "create symbol" command
+                 and thus has the samebehavior.
+         This will void all axl dbidhandles and clear the selection set.
+  SEE ALSO
+         axlSetSymbolType

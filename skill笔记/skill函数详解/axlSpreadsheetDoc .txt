@@ -1,0 +1,52 @@
+以Allegro的格式读取和写入XML为基础的电子表格。
+  NAME
+     axlSpreadsheetDoc
+  SYNOPSIS
+     The axlSpreadsheet family offunctions allow you to read and write
+     Microsoft's open XML-basedspreadsheet format from within skill. You
+     can create a spreadsheet fromdata within your active allegro tool,
+     or you can read aspreadsheet and extract information from it to
+     update your database.
+     Documentation forindividual functions is separately available. This
+     entry provides an overview, as well as a smallexample of how to
+     use the API routines together.
+  EXAMPLE
+     The following is a simpleexample which creates a small, two-worksheet
+     spreadsheet with a fewformatting style definitions and cells which
+     use those styles to formattheir contents when the spreadsheet is
+     viewed with a tool such asMicrosoft's Excel.
+     procedure( spreadsheetExample()
+         ; Initialize an empty spreadsheet.
+         ; Note that you do not need toprovide a name until you
+         ; wish to write the spreadsheet todisk.
+         axlSpreadsheetInit()
+         ; Define inital, default style.
+         ; Styles may be defined at any pointduring the spreadsheet's
+         ; construction, but must be definedbefore they are referenced
+         ; by any row, column, or cell.
+         axlSpreadsheetSetStyle("Default"  nil)
+         axlSpreadsheetSetStyleProp("Alignment" "Vertical"   "Top")
+         axlSpreadsheetSetStyleProp("Alignment" "Horizontal" "Left")
+         axlSpreadsheetSetStyleProp("Alignment" "WrapText"   "1")
+         ; Define a second style, derived fromthe Default style, which
+         ; will include a thin border outlineand specifies a red
+         ; background fill.
+         axlSpreadsheetSetStyle("Red" "Red Cell")
+         axlSpreadsheetSetStyleParent("Default")
+         axlSpreadsheetSetStyleBorder("Left"   nil "Continuous" "2")
+         axlSpreadsheetSetStyleBorder("Right"  nil "Continuous" "2")
+         axlSpreadsheetSetStyleBorder("Top"    nil "Continuous" "2")
+         axlSpreadsheetSetStyleBorder("Bottom" nil "Continuous" "2")
+         axlSpreadsheetSetStyleProp("Fill" "Color"   axlSpreadsheetGetRGBColorString(255 0 0))
+         axlSpreadsheetSetStyleProp("Fill" "Pattern" "Solid")
+         ; Define the first worksheet in thespreadsheet.
+         axlSpreadsheetSetWorksheet("First")
+         ; With a wider first column
+         axlSpreadsheetSetColumnProp(1 "Width" "500")
+         axlSpreadsheetDefineCell(1 1 "Default" "String" "Defaultformatted cell")
+         axlSpreadsheetDefineCell(1 2 "Red" "String" "Red backgroundcell")
+         ; Write the compiled spreadsheet toXML file on disk.
+         axlSpreadsheetWrite("spreadsheet.xml")
+         ; Close and release the compiledspreadsheet's data.
+         axlSpreadsheetClose()
+     )

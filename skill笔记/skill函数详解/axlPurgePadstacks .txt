@@ -1,0 +1,36 @@
+Çå³ýÎÞÓÃº¸ÅÌ
+  NAME
+         axlPurgePadstacks - purge unusedpadstacks from database
+  FUNCTION
+         axlPurgePadstacks(
+                 S_mode
+                 t/nil
+         )
+         ==> x_cnt
+  SYNOPSIS
+         This purges unusedpadstacks from the database in the area
+         controled by S_mode symbol
+             'padstacks - purgesunused padstacks from the database.
+                 when thesecond argument is nil purges all unused,
+                 when t justpurges unused derived padstacks
+             'via - purges not foundvias from all the via list constraints
+                 under the physicalrule set. When nil just purges the
+                 not foundvias. When t also purges the vias not loaded
+                 in the database (but could be foundby looking on the
+                 disk via thePSMPATH environment variable). The nil
+                 option is NOT available from theAllegro user interface
+                 which onlysupports the t method.
+         For best results delete theunused padstacks from the database
+         then purge the vialists.
+  NEEDS
+         S_mode: either 'padstacks or 'via
+         option: t - purgejust unused derived padstacks, else (nil)
+                 purge all
+  RETURNS
+         number of padstackseliminated.
+  SEE ALSO
+         axlLoadPadstack
+  EXAMPLES:
+         1) Emulate defaultAllegro user interface behavior
+                 axlPurgePadstacks('padstacks nil)
+                 axlPurgePadstacks('via t)

@@ -1,0 +1,68 @@
+图形绘制 
+
+在窗体中添加图形和图片，用于示意、logo等，如Paddesigner的views，在form中新建一个图形或图片可以概括为四个步骤
+1.首先在form中定义一块区域，用于放置图像与图形。
+关于尺寸没有严格要求，只要你比例得当就好。如你想画一个3X4的图形框，那么可以就定义图框的长宽为（axlGRPDrwMapWindow handle 3 4),那么其他的图形属性都要比例一致。为了更精细的图形比例，可以定义成(axlGRPDrwMapWindow handle 3000 4000)；那么线宽要可能要达到50或100了，把握比例就好。通常为达到效果可以现在绘图软件中绘制好，然后标注，确定比例尺寸。
+2.调用axlGRPDrwInit函数，这个函数的参数是form、field、callback。
+这个函数是调用图形包的函数，通过它可以让图形包显示在form中，callback就是图形包。
+3.用提供的函数绘制图形函数。
+第二条讲的callback就是调用图形的函数包，这个包包含图形属性和路径等。
+4.用于更新图形。
+update，为了实时控制，可能需要更新，如果是静态logo的话一般就不用了。
+注意：不要图形不要超出边界
+
+主要结构：
+
+图形的form结构：
+A. 图片form的结构
+FIELD bitmap
+THUMBNAIL                       ;图形块的格式类型，位图不能大于256色
+OPTIONS stretch                  ;用于图片尺寸自适应调整，默认以图片中心调整
+FLOC 5 17
+FSIZE 29 5                        ;块的尺寸
+ENDFIELD
+B. 图片包的结构
+图片包与图形包都是一个函数，图形源点都是左上。
+defun( bitmap_callback (handle) ;handle是axlGRPDrwInit函数值的句柄，即通过handle就可以为axlGRPDrwInit函数值添加属性
+    axlGRPDrwMapWindow( handle 232 60);为Form的块映射一个图形区域，好比有outline了也要有routekeepin。
+
+    putprop( handle "unfilled" 'fill)        ;为将要绘制的矩形框添加一些属性，具体参照allegroskill；
+    putprop( handle "black" 'color)                ;在16.3版本中有color、fill、width、text_align、text_bkmode、infos；
+    putprop( handle 2 'width)                        ;这个属性也可表达为handle->width= 2,同样是添加属性。
+    axlGRPDrwRectangle( handle '(1 1) '(249 54));绘制一个矩形框，参数是句柄，矩形的左上与右下
+
+    axlGRPDrwBitmap( handle "D:/skill/test.bmp");加载一张图片，这个图片可以是绝对路径，也可以是相对路径。
+);defun bitmap_callback
+C. 图形包的结构（同上）
+defun( graphic_callback (handle)
+
+    (axlGRPDrwMapWindow handle 1200 1800);为Form的块映射一个图形区域，
+
+    putprop( handle "unfilled" 'fill)        ;填充
+    putprop( handle "red" 'color)                ;红色
+    putprop( handle 3 'width)                        ;3个单位的线宽
+        axlGRPDrwRectangle( handle '(1 1) '(1200 1800));尺寸
+);defun graphic_callback
+D. 调用图形包与图片包
+bitmap_handle = axlGRPDrwInit(form "bitmap" 'bitmap_callback);调用图片包
+此函数参数为：form、块、图片包函数（无参数）
+graphic_handle = axlGRPDrwInit(form "graphic" 'graphic_handle);调用图形包
+此函数参数为：form、块、图形包函数（无参数）
+就是调用2和3的函数，handle 的属性间接的添加到bitmap_handle的属性中：
+bitmap_handle->?
+=》(color fill widthtransparent left infos)
+
+函数：
+axlGRPDrwBitmap(handle_bmp path_bmp)
+载入位图函数，参数为：图形句柄，位图有效路径，可以是相对或绝对路径。位图必须是256色或以下。
+axlGRPDrwCircle(handle_ origin R);圆
+axlGRPDrwRectangle( handle '(1 1) '(1200 1800));矩形
+axlGRPDrwLine( handle (list '(500 500) '(750 750)));线
+axlGRPDrwLine( handle (list '(100 1500) '(150 1600) '(200 1400)));多边形
+axlGRPDrwText( handle '(300 100) "Left text");字符
+
+axlGRPDrwInit(r_form t_field t_func);图形包调用函数，
+其用处是不仅可以调用图形包，也可以通过它去对图形包进行操作，如显示、更新、动态等。
+axlGRPDrwMapWindow(r_graphics x_hgt x_width);为Field映射一个绘图区域
+如同逻辑管脚与物理管脚映射一样，hight与width只是一个相对的值，主要是保持比例
+axlGRPDrwUpdate(r_graphics);对图形进行更新，对于动态图形来说是一个重要的函数。

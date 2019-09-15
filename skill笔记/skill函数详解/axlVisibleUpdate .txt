@@ -1,0 +1,57 @@
+¸üÐÂ²ãÏÔÊ¾
+  NAME
+         axlVisibleUpdate - update items due to change in layer visibility
+  SYNOPSIS
+         axlVisibleUpdate(
+                 t_now
+         )
+         ==> t
+  FUNCTION
+         The axlVisible family (as well as the base building block
+                     axlSetParam("paramLayerGroup:..."))
+         permit the changing layer color and visibility. These
+         functions also can be used in conjunction with Find Filter
+         interaction to permit filtering of objects by layer via changing
+         visibility.
+         
+         Since it wouldn't be desirable to update the
+         display if the Skill application is using the axlVisible functions
+         to control item filtering the Skill application must indicate
+         display update via axlVisibleUpdate when changing visibilty
+         on the user.
+         This function will also update any forms that display color or
+         visibilty to the user.
+         For most situations pass nil to this function. This
+         defers updating the main graphics canvas until control is
+         returned to the user which may allowing combining several
+         canvas updates into one.
+  NEEDS
+         t if update now
+         nil if update when control is returned to user
+  RETURNS
+         t       - always
+  EXAMPLE
+         Example scenerio for selecting items using visibility without
+         updating display:
+             ;; You should not interact with user when you have
+             ;; visibility modified
+             ; get current visibility
+             p = axlVisibleGet()
+             axlVisbleDesign(nil)  ; turn off all layers
+             ;;... change visiblity of selected layers ...
+             ;;... Selection of objects without user interaction ...
+             ; restore visibilty
+             axlVisibleSet(p)
+         Example to update display after changing visibilty
+             ;; only leave top etch layer on
+             axlVisibleLayer("etch" nil)
+             axlVisibleLayer("etch/top" t)
+             ; update display when control is returned to user
+             axlVisibleUpdate(nil)
+         Example to change color on top etch layer
+             p = axlGetLayer("etch/top")
+             ; legal numbers are 1 to 24
+             p->color = 10
+             axlSetParam(p)
+             ; make this call after you change all colors and visibility
+             axlVisibleUpdate(t)

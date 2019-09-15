@@ -1,0 +1,31 @@
+显示一个确认对话框
+NAME
+         axlUIConfirm - puts a UI blocking confirmer (inform) up
+  FUNCTION
+         axlUIConfirm(
+                 t_message
+                 [s_level]
+                 )
+         ==> t
+  SYNOPSIS
+         Displays the string t_message in a confirmer window.
+         This function is a blocker. The user must respond before any further
+         interaction with Allegro. This function is useful mainly for informing
+         the user about a severe fatal error before exiting your program. You
+         should use it very rarely.
+         The optional s_level argument changes the info displayed to the user.
+         Note: if environment variable, noconfirm is set causes an immediate
+                 return.
+  NEEDS
+         t_message:      Message string.
+         s_level: option level symbol; default is info level, other levels
+                 are 'warn and 'error.
+  RETURNS
+         t:      Always returns t.
+  SEE ALSO
+         axlUIPrompt, axlUIYesNo, axlUIYesNoCancel, axlUIConfirmEx
+  EXAMPLES
+         Inform user when a significant transition is being made:
+             axlUIConfirm( "Returning to Allegro. Please confirm." )
+         Alert user to an error:
+             axlUIConfirm( "Selected object has FIXED property." 'error )

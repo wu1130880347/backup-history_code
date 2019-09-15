@@ -1,0 +1,24 @@
+NAME
+    axlImpdedanceGetLayerEdgeDPWidth
+  SYNOPSIS
+     axlImpdedanceGetLayerEdgeDPWidth(
+         t_layer/x_layerNum
+         f_spacing
+         f_diffImp
+     ) ==> f_width/nil
+  FUNCTION
+     Given the spacing of the twosignal lines of a edge-coupled
+     diffpair on the specified layer, find the line widthsuch that
+     the differential impedance isclosest to the target value.
+     Warning message may be given if theparameters are inappropriate
+     for the calculation.
+  NEEDS
+     t_layer - layer name (example "ETCH/TOP" or "TOP")
+     x_layerNum - number of the etchsubclass Layers are numbered
+                 starting with 0 for the Toplayer.
+     f_spacing:   The spacing between the two signal lines inuser units.
+     f_diffImp:   The target differential impedance in ohms.
+  RETURNS
+     the line width in database unit(float) or nil onerror.
+  SEE ALSO
+     axlImpedance2Width

@@ -1,0 +1,45 @@
+shape×Ô¶¯ÍÚ¿Õ
+  NAME
+         axlShapeAutoVoid - autovoid a staticshape
+  FUNCTION
+         axlShapeAutoVoid(
+            o_shapeId
+            [s_options/ls_options]
+         )
+         ==> lo_shapeIds/nil
+  SYNOPSIS
+         This autovoids a staticshape.
+         Shape must be voidable and static (voiding dynamicshapes or
+         dynamic generated shapes isnot supported).
+         Uses current static shapeparameters to control voiding except where
+         options provide anoverride.
+         A file, shape.log isproduced as a side effect of the autovoid.
+         Neither the existence ofthis file nor its contents is guaranteed
+         in future releases.
+         OPTIONS:
+              'noRipThermals - bydefault autovoid will rip-up all existing
+                 thermal ties inshape and then recreate a new set. This
+                 maintains existingthermals.
+              'fragment - by default, if shapewill fragment into multiple
+                         shapes willask the user before proceeding this
+                         will allowsilent fragment. Overrides setting in
+                         staticshape parameter record.
+              'noFragment - oppositeof fragment. API will fail if shape
+                         needs to befragmented.
+  CAUTIONS
+         1) This should not be usedto void shapes on negative planes.
+            Inside voiding will not berepresented in artwork.
+  NEEDS
+         o_shapeId - a voidableshape
+         s_options - single optionsymbol (see above)
+         ls_options - list ofoptions (see above)
+  RETURNS
+         lo_shapeId - list ofvoided shape. Normally this is one shape
+                 unless shapeis broken into multiple pieces
+         nil - failed to void or illegalarguments
+  SEE ALSO
+         axlShapeDeleteVoids
+  EXAMPLES
+         See<cdsroot>/share/pcb/examples/skill/ash/ashshape.il
+         axlShapeAutoVoid(shapeDbid '(noRipThermalsfragment))
+erning:0pt'>(p)

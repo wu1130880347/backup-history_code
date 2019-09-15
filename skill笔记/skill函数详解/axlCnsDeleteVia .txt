@@ -1,0 +1,30 @@
+从约束列表physical中删除padstack
+    NAME
+         axlCnsDeleteVia - deletes padstackfrom the constraint list.
+   FUNCTION
+         axlCnsDeleteVia(
+             t_csetName
+             t_padstackName
+         )
+         => t/nil
+    SYNOPSIS
+         Deletes padstack from thephysical via constraint list, t_csetName.
+         If t_csetName is nil, delete providedpadstack from all physical
+         constraint sets.
+         Notes:
+           - Will return t if asked to delete avia that does not exist
+                 in the via list.
+           - Locked csets will return a nil.
+    NEEDS
+         t_csetName - name ofphysical cset or nil for all csets.
+         t_padstack - name of a viapadstack.
+    RETURNS
+         t if deleted; nil error in arguments, cset does not exist or
+            illegal padstack name
+    SEE ALSO
+         axlCnsGetViaList axlPurgePadstacks
+    EXAMPLE
+         1) delete VIA to DEFAULT cset
+                 axlCnsDeleteVia("DEFAULT" "VIA")
+         2) delete VIA to all csets
+                 axlCnsDeleteVia(nil "VIA")

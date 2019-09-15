@@ -1,0 +1,53 @@
+改变class/subclass优先级
+  NAME
+         axlLayerPrioritySet - Change prioirtyof a given class/subclass.
+  FUNCTION
+         axlLayerPrioritySet(
+                 t_layer
+                 x_priority
+            ) -> t/nil
+  SYNOPSIS
+         This changes the drawingpriority of given layer. Priority is from 1 (highest)
+         to 255 lowest. Layerswithout priority in standard drawing order below
+         all priority layers.  The active layer is always drawn first.
+         Only one layer may be at apriority level, thus adding a newlayer
+         at a priority replaces theexisting layer at that priority
+                 axlLayerPrioritySet( "BOARD GEOMETRY/OUTLINE" 1)
+                 axlLayerPrioritySet( "PACKAGE GEOMETRY/ASSEMBLY_TOP" 1)
+         results in just theASSEMBLY_TOP being drawn at priority 1 and
+         OUTLINE will return tonormal drawing order.
+         From priority level 1 eachlevel must be set for lower priority
+         levels to be enabled. Forexample, if you set a layerto priority level 2
+         but leave level 1 empty then level 2 isdisabled until level 1 is assigned.
+         Classes may be groupedtogether in a class group with one class being the lead
+         of that group. For example, all etch layers (ETCH, PIN, etc.) are mapped
+         together into the stack-upgroup with class ETCH the lead. You can set the
+         priority using class namesbut you cannot prioritized the different stack-up
+         layers individually. Thisinterface will automatically map a class name to
+         to its class group (see axlLayerPriorityGet to determine groupings).
+         You should do a axlVisibleUpdate(...) after changing layer priority
+         to have the displayupdated.
+         NOTE: priority value of 0 means remove layerpriority of the layer.
+  NEEDS
+         x_layer: layer name (i.e. "ETCH/TOP")
+         x_priority: priority valuein the range of 1-255 and 0 means remove
+  RETURNS
+         t: success
+         nil: error in oneof the arguments
+  SEE ALSO
+         axlLayerPriorityClearAll, axlLayerPrioritySaveAll, axlLayerPriorityRestoreAll
+         axlLayerPriorityGet, axlMapClassName, axlVisibleUpdate
+  EXAMPLES
+         Set prirority for classGEOMETRY and subclass OUTINE:
+             axlLayerPrioritySet("BOARD GEOMETRY/OUTLINE" 1)
+         To temporarily force a set oflayers to display on top, you
+         should take the followingsteps:
+             save existing layertable,
+             clearexisting layer priorities
+             set yourlayer priorities
+             draw objects
+             restore old layerpriority:
+             axlLayerPrioritySaveAll()
+             axlLayerPriorityClearAll()
+              axlLayerPrioritySet() multiple times if needed
+             axlLayerPriorityRestoreAll()

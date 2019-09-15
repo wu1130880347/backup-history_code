@@ -1,0 +1,18 @@
+计算line的中心点
+  NAME
+         axlMidPointLine - returnmid-point of a line
+  SYNOPSIS
+         axlMidPointLine(
+                 ll_line
+         ) -> l_midPoint
+  FUNCTION
+         Returns mid-point of line.Note mid-point not be a database coordinate.
+  NEEDS
+         ll_line: two end points
+  RETURNS
+         l_midPoint - mid-point ofline
+         nil - error inarguments
+  SEE ALSO
+         axlMidPointArc
+  EXAMPLE
+         axlMidPointLine(list(5:20 15:30)) = (10.0 25.0)

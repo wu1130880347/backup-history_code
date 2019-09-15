@@ -1,0 +1,49 @@
+CNS ÉèÖÃÍ¬ÐÅºÅ
+  NAME
+    axlCNSSetSameNet - update same netspacing cset values
+  SYNOPSIS
+    axlCNSSetSameNet(
+         t_cset/nil
+         t_layer/nil
+         s_constraint
+         g_value
+         )
+         ==> t/nil
+    axlCNSSetSameNet(
+         t_cset/nil
+         t_layer/nil
+         ll_constraintValues
+         nil
+         )
+         ==> t/nil
+  FUNCTION
+         Documentation same asaxlCNSSetSpacing.
+  NEEDS
+         t_cset: cset name, can use "" for DEFAULT cset. Use nil to apply
+                 change to all cset.
+         t_layer: ETCH layer name (e.g "ETCH/TOP" or "TOP"). If nil apply
+                 change to alllayers.
+         s_contraint: Constraintsymbol to change. Use
+                 axlCNSGetSameNet(nil nil nil) for list of permissible
+                 values.
+         g_value: Value to update.For data type see above for "DATATYPES".
+         ll_constraintValues:Multiple values may be updated by passing
+                 a list of lists for the third argument.
+                         '((s_contraint g_value) ... )
+  RETURNS
+         t if succeeds
+         nil an error
+                 - ecset name does not exit
+                 - layer does not exist
+                 - contraint does not exist
+                 - illegal value for constraint
+                 - cset is locked
+  SEE ALSO
+         axlCNSGetSameNet, axlCNSSetSpacing
+  EXAMPLES
+         - Set line to same netspacing in all csets, alllayers
+             axlCNSSetSameNet(nil nil 'line_shape 5)
+         - Set line to line same netto 5 on DEFAULT cset, all layers
+             axlCNSSetSameNet("" nil 'line_line 5)
+         - Value of DEFAULT cset
+             axlCNSSetSameNet("25_MIL_SPACE" "top" 'line_line 5)

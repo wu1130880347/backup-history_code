@@ -1,0 +1,23 @@
+Í¼ÐÎ»æÖÆ£º³õÊ¼
+  NAME
+     axlGRPDrwInit
+  FUNCTION
+     axlGRPDrwInit(
+                  r_form,
+                  t_field,
+                  t_func
+     )->r_graphics/nil
+      
+  SYNOPSIS
+     This function sets up thenecessary data structures, etc. for triggering
+     the graphics callback into thegraphics field.
+  NEEDS
+      r_form - The handle of theform.
+      t_field- The name of the fieldinto which the package should draw.
+               (Only THUMBNAILfields are supported).
+      t_func - The name of thedrawing callback fucntion. The callback function
+               is invoked with thegraphics handle as the parameter.
+  RETURNS
+      r_graphocs: The graphicspackage handle.
+  SEE ALSO
+     axlGRPDoc

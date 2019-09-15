@@ -1,0 +1,80 @@
+自定义用户函数对象
+NAME
+         axlExtractMap - apply user defined function to database objects
+  FUNCTION
+         axlExtractMap(
+             t_viewFile
+             [s_applyFunc]
+             [g_userData]
+         )
+         ==> t/l_dbid/nil
+  SYNOPSIS
+         This function utilizes thedatabase walking andprimitive filtering
+         capabilities of the Allegro'extract' program from within the
+         Allegro Skill environment.The extract command file provides the
+         the objects to be retrieved(the "view") and the filtercriteria.
+         The output data fieldslisted in the extract command file are ignored,
+         as no file is created.
+         For more information on the'extract' program, see theAllegro manual.
+         For each object that passesthe filter criteria, a userspecified
+         Skill function is called. This function must take twoarguments,
+         the dbid of the object and a variable that issupplied to the
+         axlExtractMap that is passed tothe called function. This variable may
+         be nil. If it is not, it normally is a defstruct or disembodied
+         property list so that the called routine canupdate it "destructively".
+         If the callback function returns nil, then the extract program
+         will stop executing and the message, 'User CANCELreceived' will
+         be written to the extract log file, and axlExtractMap will return nil.
+         If the callback function returns non nil then executtioncontinues.
+         As a convenience, if no user callback function is provided then
+         the axlExtractMap function will return a list of the dbids that
+         pass the filter criteria.This enables the user to perform a
+         foreach on the return from axlExtractMap (see examples below).
+         Note, that axlExtractMap behaves slightlydifferently than
+         a standard extract to afile. axlExtractMap providess_applyFunc
+         with the dbid of the parent(rotated) rectangle or shape and not
+         individual line/arcsegments. Also, in the FULLGEOMETRY view, the
+         dbid of the pin or via is provided, not each individualpad.
+         Attached text is stillreturned as it normally would.
+         The allegro "pseudoviews" - (DRC, ECL, ECS, ECL_NETWORK, PAD_DEF, etc)
+         may not be used with axlExtractMap - the callback function will
+         never be called.
+         
+  NEEDS
+             t_viewFile          - name of the extract command file (View file)
+             s_applyFunc         - Skill function to call for each object
+             g_userData          - data to pass to s_applyFunc (may be nil)
+                                         this isignored if s_applyFunc is nil
+  RETURNS
+         axlExtractMap           - if s_applyfunc provided then the return is
+                                     t if successful, nil if error
+                                                 see extract LOG file if error
+                                 
+                                   if s_applyfunc is nil then the return is
+                                     list of dbids if successful, nil if error
+                                                 see extractLOG file if error
+  NOTE
+         objects that extractfetches that are notcurrently modelled in
+         AXL-Skill are not return. e.g. function instances, unplaced
+         components, etc.
+  EXAMPLES
+         ; no user callback provided
+         ; returns a list of the DBIDs of allnets
+         (setq allNets (axlExtractMap "net_baseview"))
+         (foreach net (allNets) ....)   ;process each net
+         ; user callback provided - functiondeclared with the (lambda) func
+         ; returns a list of the names of allnets
+         (defun get_netnames ()
+             ; byReference isdisembodied prop list with property 'nets to
+             ;           be used to store the net names
+             (let ((byReference (list nil 'nets nil)))
+                 (axlExtractMap "net_baseview"
+                     ; function createdright here
+                     (lambda (dbid netRef)
+                         ; add the name ofthis net to the list of names
+                         (putprop netRef
+                             (cons (get dbid 'name) (get netRef 'nets))
+                            'nets)
+                         t)      ; success return
+                     byReference)
+                 (get byReference 'nets)))       ; return list of names

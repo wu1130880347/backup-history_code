@@ -1,0 +1,40 @@
+设置或清除所选行多选网
+  NAME
+         axlFormGridSetSelectRows - set or clear selected rowsmulti-select grid
+  FUNCTION
+         axlFormGridSetSelectRows(
+                 r_form
+                 t_field
+                 x_min
+                 x_max
+                 g_option
+         ) -> x_cnt/nil
+  SYNOPSIS
+         This allows setting, clearing or toggling ofselection state for a grid
+         in multi-select row mode.
+  NEEDS
+         r_form: standard formhandle
+         t_field: standard fieldname
+         x_min: min row number
+         x_max: max row number
+         g_option: what to do
+                 t - set row as selected
+                 nil - clear row as selected
+                 'toggle - toggleselected state of row
+  RETURNS
+         t if succeeded, nil if not a grid field or not in multi-row selectmode
+  SEE ALSO
+         axlFormGridNewCell
+  EXAMPLES
+         See fgrid.il in examplearea
+         Pseudo code:
+                 axlFormGridEvents(fg "grid" 'mrowselect)
+           - set row 4 as selected
+                 axlFormGridSetSelectRows(fg "grid" 4 4 t)
+           - clear rows 4 thru 8 being selected
+                 axlFormGridSetSelectRows(fg "grid" 4 8 t)
+           - clear all rows
+                 axlFormGridSetSelectRows(fg "grid" -1 -1 nil)
+           - toggle state of row 1
+                 axlFormGridSetSelectRows(fg "grid" 1 1 'toggle)
+                         -> (5 6 7)

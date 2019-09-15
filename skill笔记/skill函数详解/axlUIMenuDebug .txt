@@ -1,0 +1,20 @@
+调试功能AXL菜单触发
+  NAME
+     axlUIMenuDebug - debug function for axl Menu Trigger
+  FUNCTION
+     axlUIMenuDebug(
+         [g_option]
+     ) => ll_menu/t/nil
+  SYNOPSIS
+     This helps debug issues with axlUIMenuRegister.
+  NEEDS
+     g_option - data to query/clear
+         'clear = clear the list of menus to load
+         'list = return list of menus to be loaded (nil no menus)
+         'trigger = clear the menu trigger callback and menus loaded
+  RETURNS
+     t - call succeeded
+     nil - failed or if clear no menus present
+     ll_menu - current list of menus queued
+  SEE ALSO
+     axlUIMenuRegister

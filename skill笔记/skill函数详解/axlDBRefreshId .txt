@@ -1,0 +1,52 @@
+刷新DBID，去除无用的，可能会导致应用程序出错. R: K; B6 P/ O1 r( m3 K1 O
+  NAME
+     axlDBRefreshId -    re-query attributes of an AXL DBID.
+  FUNCTION
+    axlDBRefreshId (
+        o_dbid/nil
+    )
+    ->o_dbid/t/nil
+  SYNOPSIS
+    Regenerates for access theattributes of the object specified by
+    o_dbid. Subsequent attributeretrieval requests access the updated
+    information.
+        
+    For performance considerations, Allegro cachesattributes of dbids. If
+    you change the object in Allegroassociated with the dbid then the
+    information associated with thedbid may not represent thecurrent data
+    in the database. In the examplebelow, mybranch if a refresh wasn't
+    done with still report that it aVias after the delete operration. If
+    we did not cache the data, then the vast majorityof Skill code that
+    spends most of its time readingdata would suffer a performance
+    penality as Allegro would spendtime translating data from the database
+    to its Skill representation.
+  TIP
+    Because of performanceconsiderations, axlDBRefreshId refreshes only
+    the object itself. If the objectbeing refreshed has dbids in any of
+    its attributes, those dbids will not be refreshed. Forexample, a net
+    branch has children, which is a list of paths, tees, vias, pins, and
+    shapes. If another path gets added to that list of paths due to
+    connectivity change, axlDBRefreshId of the branch does not update the
+    children.
+    In another example, if you move a via thatis a child of the branch,
+    then if you do axlDBRefreshId of the branch and access the via as
+    child of branch, the attributes ofthat child (via in this case) may
+    be incorrect.
+  NEEDS
+        o_dbid - a SKILL list instantiation of anAXL DBID to be refreshed.
+        nil - if all dbids are to be refreshed
+  RETURNS
+        the refreshed DBID, or nil if failure
+  EXAMPLE
+         The following example findsnet "sclkl," walks all membersof its first branch,
+         deleting any vias. It then refreshes thebranch.
+         axlSetFindFilter( ?enabled '("noall" "alltypes"))
+         axlSingleSelectName("net" "sclkl")
+         mynet = car(axlGetSelSet())
+         mybranch = car(mynet->branches)
+         mychildren =mybranch->children
+         foreach( thismember mychildren
+            if( (thismember->objType== "via") then
+               axlDeleteObject(thismember)))
+         axlDBRefreshId(mybranch)
+         ==> t

@@ -1,0 +1,25 @@
+动态shape的状态更新
+  NAME
+         axlDBDynamicShapes - dynamic shapeupdate and status
+  FUNCTION
+         axlDBDynamicShapes(
+                 g_value
+         )
+         ==> x_count
+  SYNOPSIS
+         This queries and updates dynamicshapes. When g_value is
+         t updates all out of date dynamicshapes on the board. Update
+         occurs regardless of thecurrent setting on dynamic shape
+         updating that is present in the drawingoptions dialog.
+         If nil just returns a count of out of dateshapes.
+         Not applicable to symboleditor.
+  NEEDS
+         g_value         t      - update dynamic shapes
+                         nil     - return count of out of date
+  RETURNS
+         x_count: count of out of dateshapes. If updating shapes
+                 the count is number of theseshapes before the
+                 update.
+  SEE ALSO
+         axlDBControl, axlDBGetShapes
+  EXAMPLES

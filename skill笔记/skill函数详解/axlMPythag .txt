@@ -1,0 +1,21 @@
+计算两点的间距
+  NAME
+         axlMPythag - distance betweentwo points
+  FUNCTION
+         axlMPythag(
+                 l_pt1
+                 l_pt2
+         ) -> f_distance/nil
+  SYNOPSIS
+         Calculates distance betweentwo points using pythagoros.
+         This is faster thenbuilding this code in Skill.
+         The l_ptN is an x:ycoordinate.
+  NEEDS
+         l_pt1, l_pt2: 2 xypoints
+  RETURNS
+         f_distance: distancebetween points
+         nil: arguments were not xypoints
+  SEE ALSO
+         axlMXYAdd
+  EXAMPLES
+         axlMPythag(1263.0:1062.0 1338.0:1137.0) -> 106.066

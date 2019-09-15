@@ -1,0 +1,28 @@
+检查license 产品是否启用
+  NAME
+         axlLicIsProductEnabled - is licensechecked-out by tool
+  SYNOPSIS
+         axlLicIsProductEnabled(
+                 t_license
+         ) -> t/nil
+         axlLicIsProductEnabled(
+                 `all
+         ) -> lt_licenses
+  FUNCTION
+         Ib first form, if given astring returns t if license is checked-out
+         and nil if itisn't. The test is based on the by running tool.
+         There is no Skill method todetermine licenses
+         In the second form, if calledwith the symbol all returns a list of
+         licenses currently checkedout by the tool.
+  NEEDS
+         t_license - name of license(casesensitive)
+         'all - get alllicenses currently checked-out by the program.
+  RETURNS
+         t - license checkedout
+         nil - license not checkedout
+         lt_licenses - list oflicenses checked-out by program (all mode)
+  SEE ALSO
+         axlLicFeatureExists, axlLicDefaultVersion
+  EXAMPLES
+         - See if skilldeveloper license (product 900) is checked out:
+                 axlLicIsProductEnabled("skillDev")

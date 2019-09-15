@@ -1,0 +1,23 @@
+ÏÔÊ¾´°Ìå
+  NAME
+         axlFormDisplay - displays form and optionally waits for close of form by user
+  FUNCTION
+         axlFormDisplay(
+                 r_form
+                 )
+         ==> t/nil
+  SYNOPSIS
+         This function displays the form r_form already created by
+         axlFormCreate. For a better looking display, set all the field values
+         of the form before calling axlFormDisplay. If the form is blocking,
+         axlFormDisplay blocks until the user closes the form.
+         If the form has already been displayed, then axlFormDisplay simply
+         exposes the form.
+  NEEDS
+         r_form: the form dbid
+  RETURNS
+         t/nil: returns t if it successfully displays form. Return of
+                 nil if form could not be displayed.
+  EXAMPLES
+         axlFormDisplay( form)
+         See axlFormCreate examples

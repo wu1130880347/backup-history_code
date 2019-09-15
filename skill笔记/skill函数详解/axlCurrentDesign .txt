@@ -1,0 +1,21 @@
+获得当前设计名，不包含扩展名
+  NAME
+         axlCurrentDesign - retrieve thecurrent design name
+  FUNCTION
+         axlCurrentDesign(
+         )
+         ==> t_design
+  SYNOPSIS
+         Returns the name of thecurrently active layout. This is the drawing
+         name in the main window'stitle bar.
+  NEEDS
+         none
+  RETURNS
+         axlCurrentDesign        - the current design name as a string.Note,
+                                  that there is always a current name, even
+                                   if it is "unnamed".
+  SEE ALSO
+         axlGetDrawingName, axlOpenDesign
+  EXAMPLES
+         The following example gets the name of thecurrent active layout.
+           axlCurrentDesign() ==> "mem32meg"

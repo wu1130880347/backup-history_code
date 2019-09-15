@@ -1,0 +1,12 @@
+´ò¿ªfindÃæ°å
+  NAME
+         axlOpenFindFilter - Obsolete, kept forcompatibility
+  SYNOPSIS
+         axlOpenFindFilter(
+         )
+         ==> t
+  FUNCTION
+         This function is nolonger required, kept forbackward compatibility.
+  NEEDS
+  RETURNS
+         t

@@ -1,0 +1,18 @@
+»¡¶È
+  NAME
+         axlDegToRad - degress toradians
+  SYNOPSIS
+         axlDegToRad(
+                 n_angle
+         ) => f_angle
+  FUNCTION
+         Converts an angle indegrees to radians.
+  NEEDS
+         n_angle: the angle indegrees
+  RETURNS
+         f_angle: the angle inradians
+  SEE ALSO
+         axlRadToDeg, axlMathConstants
+  EXAMPLE
+         axlDegToRad(45.0)
+                 => 0.7853982

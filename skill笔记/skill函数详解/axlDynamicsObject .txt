@@ -1,0 +1,28 @@
+将某个对象动态的附在光标上
+  NAME
+         axlDynamicsObject - load dynamics based onAXL DBID list.
+  SYNOPSIS
+         axDynamicsObject (
+                 lo_dbid
+                 [l_ref_point]
+         )
+         ==> t/nil
+  FUNCTION
+         Adds the list of objects to thecursor buffer. These objects are
+         attached to the cusor inxor mode. Adding too many objects to
+         the cursor buffer willdramatically effect performance
+         Origin point establishescursor position relative to objects in
+         dynamics buffer.
+  NEEDS
+         lo_dbid - list of AXL DBID's or single DBID
+         l_ref_point     - optional origin point (takes cursorposition if not
+                           provided).
+  RETURNS
+         t               - If added anything to cursorbuffer
+         nil             - otherwise
+  EXAMPLE
+         Add symbol to cursor bufferwith symbol orign as reference point:
+                 axlDynamicsObject(symbol_id, symbol_id->xy)
+  NOTE
+         Hack version - to bereplaced
+  FUTURE

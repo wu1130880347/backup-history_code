@@ -1,0 +1,17 @@
+获得用户输入的极角度
+  NAME   
+         axlEnterPolar - get a polar angle formthe user.
+  FUNCTION
+         axlEnterAngle (
+             origin
+             ?prompts l_prompt
+             ?refPoint l_refPoint
+             ?angle l_angle
+             ?lockAngleg_lockAngle
+         )
+         ==> t/nil
+  SYNOPSIS
+         NOT IMPLEMENTED YET!
+  NEEDS
+   
+  RETURNS  

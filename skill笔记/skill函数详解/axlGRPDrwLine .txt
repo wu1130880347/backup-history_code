@@ -1,0 +1,19 @@
+Í¼ÐÎ»æÖÆ£º»­Ïß
+  NAME
+      axlGRPDrwLine
+  FUNCTION
+      axlGRPDrwLine(
+               r_graphics,
+               l_vertices
+      )->t/nil
+  SYNOPSIS
+     This function draws a line, into the areaidentified by the r_graphics
+     handle, and the list ofcoordinates. Option properties attached to
+     the r_graphics handle areapplied, when drawingthe line.
+  NEEDS
+     r_graphics - The graphicshandle.
+     l_vertices - a List ofcoordinates describing the line.
+  RETURNS
+      nil if an erroroccurred, otherwise t.
+  SEE ALSO
+     axlGRPDoc

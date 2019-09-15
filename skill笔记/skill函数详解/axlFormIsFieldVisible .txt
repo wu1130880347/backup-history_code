@@ -1,0 +1,20 @@
+查询窗体上某个部件是否显示
+  NAME
+         axlFormIsFieldVisible - determineswhether a form field is visible.
+  FUNCTION
+         axlFormIsFieldVisible(
+                 r_form
+                 t_field
+                 )
+         ==> t/nil
+  SYNOPSIS
+     This checks the given formfield for visiblity.  If the field
+     is visible, t is returned.  If the field is invisible,
+     nil is returned.
+  NEEDS
+         r_form:         Form id.
+         t_field:        Form field name (string).
+  RETURNS
+         t/nil:          Returns t if visible, nil if not visible
+  EXAMPLES
+         None.

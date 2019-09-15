@@ -1,0 +1,64 @@
+TEXTתLine
+  NAME
+         axlText2Lines - Vectorize text
+  SYNOPSIS
+         axlText2Lines (
+             o_textDbid
+         )
+         ==> llr_path/nil
+  FUNCTION
+         This vectorizes a text dbid into a list of lists of r_path objects.
+         The return is a list of list r_paths for each character:
+                 llr_path = (l_rpathChar1, l_rpathChar2 ... l_lrpath_CharLast)
+         Each character can have one or more line draws and each line draw can have one
+         or more segments. For example an 'A' has 2 line draws; one have 2 segments and
+         the second 1 segment.
+                 l_rpathChar1 = (l_rpathLine1, ... lrpathLineN)
+                    where:
+                      l_rpathLineX->_width  -> thickness of line
+                      l_rpathLineX->__pathList -> list of segments making up a line
+         Things of note:
+            - Vectorization returns line segments (no arcs) although this may change in the futre.
+            - A single character may return mutliple r_paths and one r_path may have multiple
+              segments.
+            - The width is the same for all lines making up a single textDbid.
+              This means that the width for all segments undefined since the r_path has
+              the width.
+            - Characters are returned left to right.
+            - Whitespace is skipped.
+         Allegro draws all text as stroke text. This converts a text dbid into a series
+         of line draws using r_path structures.
+  TIP
+         You can convert a r_path to an o_polygon by using axlPolyFromDB using its
+         "?line2poly t" option.
+  NEEDS
+         o_textDbid      - a text dbid
+  RETURNS
+         llr_path        A list of list of r_paths (see above)
+         nil             an error (not a text dbid) or text dbid is an empty string (shown
+                         in Allegro with a small triangle).
+  SEE ALSO
+         axlPath, axlPolyFromDB
+  EXAMPLES
+         Function ashOne is a shareware utility that allows user to select
+         one object (see <cdsroot>/share/pcb/examples/skill/ash-fxf/ashone.il).
+         - pick a text and add converted lines on BOARD GEOMETRY/OUTLINE layer
+             text = ashOne("TEXT")
+             lines = axlText2Lines(text)
+             layer = "BOARD GEOMETRY/OUTLINE"
+             ; flatten list
+             flattened = foreach( mapcan x lines x)
+             ; create objects in database
+             foreach(path flattened i = axlDBCreatePath(path layer nil nil nil))
+         - pick a text and add converted to shapes on "BOARD GEOMETRY/ASSEMBLY_DETAIL
+             text = ashOne("TEXT")
+             lines = axlText2Lines(text)
+             layer = "BOARD GEOMETRY/ASSEMBLY_DETAIL"
+             ; flatten list
+             flattened = foreach( mapcan x lines x)
+             foreach(path flattened
+                 ; may return multiple polys
+                 polys = axlPolyFromDB(path ?endCapType 'ROUND ?line2poly t)
+                 ; create shapes in database
+                 foreach(poly polys i = axlDBCreateShape(poly t layer nil nil))
+             )

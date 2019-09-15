@@ -1,0 +1,28 @@
+访问的设计模块实例的当前位置
+  NAME
+         axlGetModuleInstanceLocation - Get the locationof the module instance.
+  SYNOPSIS
+         axlGetModuleInstanceLocation(
+             o_modinst
+         )
+         ==> l_loc/nil
+  FUNCTION
+         AXL interface to the C function thataccesses the current location
+         of the module instance inthe design.
+  NEEDS
+         o_modinst       AXL DBID of the module instance (ie. the
+                         dbidreturned by axlDBCreateModuleInstance).
+  RETURNS
+         l_loc           List describing the location of the
+                         moduleinstance:  
+                             list(l_origin, x_rotation[g_mirror])
+                               -origin of module
+                               -rotation in degress * 1000
+                               - mirror is optional is a't' if mirrored
+  EXAMPLE
+         Get the location of amodule instance named inst.
+            axlSetFindFilter(?enabled '("noall" "groups") ?onButtons '("noall" "groups"))
+            axlSingleSelectName("GROUP" "inst")
+            modinst = car(axlGetSelSet())
+            axlGetModuleInstanceLocation(modinst)
+            --> ((500 1500) 0)

@@ -1,0 +1,130 @@
+
+´°ÌåflexÎÄ¼þ
+NAME
+         axlFormFlexDoc - reposition (move and size) controls if form is resized
+  INTRO
+         Allows controls within a form to be re-positioned (moved and sized)
+         based upon rules described in the form file. Rules may either
+         be general (FLEXMODE) or specific to a single control (FLEX).
+         Flex adjusting of the controls takes place when the form
+         is adjusted larger then its base size. Sizing the
+         form smaller then the base size, disables flex sizing.
+         Controls are divided into two classes:
+             - containers: Can have as members other controls (including
+                 other containers). To be a container member is
+                 automatic; the control's xy location must be within the
+                 container. Container controls of the form are TABSETs
+                 and GROUPs.
+             - all others (includes containers)
+         All controls except TABS (which are locked to their TABSET)
+         may be moved when a form is resized. Sizing either width or height is
+         control dependant are are listed as follows:
+                 REALFILLIN      width
+                 LONGFILLIN      width
+                 STRFILLIN       width
+                 INTSLIDEBAR     width
+                 ENUMSET         width
+                 PROGRESS        width
+                 TRACKBAR        width
+                 LIST            width & height
+                 GRID            width & height
+                 TREEVIEW        width & height
+                 THUMBNAIL       width & height
+                 GROUP           width & height
+                 TABSET          width & height
+                 <others>        no change in size
+  GLOBAL MODES (FLEXMODE)
+         FLEXMODE (general rules) apply to all controls in the form except
+         those with specific overrides (FLEX). Only a single FLEXMODE
+         is supported per form, the last encountered in the form file is
+         used.  Several general rules are supported, they are:
+             EdgeGravity: All controls have an affinity to the closest
+                 edge of their immediate container. Exceptions are <xxx>FILLIN,
+                 and INTSLIDEBAR control's edge gravity is based upon a TEXT
+                 control positioned immediately to the left of the control.
+             EdgeGravityOne: Similar to "Edgegravity" except controls
+                 are only locked to the right or bottom edge
+                 (not both). The closest edge is used.
+             StandButtons: Only effects button controls. Uses same
+                 logic as EdgeGravityOne.
+         FLEXMODE can have an optional pair of additional arguments which
+         specify the minimum form width and height for flexing. values are in
+         character units. Flexing will stop in the given direction when the
+         width/height goes below the specified value.
+   CONTROLING INDIVIDUAL CONTROLS
+         Controling individual controls is based upon the "FLEX" parameter:
+                 FLEX fx fy fw fh
+         It overrides any FLEXMODE in effect for that control and is based upon
+         paramters (fx, fy, fw, fh). These are floating point numbers
+         between 0.0 and 1.0. These values control the fraction of the
+         change in container size that the control should move or change
+         size:
+            fx & fy
+                 0 control remains locked to the left or top edge of its
+                         container
+                 1 control remains locked to the right or bottom edge of
+                         is container
+            fw & fh
+                 0 control is not resized
+                 1 control is resized in width or height based upon the
+                         size change of its container.
+         Container's positioning and sizing also effect their member controls.
+         Containers are hierarchial.  Thus it is important to also
+         make sure that the container of the control also has a FLEX
+         constraint. The sum of the width and height of the immediate
+         controls of a container should not be greater then 1 to
+         prevent overlapping.  TABSETS are slightly different in one
+         aspect in that the sizing of of their member controls are
+         also based upon the TAB they belong.
+  CAUTIONS
+         It is possible to create FLEX constraints that results
+         in overlapping controls. FLEX does not protect against
+         this.
+  RESTRICTIONS
+            1) Form must be FIXED.
+            2) While FLEX rules may appear anywhere in the form file
+                 they should be group together immediately before
+                 the ENDTILE.
+            3) Range errors for FLEX option or applying width or height
+                 to controls not supporting them are silently ignored.
+         
+  EXAMPLES
+         1) Simple list based form with buttons (label of LIST is list).
+            List gets all of form sizing.
+             FLEXMODE standbuttons
+             FLEX list 0 0 1 1
+         2) Form containing 3 lists (a b c) positioned equally across the
+            form. Desire is to have each list get the total change
+            in height but to share in the increase in form width. Thus
+            if form changes width the each control should get 1/3
+            (or .33) of this change. Since list's widths change the
+            list to the right also must move.
+             FLEXMODE EdgeGravity
+             FLEX a 0 0 0.33 1
+             FLEX b 0.33 0 0.67 1
+             FLEX c 0.67 0 1 1
+         3) Form has a group (g1) containing a list (l2). These
+            are at the bottom of another list (l1). Desire is to
+            have both lists share in any change of the form size. Since
+            l1 and group g1 are in the same container they
+            The second list (l2) is a member of the group container (g1)
+            so it moves if the group moves (0 for y) and it should get
+            all of the group resizing (h is 1).
+             FLEX l1 0 0 1 0.5
+             FLEX g1 0 0.5 1 0.5
+             FLEX l2 0 0 1 1
+         4) Form has a group (g1) with a list member (l1) but the list
+            doesn't resize. This is because the list is a member of
+            the group which has 0:0 sizing. So even though the list
+            has 1:1 sizing it never changes in size since its container
+            never changes size. Both the group and its member list
+            move because the group's has a 1:1 x/y factor.
+             FLEX g1 1 1 0 0
+             FLEX l1 0 0 1 1
+         5) Form is a tabset (t1) with 2 tabs. Each tab controls a list
+            (l1 & l2) that should be accomodate the maximum change in
+            form size.  Since
+             FLEX t1 0 0 1 1
+             FLEX l1 0 0 1 1
+             FLEX l2 0 0 1 1
+         6) Use axlFormTest(<formname>) to experiment with your form.

@@ -1,0 +1,37 @@
+计算给出圆弧角度的中心点
+  NAME
+         axlGeoArcCenterAngle - calculate thecenter of an arc given angle
+  FUNCTION
+         axlGeoArcCenterAngle(
+             l_startPoint
+             l_endPoint
+             f_angle
+             [g_clockwise]
+         )
+         ==> l_center/nil
+  SYNOPSIS
+         Calculates the center of anarc given the angle between its endpoi
+nts.
+         axlGeoArcCenterAngle uses the argumentsdepending on g_clockwise.
+  NEEDS
+             l_startPoint        -starting point of the arc
+             l_endPoint          - ending point of the arc
+             f_angle             - angle of the arc
+             g_clockwise         - t=clockwise, else (default) counterclockwise
+  RETURNS
+         l_center/nil:           Returns the arc center as a list: (X Y).
+                                 nil isreturned if for an y reason it cannot
+                                calculate the center from the given arguments.
+  EXAMPLES
+         This example prints the centerfor the clockwise arc going through
+         the points (7500:5600) and (8000:4700) using axlGetArcCenterAngle, then
+         adds the arc through thosepoints using axlPathArcAngle, and compares
+         their centers:
+         print axlGeoArcCenterAngle( 7500:5600 8000:4700 68.5 t)
+         mypath = axlPathStart(list( 7500:5600))
+         axlPathArcAngle(mypath, 0., 8000:4700, t, 68.5)
+         axlDBCreatePath( mypath, "etch/bottom")
+                 ==> (7089.086 4782.826)
+         Do Show Element on the arcto show its center coordinate:
+         The arc lists: "center-xy(7089,4783)" which agrees with the
+         (7089 .086 4782.826) printed by axlGeoArcCenterRadius above.

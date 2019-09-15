@@ -1,0 +1,25 @@
+获取所有via列表。
+  NAME
+         axlGetAllViaList - Get via padstack list for thecurrent design
+  SYNOPSIS
+         axlGetAllViaList (
+             [g_attrVias]
+         )
+         ==> lo_padstack_dbid
+  FUNCTION
+         Returns a list of allof the padstacks which are included in via lists
+         in the design. This is aunion of all via lists from all constraint
+         sets. It optionally willprovide padstacks from net VIA_LIST
+         properties.
+         Padstack dbid's are not in anyparticular order. The order is
+         dependent on the order ofconstraint sets,VIA_LIST properties and the
+         associated via lists.
+         Warning: This interfacewill result in the via padstacks being loaded
+         into the design if theyare not already loaded.
+  NEEDS
+         [g_attrVias]    Optional argument to add padstacks which are not in
+                         andconstraint set but are provided in some net's
+                         VIA_LISTattribute.
+  RETURNS
+         lo_padstack_dbid        List of padstack dbid's
+         nil                     The design has empty vialists

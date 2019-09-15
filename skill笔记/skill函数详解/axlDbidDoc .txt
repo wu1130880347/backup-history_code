@@ -1,0 +1,578 @@
+用skill文件描述Allegro数据
+  NAME
+         axlDbidDoc - Allegro databaserepresentation in Skill
+  SYNOPSIS
+         Only objects added/modifiedare currently documented
+         here. See AXL SkillReference manual for others.
+  TIP
+         Use axlDebug to enable error messages for invalid attributs
+         of Allegro dbids. Allowsdetection of typos when fetching data
+         from dbids. This entails aslight performance hit.
+         For example, it you have a pindbid and you do a
+                 pin->bbox (instead ofpin->bBox)
+         then an error will be issued.
+  SEE ALSO
+         axlDebug
+==============================================================
+  Generic Attributes:    Common attributes to many AXL objects
+     NAME                TYPE    DESCRIPTION
+    ----------------------------------------
+     objType             string  Name of the object
+     prop                propid  Attached properties
+     parentGroups        l_dbid List groups this object is a member
+     readOnly            t/nil   t=can modify object directly (1)
+     Notes:
+       1) Except for parameter dbids all other objectsare readOnly=nil.
+         This means they cannot bemodified via "dbid->object= value".
+  ==============================================================
+  DESIGN Attributes:     Represents the design root. axlDBGetDesign()
+     NAME                TYPE    DESCRIPTION
+    ----------------------------------------
+         Also includes genericobject and figure attributes
+     bus                 l_dbid  List of busses in design
+     components          l_dbid  List of components
+     compdefs            l_dbid  List of components definitions
+     diffpair            l_dbid  List of diffpairs in design
+     drcs                l_dbid  List of Non-Waived DRCs
+     drcState            symbol  State of DRC
+                                 maybe t for up to date, nil for out of date
+                                 or batch for batch out of date
+     ecsets              l_dbid  List of Electrical Csets
+     groups              l_dbid  List of groups
+     matchgroup          l_dbid  List of match groups in the design
+     module              l_dbid  List of module instances in design
+     nets                l_dbid  List of nets
+     netclass            l_dbid  List of netclass constraint groups
+     netgroup            l_dbid  List of netgroups in the design
+     objType             string  "design"
+     region              l_dbid  List of regions
+     padstacks           l_dbid  List of padstack
+     pins                l_dbid  If a .dra list of pins, otherwise nil
+     symbols             l_dbid  List of symbols
+     symdefs             l_dbid  List of symbol def
+     waived              l_dbid  List of Waived DRCs
+     xnet                l_dbid  List of Xnets in design (no nets with VOLTAGEprop)
+==============================================================
+  COMPDEF Attributes:    Component definitions  (logic element)
+     NAME                TYPE    DESCRIPTION
+    ----------------------------------------
+         Also includes genericobject attributes
+     class               string  Component classification
+     components          l_dbid  List of comp instances of this defintion
+     deviceType          string  Device type of the component
+     functions           l_dbid  List of functions
+     objType             string  "compdef"
+     pins                l_dbid  List of pins comprising component
+==============================================================
+  COMPONENT Attributes:  Component instances  (logic element)
+     NAME                TYPE    DESCRIPTION
+    ----------------------------------------
+         Also includes genericobject attributes
+     class               string  Component classification
+     compdef             dbid    dbid of component defintion (COMPDEF)
+     deviceType          string  Device type of component (see COMPDEF)
+     functions           l_dbid  List of functions
+     name                string  Refdes
+     objType             string  "component"
+     package             string  Package Name
+     pins                l_dbid  List of pins comprising component
+     symbol              dbid/nil Symbol dbid if placed otherwise nil
+  ==============================================================
+  DRC Attributes:        
+     NAME                TYPE    DESCRIPTION
+    ----------------------------------------
+         Also includes genericobject and figure attributes
+     actual              string  Actual value (user units)
+     expected            string  Expected value (user units)
+     fixed               t/nil   t= Allegro generated DRC
+                                nil= user defined DRC
+     name                string  Name of the Constraint that was violated
+     objType             string  "drc"
+     parent              string  Design dbid
+     source              string  DRC source (property or constraint
+                                 set name)
+     type                string  Domain of DRC, values can be:
+                                 "NET SPACINGCONSTRAINTS", "PHYSICALCONSTRAINTS".
+                                 "DESIGN", "NET ELECTRICALCONSTRAINTS"
+                                 "SAME NETCONSTRAINTS", "EXTERNALREFERENCE"
+                                 Weird names are due toevolution of Allegro.
+     violations          l_dbid  List of figures causing error
+                                 (2 max currently
+     waived              t/nil   t=waived drc; nil=regular
+     xy                  point  Location of marker
+==============================================================
+  GROUP Attributes:      Groupings of Allegro objects
+     NAME                TYPE    DESCRIPTION
+    ----------------------------------------
+         Also includes generic object attributes
+     groupMembers        l_dbid List of members of the group
+     name                string  Name of the group
+     objType             string  "group"
+     type                string  Predefine group type (1)
+     Notes:
+       1) This currently cannot be defined inSkill and user defined
+          groups will always be "GENERIC"
+==============================================================
+  MODULE Attributes:     module instance in design
+     NAME               TYPE    DESCRIPTION
+    ----------------------------------------
+         Also includes genericobject attributes
+     bBox                bBox    bounding box of all physical members ofgroup
+     groupMembers        l_dbid List of members of the module
+     name                string  Name of module
+     objType             string  "group"
+     type                string  "MODULE"
+==============================================================
+  LINE Attributes:       Cline and line of Allegor objects
+     NAME                TYPE    DESCRIPTION
+    ----------------------------------------
+         Also includes generic and figure objectattributes
+     lineType            s_type  symbol: horizontal, vertical, odd
+     objType             string "line"
+     parent              dbid    Path, polygon or shape
+     startEnd            l_point Start and end points
+     width               float  Width of line
+==============================================================
+  MATCH_GROUP Attributes:        (logic element)
+     NAME                TYPE    DESCRIPTION
+    ----------------------------------------
+         Also includes genericobject attributes
+     groupMembers        l_dbid List of xnets, nets and pinpairs making up
+                                this group
+     name                string  Name of the match group
+     objType             string  "group"
+     pinpair             l_dbid  list of pinpairs asscoiated with xnet
+     type                string  "MATCH_GROUP"
+    Notes:
+     1) For more infomation on the rpdattribute see axlMatchGroupCreate
+==============================================================
+  BUS Attributes:        Bus objects (logic element)
+         Use axlDBCreateGroup family of commandsto add, delete and modify these groups
+     NAME                TYPE    DESCRIPTION
+    ----------------------------------------
+         Also includes genericobject attributes
+     groupMembers        l_dbid List of xnets of the bus
+     name                string  Name of the bus
+     objType             string  "group"
+     type                string  "BUS"
+     lock                t/nil   Is membership locked for editing (vector busses)
+==============================================================
+  DIFFPAIR Attributes:   DiffPair objects (logic element)
+     NAME                TYPE    DESCRIPTION
+    ----------------------------------------
+         Also includes genericobject attributes
+     groupMembers        l_dbid List of xnets of the diffpair
+     name                string  Name of the diffpair
+     objType             string  "group"
+     type                string  "DIFF_PAIR"
+     userDefined         t/nil  if t created by user socan be modified.
+                                 Nil indicates created by Signoisemodels
+                                 socannot be changed.
+==============================================================
+  XNET Attributes:       eXtended Net (logic element)
+     NAME                TYPE    DESCRIPTION
+    ----------------------------------------
+         Also includes genericobject attributes
+     bus                 dbid    bus dbid if part of a bus
+     diffpair            dbid    diffpair dbid if part of a diffpair
+     groupMembers        l_dbid List of nets of the xnet
+     name                string  Name of the xnet
+     objType             string  "group"
+     pinpair             l_dbid  list of pinpairs asscoiated with xnet
+     rpd                 l_rpd   For each match group that has this
+                                xnet as a member this will list
+                                 asa list of lists
+                                   (mg_dbidt_relatePropDelay)
+     type                string  "XNET"
+    Notes:
+    1) Can only be definedindirectly via the assignment of SigNoise models.
+     2) For more infomation on the rpdattribute see axlMatchGroupCreate
+==============================================================
+  NET Attributes:        Net definitions  (logic element)
+     NAME                TYPE    DESCRIPTION
+    ----------------------------------------
+         Also includes genericobject attributes
+     branches            l_dbid  List of branches
+     nBranches           integer Number of branches (when equal to one, net
+                                 isfully connected). Noteisland shapes will
+                                 case this count to be not 1 even if all pins
+                                 areconnected.
+     bus                 dbid   bus dbid if part ofa bus
+     name                string  Net name
+     objType             string  "net"
+     pinpair             l_dbid  List of pinpairs associated with net (1)
+     ratsnest            l_dbid  list of ratsnest for net
+    ratsnestOn          t/nil   State of ratsnest display for this net
+     ratT                l_dbid  list of rat_T's (may be NULL if none)
+     rpd                 l_rpd   For each match group that has this
+                                 netas a member this will list
+                                 asa list of lists
+                                   (mg_dbidt_relatePropDelay)
+     isBundled           t/nil   t = net contains at least one bundled ratsnest
+     scheduleLocked      t/nil  t = net schedulecannot be changed
+     unconnected         integer Number of remainingconnections. This does
+                                 not include connections tounplaced symbols.
+     unplaced            integer Number of unplaced pins.
+     Notes:
+     1) if net is a member of a xnet then all pinpairs will appear on the xnet
+     2) For more infomation on the rpdattribute see axlMatchGroupCreate
+==============================================================
+  NETCLASS Attributes:   NetClass objects for constraint grouping
+     NAME                TYPE    DESCRIPTION
+    ----------------------------------------
+         Also includes genericobject attributes
+     groupMembers        l_dbid List of nets, xnets, busses or diffpairs
+     name                string  Name of the netclass
+     objType             string  "group"
+     type                string  "NETCLASS"
+     electrical          t/nil   if part of the electrical and same net domain
+     physical            t/nil   if part of the physical and same net domain
+     spacing             t/nil   if part of the spacing and same net domain
+     Notes:
+     1) A NetClass can be a member of one or more domains butits name must
+        be unique across alldomains.
+     2) constraint overrides can be added tonetclass via properties
+==============================================================
+  REGION Attributes:     Region objects for constraint grouping
+     NAME                TYPE    DESCRIPTION
+     ----------------------------------------
+         Also includes genericobject attributes
+     groupMembers        l_dbid List of constraint area shapes
+     name                string  Name of the netclass
+     objType             string  "group"
+     type                string  "REGION"
+==============================================================
+  PINPAIR Attributes:    PinPair definitions  (logic element)
+     NAME                TYPE    DESCRIPTION
+    ----------------------------------------
+         Also includes genericobject attributes
+                                 isfully connected)
+     ecsetDerived        t/nil  If t pinpair was createddue to an ecset.
+                                 Nilindicates pinpair created due to net
+                                 overrideproperty.
+     groupMembers        l_dbid List of two pins making up pinpair
+     name                string  Name of the pinpair
+                                        (<refdes>.<pin#>:<refdes>.<pin#>)
+     objType             string  "group"
+     parent              dbid    net or xnet owning the pinpair
+     parentGroups        l_dbid Lists matchgroups that have this pinpair.
+                                 Mayalso list other parentsgroups.
+     rpd                 l_rpd   For each match group that has this
+                                pinpair as a member this will list
+                                 asa list of lists
+                                   (mg_dbidt_relatePropDelay)
+     type                string  "PIN_PAIR"
+     Notes:
+     1) nets that are part of an xnet thepinpair will always have the xnet
+        as the pinpair owner
+     2) For more infomation on the rpdattribute see axlMatchGroupCreate
+==============================================================
+  NET_GROUP Attributes:  A net group
+         Use axlDBCreateGroup family of commandsto add, delete and modify these groups
+     NAME                TYPE    DESCRIPTION
+    ----------------------------------------
+         Also includes genericobject attributes
+     groupMembers        l_dbid members of the group (net_groups, nets, xnets, diffpairs, buses)
+     name                string  Name of the group
+     objType             string  "group"
+     type                string  "NET_GROUP"
+     isInterfaceTop      t/nil  If t, group is the top ofa definition-driven
+                                interface instance.
+==============================================================
+  PORT_GROUP Attributes: Groupingsof Allegro pin objects
+     NAME               TYPE    DESCRIPTION
+    ----------------------------------------
+         Also includes genericobject attributes
+     groupMembers        l_dbid List of members of the group (port_groups,
+                                pins, function pins).
+     name                string  Name of the group
+     objType             string  "group"
+     type                string  "PORT_GROUP"
+     isInterfaceTop      t/nil  If t, group is the top ofa definition-driven
+                                 interfaceinstance.
+==============================================================
+  RATSNEST Attributes:   Ratsnest definitions  (logic element)
+     NAME                TYPE    DESCRIPTION
+    ----------------------------------------
+         Also includes genericobject attributes
+     bus                 t/nil   currently being show with bus routes option
+     objType             string  "ratsnest"
+     pinsConnected       t/nil  ratsnest notdisplayed (both pins on samebranch)
+     pins                l_dbid the two pins (or ratTs) that the ratsconnects
+     pwrAndGnd           t/nil   net is power and ground scheduled
+     ratnest             l_dbid  two dbids of next ratsnest for dbid's of
+                                 thepins attribute.
+    ratsPlaced          t/nil   user defined rats only, one or more pins unplaced
+     userDefined         t/nil  ratsnest is user defined
+==============================================================
+  PATH Attributes:       Path cline or lines in Allegro
+     NAME                TYPE    DESCRIPTION
+    ----------------------------------------
+         Also includes generic and figure objectattributes
+     branch              dbid/nil Branch owner
+     hasArcs             t/nil    t = path has one or more arcs
+     isSameWidth         t/nil    t = all segments have same width
+     isEtch              t/nil    t = a CLINE;  nil = a LINE
+     nSegs               integer  number of segments in path
+     objType             string   "path"
+     parent              dbid     owner (branch, symbol, shape)
+     segments            l_dbid   list of arc and line figures in path
+     symbolEtch          dbid     symbol owner if etch
+     startEnd            lt_layer If bond-wire start and end layers; nil if
+                                  not bondwire.
+==============================================================
+  ARC Attributes:        Single arc cline or line in Allegro
+     NAME                TYPE    DESCRIPTION
+     ----------------------------------------
+         Also includes generic and figure objectattributes
+     isCircle            t/nil    t = circle; nil = unclosed Arc
+     isClockwise         t/nil    t = clockwise; nil = counterclockwise
+     isEtch              t/nil    t = a CLINE;  nil = a LINE
+     objType             string   "arc"
+     parent              dbid     Path, polygon or shape
+     startEnd            l_point  Start and end points of arc
+     width               float   Width of line
+     font                int/nil  Line font, etch always has nil while 0
+                                 indicates a solid font.
+     xy                  point    Arc center
+==============================================================
+  LINE Attributes:       Single segment cline or line in Allegro
+     NAME                TYPE    DESCRIPTION
+    ----------------------------------------
+         Also includes generic and figure objectattributes
+     isEtch              t/nil    t = a CLINE;  nil = a LINE
+     objType             string  "line"
+     parent              dbid     Path, polygon or shape
+     startEnd            l_point  Start and end points
+     thermal             t/nil    Cline is a thermal relief
+     width               float   Width of line
+     font                int/nil  Line font, etch always has nil while 0
+                                 indicates a solid font.
+==============================================================
+  PIN Attributes:        Pin (board and symbol editors) (generic & figureelement)
+     NAME                TYPE    DESCRIPTION
+    ----------------------------------------
+         Also includes genericobject attributes
+     branch              dbid/nil Branch owner
+     component           dbid/nil Component owner
+     definition          dbid/nil Padstack definition, nil of unplaced
+                                component pin
+     fixedByTestPoint    t/nil  OBSOLETE (4)
+     functionPins        l_dbid/nil List of function pins, nil if
+                                 unassigned symbol pin
+     isExploded          t/nil   t= pin is instanced edited
+     isMech              t/nil   t= pin is mechanical
+     isMirrored          t/nil   t= pin is mirrored
+     isThrough           t/nil   t= pin is a throughhole
+     name                string  Padstack name, nil if unplaced component
+                                 pin
+     objType             string  "pin"
+     pads                l_dbid  Unordered list of pads. (1)
+     parent              dbid    dbid of symbol owning pin (2) or
+                                 nil if standalone (e.g. symbol editor)
+     relRotation         float  Pin rotation (relativeto Symbol)
+     relxy               point   Location (relative to Symbol)
+     rotation            float  rotation absolute
+     mirrorType          string  specific mirror type in use.
+     startEnd            lt_layer Range of layers spanned bypin (3)
+     testPoint           t_layer/nil  t_layer denotes layer of testpoint
+                                     nil is not a testpoint
+     use                 string  Pin use (as shown by show element)
+     xy                  point   Location absolute
+     Notes:
+       1) To access a particular pad use axlDBGetPad().
+       2) May be nil if component is unplaced.
+       3) Will say "etch/(unknown)" if unplaced component.
+       4) fixedByTestPoint is obsolete and is kept for backwards
+          compatibility. Use axlDBIsFixed(<dbid>) and/or
+          axlDBControl(?testPointFixed).
+  ==============================================================
+  SHAPE Attributes:      Shapes or rectangles in Allegro
+     NAME                TYPE    DESCRIPTION
+    ----------------------------------------
+     bBox                bBox    bounding box
+     cavity              t/nil   if a boundary shape is for cavity generation
+                                 (embedded design). Cavity shapes aregenerated
+                                automatically based on the rki
+     children            l_dbid  if a boundary Shape points to list of dynamic shapes
+     fill                g_fill  nil - unfilled
+                                 t - filled
+                                 (axlFillTypeaxlFillType) - xhatch
+                                     each axlFillType has spacing
+                                         width, origin and angle
+     fillet              t/nil   shape is a fillet (teardrop)
+     fillOOD             t/nil   dynamic fill is out of date
+                                 nil if shape is does not refill
+                                 t if shape needs fillupdating
+                                  (only dynamic shapescan be t)
+     holes               list   list of o_polygons
+     isHole              t/nil   t= polygon is a hole
+     isRect              t/nil   t= polygon is a rectangle
+     nSegs               integer number of segments inpolygon
+     objType             string  "polygon"
+     parent              dbid    Branch (if etch shape), Symol, shape (for voids)
+                                 or nil
+     priority        integer/nil If shape is a dynamic shapeboundary this
+                                 isan integer voiding priority. For all
+                                other shapes this is nil. The priority is
+                                 a relative to other dynamic shapes onthe
+                                same layer. If two dynamic shapes are
+                                coincident, theshape with the higher
+                                priority will win in voiding. This number
+                                 isrecalculated as needed so should
+                                only be used for comparison purposes.
+     region              l_dbid/nil  Region owner if a region shape
+     segments            l_dbid  Path describing boundary
+     shapeAuto           l_dbid/nil - If dynamic shape list of generated
+                                shapes on the matching auto-gen ETCH or
+                                CAVITY layer
+     shapeBoundary       dbid/nil - If this shape is generatedfrom a
+                                dynamic shape, thispoints to that shape
+                                Bounday shapes may either be used for ETCH
+                                 or CAVITY (see state of cavityattribute)
+    shapeIsBoundary     t/nil   This shape is a dynamic shape
+                                 (e.g. on BOUNDARYclass)
+     taper               t/nil   shape is used for tapering
+     dynamicGroup        t/nil  If this a dynamic shape (BOUNDARY class) return its
+                                dynamic group object. This is where voiding instance
+                                overrides are stored.
+     symbolEtch          dbid    symbol owner if etch
+     vertices            list   outer boundary available as a list     
+                                containing a point (vertex of a polygon)
+                                 and a floating pointnumber (radius of the
+                                edge from the previous to the present
+                                 vertex)
+         
+  NOTE: If a shape is aauto-generated shape (shapeBoundary != nil) then
+         it cannot be maniplated (e.g. moved, property add, delete etc.).
+         You should modify thedynamic shape (shapeBoundary). See
+         axlSetFindFilter on how to set the find filter toauto-select
+         the boundary shape if one of itsauto-generated children is
+         selected by the user.
+==============================================================
+  SYMBOL Definition  Attributes:         symdef
+     NAME                TYPE    DESCRIPTION
+    ----------------------------------------
+         Also includes genericobject attributes
+     bBox                bBox    bounding box
+                                Because a symdef is not placed the
+                                center point of the box is 0,0
+     children            l_dbid  list of children making up symbol
+     instances           l_dbid  List of symbols instances using this symbol
+     name                string Symbol name
+     objType             string  "symdef"
+     parent              dbid    Design root
+     pins                l_dbid  List of pins
+     type                string  Symbol type, PACKAGE, MECHANICAL,
+                                 FORMAT, SHAPE, or FLASH
+==============================================================
+  SYMBOL Instance  Attributes:  symbol
+     NAME                TYPE    DESCRIPTION
+    ----------------------------------------
+         Also includes generic objectattributes
+     embedded            t/nil   symbol placed on embedded layer
+     embeddedLayer       string layer of placed symbol or nil if external
+     embeddedMethod      string method (CHIP_UP or CHIP_DOWN)
+     embeddedAttach      string attachment method (DIRECT_ATTACH or INDIRECT_ATTACH)
+     mirrorType          string  specific mirror type in use.
+==============================================================
+  RAT_T Attributes:      Rat_T (figure element)
+     NAME                TYPE    DESCRIPTION
+    ----------------------------------------
+         Also includes genericobject and figure attributes
+     name                string  Name of T -- T-<n>      
+     net                 dbid    Net of Rat-T
+     objType             string  "rat_t"
+     parent              dbid    Net
+     xy                  point   Location of T
+==============================================================
+  Padstack Attributes:   padstacks in Allegro
+     NAME                TYPE    DESCRIPTION
+    ----------------------------------------
+         Also includes genericobject attributes
+     definition          o_dbid  (see isPadRef) Points to padstack definition if this is
+                                padReference otherwise nil
+     drillChar           string  drill characters (max 3)
+     drillDiameter       float  Drill hole diameter (0 if slot)
+     drillSizeWidth      float  width of slot,diameter if hole and extents ofmulidrill
+     drillSizeHeight     float  height of slot, diameter if hole and extents of mulidrill
+     drillOffset         point  offset of drill hole
+     drillFigureName     string type of drill symbol (circle, square, etc.)
+     drillFigureWidth    float  Width of drill symbol (for slots same as drillSizeWidth)
+     drillFigureHeight   float   Height ofdrill symbol (for slots same asdrillSizeHeight)
+     drillNonStandard    string Type of drill (nil is standard) (not supported by slots)
+     holeTolerance       l_float A list of two numbers reporting the + and -
+                                drill hole tolerance
+     multiDrillData      l_values If not multidrill then nil otherwise list
+                                 of (rows columnsclearanceX clearanceY
+                                staggered) bothclearances are in dbreps
+                                 and staggered is t/nil
+     holeType            string  Type of hole (circle_drill, oval_slot, etc.)
+     keepout             t/nil   Padstack built to accomodate anti-pads as
+                                 Route keepouts for mechanical pins.This
+                                padstack can also be used for logical
+                                connections but this option is ignored.
+     isPadRef            t/nil   t = padstack is a padstack reference. This means that the
+                                actual padstack is a template and the padstack's start
+                                 endlayers is dynamically mapped depending upon its
+                                 usewith a pin or via.
+     isThrough           t/nil   t = through padstack
+     name                string  Padstack name
+     objType             string  Type of object, in this case "padstack"
+     pads                ll_dbid List of pads
+     parent              dbid    Design
+     padSuppresion       t/nil  Does padstack have Pad Suppression enabled. This is
+                                 for the legacy artworkbased pad suppression. The
+                                dynamic pad suppression ignores this option.
+     plating             string  One of "Plated", "Non-Plated", "Plating-Optional"
+     prop                nil    Always nil, padstacks do not support properties
+     startEnd            lt_layer Start and end layer ofpadstack
+     type                string Type of padstack; through, smd, bbvia, uvia
+     uvia                t/nil   A sub-type of bbvias, to differentiate in
+                                constraint system.
+==============================================================
+  TEXT Attributes:       text in Allegro
+     NAME                TYPE    DESCRIPTION
+    ----------------------------------------
+         Also includes genericobject attributes
+     mirrorType          string  specific mirror type in use.
+  ==============================================================
+  VIA Attributes:        via (board and symbol editors) (figure element)
+     NAME                TYPE    DESCRIPTION
+    ----------------------------------------
+         Also includes genericobject attributes
+     branch              dbid/nil Branch owner
+     mirrorType          string  specific mirror type in use.
+==============================================================
+  ECSET Attributes:      Electrical Constraint Set  (parameter element)
+     NAME                TYPE    DESCRIPTION
+    ----------------------------------------
+         Also includes genericobject attributes
+     name                string  Name of ecset
+     members             l_dbid  List of electrical constraints in set
+     objType             string  "ecset"
+     locked              t/nil   Cset locked from UI based editing
+     readOnly            t/nil   Cannot be modified
+     topology            t/nil   This is derived from a topology file,
+                                 may contain contraints thathave
+                                restrictions on how they could be modified
+     prop                l_dbid  List of user defined properties on ecset
+==============================================================
+  Class Table Attributes:        These are the class-class, class-class-region and class-region
+                                constraint table entries
+                                 SeeaxlCnsClassTableCreate
+     NAME                TYPE    DESCRIPTION
+    ----------------------------------------
+     name                string  Name of ecset
+     netclass1           dbid    net class entry
+     netclass2           dbid    second net class entry (may be nil)
+     region              dbid    region class for table entry (may be nil)
+     physical            dbid    physical cset associated with entry or nil
+     spacing             string  spacing cset associated with entry or nil
+     sameNet             string  sameNet cset associated with entry or nil
+     assembly            string  physical assembly cset associated with entry (SIP/APD only)
+     objType             string  "classTable"
+     readOnly            t/nil   Cannot be modified
+     prop                l_dbid  List of properties on table entry. Typically where constraint
+                                overrides on entry exist. Also duplicates the cset names.
+  };

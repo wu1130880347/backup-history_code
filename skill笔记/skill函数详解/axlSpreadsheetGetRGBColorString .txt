@@ -1,0 +1,18 @@
+获取活动表格中的色彩值
+  NAME
+     axlSpreadsheetGetRGBColorString
+  FUNCTION
+     axlSpreadsheetGetRGBColorString(n_red, n_green, n_blue)
+         ==> RGB string
+  SYNOPSIS
+     Given red, green, and bluecolor values, return an RGBstring for use
+     in spreadsheet styledefinitions in format required for Microsoft
+     open spreadsheet format.
+  NEEDS
+     n_red   -- Integer red value (0-255)
+     n_green -- Integer green value (0-255)
+     n_blue  -- Integer blue value (0-255)
+  RETURNS
+     RGB string -- Denotes colorvalue for the RGB value passed in.
+  SEE ALSO
+    axlSpreadsheetGetRGBColorString

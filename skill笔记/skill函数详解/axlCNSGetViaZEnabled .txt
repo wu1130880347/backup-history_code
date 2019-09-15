@@ -1,0 +1,12 @@
+ÊÇ·ñÆôÓÃVia Z
+  NAME
+     axlCNSGetViaZEnabled
+  SYNOPSIS
+     axlCNSGetViaZEnabled()
+         => t/nil
+  FUNCTION
+     Returns if Via Z is enabled.
+  NEEDS
+  RETURNS
+     t: via Z is enabled
+     nil: via Z is not enabled

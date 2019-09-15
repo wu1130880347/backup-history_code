@@ -1,0 +1,16 @@
+禁用某个窗口的退出功能
+  NAME
+         axlUIWDisableQuit - disable quit menu
+  SYNOPSIS
+         axlUIWDisableQuit (
+             o_window
+         )
+         ==> t / nil
+  FUNCTION
+         Disables the system menu quit so the user can not use it to close the
+         window.
+  NEEDS
+         o_window        window handle
+  RETURNS
+         t       good window
+         nil     bad window

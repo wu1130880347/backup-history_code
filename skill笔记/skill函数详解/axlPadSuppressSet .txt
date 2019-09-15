@@ -1,0 +1,63 @@
+设置设计格点
+  NAME
+         axlPadSuppressSet  - set the design grid
+  SYNOPSIS
+         axlPadSuppressSet(
+             g_mode
+            ll_LayerPadSuppress/'all/'none/nil
+         )
+         ==> t/nil
+         axlPadSuppressSet(
+             g_mode
+             t_layer/x_layerNumber
+             ls_options
+         )
+         ==> t/nil
+  FUNCTION
+         This modifies the padsuppression settings in the design.
+         Allows control of bothdynamic suppression setting (g_mode) and
+         the individual layeroptions (subsequent arguments).
+  NOTES
+         - If passing a list ofsuppression layers then any errors in
+           the list areignored.
+         - Will mark dynamic shapes and DRC outof date.
+         - If enabling dynamic mode and nosuppression layers are enabled
+           the dynamic mode will beleft disabled.
+         - Unlike the dynamic itwill not automatically enable the display
+           of padless holes.
+  CAUTION
+         - pad suppression dialogshould NOT be open when using this API.
+  NEEDS
+         g_mode -  nil - maintain currentpad suppression mode
+                   'on - turn pad suppression on
+                   'off - turn padsuppression off
+         Second argument is of form:
+            'all - enable suppresson all supported layers
+            'none - clearsuppression on all supported layers
+            nil - leave suppressionlayers allow (typicaly used totoggle global mode)
+            ll_LayerPadSuppress - list oflayers using same form as
+                         axlPadSuppressGet
+         Alternatively can setsuppression on single layers by
+            t_layer - layer name
+              or
+            x_layerNumber - layernumber when first layer is 0
+            ls_options  - may be nil or a list of 'viaand/or 'pin
+  RETURNS
+         t if success, nil afailure
+  SEE ALSO
+         axlDBGridGet, axlDRCUpdate, axlDBDynamicShapes
+  EXAMPLES
+         -) enable dynamic suppression setting
+             axlPadSuppressSet('on nil)
+         -) enable all layers anddynanmic mode
+             axlPadSuppressSet('on 'all)
+         -) Delete suppression layer settings and turnoff dynamic mode
+             axlPadSuppressSet('off 'none)
+         -) Turn on via suppression on layer GND
+             axlPadSuppressSet(nil "GND" '(via))
+         -) Turn on via & pin suppression onlayer GND
+             axlPadSuppressSet(nil "GND" '(via pin))
+         -) Turn off suppression on a lauyer GND
+             axlPadSuppressSet(nil "GND" nil)
+         -) Turn on suppression for GND and VCClayers
+             axlPadSuppressSet(nil '(("GND" via pin) ("VCC" via pin)))

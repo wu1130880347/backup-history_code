@@ -1,0 +1,52 @@
+复制数据对象
+  NAME
+         axlCopyObject - copy database object(s)
+  SYNOPSIS
+         axlCopyObject(
+                 lo_dbid/o_dbid
+                 ?move           l_deltaPoint
+                 ?mirror         t/nil
+                 ?angle          f_angle
+                 ?origin         l_rotatePoint
+                 ?allOrNone      t/nil
+                 ?retainNet      t/nil
+         )
+         ==> t/nil
+  FUNCTION
+         This supports the samefunctionality as axlTransObject
+         except it copies and transform's one or more objects.
+         One additional option issupported which is retainNet. This
+         only applies to vias. Ifthis option is t the netof the
+         via is retained on copy, nil allows the via toconnect
+         to whatever it touches atthe new location.
+         In the board, pins are not supported.
+  CAUTIONS
+         1) see axlTransObject cautions
+         2) properties and attached text arealso copied.
+  NEEDS
+         lo_dbid/o_dbid - a singledbid or list of dbids
+         l_deltaPoint - optionalmove distance
+         mirror - optional mirrorobject (see above table)
+         f_angle - optional rotationangle
+         l_rotatePoint - optionalrotation point
+         allOrNone - if t and a group of objects, transform mustsucceed
+                 on all objects or fail
+         retainNet - t/nil (applies to vias only)
+  RETURNS
+         list of transformed objects or nil if failed.
+            see
+  PERFORMANCE
+         If operating you need to copy a group of objectsthe
+         performance is much better if you call this function with
+         the object group instead ofpassing each dbid individually.
+  SEE ALSO
+         axlTransObject, axlDBCloak
+  EXAMPLES
+             ldbid = list of database objects
+             dbid = one databaseobject
+         1) Copy a set of objects 1000 database unitsvertically
+             r = axlCopyObject(ldbid, ?move '1000.0:0.0)
+         2) Copy and rotate an object about its origin 45 degrees
+             r = axlCopyObject(dbid, ?angle 45)
+         3) Copy and rotate an object about a rotatepoint
+             r = axlCopyObject(dbid, ?angle 45 ?origin 100:100)

@@ -1,0 +1,42 @@
+单选框中的对象
+  NAME
+         axlSingleSelectBox - add objects inwindow to selection box (with clear)
+  SYNOPSIS
+         axlSingleSelectBox(
+                 [l_bBox]
+         )
+         ==> t/nil
+  FUNCTION
+         Find all objects thatintersect with the input box and meet the find
+         filter criteria.  Add those objects to the selection set after
+         clearing all previousselections.
+         If no box (or anincomplete box) is provided, prompt the user for
+         a selection box (or tocomplete the box) priorto the find operation.
+  NEEDS
+         l_bBox  - A list containing one or twocoordinates defining the
+                   bounding box tobe used to the select figures. If l_bBox is
+                   nil, the functionrequests two picks from the user. If l_bBox
+                   has only onepoint, the function asks for asecond point from
+                   the user.
+  RETURNS
+         t               - if any objects wereadded to the selection set.
+         nil             - if nothing added.
+  NOTE
+         An object which iscurrently in the selection set will be reselected
+         if it meets currentselection criteria.
+  SEE ALSO
+         axlAddSelectPoint, axlAddSelectBox
+  EXAMPLES
+         The following example addsa previously defined user property MYPROP
+         to four pins by selecting abox around them with corners
+         (6200:3700 6500:3300).
+         axlSetFindFilter(?enabled "pins" ?onButtons "pins")
+         axlSingleSelectBox( list(6200:3700 6500:3300))
+         axlDBAddProp(axlGetSelSet() list( "MYPROP" 23.5))
+         ==> t
+         To check:
+           1. Select Edit --Property.
+           2. Select those fourpins.
+           3. Select MYPROP fromthe Available Properties list in the Edit Property form.
+         The four pins display in theShow form with MYPROP registering a value of
+         "23.500000 level."

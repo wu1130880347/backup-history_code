@@ -1,0 +1,24 @@
+删除所有所有net的某属性
+  NAME
+         axlDBDeletePropAll - delete all of aproperty in the database
+  FUNCTION
+         axlDBDeletePropAll(
+                 t_name
+                 )
+         ==> x_count/nil
+  SYNOPSIS
+         Deletes all instances ofthe property t_name in the database.
+         This includes propertiesthat exist on the symDef and compDef
+         that cannot be access viathe property editcommand.
+         If you delete a propertythat effects the DRC system, you
+         may wish to wrap this callwith a axlDBCloak for better performance.
+  NEEDS
+         t_name:        Name of property to have all itsinstances deleted.
+  RETURNS
+         x_count:   Returns number of properties deleted
+         nil:      Error, property definitiondoesn't exist
+  SEE ALSO
+         axlDBAddProp, axlDBDeleteProp, axlDBCloak
+  EXAMPLES
+         1) Delete all fixed properties indatabase
+             axlDBDeletePropAll("FIXED")

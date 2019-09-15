@@ -1,0 +1,15 @@
+删除一个计时器
+  NAME
+         axlUIWTimerRemove - Remove a timer added
+  SYNOPSIS
+         axlUIWTimerRemove(
+             o_timerId
+         )
+         ==> t/nil
+  FUNCTION
+         Removes a timer that was added bu axlUIWTimerAdd.
+  NEEDS
+         o_timerId       The id returned by axlUIWTimerAdd.
+  RETURNS
+         t               The timer was removed.
+         nil             The timer id did not reference a valid timer.

@@ -1,0 +1,23 @@
+NAME
+     axlImpdedanceGetLayerEdgeDPImp
+  SYNOPSIS
+     axlImpdedanceGetLayerEdgeDPImp(
+        t_layer/x_layerNum
+        f_spacing
+        f_width
+     ) ==> f_diffImpedance/nil
+  FUNCTION
+     Compute the differential impedanceof a edge-coupled diffpair
+     with the given line width and spacingon a specified layer.
+     Warning message may be given if theparameters are
+     inappropriate for thecalculation.
+  NEEDS
+     t_layer - layer name (example "ETCH/TOP" or "TOP")
+     x_layerNum - number of the etchsubclass Layers are numbered
+                 starting with 0 for the Toplayer.
+     f_spacing:   spacing between the two signal lines in useunits
+     f_width:     The line width in user units.
+  RETURNS
+    the differential impedance value in ohms (float) or nil onerror.
+  SEE ALSO
+     axlImpedance2Width

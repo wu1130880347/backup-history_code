@@ -1,0 +1,24 @@
+删除未使用的约束集。
+  NAME
+         axlCnsPurgeCsets - delete unusedconstraint sets.
+  SYNOPSIS
+         axlCnsPurgeCsets(
+                 list l_type
+         ) -> x_purgeCount
+  FUNCTION
+         Process all constraint setsof the specified domain and delete those
+         without references.
+         This class of functions isdesign to help migrate designs to
+         to take advantage of the 16.0 constraint model.This functions
+         do have to be used when migrating designs.Before using these
+         functions you need toevaluate your constraint usage.
+  NEEDS
+         domain of interest'physical or 'spacing
+  RETURNS
+         count of the csets deleted.
+  SEE ALSO
+         axlCnsPurgeObjects, axlCnsPurgeAll, axlCnsDeleteClassClassObjects,
+         axlCnsDeleteRegionClassObjects, axlCnsDeleteRegionClassClassObjects,
+  EXAMPLES
+         axlCnsPurgeCsets('physical)
+         axlCnsPurgeCsets('spacing)

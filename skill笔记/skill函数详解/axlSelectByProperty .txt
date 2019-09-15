@@ -1,0 +1,72 @@
+°´ÊôÐÔÑ¡Ôñ
+  NAME
+     axlSelectByProperty - selects allobjects by property and value
+  SYNOPSIS
+    axlSelectByProperty (
+      t_objectType
+      t_property
+      [t_value]
+      [g_regularExpression]
+    ) => lo_dbid/nil
+  FUNCTION
+      This selects the dbid set of aparticular allegro database
+      object that have the indicatedproperty.
+      The property can just be aname or a name/value pair. The
+      value may optionally contain iregular expression (* or ?).
+      In that
+      Certain select by namefunctions support wildcard characters and
+      this allows you to test for theirpresence before calling this
+      functions.
+      The regular expression used byAllegro differ from the Skill
+      regular expression handling tobe more compatible with the
+      character set allowedin Allegro object names. This should
+      not be used to testpatterns being sent to the Skill regexp
+      family of functions
+      For value matching thedatabase formats into the value string
+      to contain the unitspreference (ifapplicable for the property).
+      If the data type of theattribute is BOOLEAN
+      and if exists on theelement the string is empty ("").
+      If the data type isINTEGER or REAL,
+      the user units string (if any) is appended to thevalue. If the
+      data type is one of the "unitscatagory" types (e.g. ALTITUDE,
+      PROP_DELAY) the MKS package isused to convert the value.
+      All names are caseinsensitive.
+  CAUTION
+      Property names may change fromrelease to release or they may be
+      obsoleted. Skill programsusing property names may require
+      modifcations in futurereleases
+  NEEDS
+      t_objectType - string for allegrodatabase object type, currently
+         supported: compdef, component, drc, net, symdef, symbol, group
+      t_property - string name ofproperty
+      t_value - option propertyvaliue
+      g_regularExpression t ifproperty value is be be treated
+         as a regular expression, nil (default) is to treat as a
+         simple match
+  RETURNS
+      t it does
+      nil it doesn't
+  SEE ALSO
+      rexCompile, axlSelectByName, axlSingleSelectName
+  EXAMPLES
+     1) select all netswith an electrical constraint set property then
+             add them to currentselect set
+         p = axlSelectByProperty("net" "ELECTRICAL_CONSTRAINT_SET")
+         axlAddSelectObject(p)
+     2) select all netswith ecset property of value SPITFIRE_ADDRESS
+         p = axlSelectByProperty("net" "ELECTRICAL_CONSTRAINT_SET", "SPITFIRE_ADDRESS")
+     3) select all netswith ecset property with any value matching spitfire
+         p = axlSelectByProperty("net" "ELECTRICAL_CONSTRAINT_SET", "SPITFIRE*" t)
+from reportdialog, it will be passed a temporary filename
+             procedure(MyReport(@optional (reportName "helloWorld"))
+                 let( (fp)
+                 fp = axlDMOpenFile("ALLEGRO_REPORT" reportName "w")
+                 axlLogHeader(fp "This is myreport")
+                 fprintf(fp, "\nHelloWorld\n")
+                 close(fp)
+                 t
+            ))
+         2) Unregister abovereport
+             axlReportRegister('MyReport, nil nil)
+   SEE ALSO
+         axlReportList axlLogHeader

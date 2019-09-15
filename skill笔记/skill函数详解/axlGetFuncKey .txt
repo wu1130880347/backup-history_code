@@ -1,0 +1,27 @@
+获出设置 funckey 功能的快捷键
+  NAME
+         axlGetFuncKey - get settingof funckey definiton
+  FUNCTION
+         axlGetFuncKey(
+                 t_alias/nil
+                 )
+         ==> t_value/nil
+  SYNOPSIS
+         Requests the value of thespecified Allegro funckey, t_alias.
+         If given a nil returnsa lists currently set funckeys.
+  NEEDS
+         t_alias:        the name of the Allegro environmentfunckey.
+            nil:         return list of allcurrent funckeys
+  RETURNS
+         t_value/nil:    the string value of the Allegro environmentfunckey.
+                         Returns nil if thefunckey is not set.
+         lt_names: if passed nil returnslist of funckeys names
+  SEE ALSO
+         axlSetFunckey, axlGetAlias
+  EXAMPLES
+         1. Gets the value ofthe funckey assigned to shifted function key m
+                 alias = axlGetFuncKey("m")
+                 ==> "grid"
+         2. Return all set aliases
+                 list_alias = axlGetFuncKey(nil)
+                 ==> ("-" "+" "m")

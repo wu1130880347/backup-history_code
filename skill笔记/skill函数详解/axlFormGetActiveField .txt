@@ -1,0 +1,14 @@
+获得窗体上被激活的部件
+  NAME
+         axlFormGetActiveField - gets form's currently active field
+  SYNOPSIS
+         This gets the form's active field.
+         
+  FUNCTION
+         axlFormGetActiveField(
+                 r_form
+         ) -> t/nil
+  NEEDS
+         r_form: form dbid
+  RETURNS
+         t_field/nil:    active field name or nil if none.

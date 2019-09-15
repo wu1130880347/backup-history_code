@@ -1,0 +1,38 @@
+获得用户输入的坐标点
+  NAME
+         axlEnterPoint - get a pick from theuser
+  FUNCTION
+         axlEnterPoint (
+             ?prompts l_prompts
+             ?points l_points
+             ?gridSnap g_gridSnap
+         )   
+         ==> l_point/nil
+  SYNOPSIS
+         Prompts the user, receives the userpick, and returns the
+         pick data to the callingfunction.
+  NEEDS   
+         l_prompts       - List containing one prompt message.The function
+                          display s this to the user.
+         l_points        - list of points. If provided, point is returned.
+         g_gridSnap      - Flag to function: t means snap thepoint
+                           pickedaccording to the current grid.
+  RETURNS
+         l_point/nil:    - List of user pick coordinates, if they were
+                         entered. Ifuser selection, this is a list of
+                         one point.Otherwise it returns nil.
+  SEE ALSO
+         axlGetLastEnterPoint().
+  EXAMPLE
+         To get user pick (snapped to grid).  The user is prompted with
+         the message: "Pleasepick".
+                 point = axlEnterPoint(?prompts "Pleasepick" ?gridSnap t)
+         To snap the point (3162.0 1315.0) to grid:
+                 snappedPoint = axlEnterPoint(?gridSnap t ?points
+                                        '((3162.0 1315.0)))
+         If you had a non-snappedpoint and wanted to get the snapped point:
+                 snappedPoint = axlEnterPoint(?gridSnap t
+                                 ?points list(3162.3 1315.8))
+         The default for gridSnap is nil (off).
+         The default prompt is "Enterpoint".
+         The default for points is nil (get point from theusers pick).

@@ -1,0 +1,78 @@
+´´½¨¸½¼þ
+  NAME
+     axlCreateAttachment - Create an Allegrodatabase attachment.
+  SYNOPSIS
+     axlCreateAttachment (
+         t_attachmentId
+         t_passwd
+         x_revision
+         s_dataFormat
+         t_data
+     )
+     ==> o_attachment/nil
+  FUNCTION
+     Creates a new Allegro databaseattachment with the given attachment id. The
+     attachment may optionally begiven a password and arevision number. The
+     attachment data may bespecified as a string or as a file name.
+     axlDBControl('maxAttachmentSize) returns the maximumsize of data that
+     can be attached to thedatabase.
+  CAUTION
+     Do NOT create or replace attachmentsyou do not own. This includesany predefined
+     Allegro attachments like DFA or quickviews.
+  NEEDS
+     t_attachmentId - The id, or name, of the attachmentto retrieve (31
+                      characters max).
+     t_passwd       - The password to be used for this attachment (31 characters
+                      max).  If no password is desired, then this may be nil.
+     x_revision     - The revision number of theattachment.  This may be nil,
+                      in which case the revision numberwill be set to zero.
+     s_dataFormat   - This indicates the format of the t_dataargument.  If
+                      s_dataFormat is 'string, then the value of thet_data
+                      argument willbe used for the attachmentdata.  If
+                      s_dataFormatis 'file, then the t_dataStringargument
+                      will beinterpreted as a file name, from which the
+                      attachmentdata will be read.
+     t_data         - A string of ascii chararactersrepresenting the attachment
+                      data.  This may represent the data itself or the name of
+                      a file from which the data will be read, depending on the
+                      value of thes_dataFormat argument.
+  RETURNS                                                
+     Returns an AXL id for the new attachment, which can then be
+     querried using the right arrow (->) operator, or nil if not successful.
+  
+  NOTE               
+     Once an attachment is passwordprotected it needs to be deleted then
+     re-added to remove or change the passwordprotection.
+  SEE ALSO
+      axlGetAttachment
+  EXAMPLE
+      This uses an attachment tostore in the database a list of variables. For
+      example, you design a form where the user enters intheir preferences and
+      you manage them in Skill via adisembodied property list. You would like to
+      store the user's preferenceswith the design.
+      ; create an attachment name, DO NOTUSE "fxf". I would suggest using an
+      ; underscore, company name andapplication to make it unique. For example:
+      ;  _acme_bom_rpt
+      ; would be a good attachment name.
+      attachName = "fxf"
+      ; A typical disembodied property list
+      mylist = ncons(nil)
+      mylist->ccw = t
+      mylist->middle = nil
+      mylist->cx = 0.12
+      mylist->cy = 10.192
+      mylist->layer = "TOP"
+      ; NOTE:
+      ;   Do NOT Store dbid's in the disembodied list or make sure to remove
+      ;   them before storing as an attachment.
+      ; Store list in current design(assuming user saves design)
+      dataString = sprintf(nil " '%L" mylist)
+      axlCreateAttachment(attachName nil 0 'string dataString)
+      ; Next time user runs your Skillcode, here is how to init the list:
+      attach = axlGetAttachment(attachName 'string)
+      if( attach) then
+         mylist = car(errsetstring(attach->data))
+      else    ; nolist stored in design so init to default settings
+         mylist = ncons(nil)
+         mylist->ccw = t
+      )

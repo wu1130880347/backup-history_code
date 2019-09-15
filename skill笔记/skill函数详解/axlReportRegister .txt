@@ -1,0 +1,90 @@
+注册一个报表到Allegro报表对话框中
+  NAME
+         axlReportRegister - register a reportto Allegro report dialog
+  FUNCTION
+         axlReportRegister(
+                 g_reportCallback
+                 t_description
+                 t_title
+                 ) ==> t
+  SYNOPSIS
+         Allows registration of userreports with the Allegro report dialog.
+         You provide a report name (displayed in thedialog),
+         title (displayed in thetitle bar when the report is shown)
+         and a report generatingcallback function.
+         Callback is of format where afilename is passed that you should
+         open, write yourreport and close.
+                 g_reportCallback(t_outfile)
+         If you generate the report return a t fromthe function. If you
+         do notgenerate a report return a nil.
+         If you provide a nilt_description then the current report is unregistered.
+         The t_title in theunregister mode is a don't care.
+         Only one report can beregistered per callback function (g_reportCallback).
+         To delete an existingreport pass the callback function
+         assigned to the report, a nil for thet_description abd
+         an empty string for the_title.
+         NOTE: Only applicable if userhas the html style reports enabled.
+  FILE FORMAT
+         The report file can begenerated in two formats; TEXT or HTML.
+         TEXT: File is purely textbased. Only conversions are to insert
+               links whenfollowing keywords are encountered
+                 http://  - add a html link
+                 (num <,> num) - XY coordinate adda cross probe link
+                         to zoomcenter on that coordinate
+         HTML: File starts with a "<HTML>"
+               To enable xy zoomcenter decorate all xy coordinates as follows:
+                  <ahref="xprobe:xy:<x>,<y>">(x y)</a>
+                    Example xy coordis (310 140)
+                          <ahref="xprobe:xy:310.0,140.0">(310.0140.0)</a>
+         
+  TIPS AND RESTRICTIONS
+         1) Your report descriptionstring should start with your company
+            name or some other standard to keepall your reports together
+            in the report dialog.Also keep the description short to
+            fit within the spaceprodived in the dialog
+         2) The report dialog isblocking. This means you cannot ask
+            for picks from theAllegro canvas. Do not use the following
+            APIs:
+                 - any user pick orselection API, axlSelect, axlEnter, etc.
+                 - axlShell
+                 - save or open adrawing.
+         3) You can invoke your own form within thereport callback but
+            make sure it is blocking(use axlUIWBlock(<formhandle>))
+         4) Return t if you want tothe report to display. A nil
+            will not display thereport
+         5) If building a contextwhere your report function is stored,
+            you cannot make theaxlReportRegister inside the context.
+            The axlReportRegistermust be placed in allegro.ilinit
+            or the .ini file (ifbuilding autoload contextes). This
+            is the same rule thatapplies to axlCmdRegister.
+                        
+  NEEDS
+         g_reportCallback: a symbolor string of a Skill function.
+         t_name: Name of report (iswhat shown in reports dialog)
+                 if nil will deletethe report associated with
+                 g_reportCallback
+         t_title: Name to give intitle bar when displaying report
+  RETURNS
+         t/nil: arguments correct,nil means an illegal argument
+  EXAMPLES
+         1) Following will registerthe report "My Hello". The
+            optional keyword inMyReport allows a direct call to
+            MyReport to generate areport to a fixed name file,
+            "helloWorld.rpt" otherwise it takesthe name passed by the
+            report dialog
+             axlReportRegister('MyReport, "XYZ Inc. Hello" "Hello World")
+             ; optional keywordallows a you to call MyReport with a nil where
+             ; the report filegenerated will be helloWorld.rpt. Otherwise if
+             ; called from reportdialog, it will be passed a temporary filename
+             procedure(MyReport(@optional (reportName "helloWorld"))
+                 let( (fp)
+                 fp = axlDMOpenFile("ALLEGRO_REPORT" reportName "w")
+                 axlLogHeader(fp "This is myreport")
+                 fprintf(fp, "\nHelloWorld\n")
+                 close(fp)
+                 t
+            ))
+         2) Unregister abovereport
+             axlReportRegister('MyReport, nil nil)
+   SEE ALSO
+         axlReportList axlLogHeader

@@ -1,0 +1,27 @@
+获取模块使用的定义
+  NAME
+         axlGetModuleInstanceDefinition - Get thedefinition used by the module
+                                          instance.
+                                    
+  SYNOPSIS
+         axlGetModuleInstanceDefinition(
+             o_modinst
+         )
+         ==> t_moddef/nil
+  FUNCTION
+         AXL interface to the C function thatreturns the name of the module
+         definition used to createthe module instance.
+  NEEDS
+         o_modinst               AXL DBID of the module instance (ie. the
+                                dbid returned by axlDBCreateModuleInstance).
+  RETURNS
+         t_moddef                String containing the name of themodule
+                                definition.
+         nil                     Information could not beaccessed.
+  EXAMPLE
+         Get the definition of amodule instance named inst.
+            axlSetFindFilter(?enabled '("noall" "groups") ?onButtons '("noall" "groups"))
+            axlSingleSelectName("GROUP" "inst")
+            modinst = car(axlGetSelSet())
+            axlGetModuleInstanceDefinition(modinst)
+            --> "mod"

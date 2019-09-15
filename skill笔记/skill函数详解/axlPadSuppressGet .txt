@@ -1,0 +1,42 @@
+获取pad 所在层禁止区
+  NAME
+          axlPadSuppressGet - get layerpad suppression
+  SYNOPSIS
+         axlPadSuppressGet(
+                 nil
+         )
+         ==> ll_LayerPadSuppress
+         axlDBGridGet(
+                 t_layer/x_layerNumber
+         )
+         ==> l_LayerPadSuppress
+  FUNCTION
+         Returns pad suppress layercharacteristic for a layer or design.
+         Pad suppression is notavailable in symbol editor.
+         Name dielectric layers willappear in the list unlike the
+         pad suppress dialog.
+  NEEDS
+         nil - return alllayers
+         t_layer- getsuppress characteristics of named layer
+         x_layerNumber - layernumber (1st layer is 0)
+  RETURNS
+         ll_LayerPadSuppress - list ofl_LayerPadSuppress for all etch layers
+                 Layers are orderedfrom top to bottom
+         l_LayerPadSuppress -suppress characteristics of named layer
+                         The symbolspin and via are optional and if present
+                         indicatepin and/or vias will be suppressed on that
+                         layer.
+            (<t_layer> [<s_pin>][<s_via>])
+  SEE ALSO
+         axlPadSuppressSet, axlPadSuppressOkLayer, axlDBControl, axlSubclassRoute,
+         axlPadOnLayer
+  EXAMPLE
+         1) get and printsuppress state of all layers
+             suppress = axlPadSuppressGet(nil)
+             foreach(item suppress
+                  printf("Layer=%s  what= %L\n", car(item) cdr(item))
+             )
+         2) Get settings for layer "GND"
+             suppress = axlPadSuppressGet("GND")
+         3) Get settings for layer 1
+             suppress = axlPadSuppressGet(1)

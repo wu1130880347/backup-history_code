@@ -1,0 +1,51 @@
+设置所指示的设计约束值。
+  NAME
+         axlCNSDesignValueSet - set design levelconstraint value
+  FUNCTION
+         axlCNSDesignValueSet(
+                 t_name/s_name
+                 f_value/t_value
+         )
+         ==> t/nil
+         axlCNSDesignValueSet(
+                ll_constraintNValues
+         )
+         ==> t/nil
+  SYNOPSIS
+         This sets the value of theindicated design constraint.
+         
+         To determine the list of currentlysupported values do a
+         axlCNSDesignValueGet(nil).
+         This two interfaces, single values maybe set
+         or a list of values:
+             '((s_name/t_namef_value/t_value) ....)
+         
+         For performance reasons, changing a valuedoes
+         not invoke DRC. You need to manually do this. A set
+         of interfaces supportsmarking changes to perform
+         an minimal set of drc updatesdepending upon your changes
+         (see axlCNSMapUpdate).
+  CAUTION
+         Future releases may add or subtract constraintchecks. The
+         axl interface doesguarantee the checks returned by this
+         interface will remainconstant from release to release.
+  NEEDS
+         s_name: symbol name of check.
+         t_name: string name ofcheck.
+         f_value: The floating pointvalue provided is assumed to be in the
+                  default user unit for the constraint.Value may be rounded.
+         t_value: If given as astring with additional MKS type, the value will
+                 be converted intocurrent user unit for the constraint
+                 (rounding may result).
+  RETURNS
+         Returns t if succeeds or nil if failure.
+  SEE ALSO
+         axlCNSDesignModeGet, axlCNSDesignValueGet, axlCNSMapUpdate
+  EXAMPLES:
+         1) Set negative plan toleranece to 10 in current databaseunits
+              axlCNSDesignValueSet('Negative_Plane_Islands10.0)
+         2) Set negative plan toleranece to 10 mils
+              axlCNSDesignValueSet('Negative_Plane_Islands"10.0mils")
+         3) set various constraints to differentvalues
+              axlCNSDesignValueSet('((Negative_Plane_Islands"20inches")
+                 (Pad_Soldermask_to_Pad_Soldermask_Spacing15.9)))

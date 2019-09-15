@@ -1,0 +1,47 @@
+按坐标点去除所选对象
+  NAME
+         axlSubSelectPoint - find object and delete from sel set
+  SYNOPSIS
+         axlSubSelectPoint(
+                 [l_point]
+         )
+         ==> t/nil
+  FUNCTION
+         Find a selected object that is close to the input point and meets
+         the find filter criteria.  Remove that object from the selection set.  
+         If no point is provided,  prompt the user for a selection point prior
+         to the find operation.
+         axlSubSelectPoint removes a single object from the select set, unless
+         EQUIVLOGIC is on.  In that case, it may find multiple objects, for
+         example, if it finds a qualified figure (such as a pin, connect line, or
+         via) that is part of a net. axlSubSelectPoint then deletes all the
+         qualified figures that belong to the net from the select set. (See the
+         Find Filter Options section above.)
+         This finds objects within the current trapsize (axlGetTrapBox) which
+         varies based upon the zoom factor.
+  NEEDS
+         l_point         - coordinate pair for xy location where objects are
+                           to be found.
+  RETURNS
+         t               - if an object was removed from the selection set.
+         nil             - if nothing removed.
+  SEE ALSO
+         axlAddSelectPoint
+  EXAMPLES
+         To add a previously defined user property, MYPROP
+            1. Select four pins in a box in order.
+            2. Before adding the property, subtract the pin at 6325:3575 from
+               the list, then add the following:
+                 axlSetFindFilter(?enabled "pins" ?onButtons "pins")
+                 axlSingleSelectBox( list(6200:3700 6500:3300))
+                 axlSubSelectPoint( 6325:3575 )
+                 axlDBAddProp(axlGetSelSet() list("MYPROP" 23.5))
+                 ==> t
+         To check:
+           1. Select Edit -- Property.
+           2. Select a window around all four pins.
+           3. Select MYPROP from the Available Properties list in the Edit
+                 Property form.
+         The command displays the pins that have properties in the Show form.
+         Only the three pins not subtracted from the select set have the
+         property MYPROP.

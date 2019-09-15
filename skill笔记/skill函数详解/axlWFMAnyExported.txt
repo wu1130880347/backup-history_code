@@ -1,0 +1,19 @@
+测试如果出口分区。
+  NAME
+         axlWFMAnyExported - test if exported partitions.
+  SYNOPSIS
+         axlWFMAnyExported(
+         )
+         ==> t/nil
+  FUNCTION
+         Report if there is any exported partitions.
+         Use axlDesignType to see if the design is currently a partition.
+  NEEDS
+         nothing
+  RETURNS
+         t if one or more partitions are currently exported
+         nil no paritions exported
+  SEE ALSO
+         axlDesignType
+  EXAMPLES
+                 axlWFMAnyExported()

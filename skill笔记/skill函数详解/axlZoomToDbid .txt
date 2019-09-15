@@ -1,0 +1,23 @@
+将视窗缩放到指定的dbid处
+NAME
+         axlZoomToDbid - Zoom to list of objects
+  SYNOPSIS
+         axlZoomToDbid(
+                 o_dbid/lo_dbid
+                 g_always
+         )
+         ==> t/nil
+  FUNCTION
+       Processes a list of DBID's and centers and zooms the display
+       around them. Zoom is done so object(s) extents fill about
+       20% of the display.
+       HINT: you may wish to highlight the objects.
+       NOTE: if too many objects passed (more the about 20) then no
+         zoom is done.
+  NEEDS
+         o_dbid  - list of DBIDS or one DBID
+         g_always - if t then ignores NO_ZOOM_TO_OBJECT environment variable
+  RETURNS
+         t       - Something was done.
+         nil     - No valid DBID's or all objects already at desired
+                   display state.

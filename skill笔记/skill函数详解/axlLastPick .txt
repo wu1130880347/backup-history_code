@@ -1,0 +1,26 @@
+获取最后点击
+  NAME
+         axlLastPick - get last cursorpick
+  FUNCTION
+         axlLastPick(
+                 l_mode
+         ) -> xy
+  SYNOPSIS
+         This returns the lastprocessed cursor pick. You can snap to current
+         grid (l_mode==t) or leaveit unsnapped. Position is returned
+         in design units.
+         The grid used is dependantupon the active layer.
+         Last pick is caused by apick event. In Skill this can be
+         generated due to a call to axlEnterPoint, axlEnterEvent, etc.
+         Its use is to allowswitching from having a snapped to an
+         unsnapped event.
+         If user has done no picksince Allegro started then it returns
+         a (0 0).
+  NEEDS
+         l_mode: t for snappedand nil for unsnapped.
+  RETURNS
+         Last pick as a xy list
+  EXAMPLES
+         snappedPoint = axlEnterPoint(?prompts list("Pick originpoint")
+                                 ?gridSnap t)
+         unsnapped = axlLastPick(nil)

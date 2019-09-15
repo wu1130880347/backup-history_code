@@ -1,0 +1,12 @@
+获取DRC总数
+  NAME
+         axlDRCWaiveGetCount
+  FUNCTION
+         axlDRCWaiveGetCount ()  
+  SYNOPSIS
+         Returns total number ofWaived DRC's in the design.
+         -> x_count
+  NEEDS
+         Nothing
+  RETURNS
+         x_count         Returns Waived DRC count.

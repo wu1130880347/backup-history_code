@@ -1,0 +1,17 @@
+²âÊÔÄ³²ãÉÏÊÇ·ñÔÊÐívoid
+  NAME
+     axlOK2Void - determine if voidsare allowed for a given class
+                  subclass.
+  SYNOPSIS
+     axlOK2Void(
+         t_layer
+     )
+     ==> t/nil
+  FUNCTION
+  NEEDS
+     t_layer     - layer name (i.e. "ETCH/TOP")
+  RETURNS
+         - nil  if voids are not allowed
+         - t    if voids are allowed
+  NOTE
+  EXAMPLE

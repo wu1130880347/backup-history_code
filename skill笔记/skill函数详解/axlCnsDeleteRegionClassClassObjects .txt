@@ -1,0 +1,14 @@
+删除所有 Region-Class-Class 对象设置
+  NAME
+         axlCnsDeleteRegionClassClassObjects - delete allRegion-Class-Class objects.
+  SYNOPSIS
+        axlCnsDeleteRegionClassClassObjects(
+        ) => x_delCount
+  FUNCTION
+         Delete allRegion-Class-Class entries.
+  NEEDS
+         nothing.
+  RETURNS
+         the count of the objectsdeleted.
+  SEE ALSO
+         axlCnsPurgeCsets

@@ -1,0 +1,120 @@
+根据用户鼠标触发不同操作
+  NAME
+         axlEnterEvent - Processes userevents
+  FUNCTION
+         axlEnterEvent(
+                 l_eventMask     
+                 t_prompt
+                 g_snap
+                 ) ==> r_eventId
+  SYNOPSIS
+         This is a lower level eventmanager than other axlEnter functions.
+         It allows a Skill programhave more detail notification over
+         user events.
+         Enter event returns a eventstructure containing the attributes
+         described below. Event occurancecontrols what attributes are set by
+         all event types but will set the objType, event and time attributes.
+         Event Attributes:
+             Attribute Name      Type   Description
+             objType             string  Type of object, in this case "event"
+             type                symbol  Event occurance
+             xy                  point   Location of mouse
+             xySnap              point   Location of mouse snapped to grid
+             command       int/symbol    Returns callback item of
+                                        axlUIPopupDefine
+             time                float  time stamp (seconds.milliseconds)
+         The event model may beextended in future releases so it is important
+         don't put a default handler in your case statement.
+         Events Supported (shown as Attrs arethe values with legal values
+                 for that event):
+             PICK        - user has selected a point (eq to axlEnterPoint)
+             PICK_EXTEND - same asPICK except has "extend" keyboard modifier.
+             PICK_TOGGLE - same asPICK except has "toggle" keyboard modifier.
+                 Attrs: xy, xySnap
+             DBLPICK     - user has double picked at a location.
+             DBLPICK_EXTEND - same as DBLPICK except has "extend" keyboard
+                             modifier.  
+             DBLPICK_TOGGLE - sameas DBLPICK except has "toggle" keyboard
+                             modifier.
+                 Attrs: xy, xySnap
+             STARTDRAG   - user is starting a drag operation
+             STARTDRAG_EXTEND - sameas STARTDRAG except has "extend" keyboard
+                               modifier.  
+             STARTDRAG_TOGGLE - sameas STARTDRAG except has "toggle" keyboard
+                               modifier.
+                 Attrs: xy, xySnap
+             STOPDRAG - userterminated drag operation
+             STOPDRAG_EXTEND - sameas STOPDRAG except has "extend" keyboard
+                               modifier.  
+             STOPDRAG_TOGGLE - sameas STOPDRAG except has "toggle" keyboard
+                              modifier.
+                 Attrs: xy, xySnap, command
+             DONE - user requestthat the command complete
+                 Mask: This eventcannot be masked.
+                 Attrs:
+             CANCEL - You mustrespond to this event by terminating your
+                   skill program (don't call any moreaxlEnter functions).
+                 Mask: This eventcannot be masked.
+                 Attrs:
+         
+         NOTES:
+                 1) You will get a PICK before aDBLPICK events. If you want
+                    to differentiatebetween a PICK and DBLPICKyou should
+                    typicallyhighlight the selected object. You should not
+                    outputinformational messages or do time consuming
+                    processing.
+                 2) The user shouldnever be prompted for a double click.
+                    Instead promptsshould be formatted for the next expected
+                    event.
+                 
+                 3) Events that aredispatch from the axlEnterEvent will be
+                    scripted by the system if scripts areenabled.
+                 4) The done and cancel callbacksoptionally defined in
+                    axlCmdRegister will be calledbefore the DONE and CANCEL
+                    events arereturned.
+                 5) The "extend" keyboard modifieris currently obtained by
+                    holding the "Shift" key while performing themouse operation.
+                 6) The "toggle" keyboard modifieris currently obtained by
+                    holding the "Control" key while performing themouse
+                    operation.
+         PROGRAMMING HINTS:
+                 1) You will findprogramming easier if you just provide a
+                    single mask set for your command and not attempt to change
+                    it after eachevent. Trust the system.
+  NEEDS
+         l_eventMask/nil:        List of events to expect
+         t_prompt/nil:           User prompt. If nil default prompt isused.
+         g_snapGrid              If t, grid snapping will be enabled while the
+                                 function is active.  Otherwise no grid snapping.
+                                This affects the xySnap value that is returned
+                                 aswell as dynamics and xyreadout.  
+                                 If nil,  xySnap will not be snapped to grid
+                                 (it will be the sameas xy).
+  RETURNS
+         r_eventId: see abovedescription
+  EXAMPLE
+         let( (eventMask event, loop)
+             eventMask = list( 'PICK 'DBLPICK )
+             loop = t
+             while( loop
+                 event = axlEnterEvent(eventMask, nil t)
+                 case(event->type
+                     ('PICK
+                                .... )
+                     ('DBLPICK
+                                .... )
+                     ('DONE
+                                 ; cleanup
+                                loop = nil)
+                     ('CANCEL
+                                 ; cleanup
+                                loop = nil)
+                 )
+             )
+         )
+   FUTURE
+         Events Supported:
+             COMMAND - feedback frompopup selection.
+                 When this maskeditem is enabled the callbacks defined by
+                 axlUIPoupDefinewill be disabled and thesymbols (or integers)
+                 will be returned asthe command attribute.

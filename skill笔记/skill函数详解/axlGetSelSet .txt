@@ -1,0 +1,25 @@
+获得选择的对象
+  NAME
+         axlGetSelSet - get list ofobjects in sel set
+  SYNOPSIS
+         axlGetSelSet(
+         )
+         ==> lo_dbid/nil
+  FUNCTION
+         Gets the list ofobject dbids in the select set.
+  NEEDS
+         None.
+  RETURNS
+         lo_dbid/nil:    Returns the list of dbids or nil if the
+                         select set isempty.
+         nil             - if sel set isempty or an error occurred.
+  EXAMPLES
+         The following exampleselects all vias in a box area and shows the
+         contents of the select set.
+         axlClearSelSet()
+         axlSetFindFilter(?enabled list("noall" "vias")
+                 ?onButtons list("vias"))
+         axlAddSelectBox(list(3000:3100 3200:3600))
+         axlShowObject(axlGetSelSet())
+         ==> t
+         The SHOW ELEMENT form isdisplayed, with the viaselected from box.

@@ -1,0 +1,36 @@
+Ìí¼ÓNet Class ×é
+  NAME
+         axlNetClassAdd  - add members to a net class group
+  FUNCTION
+         axlNetClassAdd(
+                o_netclassdbid/t_netclassName
+                 o_dbid/lo_dbid
+         )==> t/nil
+  SYNOPSIS
+         Adds members to a netclassgroup. Eligible members are:
+                 - nets
+                 - xnets
+                 - diffpairs
+                 - busses
+         See netclass discussion inaxlNetClassCreate.
+         This will mark DRC out ofdate. It is up to the
+         application to update theDRC system
+  TIP
+         Using dbids is faster then usingnames.
+  NEEDS
+         o_netclassdbid: dbid of anetclass group
+         t_netclassName: name of anetclass group
+         o_dbid:   legal database dbid to add to netclass
+         lo_dbid:  list of legal databasedbids to add to netclass
+  RETURNS
+         t   - added elements
+         nil - failed one or moreelement adds; object might already
+                 be a member of anetclass in that domain or not
+                 legal dbid to addto a netclass
+  SEE ALSO
+         axlNetClassCreate
+  EXAMPLES
+         - To netclass group createdin axlNetClassCreate add two nets
+             nc = car(axlSelectByName("NETCLASS" "5_MIL"))
+             nets = axlSelectByName("NET" '("NET8" "NET9"))
+             axlNetClassAdd(nc  mg)

@@ -1,0 +1,23 @@
+显示一个带有是、否、取消按钮的对话框
+  NAME
+         axlUIYesNoCancel - puts up a blocking yes/no/cancel confirmer
+  FUNCTION
+         axlUIYesNoCancel(
+                 t_message
+                 [t_title]
+                 [s_default]
+                 )
+         ==> x_result
+  SYNOPSIS
+         This puts ups a blocking yes/no/cancel confirmer with the
+         supplied prompt message provided
+  NEEDS
+         t_message:      Message string that the function displays to the user.
+         t_title: Optional, what to put in title bar of confirm. The default
+                 is the program display name
+         s_default: Optional, May be either 'yes, 'no or 'cancel to specify
+                 default response. The default is 'yes.
+  RETURNS
+         x_result: 0 for No, 1 for Yes and 2 for Cancel.
+  SEE ALSO
+         axlUIYesNo

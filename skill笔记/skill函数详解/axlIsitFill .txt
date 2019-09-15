@@ -1,0 +1,17 @@
+²éÑ¯Ä³¸ö²ãÊÇ·ñÔÊÐíshapeÌî³ä
+  NAME
+     axlIsitFill - determine if fillshape is allowed for a given class
+                   subclass.
+  SYNOPSIS
+     axlIsitFill(
+         t_layer
+     )
+     ==> t/nil
+  FUNCTION
+  NEEDS
+     t_layer     - layer name (i.e. "ETCH/TOP")
+  RETURNS
+         - nil  if fill shape not allowed
+         - t    if fill shape allowed
+  NOTE
+  EXAMPLE

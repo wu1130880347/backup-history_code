@@ -1,0 +1,32 @@
+调用插件参数列表
+  NAME
+         axlDllCallList - call plugin via alist
+  SYNOPSIS
+         axlDllCall(
+                 o_pluginFunc
+                 l_args/nil
+         ) -> nil/x_value/lg_data
+  FUNCTION
+         This function is identical to axlDllCall except it takes a list
+         of arguments to pass to theplugin function. Unlike axlDllCall
+         which is limited to 10 arguments, this interface cantake
+         up to 512 arguments.
+         See axlDllCall for a furtherexplanation.
+  NEEDS
+         o_pluginFunc - pluginsymbol handle
+         l_args: a list of up to 512 arguments.
+  RETURNS
+         nil: error in processingarguments or funding functions
+         x_value: if plugin function returns a non-zero then
+                 this is what is returned
+         lg_data: if plugin function returns zero then its output
+                 arguments areprocessed and returned as a list.
+                 If the outputargument list from the plugin has0 entries
+                 then an empty list is returned.
+  SEE ALSO
+         axlDllCall, axlDllOpen
+  EXAMPLES
+         1) From axlDllOpen example
+             _ashEcho = axlDllSym(_ashTestDll "ashEcho")
+              axlDllCallList(_ashEcho list(-1 -2.0 nil "anotherstring"
+                 -10.1:-2 0.2))

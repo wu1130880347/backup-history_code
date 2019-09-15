@@ -1,0 +1,41 @@
+Ë¯ÃßnÃë
+  NAME
+        axlSleep - sleep nseconds
+  FUNCTION
+         axlSleep(
+                 x_time
+                 )
+         ==> t/nil
+  SYNOPSIS
+         Sleeps specified time.
+         This is a replacement for Skill'ssleep which is actually
+         provided by the IPC Skillpackage. On Windows the IPC
+         sleep crashes if youcall axlEnterEvent.
+         If you are using the IPCinterfaces then you should call
+         axlSleep instead of usingsleep.
+  NEEDS
+         x_time:         time in seconds
+  RETURNS
+         t: all of the time
+  NAME
+     axlSmoothDesign
+  SYNOPSIS
+     axlSmoothDesign(
+         lx_numPasses
+     ) -> x_change
+  FUNCTION
+     Smooths entire design. For goodresults on complicated designs multiple
+     passes are necessary. Since changesin one pass may open space that can
+     be used in the next pass.Suggest 3 is a typical number although very
+     complex designs can benefitfrom a higher number of passes. BUT the more
+     passes the longer it will take.
+  NEEDS
+     lx_numPasses - list ofnumber of passes to perform
+  RETURNS
+     x_change - number of itemschanged
+  EXAMPLE
+     1) Smooth design using3 passes
+          axlSmoothSetParams(list("45" -1.0 "0" 10.0 0))
+          res = axlSmoothDesign(list(3))
+  SEE ALSO
+     axlSmoothSetParams

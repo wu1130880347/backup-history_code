@@ -1,0 +1,27 @@
+两点乘以一个系数
+  NAME
+         axlMXYMultAdd - multiply afactor to a point then add a point
+  FUNCTION
+         axlMXYMult(
+                 l_uniVec
+                 f_factor
+                 [l_origin]
+         ) -> l_pt/nil
+  SYNOPSIS
+         This is a convenience function thatdoes a l_pt.x * f_factor
+         and lpt.y * factor and returnsthe result.
+         If provided an origin willadd the orign.
+                 (l_uniVec * f_factor) + l_origin
+         It is normally used inconjuntion with axlMUniVector to
+         project a pointe along avector.
+  NEEDS
+         l_uniVec: xy point
+         f_factor: multiplicationfactor
+         l_origin: additive point
+  RETURNS
+         l_pt: Returns resultantcoordinate
+         nil: Arguments are notcoordinates
+  SEE ALSO
+         axlMUniVector
+  EXAMPLES
+         axlMXYMult(1263.0:1063.0 2.0) -> (2526.0 2126.0)

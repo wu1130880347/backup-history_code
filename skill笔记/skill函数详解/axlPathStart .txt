@@ -1,0 +1,42 @@
+设置线段的起点
+  NAME
+         axlPathStart - create an axlPath (r_path) structure
+  FUNCTION
+         axlPathStart(
+             l_points
+             [f_width]
+         )
+         ==> r_path/nil
+  SYNOPSIS
+         Creates a new path with astartpoint and possibly one or more
+         segments as specified bythe list l_points and returns the
+         path dbid. You can add morestraight-line and arc segments to
+         the returned r_path usingthe axlPathArc and axlPathLine
+         functions described in thissection. Once r_path has all the
+         segments you require, create the actualdatabase figure using
+         the appropriate axlDBCreatefunction, with r_path as one of
+         the arguments.
+  NEEDS
+        l_points:  List of n vertices, where n > 1.
+                   If n = 1, r_path returns withthat single
+                   vertex as itsstartpoint, but with nosegments. You
+                   must subsequentlyadd at least one segment before
+                   adding it to thedatabase.
+                   If n > 1, r_path returns withn-1 straight-line
+                   segments.
+         f_width:  Width for all segments if anycreated between the
+                   l_points. f_widthalso becomes the default width for
+                   all additionalsegment s added to r_path using
+                   axlPath functions. You canoverride this default
+                   width each timeyou add a segment using an axlPath
+                   function byusing its own f_width argument when you
+                   invoke it.
+  RETURNS
+         r_path/nil:     Returns the r_path handle.
+  NOTES
+         This is a r_path object, but is not anAllegro dbid.
+         The first point (if any) defines ther_path's start point.
+         If <n> points areprovided, then<n-1> segments are defined.
+         The l_points are provided in absolutecoordinates (user units).
+  EXAMPLES
+         See Path Functions.

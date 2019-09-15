@@ -1,0 +1,58 @@
+À©´óPloy
+  NAME
+         axlPolyExpand - expands a polygon
+  FUNCTION
+         axlPolyExpand (
+                 o_polygon1/lo_polygon1
+                 f_expandValue
+                 s_expandType
+                 )
+         ==> lo_polygon/nil
+  SYNOPSIS
+         This function yieldsthe list of polys after expanding them
+         by a specified distance.Use of a negative number causes
+         contraction. The distancespecified is taken in user units. Will
+         not allow hole polys asinput. When holes are passed as input,
+         the following warning isdisplayed:
+            Invalid polygon idargument -<argument>
+         Cautions:
+           - Underlying logicalop function failsin rare dense geometrical
+             situation. nil isreturned in that case.
+           - 'ALL_ARC mode may haveround-off issues when shape has very small
+             arc segments.
+        Trimming options are (s_expandType):
+         'NONE        - no corner modifications
+         'ACU_ARC     - Trim inside acute (less then 90 degrees) line/line
+                         cornerswith arcs and always chamfer spikes. No obtuse or
+                         right angletrimming is done.
+         'ACU_BLUNT   - Trim acute inside corners and spikeswith line segments.
+         'ALL_ARC     - Trim inside and outside line/line, line/arc and
+                         arc/arccorners with respect to these angle rules:
+                         - All acuteangles are trimmed.
+                         - Mostobtuse angles (more then 135 degrees) are trimmed.  
+                         - 90 degreecorners are trimmed.
+                         Finally always chamfer spikes.
+  NOTE:
+         Poly expansion with 0 and no trimis returns the input poly NOT a list:  
+                 axlPolyExpand(poly 0.0 'NONE) -> o_polygon
+  NEEDS
+         o_polygon1 / lo_polygon1
+         o_polygon / list ofo_polygons on which the operation is to be done.
+         f_expandValue:  Amount of expansion in user units
+         s_expandType:   Symbol specifying the exterior corners ofthe geometry
+                         duringexpansion (see above)
+  RETURNS
+         lo_polygon/nil:         Returns a list of o_polygons whichrepresent
+                                 theresulting geometry after performing the
+                                expansion on the polys passed as arguments. In
+                                 case of an error, it returns nil.
+         To be more specific,
+         (o_polygon_out1  o_polygon_out2  ...) is returned if the result after
+         performing the operation isa list of polys.
+         (nil) is returned if theresult after performing the operation is
+         a nil poly, that is considercontracting a 20x30 rectangle by 40 units.
+         nil is returned if theoperation fails. A descriptive error message
+         can be obtained by calling axlPolyErrorGet().
+  EXAMPLES
+         poly_list = axlPolyFromDB(shape_dbid)
+                 exp_poly = axlPolyExpand(poly_list10.0 'ALL_ARC)

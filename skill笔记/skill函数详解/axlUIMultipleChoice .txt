@@ -1,0 +1,26 @@
+显示一个有多个选项的选择对话框
+  NAME
+     axlUIMultipleChoice - blocking multiple choice dialog
+  SYNOPSIS
+     axlUIMultipleChoice(
+        t_question
+        lt_answers
+        [t_title]
+     )
+     ==> x_answer/nil
+  FUNCTION
+     This function displays a blocking window that contains a question with a
+     set of two or more answers in a list picker. The user must select one
+     of the answers to continue. The selected answer is returned.
+  NEEDS
+     t_question - the text of the question to be displayed in the window.
+     lt_answers - a list of text strings that represent the possible answers
+     t_title - optional title. If not present a generic title is provided.
+  RETURNS
+     x_answer - a integer the indicates the answer that choosen. This
+                value is zero-based, i.e., a zero represents the first
+                answer, a one the second answer, etc.
+     nil - error detected
+  EXAMPLE
+         ret = axlUIMultipleChoice("Pick a choice"
+                 '("Pick me" "No Pick me" "I'm here!") "Cmd title")

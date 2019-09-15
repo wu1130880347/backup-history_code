@@ -1,0 +1,22 @@
+É¾³ýclass table ÌõÄ¿
+  NAME
+         axlCnsClassTableDelete - delete classtable entry
+  SYNOPSIS
+         axlCnsClassTableDelete(
+                o_dbidClassTable/lo_dbidClassTable
+         ) -> t/nil
+  FUNCTION
+         Deletes one or more entries in theclass table.
+         DRC is marked out of date.
+  NEEDS
+         o_dbidClassTable - dbid ofan existing classTable entry.
+         lo_dbidClassTable - deleteslist of classTableentries.
+  RETURNS
+         t if successful, nil if an error
+  SEE ALSO
+         axlCnsClassTableCreate
+         axlCnsDeleteRegionClassClassObjects, axlCnsDeleteClassClassObjects
+  EXAMPLES
+         Prep by executing examplecode in axlCnsClassTableCreate
+         1) delete entry just created by axlCnsClassTableCreate
+                 axlCnsClassTableDelete(tbl)

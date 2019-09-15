@@ -1,0 +1,18 @@
+列出层面组列表
+  NAME
+      axlClasses - list of classes
+  SYNOPSIS
+         axlClasses(
+         ) -> lt_classes
+  FUNCTION
+      Return list of classes.
+     The is actually just:
+         axlGetParam("paramLayerGroup")->groupMembers
+  NEEDS
+      nothing
+  RETURNS
+         list of class strings
+  SEE ALSO
+         axlSubclass, axlGetParam, axlMapClassName
+  EXAMPLES
+         axlClasses()

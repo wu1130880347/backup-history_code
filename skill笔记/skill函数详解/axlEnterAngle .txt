@@ -1,0 +1,67 @@
+获得用户输入的角度
+  NAME   
+         axlEnterAngle - get an angle form theuser.
+  FUNCTION
+         axlEnterAngle (
+             origin
+             ?prompts l_prompts
+             ?refPoint l_refPoint
+             ?angle f_angle
+             ?lockAngleg_lockAngle
+         )
+         ==> f_angle/nil
+  SYNOPSIS
+         Using origin and ref_point, angular dynamics isset and
+         the user is prompted for a pick. An angle iscalculated as
+         the intersection of thestart line (from origin toref_point)
+         and the end line (from origin to userpick).
+  NEEDS
+         origin          - Fixed point which acts as the anglepoint, where
+                                 thetwo lines that make up an angle meet.
+         l_prompts       - List of msgs to prompt the user for a pick.
+         l_refPoint      - End point of a line from origin thatacts as the
+                                fixed line of the angle.
+         f_angle         - Angle value. If it is non-nil, the
+                         function does not prompt the user for a pick.
+         g_lockAngle     - If g_lockAngle is present, the function sets
+                         this valueas the initial lock angle for dynamic
+                         rotation. for dynamics.
+  RETURNS
+         f_angle - Angle in degrees.
+         nil - no pick done by user.
+  EXAMPLE
+         Dynamic Rubberband Example:
+         This example loads twocircular pad and, the outline of a
+         resistor, and rubberbandconnections from its pins, one with a
+         "path" rubberband, the other a "directline" rubberband into the
+         dynamic cursor buffer.
+         axlClearDynamics() ; Clean out anyexisting cursor data
+         ; Create cross markers to showrubberband origins:
+         axlDBCreateLine(list(9150:4450 9050:4550) 0.
+                 "boardgeometry/dimension")
+         axlDBCreateLine(list(9150:4550 9050:4450) 0.
+                 "boardgeometry/dimension")
+         axlDBCreateLine(list(8550:4450 8450:4550) 0.
+                 "boardgeometry/dimension")
+         axlDBCreateLine(list(8550:4550 8450:4450) 0.
+                 "boardgeometry/dimension")
+         mypath = axlPathStart(list( -350:0)) ; Start circular pad
+         axlPathArcCenter(mypath, 0., -350:0, nil, -300:0)
+         ; Load the first pad into the dynamiccursor buffer
+         axlAddSimpleMoveDynamics(0:0 mypath "path" ?ref_point 0:0)
+         mypath = axlPathStart(list( 350:0)) ; Start circular pad
+         axlPathArcCenter(mypath, 0., 350:0, nil, 300:0)
+         ; Load the other pad into the dynamiccursor buffer
+         axlAddSimpleMoveDynamics(0:0 mypath "path" ?ref_point 0:0)
+         mypath = axlPathStart( ; Start resistorbody outline
+                 list( -200:-100 200:-100 200:100 -200:100 -200:-100))
+         ; Load the resistor body outline inthe dynamic cursor buf
+         axlAddSimpleMoveDynamics(0:0 mypath "path" ?ref_point 0:0)
+         ; Load a "path" rubberbandto the first pad
+         axlAddSimpleRbandDynamics(8500:4500 "path"
+                 ?origin 8500:4500 ?var_point -300:0)
+         ; Load a "directline"rubberband to the second pad
+         axlAddSimpleRbandDynamics(9100:4500 "directline"
+                 ?origin 9100:4500 ?var_point 300:0)
+         ;
+         mypoint = axlEnterPoint() ; Ask user for point

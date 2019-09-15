@@ -1,0 +1,82 @@
+对某个文件中的内容排序，再输出到另一个文件
+  NAME
+      axlSort - Sorts thecontents of a file.
+  SYNOPSIS
+      axlSort (
+          t_infile
+          t_outfile
+          [t_sortfields]
+          [t_sort_options]
+      ) -> t/nil
+  FUNCTION
+      This function sorts the contentsof a given input file, and places
+      the results in the outputfile. No warning is given if the output
+      file overwrites an existingfile - checking must be done by the caller
+      of this function.
+      The default sort is aleft to right, ASCII ascending sort of theinput file,
+      with duplicate lines left in.The sort behavior can be controlled with
+      the two optional parameters:
+      t_sortfields: A stringcontaining directives controlling which fields
+          to use as sort keys, the sort orderof those fields, and how to
+          interprete the data type of thefield for sorting. The string contains
+          a series of triplets:
+              field_number sortOrderfieldType
+          Multiple triplets can becontained within the string, separated by
+          commas. The valid inputs for eachelement of the triplets are:
+          field_number - a numberrepresenting the position of the field on
+              the line, from left to right.Numbering starts a 1.
+          sortOrder    - A   (Ascending sort order)
+                         D    (Descending sort order)
+          fieldType    - A   (Alpha)
+                         I    (Integer)
+                         F    (Float)
+          An example of a t_sortfieldstriplet:
+              "3 A A,5 D I,1A F"
+          which means: Sort basedon:
+                the third field, ascending, field type ASCII,
+                the fifth field, descending, field type Integer,
+                the first field, ascending, field type Float
+     t_sort_options: A stringcontaining directives controlling the global
+         sort parameters. The sort optionscan appear in any order, and must be
+         separated by commas. Theavailable options are:
+         
+         Field Delimiter: Supported delimiters include anycharacter in
+             punctuation characterclass (except comma).
+         U - Remove duplicate lines (default is to leaveduplicate lines)
+        
+         D - Descending order (default is ascending)
+         An example of thet_sort_options string:
+             "!,U"
+         Which means: use the '!'character as the field delimiter, and
+         remove any duplicatelines.
+  RETURNS
+      t - If the sort wassuccessful, nil if not.
+  EXAMPLES
+  Given the input file containing:
+2!3!4!5!6
+2!3!4!5!6
+5!6!7!8!9
+5!1!7!8!9
+2!2!3!4!5
+1!2!3!4!5
+3!4!5!6!7
+4!5!6!7!8
+(axlSort "input.txt" "output.txt" nil "!,U")
+yields:
+1!2!3!4!5
+2!2!3!4!5
+2!3!4!5!6
+3!4!5!6!7
+4!5!6!7!8
+5!1!7!8!9
+5!6!7!8!9
+and (axlSort "input.txt" "output.txt" "2 A I,1 DI" "!")
+yields:
+5!1!7!8!9
+2!2!3!4!5
+1!2!3!4!5
+2!3!4!5!6
+2!3!4!5!6
+3!4!5!6!7
+4!5!6!7!8
+5!6!7!8!9

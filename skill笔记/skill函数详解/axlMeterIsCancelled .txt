@@ -1,0 +1,16 @@
+取消进度表
+      NAME
+         axlMeterIsCancelled
+  FUNCTION
+         axlMeterIsCancelled(
+                 ) -> t/nil
+  SYNOPSIS
+         if cancel was enabledat meter creation, the status of cancel
+         is returned (t ifcancelled, otherwise nil).
+         if a field named "Cancel" was hit, it is cancelled
+     NEEDS
+         nothing
+   RETURNS
+         t if meter was cancelled, otherwise nil.
+   SEE ALSO
+         axlMeterCreate

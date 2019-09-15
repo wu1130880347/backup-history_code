@@ -1,0 +1,13 @@
+操作对象
+
+axlChangeWidth(); =>  和Allegro中的Change命令类似，该命令用来改变Cline/Line的宽度   
+axlDBDeleteProp(); => 该命令可以删除选择对象的指定属性，使用该命令相当于Allegro中Edit Property命令。   
+axlDBDeletePropDictEntry(); =>该命令相当于Allegro中的User Defined Property命令    axlLastPick(); => 获得用户鼠标最近一次点击的坐标   
+shape
+axlShapeChangeDynamicType(); =>改变选择Shape的动静态属性    
+axlShapeMerge（A list(B) 'quiet)就可以了，
+
+axlTransformObject();=>移动对象
+
+    还有一些比如
+axlHighlightObject(); highlight对象 

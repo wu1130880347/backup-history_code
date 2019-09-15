@@ -1,0 +1,31 @@
+检查设置值是否可以被接受的
+  NAME
+         axlCNSDesignValueCheck - check if value for is acceptable
+  FUNCTION
+         axlCNSDesignValueCheck(
+                 s_name/t_name
+                 g_value
+         )
+         ==> (t_string/nil, nil/t_errorMsg)/nil
+  SYNOPSIS
+         This checks the syntax ofthe given value against the
+         allowed syntax for the given contraint.
+         
+         Contraint names may beobtained from axlCNSDesignGetValue(nil).
+  CAUTION
+         Allowed syntax may changefrom release to release.
+  NEEDS
+         t_name: string name ofconstraint
+         s_name: symbol name of constraint
+         g_value: value to verifiy
+  RETURNS
+         (t_string/nil): value correct, t_string showscurrent user unit
+                 preference. Exampleyou supply "10", the return might
+                 be "10.0 MILS" if that is the currectdatabase units.
+         (nil/t_errorMsg): value not correct, t_errorMsg reflectserror
+         nil: incorrect arguments tofunction
+  SEE ALSO
+         axlCNSDesignValueGet
+  EXAMPLES
+         1) test if allowed to set
+             axlCNSDesignValueCheck('Negative_Plane_Islands "10 mils")

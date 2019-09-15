@@ -1,0 +1,28 @@
+返回在多选格选定项目
+  NAME
+         axlFormGridSelected - returns selecteditems in a multi-select grid
+  FUNCTION
+         axlFormGridSelected(
+                 r_form
+                 t_field
+         ) -> lx_selected/nil
+  SYNOPSIS
+         This returns the selecteditem in a multi-select grid control. This should
+         only be used if grid is runningwith the multi-select row option.
+  NEEDS
+         r_form: standard formhandle
+         t_field: standard fieldname
+  RETURNS
+         Returns list of selected itemsin a multi-select grid or nil
+         if not the correct control.
+  SEE ALSO
+         axlFormGridNewCell
+  EXAMPLES
+         See fgrid.il in examplearea
+         Pseudo code:
+                 axlFormGridEvents(fg "grid" 'mrowselect)
+                 ;; select items
+                 selected = axlFormGridSelected(fg "grid")
+                 ; if form selectrows 5,6,7 (click on 5, then Shift click on 7)
+                 ;; select items
+                 selected = axlFormGridSelected(fg "grid")

@@ -1,0 +1,68 @@
+设置电气约束模式
+  NAME
+         axlCNSEcsetModeSet - set electricalconstraint modes
+  FUNCTION
+         axlCNSEcsetModeSet(
+                 t_name/s_name
+                 t_mode/s_mode
+         )
+         ==> t/nil
+         axlCNSEcsetModeSet(
+                 'all
+                 t_mode/smode
+         )
+         axlCNSEcsetModeSet(
+                 l_constraintNModes
+                 t_mode/smode
+         )
+         ==> t/nil
+         axlCNSEcsetModeSet(
+                 ll_constraintNModes
+         )
+         ==> t/nil
+  SYNOPSIS
+         This sets the current drcmode(s) for checks that fall
+         into set of electricalconstaints. These modes control
+         the entire board.
+         
+         Certain checks may not be available in alllevels (tiers) of
+         Allegro. The set of allowed checkschange depending upon
+         the tier of Allegro that isactive.
+         To determine the set currently supporteddo a axlCNSEcsetModeGet().
+         This supports severalinterfaces. All checks may be set
+         ('all), individual checks, (t_name) list of checks with
+         a same mode:
+                 '(s_name ...) t_mode/s_mode
+                 '(t_name ...) t_mode/s_mode
+         and sets of checks via a list of:
+                 '((t_name t_mode) ....)
+                 '((s_name s_mode) ....)
+         
+         For performance reasons, changing modes or values does not invoke
+         DRC. You need to manually do this. A set of interfacessupports
+         batching DRC to the minimalset of drc processingrequired by
+         your changes (see axlCNSMapUpdate).
+  CAUTION
+         Future releases may add or subtract constraintchecks. The
+         axl interface doesguarantee the checks returned by this
+         interface will remainconstant from release to release.
+  NEEDS
+         s_name: symbol name ofcheck.
+         t_name: string name ofcheck.
+         s_mode: mode setting; may be 'on, 'off, or 'batch
+         t_mode: string modesetting  "on, "off" or "batch"
+         'all: set all checks for given tier ofallegro.
+  RETURNS
+         Returns t if succeeds or nil if failure.
+  SEE ALSO
+         axlCNSEcsetModeGet, axlCNSEcsetValueGet, axlCNSMapUpdate
+  EXAMPLES:
+         1) turn off max via check
+                 axlCNSEcsetModeSet('Maximum_Via_Count'off)
+         2) make all electrical constraintsbatch only
+                 axlCNSEcsetModeSet('all 'batch)
+         3) turn two constraint to off
+                 axlCNSEcsetModeSet('(Maximum_CrosstalkRoute_Delay) 'off)
+         4) set various constraints to differentmodes
+                 axlCNSEcsetModeSet( '((Maximum_Crosstalkoff)
+                                 (Propagation_Delay on) (Impedance batch)) )

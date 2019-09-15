@@ -1,0 +1,26 @@
+设定指定iposer的数据
+  NAME
+         axlSetIposerData - set data for thespecified iposer
+  FUNCTION
+         axlSetIposerData (
+             g_iposerId
+             s_dataType
+             g_newValue
+         )
+         ==> t/nil
+  SYNOPSIS
+         This function setsthe given data for the given iposer.
+         Only available in SIPproducts.
+  NEEDS
+         g_iposerName - name or dbid ofthe iposer to get the data for
+         s_dataType   - data type of the given value, one of:
+                         '(DSA_CONDUCTOR_MATERIAL
+                          DSA_CONDUCTOR_THICKNESS_DBREP
+                          DSA_CONDUCTOR_THICKNESS_STRING
+                          DSA_DIELECTRIC_MATERIAL
+                          DSA_DIELECTRIC_THICKNESS_DBREP
+                          DSA_DIELECTRIC_THICKNESS_STRING
+                          DSA_PART_NUMBER)
+         g_newValue - new value for thespecified data type.
+  RETURNS
+         t on success, otherwise nil

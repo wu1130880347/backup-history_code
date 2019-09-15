@@ -1,0 +1,21 @@
+初始化表格数据
+  NAME
+     axlSpreadsheetInit
+  FUNCTION
+     axlSpreadsheetInit()
+         ==> t / nil
+  SYNOPSIS
+     Initializes an emptyspreadsheet document to begin filling it with worksheets,
+     styles, and cell data. A newspreadsheet, when firstinitialized, does not include
+     any of this information. It iscompletely empty.
+     If there is a spreadsheet already active inmemory, it will be closed.Only
+     one spreadsheet may be activeat a time.
+  NEEDS
+     Nothing.
+  RETURNS
+     t   -- Spreadsheet successfully initalized.
+     nil -- Unable toinitialize empty spreadsheet. Reason printed to console.
+  SEE ALSO
+    axlSpreadsheetClose
+    axlSpreadsheetRead
+    axlSpreadsheetWrite

@@ -1,0 +1,21 @@
+得到某标准单位的别名，如:缩写或全名
+  NAME
+     axlMKSAlias -  Retrieve Unit conversion alias fromthe DB.
+  FUNCTION
+     axlMKSAlias(
+         t_mksAlias
+     )  -> t_alias
+  SYNOPSIS
+      This function searches the MKSunit database for the current definition
+      associated with unitName.Unlike axlMKSConvert, the function does not
+      no do any conversion, the function islimited search capability.
+      NOTE: the mks database isloaded from the file
+        <cds_root>/share/pcb/text/units.dat
+  NEEDS
+      t_mksAlias : name of alias string
+  RETURNS
+      t_def: definition name isreturned as string else nil if none found
+  EXAMPLE:
+          axlMKSAlias("VOLTAGE")  -> "V" (Intended usage)
+          axlMKSAlias("M") -> "METER" (Not really usefull)
+          axlMKSAlias("KG") -> NIL   (Function does not support scaling !)

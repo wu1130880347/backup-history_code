@@ -1,0 +1,26 @@
+返回被选择项目的格点
+  NAME
+         axlFormGridSelectedCnt - returns number ofselected items in grid
+  FUNCTION
+         axlFormGridSelectedCnt(
+                 r_form
+                 t_field
+         ) -> x_cnt/nil
+  SYNOPSIS
+         This returns the count of rows selected ina multi-select grid control.
+         This should only be used if grid is runningwith the multi-select row option.
+  NEEDS
+         r_form: standard formhandle
+         t_field: standard fieldname
+  RETURNS
+         Returns count of selected items or nil if wrong type of control
+  SEE ALSO
+         axlFormGridNewCell
+  EXAMPLES
+         See fgrid.il in examplearea
+         Pseudo code:
+                 axlFormGridEvents(fg "grid" 'mrowselect)
+                 ; if form selectrows all rows (Ctrl-A in grid)
+                 ;; select items
+                 selected = axlFormGridSelectedCnt(fg "grid")
+                         -> 16

@@ -1,0 +1,12 @@
+注册软件
+如何让别人注册自己写的skill软件
+
+整个过程只用skill无法完成,skill可以完成的工作有:
+1,获取当前allegro.exe进程的PID
+2,通过DLL plugin获取当前机器特征码
+3,在plugin的返回结果中对比,来决定是否进入skill程序
+
+plugin参见官方文档DLL Programming部分
+
+把几个SKILL做成一个安装包，然后安装到Allegro中时默认的安装路径是X:\cadence\SPB_XXX，里面的SKILL文件会自动安装在X:\cadence\SPB_XXX\share\local\pcb\skill目录下，菜单会自动添加在X:\cadence\SPB_XXX\share\local\pcb\menus目录下，bmp图片存放在X:\cadence\SPB_XXX\share\local\pcb\icons目录下，form文件存在X:\cadence\SPB_XXX\share\local\pcb\forms目录下，scr文件存放在X:\cadence\SPB_XXX\share\local\pcb\scripts目录下，安装完成后，重启Allegro会自动弹出一个认证提示如：“您未被授权使用XXX公司skill工具包，请将HOME路径下pcbenv下的AAA_data.log文件发送给XXX,非本公司人员请勿使用，否则后果自负！”，AAA_data.log中的AAA是安装该SKILL包得电脑的计算机名称。把这个文件发送给XXX（人名）生成一个认证文件AAA_skill_license.dat,然后把认证文件AAA_skill_license.dat放到HOME路径下的pcbenv目录下，再重启Allegro就可以使用这些skill了，而且命令兰还会有欢迎语提示：Hi，AAA欢迎使用XXX公司SKILL工具包！
+如果没有认证的话每次打开Allegro都会弹出认证提示如：“您未被授权使用XXX公司skill工具包，请将HOME路径下pcbenv下的AAA_data.log文件发送给XXX,非本公司人员请勿使用，否则后果自负！，关掉后点击菜单里的那些SKILL命令菜单也会弹出这个提示，有了上面的认证文件后就可以正常使用了。听之前公司技术总管说这个认证文件跟计算机网卡地址和计算机名称有关

@@ -1,0 +1,17 @@
+获得当前的设计文件名，包括路径
+  NAME
+     axlGetDrawingName - Retrieves thefull path name of the drawing
+  SYNOPSIS
+     axlGetDrawingName(
+     )
+     ==> t_drawingPathName
+  FUNCTION
+         Returns the absolute pathof drawing including extension.
+  NEEDS
+         nothing
+  RETURNS
+         full path name of thedrawing
+  SEE ALSO
+         axlCurrentDesign
+  EXAMPLE
+        axlGetDrawingName() => "/net/nile/home/neeti/testboards/test1.brd"

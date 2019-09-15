@@ -1,0 +1,20 @@
+指定未设置Allegro环境变量的值
+  NAME
+         axlUnsetVariableFile -  unset value of specified Allegro environment variable
+  FUNCTION
+         axlUnsetVariableFile(
+                 t_variable
+                 )
+         ==> t
+  SYNOPSIS
+         Works the same as axlUnsetVariable plus the user's local environment file
+         is also updated with the change.
+  CAUTION
+         On Windows, updating the environment file on disk can cause performance issues
+         if this interface is used heavily.
+  NEEDS
+         t_variable:      String giving the name of the Allegro environment variable.
+  RETURNS
+         t:       Always returns t.
+  SEE ALSO
+         axlSetVariablevFile

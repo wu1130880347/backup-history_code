@@ -1,0 +1,35 @@
+由现有的焊盘拷贝生成一个新的焊盘
+  NAME
+     axlDBCopyPadstack - create a newpadstack by copying from an existing
+  FUNCTION
+     axlDBCopyPadstack(
+         o_dbid
+         lt_startEnd
+         [g_dontTrim]
+     )
+     ==> o_dbid/nil
+  SYNOPSIS
+         This creates a new padstackfrom an existing padstack.
+         The name is the newpadstack is automatically derived from
+         the existing name by addinga post fix that will not collide
+         with any existing names.The padstack is marked in the database
+         as dervivded from itsstarting padstack.
+         Start/end must be provided and must be legal ETCHlayers
+         but is ignored unless g_dontTrim is t. Iftrim is enabled then
+         new padstack to only havepads between the list layers.
+         Trimming only restrictsresulting padstack to between the
+         two indicated layers. Ifthe starting padstack does not already
+         span between the 2 layers then it will not be expanded to
+         fill to those layers.
+  NEEDS
+     o_dbid     - dbid of the padstack to copy from
+     lt_startEnd - list of start (class/subclass) and stop (class/subclass) layer
+     g_dontTrim  - t -> don't trim padstack, nil -> trim if necessary
+  RETURNS
+         - nil  if new padstack not created,
+         - dbid if new padstackcreated
+  EXAMPLE
+     1) just derive exact copy
+         newPadId = axlDBCopyPadstack(padId, '("ETCH/TOP" "ETCH/BOTTOM"))
+     2) just derive and trim to onlyconnect from top to 2
+         newPadId = axlDBCopyPadstack(padId, '("ETCH/TOP" "ETCH/2") t)

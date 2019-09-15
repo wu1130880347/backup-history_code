@@ -1,0 +1,18 @@
+获取活动表格中的色彩编号
+  NAME
+     axlSpreadsheetGetRGBForNamedColor
+  FUNCTION
+     axlSpreadsheetGetRGBForNamedColor(t_name)
+         ==> RGB string / nil
+  SYNOPSIS
+     Spreadsheets have a small set ofknown, pre-defined colorvalues with
+     names such. To retrieve the RGBvalue for a specific named color,
+     pass that color name to thisfunction.
+  NEEDS
+     t_name -- Name of color toretrieve RGB value for.
+  RETURNS
+     RGB string -- Denotes colorvalue for the named color, as
+                   listed inMicrosoft standards.
+     nil        -- Color name was not foundin list of standard colors.
+  SEE ALSO
+    axlSpreadsheetGetRGBColorString

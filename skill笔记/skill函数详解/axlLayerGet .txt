@@ -1,0 +1,29 @@
+根据层名获得该层的dbid
+  NAME
+         axlLayerGet - Return layerparam
+  FUNCTION
+         axlLayerGet(
+                 t_layer            
+         )
+         ==>o_dbid/nil
+  SYNOPSIS
+         Returns layer param givenshortcut notation of <class>/<subclass>
+         This is an ease of use function thatdoes:
+                 axlGetParam("paramLayerGroup:<class>/paramLayer:<subclass>)
+  TIP
+         You can use thegroupMembers attribute of result
+                  result =axlGetParam("paramLayerGroup:<class>")
+         to iterate over allsubclass of a class.
+  NEEDS
+         t_layer         - Name of layer in format "<class>/<subclass>"
+  RETURNS
+         o_dbid          - Layer param dbid
+         nil             - if the layer is not present,
+  SEE ALSO
+         axlGetParam
+  EXAMPLES
+         1) Change color of topetch layer
+                 q = axlLayerGet("ETCH/TOP")
+                 q->color = 7
+                 axlLayerSet(q)
+                 axlVisibleUpdate(t)

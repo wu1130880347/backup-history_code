@@ -1,0 +1,18 @@
+某Pin是否为使用，即连接的是空网络
+  NAME
+         axlIsPinUnused - Determine if a pinis unused
+  SYNOPSIS
+         axlIsPinUnused(
+                 pin_dbid
+         )
+         ==> t/nil
+  FUNCTION
+         Determines if a givenpin is unused which is that it is on a dummy
+         net.
+  NEEDS
+         pin_dbid - pin databaseobject
+  RETURNS
+         return - t,   if pin is unused.
+                  nil, if the pinis used.
+  SEE ALSO
+         axlIsDummyNet

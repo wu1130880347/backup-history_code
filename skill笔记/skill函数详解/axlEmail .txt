@@ -1,0 +1,34 @@
+发送电子邮件
+  NAME
+     axlEmail - Send an email
+  SYNOPSIS
+     axlEmail(
+         t_to
+         t_cc/nil
+         t_subject
+         t_body
+     )
+     ==> t/nil
+  FUNCTION
+     Sends an email.
+     If multiple "to" or "cc" addresses arerequired seperate their names
+     with a semicolon (;).
+     
+     On Windows, a warning confirmermay be generated, "Warn on MapiSend",
+     by Microsoft. To disable thewarning add the following to the
+     registry:
+         HKEY_CURRENT_USER/Identities/[identcode]/Software/
+            Microsoft/OutlookExpress/5.0/Mail/Warn on Mapi Send
+                 -- set the Data value to 0
+  CAUTION:
+     It is currently not possible on UNIX for the interface to return
+     a email delivery failure.
+  NEEDS
+     t_to: email address
+     t_cc: any carbon copy persons to send, nil if none
+     t_subject: what to put onsubject line
+     t_body: body of message
+  RETURNS
+     t if success; nil failure
+  EXAMPLE
+         axlEmail("aperson" nil "A testmessage" "anybodyhome?")

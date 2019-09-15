@@ -1,0 +1,92 @@
+根据指定窗体文件创建窗体
+  NAME
+         axlFormCreate - start process to open a dialog window
+  FUNCTION
+         axlFormCreate(
+                 s_formHandle
+                 t_formfile/(t_formName t_contents)
+                 lt_placement
+                 g_formAction
+                 g_nonBlock
+                 [g_stringOption]
+                 )
+         ==> r_form/nil
+  SYNOPSIS
+         Creates a form structure based on the form descriptive file t_formfile.
+         This call only supports forms of type "fixed" and will fail if
+         t_formfile contains any variable tiles. axlFormCreate does not display
+         for form. Use axlFormDisplay to display it.
+         An alternative interface is supported that allows embedding the contents of the
+         form file with the skill code. Instead of passing the external form file name
+         provide the name (t_formName) for scripting purposes and and form file contents
+         (t_contents) as string. The packaged skill code has a example of this method at
+         the end of the file:
+             <cdsroot>/share/pcb/examples/form/axlform.il
+         Two things to remember when creating this form content string:
+            - Each form file line must end with a - \n
+                 example: FILE_TYPE=FORM_DEFN VERSION=2\n
+            - Any embedded quotes must be backslashed
+                 example: MENUBUTTON \"Ok\" 10 3\n
+         Note: If s_formHandle is an existing r_form, then axlFormCreate does
+         not create a new form, but simply exposes and displays the existing
+         form, s_formHandle, and returns nil.
+  NEEDS
+         s_formHandle:   Global SKILL symbol used to reference form.
+                         Note: Do not use the same symbol to reference different
+                         form instances.
+         t_formfile:     Filename of the form file to be used to define this
+                         form. axlFormCreate uses the Allegro environment
+                         variable, FORMPATH, to find the file, if t_formfile is
+                         not a full pathname. The filename, by convention,
+                         should use the ".form" extension.
+         (               Alternative interface to embed form file into Skill code
+            t_formName:  Name of form (used for scripting)
+            t_contents:  contents of form file
+         )
+         lt_placement:   Optional form placement. Allegro uses its default
+                         placement if this argument is nil.
+         g_formAction:   Specifies the SKILL command(s) (callback(s)) to be
+                         executed after every field change (Note that this is
+                         very different from Opus forms). The setting can be
+                         one of three formats:
+                         nil    axlFormDisplay blocks until the user closes the
+                                form. You must place a Done button (field name
+                                "done" or "ok") and optionally a Cancel button
+                                (field name "cancel") in the form for
+                                g_formAction to function properly. The user can
+                                access all of the fields and values using the
+                                r_form user type.
+                         t_callback or s_callback
+                         t_callback is the string representation of the SKILL
+                                    command(s) to be executed
+                         s_callback is the symbol of the SKILL function to be
+                                    called (the function is passed the r_form
+                                    returned from axlFormCreate as its only
+                                    parameter.)
+         g_nonBlock:     If g_nonBlock is t, the form runs in non-blocking mode.
+                         In blocking mode (the default), axlFormDisplay blocks
+                         until the user closes the form. Blocking is an easier
+                         programming mode but might not be appropriate for your
+                         application. If the callback (g_formAction) is nil,
+                         then axlFormDisplay ignores g_nonBlock, and the form
+                         runs in blocking mode.
+                         Blocking on blocks SKILL code progress. It does not
+                         prevent other Allegro events from occurring. For
+                         example, if you are blocked, users may still start
+                         the "add line" command from Allegro menus.
+                         g_stringOption: If this optional argument is t, the
+                         form returns/accepts all values as strings. By default,
+                         it returns/accepts the values in the format declared in
+                         the form file.
+  RETURNS
+         r_form/nil:     If the form is created, returns the form dbid, r_form.
+                         Otherwise, it returns nil.
+  SEE ALSO
+         axlFormIntroDoc: Introduction to the Allegro Form Package.
+         axlFormBNFDoc: Form file language description
+         axlFormCallback: Methods and structures for interacting with user.
+  EXAMPLES
+         See <cdsroot>/share/pcb/examples/form
+            basic: demostrates basic form capabilities
+            grid: demostrates grid control capabilites
+            wizard: form when used in a Wizard mode

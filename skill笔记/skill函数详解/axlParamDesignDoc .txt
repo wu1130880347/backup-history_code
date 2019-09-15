@@ -1,0 +1,31 @@
+paramDesign×ÊÁÏÎÄµµ
+  NAME
+         axlParamDesignDoc - design parameterrecord Skill interface summary
+  FUNCTION
+         axlGetParam("paramDesign") -> o_dbid
+  SYNOPSIS
+         This obtains the Allegrodesign record which controls database
+         size andaccuracy.
+==============================================================
+  DESIGN Attributes:
+     NAME     Set?     TYPE     DESCRIPTION
+    ------------------------------------------------
+    accuracy   no      integer   number of decimal placesin design
+    bBox       no      bbox      the design's boundingbox
+    height     no      float     size of design(see width)
+    objType    no      string    "paramDesign"
+    units      no      string    design units ("mils", etc.)
+    width      no      float     size of design(see height)
+    xy         no       point    lower left corner of design
+  NEEDS
+         Name of parameter is "paramDesign"
+  RETURNS
+         dbid of paramter record
+  SEE ALSO
+     axlDBChangeDesignOrigin
+     axlDBChangeDesignExtents
+     axlDBChangeDesignUnits
+  EXAMPLES
+     1) see what current dbhas to offer
+         p = axlGetParam("paramDesign"
+         p->??

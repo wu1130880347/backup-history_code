@@ -1,0 +1,16 @@
+图形绘制：更新
+  NAME
+     axlGRPDrwUpdate
+  FUNCTION
+     axlGRPDrwUpdate(
+              r_graphics
+     )->t/nil
+  SYNOPSIS
+     This triggers the calling ofthe application supplied callback function.
+  
+  NEEDS
+     r_graphics - The graphicshandle.
+  RETURNS
+     nil if an erroroccurred, otherwise t.
+  SEE ALSO
+     axlGRPDoc

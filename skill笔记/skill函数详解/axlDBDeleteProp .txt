@@ -1,0 +1,53 @@
+É¾³ýÊôÐÔ
+  NAME
+         axlDBDeleteProp - delete one or properties on aobjects
+  FUNCTION
+         axlDBDeleteProp(
+                 lo_attach
+                 lt_name
+                 )
+         ==> l_result/nil
+  SYNOPSIS
+         Deletes the propertieslisted by name in lt_name from the
+         objects whose dbids are inlo_attach.
+  NEEDS
+         lo_attach:      List of dbids of the objects from which the
+                         prortiesare to be deleted.  lo_attach may be
+                         a singledbid. If lo_attach is nil, then the
+                         property isto be deleted from the design itself.
+         lt_name:        List of names of the properties to bedeleted.
+                         lt_name maybe a list of strings for several
+                         properties, or a single string, if only one property
+                         is to bedeleted.
+  RETURNS
+         l_result/nil:   Returns nil if no properties were deleted.
+                         Otherwiseit returns a list:
+                         * (car) list of dbids of membersof lo_attach that
+                                 successfully had at least one property
+                                deleted.
+                         * (cadr) always nil.
+  SEE ALSO
+         axlDBAddProp, axlDBDeletePropAll
+  EXAMPLES
+         1) The following example first definesthe string-valued property
+           "myprop" then adds it to the net "ena2," then deletes theproperty
+           from the net.
+           axlDBCreatePropDictEntry(
+                 "myprop", "real", list( "pins" "nets" "symbols"),
+                 list( -50. 100), "level")
+           axlClearSelSet()
+           axlSetFindFilter(
+                 ?enabled '("NOALL" "ALLTYPES" "NAMEFORM")
+                 ?onButtons "ALLTYPES")
+           axlSingleSelectName( "NET" "ENA2")
+           axlDBAddProp(axlGetSelSet(), list("MYPROP" 23.5))
+                ==> ((dbid:2421543) nil)
+           axlShowObject(axlGetSelSet())
+         The SHOW ELEMENT dialog boxappears, with the MYPROPvalue at
+         "23.50 0000 level."
+         2) Now use axlDBDeleteProp to delete theattached property, asfollows:
+             axlDBDeleteProp(axlGetSelSet() list("myprop"))
+             axlShowObject(axlGetSelSet())
+         The Show Element form showsthe net with "MYPROP" deleted.
+         3) Set DRC_UNROUTED_MINPROP on designroot
+             axlDBAddProp(nil, '(DRC_UNROUTED_MINPROPt))

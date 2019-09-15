@@ -1,0 +1,20 @@
+设置当前错误等级
+  NAME
+         axlMsgSet - sets the current errorseverity level
+  FUNCTION
+         axlMsgSet(
+                 x_class
+                 )
+         ==> t
+  SYNOPSIS
+         Sets the current errorseverity level. Use it only to reset the severity cleared using
+         axlMsgClear.
+  NEEDS
+         x_class:        The severity level.
+  RETURNS
+         t:      Always returns t.
+  EXAMPLES
+         level = axlMsgTest()
+         ; Do something
+         ...
+         axlMsgSet(level)

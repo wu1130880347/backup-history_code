@@ -1,0 +1,16 @@
+判断项目是AXL附件。
+  NAME
+     axlIsAttachment - Determine if item isan AXL attachment.
+  SYNOPSIS
+     axlIsAttachment (
+         o_attachment
+     )
+     ==> t/nil
+  FUNCTION
+     Determines if thegiven object is an AXL attachment.
+  NEEDS
+     o_attachment - The object tocheck.
+  RETURNS
+     Returns t if theobject is an attachment, nil if not.
+  SEE ALSO
+      axlGetAttachment

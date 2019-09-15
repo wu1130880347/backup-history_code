@@ -1,0 +1,36 @@
+定义一个图形区域的鼠标右键菜单
+  NAME
+         axlUIPopupDefine - define a graphics canvas popup
+  
+  SYNOPSIS
+         list axlUIPopupDefine (
+                 r_popup
+                 ts_pairs
+         ) ==> r_popup/nil
+   
+  FUNCTION
+         Create a popup from the name value pair list. If r_popup
+         is set, appends the name value pairs to the end of the
+         popup.
+         
+         Returned popup id must be used when calling
+         axlUIPopupSet() to activate he popup in Allegro.
+  NEEDS
+         r_popup                 - Predefined popup handle to append
+                                   new enteries to.
+         ts_pairs                - a list containing pairs of
+                                   Display name AXL callback.
+                                   number of pairs can be passed.
+                                   ( (t_display t_dispatch) ... )
+                                   A Display name of "MENU_SEPARATOR"
+                                   coupled with a nil callback will
+                                   result in a menu separation line
+                                   in the popup.
+  RETURNS  
+         r_popup/nil for SUCCESS/FAILURE
+  
+  EXAMPLE  
+         (setq popId (axlUIPopupDefine nil
+                         (list (list "Complete" 'axlMyComplete)
+                                 (list "Rotate" 'axlMyRotate)
+                                 (list "Something" 'axlMySomething))))

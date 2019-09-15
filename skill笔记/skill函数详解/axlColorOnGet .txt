@@ -1,0 +1,16 @@
+当前颜色获取
+  NAME
+         axlColorOnGet - obsolete
+  FUNCTION
+         axlColorOnGet(
+                 g_item
+            ) -> t
+  SYNOPSIS
+         This function is obsolete. Due tochange in display model we
+         no longer allow colors tobe turned off.
+  NEEDS
+         item ignored
+  RETURNS
+         always t
+  SEE ALSO
+  EXAMPLES

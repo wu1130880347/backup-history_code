@@ -1,0 +1,28 @@
+设置一条或多条动态线的内部参数
+  NAME
+         axlPathSetLineLock - Setsdynamics line lock parameters
+  SYNOPSIS                                                  
+         axlSetLineLock (
+             ?arcEnableg_arcEnable
+             ?lockAnglef_lockAngle
+             ?minRadius f_minRadius
+             ?length45  f_length45
+             ?fixed45   g_fixed45
+             ?lengthRadiusf_lenghtRadius
+             ?fixedRadiusg_fixedRadius
+             ?lockTangentg_lockTangent
+         )
+         ==> t/nil
+  FUNCTION              
+         Sets one or more ofdynamics line lock parameters. These
+         parameters are the same asthe ones defined in status
+         form in Allegro.
+  NEEDS
+         g_arcEnable     - t/nil linelock
+         l_lockAngle     - 0,45,90
+         l_minRadius     - #
+         l_length45      - #
+         g_fixed45       - t/nil
+         l_lengthRadius  - #
+         g_fixedRadius   - t/nil
+         g_lockTangent   - t/nil

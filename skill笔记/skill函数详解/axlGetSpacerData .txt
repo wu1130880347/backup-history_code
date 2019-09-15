@@ -1,0 +1,37 @@
+获得指定的间隔数据
+  NAME
+         axlGetSpacerData - get data for thespecified spacer
+  FUNCTION
+         axlGetSpacerData (
+             g_spacerId
+         )
+         ==> spacer-datadefstruct/nil
+  SYNOPSIS
+         This function fetchesthe data for the given spacer and loads
+         it into the a defstruct.
+         Only available in SIPproducts.
+  NEEDS
+         g_spacerName - name or dbid ofthe spacer to get the data for
+  RETURNS
+         spacerData - defstruct with data for the given spacer.
+         nil        - spacer does not exist or therewas an error.
+     defstruct fields:
+         dbid           - dbid of spacer
+         refId          - spacer ref-id
+         memberType     - DSA_INTERPOSER
+         stackName      - parent die-stack name
+         stackPosition  - integer position of member instack
+         layerName      - etch-object layer (vias/clines/shapes)
+         totalThickness - dielectric+ conductor thickness
+         stackHeightMin - startingheight within stack
+         stackHeightMax - endingheight within stack
+         origin         - spacer symbol x/y location
+         rotation       - rotation angle in degrees
+         extents        - unioned extents of all members instack
+         dielMatl       - name of dielectric material used forsubstrate
+         dielThickness  - thickness of dielectric material
+  EXAMPLE
+         data = axlGetDieData("SPACER_1")
+         printf("stack-pos =%L, layer-name = %L, diel-matl  =%L\n"
+               data->stackPosition data->layerName data->dielMatl)
+         ==> stack-pos = 4, layer-name = "SP1", diel-matl = "PHENOLIC"

@@ -1,0 +1,26 @@
+获取与模块实例相关联的净例外。
+  NAME
+         axlGetModuleInstanceNetExceptions - Get the netexceptions associated
+                                             with the module instance.
+  SYNOPSIS
+         axlGetModuleInstanceNetExceptions(
+             o_modinst
+         )
+         ==> l_nets/nil
+  FUNCTION
+         AXL interface to the C function thataccesses the net exception
+         list associated with themodule instance.
+  NEEDS
+         o_modinst               AXL DBID of the module instance (ie. the
+                                dbid returned by axlDBCreateModuleInstance).
+  RETURNS
+         l_nets                  A list of net names of thenets that are
+                                treated as exceptions in the module instance.
+         nil                     Information could not beaccessed.
+  EXAMPLE
+         Get the list of netexceptions of a module instance named inst.
+            axlSetFindFilter(?enabled '("noall" "groups") ?onButtons '("noall" "groups"))
+            axlSingleSelectName("GROUP" "inst")
+            modinst = car(axlGetSelSet())
+            axlGetModuleInstanceNetExceptions(modinst)
+            --> ("GND" "+5")

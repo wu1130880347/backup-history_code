@@ -1,0 +1,11 @@
+是否为同一Net Xtalk
+  NAME
+     axlCNSGetSameNetXtalkEnabled
+  SYNOPSIS
+     axlCNSGetSameNetXtalkEnabled() => t/nil
+  FUNCTION
+     Returns if Same Net Xtalk isenabled.
+  NEEDS
+  RETURNS
+     t: same net Xtalk is enabled
+     nil: same net Xtalk is not enabled

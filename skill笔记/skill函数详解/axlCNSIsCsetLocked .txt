@@ -1,0 +1,25 @@
+判数cset是否被锁定。
+  NAME
+         axlCNSIsCsetLocked - is a cset locked
+  FUNCTION
+         axlCNSIsCsetLocked(
+                 g_domain
+                 t_csetName
+         )
+         ==> t/nil
+  SYNOPSIS
+         This returns if a cset is locked.
+         See discussion inaxlCNSIsLockedDomain.
+         A locked cset has thefollowing characteristics:
+           - can't be edited
+           - has the effect oflocking the entire domain .
+  NEEDS
+         g_domain: domain of cset;'physical, 'spacing, 'sameNet, 'electrical
+  RETURNS
+         t if ecset is deleted
+         nil - not deleted due to being locked or not an ecset
+  SEE ALSO
+         axlCNSDesignModeSet
+  EXAMPLES
+         1) Is Electrical domain locked
+             axlCNSIsLockedDomain('electrical)

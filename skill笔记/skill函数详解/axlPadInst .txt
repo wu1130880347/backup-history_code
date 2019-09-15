@@ -1,0 +1,16 @@
+pad¿‡–Õ
+  NAME  
+         axlPadInst data type
+  SYNOPSIS
+         This is the description ofthe axlPadInst Skill user type.
+         If is used to genericallyrefer to database objects, as well
+         as to obtain theirattributes.
+         Private data:
+                 owner:          pin or via owning padinstance
+                 padstack:       padstack handle
+                 type:           REGULER, THERMAL, ANTI
+                 class:          ETCH, PIN, VIA
+                 subclass:       ETCH, PIN, or VIA subclass ofthis pad
+                 propList:       IL Detached property listcontaining the
+                                attributes as they are retrieved
+  */

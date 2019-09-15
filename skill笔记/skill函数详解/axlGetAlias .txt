@@ -1,0 +1,28 @@
+根据快捷键名获得其命令名
+  NAME
+         axlGetAlias - get settingof alias definiton
+  FUNCTION
+         axlGetAlias(
+                 t_alias/nil
+                 )
+         ==> t_value/nil
+  SYNOPSIS
+         Requests the value of thespecified Allegro alias, t_alias.
+         If given a nil returnsa lists currently set aliases.
+         For compatibility purposes axlGetAlias will return funckey settings.
+  NEEDS
+         t_alias:        the name of the Allegro environmentalias.
+            nil:         return list of allcurrent aliases
+  RETURNS
+         t_value/nil:    the string value of the Allegro environmentalias.
+                         Returns nil if the alias is not set.
+         lt_names: if passed nil returnslist of alias names
+  SEE ALSO
+         axlSetAlias, axlGetFunckey
+  EXAMPLES
+         1. Gets the value of thealias assigned to shifted function key F2
+                 alias = axlGetAlias("SF2")
+                 ==> "grid"
+         2. Return all set aliases
+                 list_alias = axlGetAlias(nil)
+                 ==> ("F2" "F3" "F4" ...)

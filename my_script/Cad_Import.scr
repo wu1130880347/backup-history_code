@@ -1,0 +1,37 @@
+# Allegro script
+#	file: J:/ZWSD/design2018/PM2_5Project/Revsion1/design/Lib/Cad_Import.scr
+#	start time: Sat Sep 08 09:46:35 2018
+#	Version: 17.2-2016 S031 (3682489) Windows SPB 64-bit Edition
+scriptmode +e
+version 17.2
+
+setwindow pcb
+trapsize 902
+generaledit
+dxf in 
+setwindow form.dxfInMain
+FORM dxfInMain units MM 
+FORM dxfInMain incremental NO 
+FORM dxfInMain incremental YES 
+FORM dxfInMain browsedxf  
+fillin "J:\ZWSD\design2018\PM2_5Project\Revsion1\design\cad\ESP.dxf"
+fillin yes 
+FORM dxfInMain editcnvprofile  
+setwindow form.dxfInMapping
+FORM dxfInMapping selectall YES 
+FORM dxfInMapping classenum PACKAGE GEOMETRY 
+FORM dxfInMapping subclassenum SILKSCREEN_TOP 
+FORM dxfInMapping map  
+FORM dxfInMapping done  
+setwindow form.dxfInMain
+FORM dxfInMain import  
+setwindow pcb
+trapsize 902
+trapsize 1720845
+generaledit 
+setwindow form.dxfInMain
+FORM dxfInMain cancel  
+setwindow pcb
+generaledit 
+
+#	stop time: Sat Sep 08 09:47:33 2018

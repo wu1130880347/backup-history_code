@@ -1,0 +1,27 @@
+检查包装：产生错误报表
+  NAME
+         axlPackageDesignCheckLogError
+         
+  SYNOPSIS
+         axlPackageDesignCheckLogError(t_errorStringg_fixed g_location)
+             ==> nil
+  FUNCTION
+     This function will log an error foundby this function to the log
+     file if the log file isenabled. By using this interface, you
+     are ensuring that the API willformat your message consistently.
+     
+  NEEDS
+     t_errorString - String to beprinted to the log file. This should
+         have all variablesubstitutions already done and be a simple
+         string. This function willtake care of any formatting necessary.
+     g_fixed - Boolean indicatingwhether the error was fixed by the
+         tool.
+     g_location - Location where the erroroccurred, ifapplicable.
+         This is appended to your log entry for you, and is usedto let
+         the user zoom to the errorlocation in the design. If the location
+         is unknown or notapplicable, pass nil for thelocation.
+  RETURNS
+     nil
+  SEE ALSO
+     axlPackageDesignCheckAddCheck
+     axlPackageDesignCheckDrcError

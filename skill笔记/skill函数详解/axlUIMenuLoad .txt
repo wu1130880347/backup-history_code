@@ -1,0 +1,25 @@
+加载一个菜单文件
+  NAME
+         axlUIMenuLoad - Load the main window's menu from a file
+  SYNOPSIS
+         axlUIMenuLoad (
+             t_menuFile
+         ) ==> t_previousMenuName/nil
+  FUNCTION
+         Loads the main window's menu from the file t_menuFile. The default menu
+         filename extension is added if t_menuFile has none. The MENUPATH
+         environment variable is used to locate the file if t_menuFile is
+         not a rooted file name.
+  NEEDS
+         t_menuFile      The name of the file to which the menu is to be dumped.
+                         If t_menuFile is nil, the file name will be based on
+                         the program's default menu name (which may vary based
+                         on the current state of the program).
+  RETURNS
+         The name of the previous menu or nil if the menu could not
+         be loaded.
+  NOTE
+         The intent of this procedure is to allow a custom menu to
+         be loaded for debugging purposes.
+   SEE ALSO
+         axlUIMenuFind

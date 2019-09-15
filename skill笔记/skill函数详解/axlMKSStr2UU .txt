@@ -1,0 +1,64 @@
+将当前设计单位增加到某数值型字符串尾部
+  NAME
+         axlMKSStr2UU - Add default dbunits to string
+  FUNCTION
+         axlMKSStr2UU(
+                 t_String
+         )
+         ==> t_mksString/nil
+  SYNOPSIS
+         This provides conversionbetween a input string to a mks string
+         in current database units.If incoming string has mks units
+         then that is used as thebasis for converion, otherwise if
+         string has no units then it isassumed to be in default database
+         units.
+         Conversion can fail for thefollowing reasons:
+            - input string is not a legalMKS format
+            - conversion willoverflow allowed database max size
+  WARNINGS:
+         1) Conversion betweenmetric and english units may result
+         2) The return numberwill be rounded to the database precision
+  NEEDS
+         t_String: input string
+  RETURNS
+         t_mksString
+  SEE ALSO
+         axlMKS2UU
+  EXAMPLES
+         1) default conversion (db in mils)
+                 axlMKSStr2UU("100.1") -> "100.0MILS"
+xu12.0pt;font-family:"Courier New";color:fuchsia;background:white;mso-highlight:white;mso-font-kerning:0pt;mso-bidi-font-weight:bold'>axlMKS2UU("100.1") -> 100.0
+         2) database is in mils
+                 axlMKS2UU("100mils") -> 100.0
+         3) database is in mils
+                 axlMKS2UU("100inches") -> 100000.0
+         4) database is in mils
+                 axlMKS2UU("100METER") -> 3937008.0
+         FLOC 2 7
+         COLOR 2 1
+         ENDFIELD
+         FIELD subclass
+         FLOC 5 7
+         ENUMSET 19
+         OPTIONS prettyprintownerdrawn
+         POP "subclass"
+         ENDFIELD
+  NEEDS
+         See AXL Forms FunctionalSpec for details.
+         t_restrict - This optionalargument is a string that indicates class
+                      andsubclass restrictions if the form contains "class"
+                      and "subclass" popup fields thathave not been overridden
+                      with calls toaxlFormBuildPopup.  Possible values are:
+                      "NONE"         - no restrictions
+                      "TEXT"         - only layers that allow text
+                      "SHAPES"      - only layers that allow shapes
+                      "RECTS"        - only layers that allow rectangles
+                      "ETCH"         - only etch layers
+                      "ETCH_PIN_VIA" - only etch, pin, and vialayers
+                      "ETCH_NO_WIREBOND" - only non-wirebondetch layers
+  RETURNS
+         This function returnsnil on failure which occurs if:
+             No interactive commandis active or the active command is
+             not of the type AXLregistered interactive,
+             AXL Forms codeencounter an error. See AXL Forms Func Spec.
+         Upon success, r_form is returned.

@@ -1,0 +1,19 @@
+获取配置文件目录
+   NAME
+          axlGetWireProfileDirection
+   FUNCTION
+          axlGetWireProfileDirection(
+             profileName
+          )
+          ==> "FORWARD"/"REVERSE"/nil
+   SYNOPSIS
+          This function will return thedirection of a wire profile
+          definition defined in thedatabase. Profiles may be either forward
+          or reverse. If the profiledefinition name provided does not exist
+          in the design, the return valuewill be nil.
+  NEEDS
+          profileName - The name ofthe wire profile to query the direction of.
+   RETURNS
+          "FORWARD" forforward-bond wire profile definitions.
+          "REVERSE" forreverse-bond wire profile definitions.
+          nil if thewire profile definition does not exist in thedatabase.

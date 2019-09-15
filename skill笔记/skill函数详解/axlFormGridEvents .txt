@@ -1,0 +1,78 @@
+操作格点事件
+NAME
+         axlFormGridEvents - controls gridevents
+  FUNCTION
+         axlFormGridEvents(
+                 r_form
+                 t_field
+                 s_event/(s_event1 s_event2...)
+         ) -> t/nil
+  SYNOPSIS
+         Sets user events ofinterest.  It is critical for your application
+         to only set the events that youactually process since
+         when enabled they will be scripted.
+         Current are:
+            'rowselect - puts gridinto row select mode. This is
+                         mutuallyexclusive with cellsect.
+            'mrowselect - puts gridinto multi-row select mode. This is
+                         mutuallyexclusive with cellsect. You shuld
+                         use axlFormGridSelected to determine whatrows
+                         areselected.
+            'cellselect - puts gridinto row select mode. This is
+                         mutuallyexclusive with rowselect and mrowselect.
+            'change - enables cellchange events. Use this option if you
+                 have cells (check and fillin types) that allow user
+            'rightpopup - enablesright mouse button popup. A popup
+                 must have beenspecified in the form file.
+            'rightpopupPre - enablescallback to application before
+                 a right mouse popupis displayed. This allows the
+                 user to modify thepopip shown to the user.
+                 Also requires`rightpopup be setotherwise ignored.
+            'leftpopupPre - enablescallback to application before
+                 a left mouse popupis displayed. This allows the
+                 user to modify thepopip shown to the user. Left
+                 mouse popups areonly present in the drop down
+                 cell type.
+                 
+         By default the grid bodyhas rowselect enabled while the
+         headers have nothingenabled.
+         The form callback structure(r_form) has the followingnew
+         attributes that are onlyapplicable for grid field types.
+                 Event           Row     Col    <Data Fields>
+                 rowselect       <row>    1         No
+                 cellselect      <row>   <col>     Yes (1)
+                 change          <row>   <col>     Yes (1)
+                 rightpopup      <row>   <col>     Yes
+                 rightpopupPre   <row>  <col>     No (2) (3)
+                 leftpopupPre    <row>   <col>     No (2) (3)
+             where:
+                 <row> - isrow number (1 based)
+                 <col> - iscolumn number (1 based)
+                 <Data Fields>- indicates the setting of the r_form
+                         attributescurValue, curValueInt and isValueString
+             (1) the communicatesthe value the data value before the
+                 field is changed.The change event sends the value
+                 after the field ischanged
+             (2) These events aresent immediately before a popup
+                 is displayed so theapplication can have the
+                 opportunity to modify it. See axlFormGridEventto
+                 set this and other eventoptions.
+             (3) If using eventsrightpopupPre orleftpopupPre the popup
+                 may be canceled bycalling axlFormGridCancelPopup when
+                 you receive one of these events.
+         See axlFormGridDoc for grid overview.
+  NOTE
+         Assigning events to a gridoverrides the previous assignment
+         so the following will not work:
+             axlFormGridEvents(fw "grid 'change)
+             axlFormGridEvents(fw"grid'cellselect)
+         Instead if you want both do:
+             axlFormGridEvents(fw "grid'(cellselect change))
+  NEEDS
+         r_form - form handle
+         t_field - field name
+         s_events - see above
+  RETURNS
+         Returns t for success, nilfor failure
+  SEE ALSO
+         axlFormGridNewCell

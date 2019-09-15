@@ -1,0 +1,13 @@
+约束设定
+DiffPair，MatchGroup，pinpair等等  
+axlDiffPair(); 生成，修改，删除Diffpair   
+axlMatchGroupAdd(); 添加成员到某个MatchGroup   
+axlPinPair(); PinPair操作
+
+Constraint Manager操作函数
+所有的ConstraintManager相关的函数都会是以axlCNS开头，如：   
+axlCnsAddVia();   
+axlCNSCreate();   
+axlCNSGetPhysical();   
+axlCNSGetSpacing();
+

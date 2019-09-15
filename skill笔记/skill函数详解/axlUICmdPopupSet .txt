@@ -1,0 +1,24 @@
+ÉèÖÃµ¯³ö²Ëµ¥
+  NAME
+         axlUICmdPopupSet - Set popup with all items required by a command.
+  SYNOPSIS
+         axlUICmdPopupSet(r_popup)
+         -> r_prevPopup
+  FUNCTION
+         Sets up a popup menu which has all of the menu items that will be
+         required throughout the execution of the command.  This should be
+         called during the commands initilization process.  Use of this
+         procedure modifies the behavior of axlUIPopupSet so that it grays out
+         all popup items that are not in the defined popup.
+  NEEDS
+         r_popup         Popup handle, obtained by calling axlUIPopupDefine.
+                         A nil value will turn off this popup.
+  RETURNS
+         r_prevPopup     The popup set that was previously defined.
+  NOTE
+         THIS PROCEDURE DOES THE SAME AS axlCmdPopupSet FOR NON-WXL UI's
+         The command popup will be cleared when the skill command terminates.  
+         This should occur at the same place where we currently clear/free the
+         popup set with axlUIPopupSet (AIXSetCurrentPopup).
+         Adds a "cmdPopupId" property to AXL user data.  This is used for
+         restoring popup entries whenever the axl command state is restored.

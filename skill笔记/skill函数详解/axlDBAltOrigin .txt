@@ -1,0 +1,50 @@
+移动命令的起源点　　
+  NAME
+         axlDBAltOrigin - return alternative center for a dbid
+  FUNCTION
+         axlDBAltOrigin(
+                 g_mode
+                 o_dbid
+         ) -> xy/nil
+  SYNOPSIS
+         This provides Skill accessto the move command's origin point
+         option in the Optionspanel.
+         It is intended for symbols instances (it will convert acomp
+         instance to its symbol).  Body origin rules for symbols, origin
+         is first the first rulethat is met:
+           1) the origin of texton the PACKAGE_GEOMETRY/BODY_CENTER layer
+           2) the center of anextent box created by the union of all shapes on
+                 layersPACKAGE_GEOMETRY (PLACE_BOUND_TOP, PLACE_BOUND_BOTTOM,
+                 DFA_BOUND_TOP, DFA_BOUND_BOTTOM) and EMBEDDED_GEOMETRY (PLACE_BOUND
+                 and DFA_BOUND)
+           3) center of thesymbol bbox
+         
+         Other Allegro figure dbid'scan be supplied  but all options may
+         not be supported. For example, a CLINE supportsthe center option
+         but not 'origin or 'pin1.
+  NEEDS
+         g_mode: 'center - return body center ofobject
+                 'origin - return origin of object (normally if dbid has
+                           an xy attribute this is thesame coordinate)
+                           ForSymbols, the board origincan be set by the origin
+                           of texton the PACKAGE_GEOMETRY/BODY_CENTER layer.
+                 'pin1   - return pin1 as center
+         o_dbid: a figure (geometric object) dbid
+  RETURNS
+         xy: location requested
+         nil: not a dbid, dbid is not a figure dbid, or mode is not supported
+                 for that object
+  SEE ALSO
+         axlDBGetSymbolBodyExtent
+  EXAMPLES
+         ; ashOne is a utility supplied in theexamples Skill code
+         sym = ashOne()
+         ; select symbol in Find filter and select a symbol
+         sym->xy
+         ; prints (3503.0 1058.0)
+         axlDBAltOrigin('origin sym)
+         ; prints (3503.0 1058.0) -- origin ofsymbol is same as xy
+         axlDBAltOrigin('center sym)
+         ; prints (3250.0 1737.0)
+         axlDBAltOrigin('pin1 sym)
+         ; prints (3503.0 1058.0) -- pin1 ofsymbol is same as its xy

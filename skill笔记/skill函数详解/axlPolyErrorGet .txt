@@ -1,0 +1,29 @@
+»ñÈ¡Poly´íÎó
+  NAME
+         axlPolyErrorGet - get last error frompolygon operations
+  FUNCTION
+         axlPolyErrorGet (
+                 )
+         ==> t_error/nil
+  SYNOPSIS
+         Retrieves the error fromthe logop core. Error strings returned
+         by the logop core arelisted below:
+         Error type                      String returned
+         problem with arcs               "Bad arc data in polygonoperations."
+         bad data                        "Data probleminside polygon operations."
+         internal error in               "Polygon operation failedbecause of internal error."
+         logical op data handling
+         numerical problem               "Computational problemwhile doing polygon operations."
+         in logical op
+         memory problem                  "Out of memory."
+         no error                        nil
+  NEEDS
+         None.
+  RETURNS
+         t_error/nil:    Retrieves the error from the logop coreif an error
+                         hasoccurred; otherwise, itreturns nil.
+  EXAMPLES
+         l_poly1 = axlPolyFromDB(shape_dbid)
+         l_poly2 = axlPolyFromDB(cline_dbid?endCapType 'SQUARE)
+         l_polyresult = axlPolyOperation(l_poly1 l_poly2'ANDNOT)
+         if (nulll_polyresult) axlMsgPut(list axlPolyErrorGet())

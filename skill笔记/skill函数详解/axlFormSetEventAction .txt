@@ -1,0 +1,35 @@
+设置窗体某部件激活
+  NAME
+         axlFormSetEventAction - set callback for on-field activationevents on form
+  FUNCTION
+         axlFormSetEventAction(
+                 r_form
+                 g_callback
+         ) -> t/nil
+  SYNOPSIS
+     Allows the user to register acallback function to be called
+     whenever the user changes to anew active cell in the form.
+     The callback registered during axlFormCreate dispatches eventsonly
+     when the user modifies a field value onthe form (on exit from the field).
+     This function allows the callerto receive an event when a field is first
+     entered.
+  NEEDS
+         r_form: form dbid
+         g_callback: Specifies theSKILL command(s) (callback(s)) to be executed
+         whenever a new field isactivated. The setting can be one of
+         two formats:
+                         t_callbackis the string representation of the SKILL
+                                   command(s) to be executed
+                         s_callbackis the symbol of the SKILL function to be
+                                   called (the function is passed ther_form
+                                   returned from axlFormCreate as its only
+                                   parameter.)
+  RETURNS
+         t/nil
+  SEE ALSO
+         axlFormBNFDoc, axlFormCreate
+  EXAMPLES
+         form = axlFormCreate( MyForm
+                                   "extract_selector.form" '("E" "OUTER")
+                                 '_formAction t)
+     axlFormSetEventAction( form'_formEventAction)

@@ -1,0 +1,14 @@
+获得设定的临时目录
+NAME
+     axlTempDirectory - returns the designated temporary directory.
+  SYNOPSIS
+     axlTempDirectory(
+     )
+     ==> t_directoryName
+  FUNCTION
+     Returns the temporary directory for the current platform.  Also
+     considers the envvar TEMPDIR.
+  NEEDS
+     nothing
+  RETURNS
+     temp directory or nil

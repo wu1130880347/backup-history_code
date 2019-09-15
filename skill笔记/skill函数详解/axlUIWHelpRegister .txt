@@ -1,0 +1,49 @@
+注册一个命令或表单的帮助文档
+  NAME
+     axlUIWHelpRegister - registers a help document for a command or form
+  SYNOPSIS
+      1) register new help file
+         axlUIWHelpRegister(
+                 t_cmd
+                 t_helpFile
+         ) -> t/nil
+      2) Query if help file registered for command
+         axlUIWHelpRegister(
+                 t_cmd
+         ) -> t_file
+      3) Delete help file registered for command
+         axlUIWHelpRegister(
+                 t_cmd
+                 ""
+         ) -> t/nil
+      4) Lists all cmds registered for help
+         axlUIWHelpRegister(
+                 nil
+         ) -> lt_cmds
+  FUNCTION
+      This registers a help document for a user written skill command or
+      form (dialog). This is typically used in conjunction with axlCmdRegister.
+      You should make this call at the time you do a axlCmdRegister instead
+      of waiting until the skill code associated with the command executes.
+      You can also add the registrations via the help_config.txt file (see
+      (<cdsroot>/share/pcb/help/help_config.txt) placed at the site or
+      pcbenv directory.
+      The document types (determined via file extension) supported on all platforms are:
+         .txt - a plain text file displayed via Allegro's internal long message window
+         .html - html browser displayed via a web browser
+         .pdf - Acrobat file displayed by a Acrobat reader
+       On Windows other extensions are typically supported which are determined
+       by what programs are installed on the computer (e.g. doc for Word and ppt
+       for PowerPoint).
+  NEEDS
+         t_cmd: cmd name or form.<formname> for registering help for form buttons
+         t_helpFile:     document to display. Variable expansion is supported
+                 so you can embed Allegro env variables to make the installed
+                 location of the files relative to the variable setting.
+  RETURNS
+         t for success, nil for failure (invalid arguments)
+  SEE ALSO
+         axlCmdRegister
+  EXAMPLES
+         - override add line help with contents of Allegro's env file
+             axlCmdRegister("add line" "$TELENV")

@@ -1,0 +1,18 @@
+写入表格数据
+  NAME
+     axlSpreadsheetWrite
+  FUNCTION
+     axlSpreadsheetWrite(t_fileName)
+         ==> t / nil
+  SYNOPSIS
+     Write the spreadsheet in memory to file on disk. File will be written
+     compliant with Microsoft's open spreadsheet XML format.
+  NEEDS
+     t_fileName  -- Name of file to be written to, including path if not
+                    to be written to current working directory.
+  RETURNS
+     t   -- File successfully written.
+  SEE ALSO
+    axlSpreadsheetClose
+    axlSpreadsheetInit
+    axlSpreadsheetRead

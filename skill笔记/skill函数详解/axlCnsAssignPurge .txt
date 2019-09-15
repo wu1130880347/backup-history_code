@@ -1,0 +1,15 @@
+保持CNS与旧版本的向后兼容性
+    NAME' n* v4 R8 Y# \0 t! k' B3 `; M
+        axlCnsAssignPurge - obsolete function
+    FUNCTION
+        axlCnsAssignPurge(
+                  s_tableType
+        ) => 0
+    SYNOPSIS
+             Obsolete kept for backwardcompatibility
+    NEEDS
+             s_tableType: 'spacing or 'physical
+    RETURNS
+             0
+    SEE ALSO
+    EXAMPLES   

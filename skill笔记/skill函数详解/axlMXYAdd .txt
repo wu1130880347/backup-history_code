@@ -1,0 +1,20 @@
+计算两点的代数和
+  NAME
+         axlMXYAdd - add twocoordinates
+  FUNCTION
+         axlMXYAdd(
+                 l_pt1
+                 l_pt2
+         ) -> l_pt/nil
+  SYNOPSIS
+         This does a l_pt1 + lpt2 and returnsthe result.
+         The l_ptN is an x:ycoordinate.
+  NEEDS
+         l_pt1, l_pt2: 2 xypoints
+  RETURNS
+         l_pt: Returns coordinatethat is result of addition.
+         nil: Arguments are notcoordinates
+  SEE ALSO
+         axlMXYSub
+  EXAMPLES
+         axlMXYAdd(1263.0:1063.0 1338.0:1137.0) -> (2601.0 2200.0)

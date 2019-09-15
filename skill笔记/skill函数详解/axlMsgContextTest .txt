@@ -1,0 +1,55 @@
+返回指定context信息缓冲区某信息的等级
+  NAME
+         axlMsgContextTest - returns mostsevere message class in message buffer
+  FUNCTION
+         axlMsgContextTest(
+                 r_context
+                 )
+         ==> x_class
+  SYNOPSIS
+         Returns the most severemessage class of the messages in the context message buffer.
+         Also see axlMsgContextInBuf as an alternative to check for a particularmessage class.
+  NEEDS
+         r_context:      The context handle fromaxlMsgContextStart. axlMsgContextTest looks only
+                         for messagesfor this context. If r_context is nil, axlMsgContextTest
+                         looksthrough all contexts.
+  RETURNS
+         x_class:        Returns the most severe message classof the messages in the message
+                         buffer ofthe given context.
+  EXAMPLES
+         printf("Messageseverity %d\n" axlMsgContextTest(context))
+         ==> Message severity 4
+         The following example:
+         1. Starts a contextwith axlMsgContextStart
+         2. Puts a warning, an error, and a fatal error messageusing axlMsgPut
+         3. Checks for the error messagewith axlMsgContextInBuf
+         4. Tests for thecontext severity level with axlMsgContextTest
+         5. Prints the contextbuffer with axlMsgContextPrint
+         6. Ends with axlMsgContextFinish
+                 context = axlMsgContextStart("My own context.")
+                 axlMsgPut(list("My warning" 2))
+                 axlMsgPut(list("My error" 3))
+                 printf("Messageseverity %d",axlMsgContextTest(context))
+                 axlMsgPut(list("My fatal error %s" 4) "BADERROR")
+                 if( axlMsgContextInBuf(context "My error")
+                 printf("%s\n" "my error isthere"))
+                 printf("Messageseverity %d",axlMsgContextTest(context))
+                 axlMsgContextPrint(context)
+                 axlMsgContextFinish(context)
+                  ==> t
+         When you load theSKILL program shown above, the SKILL command line
+         outputs the following:
+         W- My warning
+         E- My error
+         F- My fatal error BADERROR
+         Message severity 3
+         my error is there
+         Message severity 4
+         t
+         This information shows thegeneral usage of the axlMsg system:
+         * Messages first go to the contextbuffer
+         * axlMsgContextPrint prints them to theSKILL command line
+         * The contents of theoutput buffer from any print and printf data write to thecommand
+           line when controlreturns to the command line.
+         That is why the messages "Messageseverity 3," "myerror is there" and
+         "Message severity 4" are after thebuffered messages ("W-My warning" ...).

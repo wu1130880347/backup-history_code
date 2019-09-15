@@ -1,0 +1,163 @@
+Pad ·â×°±à¼­
+  NAME
+         axlPadstackEdit - Edit padstackmeta-data
+  FUNCTION
+         axlPadstackEdit(
+                 nil
+                 nil
+         )
+         ==> l_attributes
+         axlPadstackEdit(
+                o_dbidPadstack/t_Padstack
+                 s_name
+                 g_value
+         )
+         ==> t/nil
+         axlPadstackEdit(
+                o_dbidPadstack/t_Padstack
+                 [[s_name g_value].... ]
+         )
+         ==> t/nil
+  SYNOPSIS
+         Edits global settings of anexisting padstack.
+         This edits the padstackdefinition, this means that anychanges made applies
+         to all instances of thepadstacks (pins and vias) in the design.
+         Supports the followingmodes:
+          - If 1st 2arguments are nil returns a list of all editable attributes.
+          - If padstack, attribute and newvalue are provided, changesone attribute of
+            padstack.
+          - If padstack, and a list ofattributes with new values are provided change
+            all the items specifiedin the padastack. This is the most effecient
+            method forchanging multiple items on a single padstack.
+         TIPS:
+            - Order is important, so if you arechanging a CIRCULAR drill to a slot then
+              you must provide theholeType, then drillSizeWidththen drillSizeHeight.
+            - For best performance ifchanging multiple items in a single padstack
+              use the list mode tochange all items in one call.
+         Currently only globalpadstack settings are supported. We currently
+         do not allowediting pad layer characteristics.
+         Certain changes will set DRC outof date and dynamic shapes out of date.
+         Attributes currentlysupported (all Equiv items arefield names in pad_designer):
+         Name:   drillDiameter
+         Value:  dbrep
+         Description: Changes thedrill diameter. Value must be a positive number and
+                 holeType must not be aslot. For multi-drill applies to all drills.
+         Side Effects: DRC is out ofdate and dynamic shapes are disabled.
+         Equiv: Drill diameter field
+         Name:   drillSizeWidth
+         Value:  dbrep
+         Description: Changes theslot size width (xdirection). Value must be a
+                 positive number andholeType must be a slot type. Usually done
+                 in association withdrillSizeHeight.
+         Side Effects: DRC is out ofdate and dynamic shapes are disabled.
+         Equiv: Slot size X
+         Name:   drillSizeHeight
+         Value:  dbrep
+         Description: Changes theslot size width (ydirection). Value must be a
+                 positive number andholeType must be a slot type. Usually done
+                 in association withdrillSizeWidth.
+         Side Effects: DRC is out ofdate and dynamic shapes are disabled.
+         Equiv: Slot size Y
+         Name:   holeType
+         Value:  string
+         Description: One of "CIRCLE_DRILL", "OVAL_SLOT" or "RECTANGLE_SLOT".
+                 Changes hole type ofpadstack. If changing fundamental types:
+                  - slot to drill;drillDiameter inherits drillSizeWidth.
+                  - drill to slot;both drillSizeWidth and drillSizeHeight inherit
+                    drillDiameter
+                 For slotsdrillFigureName takes on figure for slot type selected
+                 and itswidth and heght are the same as the slot width and height.
+         Side Effects: DRC is out ofdate and dynamic shapes are disabled.
+         Equiv: Hole type
+         Name:   drillNonStandard
+         Value:  string
+         Description: Changes type of type ofnon-standard drill. Hole type must
+                 be a circulardrill. Types are "LASER_DRILL", "PLASMA_DRILL",
+                 "PUNCH_DRILL", "PHOTO_DRILL", "COND_INK_DRILL", "WET-DRY_DRILL"
+                 and "OTHER_DRILL". Use nil if youwant to unset this field.
+         Side Effects: None
+         Equiv: Non-standard drill
+         Name:   drillOffset
+         Value:  point/dbrep
+         Description: Changes thedrill offset. Must be a xy point or a single dbrep which
+                 applies to both x and y.
+         Side Effects: DRC is out ofdate and dynamic shapes are disabled.
+         Equiv: Offset X and Y
+         Name:   holeTolerance
+         Value:  point/dbrep
+         Description: Changes thethe hole tolerance. point values are taken
+                 to be a list of (+tolerance-tolerance) or asingle dbrep which applies
+                 to both + and -. Bothmust be a positive number.
+         Side Effects: None
+         Equiv: Tolerance + and -
+         Name:   plating
+         Value:  string
+         Description: Sets theplating type, must be one of "NON_PLATED", "OPTIONAL"
+                 or "PLATED".
+         Side Effects: None
+         Equiv: Plating
+         Name:   drillChar
+         Value:  string
+         Description: Sets the drillcharacters. A maximum string of 3 is supported.
+                 Longer strings aretruncated. Use a nil to remove the string.
+         Side Effects: None
+         Equiv: Characters
+         Name:   drillFigureName
+         Value:  string
+         Description: Sets the drillfigure type. Not supported for slots. Value
+                 must be a stringthat matches one of the drop-down items in the
+                 pad_designer "Figure" field.
+         Side Effects: None
+         Equiv: Figure
+         Name:   drillFigureHeight
+         Value:  dbrep
+         Description: Changes thefigure height, value must be apositive number.
+                 Option notavailable for slots. Used in conjunction with drillFigureWidth.
+         Side Effects: None
+         Equiv: Height (under Drill/Slotsymbol)
+         Name:   drillFigureWidth
+         Value:  dbrep
+         Description: Changes thefigure width, value must be apositive number.
+                 Option notavailable for slots. Used in conjunction with drillFigureHeight.
+         Side Effects: None
+         Equiv: Width (under Drill/Slotsymbol)
+         Name:   uvia
+         Value:  t/nil
+         Description: Sets the type of viato bbvia (nil) or microvia (t). Padstack
+                 must not be athrough or smd padstack.
+         Side Effects: DRC is out ofdate and dynamic shapes are disabled.
+         Equiv: Microvia checkboxunder Usage options
+         Name:   keepout
+         Value:  t/nil
+         Description: Allows the system to useAntipads of the padstack for voiding and
+                 DRC formechanical pins using this padstack.
+         Side Effects: DRC is out ofdate and dynamic shapes are disabled.
+         Equiv: Enable Antipads as Route Keepouts (ARK) checkbox underUsage options
+  NEEDS
+         o_dbidPadstack - dbid of apadstack (note VIA and PINdbids are not supported)
+         t_Padstack - name ofpadstack
+         s_name - symbol name ofattribute to change
+         g_value - new value
+         [[s_name g_value] .... ] - list ofname/value pairs
+  RETURNS
+         ls_names - If name is nil then returnsa list of all controls.
+         t/nil - if tsuccessful in updating padstack, nil an error
+  SEE ALSO
+         axlDBCreatePadStack, axlLoadPadstack, axlDBCopyPadstack, axlReplacePadstack
+  EXAMPLES:
+         Finds a padstack using theashOne share ware skill
+                 p = ashOne()
+                 def =p->definiton
+         -) Set drill characters
+                 ret = axlPadstackEdit(def 'drillChar "abc")
+                     or itsequivalent
+                 ret = axlPadstackEdit(def '((drillChar "abc")))
+         -) Set tolerance
+                 ret = axlPadstackEdit(def 'holeTolerance '(1.2 1.3))
+         -) Set tolerance same for + and -
+                 ret = axlPadstackEdit(def 'holeTolerance 1.5)
+         -) Set drill symbol data
+                 data = '((drillFigureName "RECTANGLE") (drillFigureHeight 20) (drillFigureWidth 10) (drillChar A))
+                 ret = axlPadstackEdit(def data)
+         -) Get list of all editablepadstack parameters
+                 lst = axlPadstackEdit(nil nil)

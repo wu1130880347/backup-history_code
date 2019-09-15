@@ -1,0 +1,25 @@
+获取层面
+获取布线层面
+axlGetParam("paramLayerGroup:ETCH")->groupMembers
+
+Command > skill axlGetParam("paramLayerGroup:ETCH")->groupMembers
+("TOP" "SGND" "IN1" "IN2" "SVCC"
+    "BOTTOM"
+
+
+包括其他非走线层所有class,可以先用 axlGetParam("paramLayerGroup")->groupMembers  获取所有class  然后foreach获取各个subclass   
+
+获取所有class 
+
+skill axlGetParam("paramLayerGroup")->groupMembers
+Command > skill axlGetParam("paramLayerGroup")->groupMembers
+("BOARDGEOMETRY" "COMPONENT VALUE" "DEVICE TYPE" "DRAWING FORMAT" "DRC ERROR CLASS"
+    "ETCH" "MANUFACTURING" "ANALYSIS" "PACKAGE GEOMETRY" "PACKAGE KEEPIN"
+    "PACKAGE KEEPOUT" "PIN" "REF DES" "ROUTEKEEPIN" "ROUTE KEEPOUT"
+    "TOLERANCE" "USER PART NUMBER" "VIA CLASS" "VIA KEEPOUT" "ANTI ETCH"
+    "BOUNDARY" "CONSTRAINT REGION" "PLAN" "CAVITY" "EMBEDDEDGEOMETRY"
+)
+lstLayer=axlGetParam("paramLayerGroup")->groupMembers
+foreach( item lstLayer
+   axlGetParam(strcat("paramLayerGroup:" "item"))->groupMembers
+)

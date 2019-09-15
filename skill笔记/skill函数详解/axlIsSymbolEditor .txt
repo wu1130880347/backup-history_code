@@ -1,0 +1,19 @@
+
+获取是否处在零件编辑状态
+  NAME
+         axlIsSymbolEditor - return if insymbol editor
+  SYNOPSIS
+         axlIsSymbolEditor(
+         ) -> t/nil
+  FUNCTION
+         This returns t if insymbol editor nil for all other editors.
+         If loading custom menus youmight want to differentiate between the symbol editor
+         and design editor.
+  NEEDS
+         nothing
+  RETURNS
+         Returns t if symboleditor.
+  SEE ALSO
+         axlDesignType
+  EXAMPLES
+         axlIsSymbolEditor()

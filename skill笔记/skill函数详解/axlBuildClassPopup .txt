@@ -1,0 +1,24 @@
+创建层面组下拉列表
+  NAME
+         axlBuildClassPopup - create popup for all classes
+  FUNCTION
+         axlBuildClassPopup(
+                 r_form
+                 t_field
+         ) -> t/nil
+  SYNOPSIS
+         Support for building a form popupwith list of all CLASSES
+         available in Allegro. Thisallows form code to be written
+         to display a popup with a list of Allegro classeswithout
+         having to update it when a new Allegrorelease appears and
+         we change the number ofCLASSes.
+  NEEDS
+         r_form, t_field: standardform
+  RETURNS
+         t mostly unless error in args then nil
+  SEE ALSO
+         axlFormBuildPopup, axlSublassFormPopup
+         axlSubclassFormPopup
+  EXAMPLES
+         axlClassFormPopup(fw, "CLASS")
+         axlFormSetField(fw, "CLASS" axlMapClassName("ETCH"))

@@ -1,0 +1,32 @@
+在List部件中某处增加一些项目
+  NAME
+         axlFormListAddItem - Addes an item toa list (existing or not)
+  FUNCTION
+         axlFormListAddItem(
+                 r_form
+                 t_field
+                t_listItem/lt_listItems/nil
+                 g_index
+         ) -> t/nil
+  SYNOPSIS
+         This will add an item to a list at position x.
+         If you are adding manyitems it is much more efficient to
+         pass the items to add as a list.
+  NEEDS
+         r_form: Form id
+         t_field: Name if field
+         t_listItem: string of itemin the list. If adding to list for
+                 first time mustsend a nil to display list.
+         lt_listItems: list of strings to add
+         g_index 0 = the first item inthe list, -1 is the last
+  RETURNS
+         t if arguments are valid, nil otherwise.
+  EXAMPLES:
+         1) Add 3 items to list to end of list
+            axlFormListAddItem(f1 "list" "a" -1)
+            axlFormListAddItem(f1 "list" "b" -1)
+            axlFormListAddItem(f1 "list" "c" -1)
+            ; since first time send a nil
+            axlFormListAddItem(f1 "list" nil -1)
+         2) Alternative method
+            axlFormListAddItem(f1 "list" '("a" "b" "c"), -1)

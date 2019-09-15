@@ -1,0 +1,30 @@
+从某个hole中获得一个多边形数据
+  NAME
+     axlPolyFromHole - Function createsa list of polygon object from hole
+  FUNCTION
+     axlPolyFromDB (
+         o_polygon
+     )
+     => lo_polygon
+  SYNOPSIS
+     Creates a new poly from thevertices of the hole, and setsthe isHole
+     attribute of the resulting polyto nil. Function returns nil in case
+     of error.
+  NEEDS
+      o_polygon    - o_polygon on which the operation is tobe done.
+                     The o_polygonmust have isHole attribute set to t
+                     (that is the argument must be a hole).
+  RETURNS
+      lo_polygon    Returns a list of o_polygons whichrepresent the
+                    resultinggeometry after creating poly from the hole
+                    argument. In case of an error, it returns nil.
+  SEE ALSO
+     Creates an lo_polygon objectfrom a hole.
+     The lo_polygon object can bemanipulated with the following operations:
+         axlPolyOperation()   performs various logical operations on 2 listsof
+                              polygon UDTs
+         axlPolyExpand()      expands or contracts
+  EXAMPLES
+         poly = axlPolyFromDB(shape_dbid)
+         hole = car(poly->holes)
+         polyList = axlPolyFromHole (hole)

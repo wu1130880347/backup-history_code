@@ -1,0 +1,23 @@
+将焊盘保存成文件
+  NAME
+     axlPadstackToDisk -  function to save a boardpadstack out to a library
+  SYNOPSIS
+     axlPadstackToDisk(
+         t_padName
+         t_outPadName
+     )
+     ==> t/nil
+  FUNCTION
+  NEEDS
+         t_padName          -- Name of the pad that has to bedumped (optional)
+         t_outPadName       -- Name of the output pad (optional)
+  RETURNS
+         axlPadstackToDisk         - nil if not created, t if created
+  NOTE
+  EXAMPLE
+     axlPadstackToDisk()
+           - Will dump all thepadstacks in the layout
+     axlPadstackToDisk("pad60cir36d")
+           - Will dumppadstack "pad60cir36d" from the layout as "pad60cir36d.pad"
+     axlPadstackToDisk("pad60cir36d" "abc")
+           - Will dumppadstack "pad60cir36d" from the layout as "abc.pad"

@@ -1,0 +1,37 @@
+判断一个dbid是否是PCB
+  NAME
+         axlIsDBIDType - is skill object aAllegro dbid
+  FUNCTION
+         axlIsDBIDType(
+                 g_dbid
+                 )
+         ==> t/nil
+  SYNOPSIS
+         Determines if g_dbidis an Allegro database dbid . Returns t if so
+         and nilotherwise.
+  NEEDS
+         g_dbid:         Variable to be checked whether a dbid or not.
+  RETURNS
+         t/nil:          Returns t if g_dbidis a true Allegro dbid. Otherwise
+                         it returnsnil.
+  EXAMPLES
+         The following exampledefines a function based on axlIsDBIDType to
+         tell whether a symbol is anAllegro dbid or not. It then creates an
+         r_path (which is not anAllegro dbid, because paths areonly temporary
+         building structures) and then usesthe r_path to create an Allegro
+         line (which is anAllegro dbid). This function is usedto show
+         whether each is a truedbid.
+         defun( isItDBID (testDBID)
+             if( axlIsDBIDType(testDBID) then
+                 println( "This is anAllegro DBID.")
+             else
+                 println( "This is NOT anAllegro DBID.") )
+         )
+         mypath = axlPathStart( list(100:500))
+         axlPathLine( mypath 0.0 200:250)
+         myline = axlDBCreatePath( mypath "etch/top" nil)
+         isItDBID(mypath)
+         isItDBID(caar(myline))
+         The function printsthe following:
+             "This is NOT anAllegro DBID."
+             "This is anAllegro DBID."

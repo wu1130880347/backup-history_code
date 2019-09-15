@@ -1,0 +1,18 @@
+删除所有未使用的约束对象和约束集。
+  NAME
+         axlCnsPurgeAll - Remove all unusedconstraint objects and constraint sets.
+  SYNOPSIS
+         axlCnsPurgeAll(
+         ) -> x_purgeCount
+  FUNCTION
+         Process all netclasses, regions, physical constraintsets and
+         spacing constraintsets.  Deletes all empty netclasses and regions.
+         Deletes all unusedconstraint sets.
+  NEEDS
+         nothing.
+  RETURNS
+         the count of the itemsdeleted.
+  SEE ALSO
+         axlCnsPurgeCsets
+  EXAMPLES
+         axlCnsPurgeAll()

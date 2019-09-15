@@ -1,0 +1,32 @@
+程序日志文件控制
+  NAME
+     axlJournal - Program journalfile control
+  SYNOPSIS
+     axlTempFile(
+         g_option
+     )
+     ==> t_tempFileName
+  FUNCTION
+     This function manages theprogram's journal file. It has several
+     modes of operation:
+         g_option = 'close
+                 closes currentjournal file; returns name of closed file
+         g_option =<t_filename>
+                 close currentjournal file and opens no file, returns
+                 t ifsuccessful, nil if can'topen file. Side effect
+                 of failure iscurrent journal file is closed.
+         g_option = 'name
+                 returns fullpathname of current journal file, nil if no
+                 active journal file
+     CAUTION
+         Typically the journal file is buffered.Reading the file while
+         it is open may beunpredictable.
+  NEEDS
+      g_mode - see above
+  RETURNS
+      see above
+  EXAMPLE
+         1) Name of file
+                 axlJournal('name)
+         2) Open new file intmp in current directory
+                 axlJournal("my_journal")

@@ -1,0 +1,30 @@
+单击点选增加对象
+  NAME
+         axlAddSelectPoint - find object atgiven point
+  SYNOPSIS
+         axlAddSelectPoint(
+                 [l_point]
+         )
+         ==> t/nil
+  FUNCTION
+         Find a nonselected objectthat is close to the input point and meets
+         the find filtercriteria.  Add that object to theselection set.  
+         If no point is provided,  prompt the user for a selection point prior
+         to the find operation.
+         axlAddSelectPoint selects a singleobject and adds it to theselect
+         set, unless EQUIVLOGIC is on. In that case, it may selectmultiple
+         objects, for example, if it finds aqualified figure (such asa pin,
+         connect line, or via) that is part of anet.  axlAddSelectPoint adds
+         all the qualified figures that belong to thenet to the select
+         set. See Find FilterOptions.
+         This finds objects withinthe current trapsize (axlGetTrapBox) which
+         varies based upon the zoomfactor.
+  NEEDS
+         l_point         - coordinate pair for xy location where objects are
+                           to befound.
+  RETURNS
+         t               - if an object was added to the selectionset.
+         nil             - if nothing added.
+  SEE ALSO
+         axlSingleSelectPoint axlSubSelectBox axlSingleSelectBox
+         axlAddSelectBox axlSubSelectPoint

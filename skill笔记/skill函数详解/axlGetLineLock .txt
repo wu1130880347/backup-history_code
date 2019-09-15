@@ -1,0 +1,50 @@
+获取当前行锁定的设置选项
+# @/ ?- o8 y% A
+  NAME
+         axlGetLineLock - get currentsettings of the line lock options
+  FUNCTION
+         axlGetLineLock(
+                 s_name
+                 [g_value]
+         )
+         ==>g_currentValue/ls_names
+  SYNOPSIS
+         Gets the current settingsof the dynamic control options.
+         Equivalent items is theoption control panel for "add" commands.
+         Items currently supported:
+         Name:   arcEnable
+         Value:  t/nil
+         Description: If t LockMode is arc, nil isline.
+         Name:   lockAngle
+         Value:  0, 45, 90
+         Description: In degress where 0 is off (no lock).
+         Name:   minRadius
+         Value:  float
+         Description: Minimum Radiusin user units.
+         Name:   length45
+         Value:  float
+         Description: Fixed 45 Lengthvalue in user units.
+         Name:   fixed45
+         Value:  t/nil
+         Description: If t Fixed 45 length isenabled.
+         Name:   lengthRadius
+         Value:  float
+         Description: Fixed radius value in userunits.
+         Name:   fixedRadius
+         Value:  t/nil
+         Description: If t inFixed Radius mode
+         Name:   lockTangent
+         Value:  t/nil
+         Description: If t tangentmode is on.
+  NEEDS
+         s_name: symbol name ofcontrol. nil returns all possible names
+  RETURNS
+         See above
+         ls_names - If name is nil then returnsa list of all controls.
+  SEE ALSO
+         axlSetLineLock
+  EXAMPLES:
+         1) Return current locktangent setting
+                 axlGetLineLock('lockTangent)
+         2) get allnames supported by this interface
+                 listOfNames = axlGetLineLock(nil)

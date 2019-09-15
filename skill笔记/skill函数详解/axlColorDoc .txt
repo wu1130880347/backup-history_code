@@ -1,0 +1,44 @@
+Allegro—’…´ΩÁ√Ê
+  NAME
+         axlColorDoc - Allegro colorinterface for Skill
+  SYNOPSIS
+         Allegro supports two coloraccess methods: pre-defined colors
+         and allegro database colors. Not allAllegro based programs
+         support access to allegrodatabase colors (this isonly
+         supported by the graphicseditors.
+         Pre-defined colors are set and accessed by theirsymbols.
+         They are:
+                 'black
+                 'white
+                 'red
+                 'green
+                 'yellow
+                 'blue
+                 'multivalue - usedfor fields where value not the same
+                 'button - current color of buttonfaces (grey)
+         In addition graphicseditors support access to the colors
+         used for Allegro layers.These are integer numbers.
+         AXL API calls such asaxlGetLayer("class/subclass") or
+         its primitive form      
+         axlGetParm("paramLayerGroup:<class>/paramLayer:<subclass>")
+         return the current color setting of a layervia the color
+         attribute call. Example:
+                 p = axlGetLayer("etch/top")
+                 p->color        -> 2
+         These colors currently range between 1 and 24 with
+         0 reserved for the backgroud color.
+         Interfaces supportingsetting color are mostly form based.
+         For there interfaces see:
+                 axlFormDoc
+                 axlFormColorize
+                 axlFormGridDoc
+                 axlGRPDoc
+                 
+  NOTES:
+         - no AXL method iscurrently supported to allow you to change
+                 the red/green/blue (RGB) of allegro databasecolors
+         - We restrict thepre-defined colors to those defined to
+                 minimize use ofcolors to minimize problems with
+                 8 bit color graphicson UNIX. When 24 (or higher)
+                 color cards becomestandard on UNIX this will be
+                 relaxed.

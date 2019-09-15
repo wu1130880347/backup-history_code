@@ -1,0 +1,27 @@
+获得path中最后一条线段
+  NAME
+         axlPathGetLastPathSeg - Get the last seg ofa path structure.
+  FUNCTION
+         axlPathGetLastPathSeg(
+             r_path
+         )
+         ==> r_pathList/nil
+  SYNOPSIS
+         Gets a last segmentof a path structure.
+  NEEDS
+         r_path:         Handle of an existing path structure.
+  RETURNS
+         r_pathList/nil: Returns thelast segment of the path. Returns
+                         nil if r_pathis not a path.
+  EXAMPLES
+         This example:
+           * Creates a path withdefault width 173 mils
+           * Adds line segments atwidths 29 and 33 mils
+           * Gets the last segmentadded with axlPathGetLastPathSeg
+         axlPathSegGetWidth returns the widthof that segment only, 33 mils.
+         path = axlPathStart( list(1000:1250) 173)
+                 axlPathLine( path 29 2000:1250)
+                 axlPathLine( path, 33 3000:3450)
+         lastSeg = axlPathGetLastPathSeg(path)
+         axlPathSegGetWidth( lastSeg)
+                 ==> 33.0

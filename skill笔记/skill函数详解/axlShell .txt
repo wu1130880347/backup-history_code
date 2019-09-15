@@ -1,0 +1,24 @@
+allegro ÃüÁîµ÷ÓÃ
+  NAME
+         axlShell
+  FUNCTION
+         axlShell(
+                 t_command
+                 ) ==> t
+  SYNOPSIS
+         Issues the Allegro commandstring t_commands to the connected editor.
+         Commands can be chained.This call is synchronous.
+  CAUTIONS:
+         This function may not beportable across Allegro releases.
+  NEEDS
+         t_command:      Allegro shell command orcommands.
+  RETURNS
+         t:      Always returns t.
+  SEE ALSO
+         axlShellPost
+  EXAMPLES
+         The following exampledisplays the Allegro Status form from AXL-SKILL.
+         axlShell("status")
+         ==> t
+         Chained command example:
+            axlShell("zoom points;pick 0 0; pick 100 100")

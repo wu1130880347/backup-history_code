@@ -1,0 +1,24 @@
+设置当前的封装类型
+  NAME
+         axlSetSymbolType - set thecurrent symbol type.
+  FUNCTION
+         axlSetSymbolType(
+             t_symbolType
+         )
+         ==> t/nil
+  SYNOPSIS
+         Set the Allegro symboltype. This has some minor effect on the
+         commands that are available, and the edit checksthat are
+         performed when thesymbol is "compiled" (axlCompileSymbol).
+         Use axlDesignType to determine current symbol type.
+  NEEDS
+         t_symbolType            - "package", "mechanical", "format" "shape"
+                                   "flash"
+  RETURNS
+         axlSetSymbolType        - t_symbolType if successful, nil if error
+  NOTE
+         This function is onlyavailable in the symbol editor. This is
+         a Skill interface into thechange symbol type in the Drawing
+         Parameters form inAllegro_symbol.
+  SEE ALSO
+         axlCompileSymbol,  axlDesignType

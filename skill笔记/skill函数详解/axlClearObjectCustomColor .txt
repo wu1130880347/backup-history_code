@@ -1,0 +1,21 @@
+清除当前所择dbids定制颜色
+
+& N+ s+ O& Y* H6 S8 a
+  NAME
+         axlClearObjectCustomColor
+  FUNCTION
+         axlClearObjectCustomColor(
+                 [lo_dbid]
+                 )
+         ==> t/nil
+  SYNOPSIS
+         Clear custom color of dbids
+  NEEDS
+         lo_dbid:        List of dbids to clear custom color.
+  RETURNS
+         t/nil:          Returns t if at least one object custom color wascleared.
+                         Returns nil otherwise.
+  SEE ALSO
+         axlCustomColorObject
+  EXAMPLES
+         See axlCustomColorObject for examples

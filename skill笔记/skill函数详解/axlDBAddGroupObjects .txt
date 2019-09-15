@@ -1,0 +1,26 @@
+将某对象加入一个group中1 B$ _; }: Q: m0 A! S
+  NAME
+         axlDBAddGroupObjects - add databaseobjects to a group.
+  SYNOPSIS
+         axlDBAddGroupObjects(
+                 o_group
+                 lo_members
+         )
+         ==> t/nil
+  FUNCTION
+         Adds the database objectsspecified in the new members list to a group.
+         All restrictions and disclaimersspecified in axlDBCreateGroup also
+         apply for this procedure.
+  NEEDS
+         o_group         The dbid of the group which is to receive newmembers.
+         lo_members      A list of dbid's specifying the new groupmembers.
+                         Databaseobjects which are already in thegroup will be
+                         silently ignored (will result in return value of t).  A
+                         single dbidcan be substituted for a list.
+  RETURNS
+         t               If the objects were added to thegroup.
+         nil             If the objects could not be added to thegroup.  This
+                         probablymeans that the resultant group would not
+                         meet therestrictions specified in axlDBCreateGroup.
+  SEE ALSO
+         axlDBCreateGroup

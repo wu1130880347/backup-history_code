@@ -1,0 +1,68 @@
+清除光标上的附带对象
+  NAME
+         axlClearDynamics
+  FUNCTION
+         axlClearDynamics(
+                 )
+         ==> t
+  SYNOPSIS
+         Clears the dynamic cursorbuffer. Call this function each time before you start setting
+         up rubberband and dynamic cursorgraphics.
+  NEEDS
+         None.
+  RETURNS
+         t:      Always returns t.
+  EXAMPLES
+     Dynamic Cursor Rotation Example
+         This example loads twocircular pad and, the outline of aresistor, and rubberband
+         connections from its pins, one with a "path" rubberband, the other a "directline"
+         rubberband into the dynamiccursor buffer:
+         axlClearDynamics() ; Clean out anyexisting cursor data
+         mypath = axlPathStart(list( -350:0)) ; Start circular pad
+         axlPathArcCenter(mypath, 0., -350:0, nil, -300:0)
+         ; Load the first pad into the dynamiccursor buffer
+         axlAddSimpleMoveDynamics(0:0 mypath "path" ?ref_point 0:0)
+         mypath = axlPathStart(list( 350:0)) ; Start circular pad
+         axlPathArcCenter(mypath, 0., 350:0, nil, 300:0)
+         ; Load the other pad into the dynamiccursor buffer
+         axlAddSimpleMoveDynamics(0:0 mypath "path" ?ref_point 0:0)
+         mypath = axlPathStart( ; Start resistorbody outline
+                 list( -200:-100 200:-100 200:100 -200:100 -200:-100))
+         ; Load the resistor body outline inthe dynamic cursor buf
+         axlAddSimpleMoveDynamics(0:0 mypath "path" ?ref_point 0:0)
+         ; Ask user to pick angle of rotationabout (8500:4500):
+         axlEnterAngle(8500:4500)
+     Dynamic Rubberband Example
+         This example loads twocircular pad and, the outline of aresistor, and rubberband
+         connections from its pins, one with a "path" rubberband, the other a "directline"
+         rubberband into the dynamic cursor buffer.
+         axlClearDynamics() ; Clean out anyexisting cursor data
+         ; Create cross markers to showrubberband origins:
+         axlDBCreateLine(list(9150:4450 9050:4550) 0.
+                 "board geometry/dimension")
+         axlDBCreateLine(list(9150:4550 9050:4450) 0.
+                 "boardgeometry/dimension")
+         axlDBCreateLine(list(8550:4450 8450:4550) 0.
+                 "boardgeometry/dimension")
+         axlDBCreateLine(list(8550:4550 8450:4450) 0.
+                 "boardgeometry/dimension")
+         mypath = axlPathStart(list( -350:0)) ; Start circular pad
+         axlPathArcCenter(mypath, 0., -350:0, nil, -300:0)
+         ; Load the first pad into the dynamiccursor buffer
+         axlAddSimpleMoveDynamics(0:0 mypath "path" ?ref_point 0:0)
+         mypath = axlPathStart(list( 350:0)) ; Start circular pad
+         axlPathArcCenter(mypath, 0., 350:0, nil, 300:0)
+         ; Load the other pad into the dynamiccursor buffer
+         axlAddSimpleMoveDynamics(0:0 mypath "path" ?ref_point 0:0)
+         mypath = axlPathStart( ; Start resistorbody outline
+                 list( -200:-100 200:-100 200:100 -200:100 -200:-100))
+         ; Load the resistor body outline inthe dynamic cursor buf
+         axlAddSimpleMoveDynamics(0:0 mypath "path" ?ref_point 0:0)
+         ; Load a "path" rubberbandto the first pad
+         axlAddSimpleRbandDynamics(8500:4500 "path"
+                 ?origin 8500:4500 ?var_point -300:0)
+         ; Load a "directline"rubberband to the second pad
+         axlAddSimpleRbandDynamics(9100:4500 "directline"
+                 ?origin 9100:4500 ?var_point 300:0)
+         ;
+         mypoint = axlEnterPoint() ; Ask user for point

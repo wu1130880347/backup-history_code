@@ -1,0 +1,18 @@
+绘制dbid的列表。重绘由axlEraseObject被删除的任何对象。
+  NAME
+         axlDrawObject - Draw a list of AXL DBID's
+  FUNCTION
+         axlDrawObject(
+                 lo_dbid
+                 )
+         ==> t/nil
+  SYNOPSIS
+         Processes a list of DBIDs .
+         Redraws any objects thatwere erased by axlEraseObject.
+  NEEDS
+         lo_dbid:        List of DBIDS or one DBID.
+  RETURNS
+         t:      Something was drawn.
+         nil:    No valid DBIDs or all objects already at desired display state.
+  EXAMPLES
+        None.

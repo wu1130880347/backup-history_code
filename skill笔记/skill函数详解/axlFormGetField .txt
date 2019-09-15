@@ -1,0 +1,32 @@
+获得部件
+  NAME
+         axlFormGetField - gets value of field
+  FUNCTION
+         axlFormGetField(
+                 r_form
+                 t_field
+                 )
+         ==> g_value/nil
+  SYNOPSIS
+         Gets the value of t_field in the open form r_form. The value is a string if
+         g_stringOption was set in axlFormCreate. Otherwise the value is in the field type that
+         was declared in the form file.
+  NEEDS
+         r_form:         Form dbid.
+         t_field:        Name of the field.
+  RETURNS
+         g_value/nil:    Current value of the field, or nil if the field does not exist. If the
+                         field is a boolean type field (check or radio) then the function returns
+                         nil to indicate false.
+  EXAMPLES
+         In this example you do the following:
+         1. Load the example code given in axlFormCreate.
+         2. Enter the command myExtract() on the SKILL command line.
+         3. The command displays the Extract Selector dialog box, listing all available extract
+            view files.
+         4. Select any file in the list, or type a name into the View File field.
+         In the following example,  allegro2rlb_view.txt is entered.
+         To examine the value of the "view_file" field
+                 Type the following in the SKILL command line:
+                 axlFormGetField( form "view_file")
+                         ==> "allegro2rlb_view.txt"

@@ -1,0 +1,21 @@
+ÎÄ¼þ¿½±´
+  NAME
+     axlOSFileCopy - Copy file fromsrc to dest, in OS neutralmanner
+  SYNOPSIS
+     axlOSFileCopy(
+         t_src
+         t_dest
+         g_append
+     ) ==> t/nil
+  FUNCTION
+    Copies given source file togiven destination with optional append.
+  NEEDS
+     t_src  - full-path of source file
+     t_dest - full-path ofdestination file
+     g_append - boolean flag for appendfunctionality (t/nil)
+  RETURNS
+     t   on successful copy
+     nil on failure
+  EXAMPLE
+     unless(axlOSFileCopy("~/myfile" "~/newfile" nil)
+       axlUIConfirm("file copyFAILED") )

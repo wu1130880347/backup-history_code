@@ -1,0 +1,13 @@
+获取via Z 设置值
+  NAME
+     axlCNSGetViaZPVF
+  SYNOPSIS
+     axlCNSGetViaZPVF()
+     => t_viaZPVF
+  FUNCTION
+     Returns the via Z propagationvelocity factor
+  NEEDS
+  RETURNS
+     t_viaZPVF: If the via Zpropagation velocity factor is defined, it is
+                returned as astring. If not defined, a blank string is
+                returned.

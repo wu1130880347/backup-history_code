@@ -1,0 +1,23 @@
+设置指定的数据间隔
+  NAME
+         axlSetSpacerData - set data for thespecified spacer
+  FUNCTION
+         axlSetSpacerData (
+             g_spacerId
+             s_dataType
+             g_newValue
+         )
+         ==> t/nil
+  SYNOPSIS
+         This function setsthe given data for the given spacer.
+         Only available in SIP products.
+  NEEDS
+         g_spacerName - name or dbid ofthe spacer to get the data for
+         s_dataType   - data type of the given value, one of:
+                         '(DSA_DIELECTRIC_MATERIAL
+                           DSA_DIELECTRIC_THICKNESS_DBREP
+                          DSA_DIELECTRIC_THICKNESS_STRING
+                          DSA_PART_NUMBER)
+         g_newValue - new value for thespecified data type.
+  RETURNS
+         t on success, otherwise nil

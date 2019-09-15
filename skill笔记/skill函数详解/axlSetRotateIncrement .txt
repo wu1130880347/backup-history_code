@@ -1,0 +1,22 @@
+设置动态旋转角度增量。
+  NAME
+         axlSetRotateIncrement - Sets the dynamicsrotate angle increment.
+  FUNCTION
+         axlSetRotateIncrement (
+             ?angular f_angular
+             ?radial  f_radial
+         )
+         ==> t/nil
+  SYNOPSIS
+         Sets the dynamic rotateangle increment in degrees (f_angular)
+         or radians (f_radial).  Sets the rotate increment forrotation
+         of objects in the dynamicbuffer.
+  NEEDS  
+        f_angular        - Angle Lock increment in degrees.
+        f_radial         - Radial lock increment in radians.
+  RETURNS
+         t/nil: t ifsuccessful; nil otherwise
+  EXAMPLES
+         The following example setsthe dynamic rotate angle to 15
+         degrees:
+                 axlSetRotateIncrement(?angular 15) ==> t

@@ -1,0 +1,16 @@
+
+事务提交
+  NAME
+         axlDBTransactionCommit - commit a databasetransaction
+  SYNOPSIS
+         axlDBTransactionCommit(
+             x_mark
+         ) ==> t/nil
+  FUNCTION
+         Commit a database transactionfrom last transaction mark.
+  NEEDS
+         x_mark - databasetransaction mark returned from axlDBTransactionStart
+  RETURNS
+         - nil if not successful, t if successful
+  EXAMPLE
+         see axlDBTransactionStart()

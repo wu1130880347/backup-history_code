@@ -1,0 +1,61 @@
+返回设计的相叠部分
+  NAME
+     axlGetXSection - return crosssection of design
+  SYNOPSIS
+     axlGetXSection(
+     )
+     ==> l_layers/nil
+  FUNCTION
+     This function returns a list of allthe layers in the cross section
+     found in the current drawing.
+  NOTES
+     The t_SignalDieConstant andt_SignalLossTangent values are the values
+     for dielectric materialbetween traces on signal layers. Beginning with
+     15.0, the dieConst/LossTanfor dielectric material on signal layers is
+     stored in a Property.
+     The dielectric materialproperties from the dielectric layer above
+     (Towards the closest surface) will be used as thedielectric material
+     between signal traces unless theDESIGN property "SQ_STRIPLINE_DIELECTRIC"
+     is set.  Then this defines the Material, Dielectric Constantand LossTangent
+     to be used fornon-plane, non-surfaceconductor layers. Surface layers always
+     look to the outside for theirdielectric.
+     If the Property is missing, invalid or thematerial in the property is set to
+     "_LS_AUTOMATIC_", then thet_SignalDieConstant and t_SignalLossTangent values
+     will be set tomatch those of the adjacent dielectric (looking towards the
+     closest surface).
+  CAUTION
+     New releases may add to the list of datareturned for each layer.
+     These items will be added atthe end of the list.
+     Added items:
+          16.01 - g_freqDepFileName
+  RETURNS
+     An ordered skill list oflayers in the board's cross section.
+     Each layer will be defined by alist of the following format:
+       (t_name t_type t_material t_thicknesst_thermalCond t_elecCond
+        t_dielectricConsty_artworkNeg y_shield t_lossTangent
+        t_usage t_SignalDieConstantt_SignalLossTangent g_freqDepFileName
+        t_etchFactor)
+     where:
+        t_name is layer name
+        t_type is layer type
+        t_material is layer material
+        t_thickness is layerthickness
+        t_thermalCond is layerthermal conductivity
+        t_elecCond is layerelectrical conductivity
+        t_dielectricConst is thelayer dielectric constant
+        y_artworkNeg indicateswhether or not the artwork for the layer isnegative
+        y_shield indicates wether or not thelayer is a shield layer
+        t_lossTangent is the layerloss tangent (valid fordielectrics only)
+        t_usage is layer usage (i.e. IC RDL or DRIVERlayers, ?future use for id'ing
+                                PKG and PCBlayer usages?)
+        t_SignalDieConstantDielectric between traces on interior Signal
+                            Layers (or nil)
+        t_SignalLossTangentDielectric between traces on interior Signal
+                            Layers (or nil)
+        g_freqDepFileName definesthe name of the frequency dependent data file
+                          for thefile. This value will be nil if there is no
+                          file namedefined for this layer.
+        t_etchFactor defines theetch factor for this layer which is in degrees.
+     Note the t_SignalDieConstant andt_SignalLossTangent are nil on PLANE and
+     dielectric layers.
+     If error is detected, a nil will bereturned.

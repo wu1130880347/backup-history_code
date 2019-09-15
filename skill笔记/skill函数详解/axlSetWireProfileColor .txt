@@ -1,0 +1,15 @@
+设置一个导线分布图的颜色为给定值。
+   NAME
+          axlSetWireProfileColor
+   FUNCTION
+          axlSetWireProfileColor(t_profile n_color)
+             ==> t / nil
+   SYNOPSIS
+          This function will set thecolor of a wire profile to the
+          given value.
+   NEEDS
+          t_profile -- Name of profile toretrieve color for.
+          n_color   -- Color index to assign to theprofile.
+   RETURNS
+          t ifsuccessful.
+          nil if error (profile does not exist).

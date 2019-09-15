@@ -1,0 +1,19 @@
+删除带有FILLET属性的多余走线
+  NAME
+     axlDeleteFillet - Delete fillet(s) from Pin, Via and T
+  SYNOPSIS
+     axlDeleteFillet(
+         o_dbid
+     )
+     ==> t/nil
+  FUNCTION
+     Deletes fillets associated witha PIN, VIA or T or CLINE.
+     Will delete a single fillet if o_dbid is a filletshape.
+     When deleting via a cline, we look for the via/pinconnections
+     and delete the fillets from that pin or via. It onlydeletes FILLETS
+     on the layer of the CLINE.
+     If deleting FILLETS from a PIN or VIA it deletesFILLETS on all layers
+  NEEDS
+     o_dbid      - dbid of PIN, VIA or T, PATH.
+  RETURNS
+     tor nil  

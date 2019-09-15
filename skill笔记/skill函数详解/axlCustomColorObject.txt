@@ -1,0 +1,44 @@
+设置自定义颜色在axl DBID列表
+
+  NAME
+         axlCustomColorObject - Set custom coloron a list of AXL DBID's
+  FUNCTION
+         axlCustomColorObject(
+                 [lo_dbid]
+                 [g_custom_color]
+         )
+         ==> t/nil
+  SYNOPSIS
+         Custom color the provideddbid or list of dbids.
+         Objects supported are nets, symbol instances, pins and external DRCs.
+  NEEDS
+         od_dbid - list of DBIDS or one DBID
+         g_custom_color  - color index to be used to set custom color.
+                           if nil, perm highlight willbe used.
+  RETURNS
+         t      - Something was custom colored.
+         nil    - No valid dbid's.
+  SEE ALSO
+         axlClearObjectCustomColor, axlDBControl, axlIsCustomColored
+  EXAMPLES
+         A) You can use the AXL-SKILL axlCustomColorObject and
+            axlClearObjectCustomColor functions toset/clear custom color of
+            database elements duringinteractive commands.
+         The following example doesthe following:
+            1. Defines the function highlightLoop.
+            2. Loops on the function axlSelect gathering userselections
+               to set/clear customcolor.
+            3. Custom colorsobjects using color 4.
+            4. Waits then clears customcolor.
+         You can stop the command atany time by selecting Cancel or
+         Done from the pop-up.
+         (defun customColorLoop ()
+             axlSetFindFilter( ?enabled '("noall" "alltypes" "nameform")
+                                 ?onButtons "alltypes")
+             while( axlSelect()
+                   axlCustomColorObject( axlGetSelSet() 4)
+                   checkColor = axlIsCustomColored( car(axlGetSelSet()) )
+                   axlSleep(1)
+                   axlClearObjectCustomColor( axlGetSelSet())
+             )
+         )

@@ -1,0 +1,17 @@
+已废弃，仅为了兼容旧版本$ M! ^, G6 i7 B; `
+  NAME
+         axlExtentSymbol  - obsolete
+  FUNCTION
+         axlExtentSymbol(
+                 )
+         ==> l_bBox
+  SYNOPSIS
+          Obsolete use axlExtentDB.Kept for backwardcapability.
+  NEEDS
+         None.
+  RETURNS
+         l_bBox:         See axlExtentDB.
+  EXAMPLES
+         None.
+  SEE ALSO
+         axlExtentDB

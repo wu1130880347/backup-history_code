@@ -1,0 +1,27 @@
+设置或查询保存的设计状态
+  NAME
+         axlSaveEnable - set or querysave design state
+  SYNOPSIS
+         axlSaveEnable(
+                 [g_saveEnable]
+         ) -> t/nil
+  FUNCTION
+         This queries or setsthe design save design. When t the File->Save
+         design menu item is enabled, nil it isdisabled.
+         If no arguments areprovided then returns current status.
+         If g_saveEnable is t then enablessave menu (reset of next
+         database save). If g_saveEnable isnil disables the save menu.
+         If is notrecommended that you unset the save enable.
+  NEEDS
+         g_saveEnable: t
+                 if notprovided just does query
+  RETURNS
+         Returns current savesetting if query and previous setting
+         if changing the value.
+  SEE ALSO
+         axlSaveDesign
+  EXAMPLES
+         1) query state of save
+                 state = axlSaveEnable()
+         2) Set state of saveto t (enable save menu)
+                 oldState = axlSaveEnable(t)

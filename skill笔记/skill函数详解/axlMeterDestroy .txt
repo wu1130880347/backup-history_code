@@ -1,0 +1,14 @@
+关闭进度表
+     NAME
+         axlMeterDestroy
+  FUNCTION
+         axlMeterDestroy (
+                 ) -> t/nil
+  SYNOPSIS
+         closes progress meter form and shutsoff cancel mode if enabled.
+     NEEDS
+         nothing
+   RETURNS
+         t if meter wasdestroyed, otherwise nil.
+   SEE ALSO
+         axlMeterCreate

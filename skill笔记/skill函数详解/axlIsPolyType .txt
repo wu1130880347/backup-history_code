@@ -1,0 +1,21 @@
+ÅÐ¶ÏÐéÄâÇøÓò(Poly)ÀàÐÍ
+  NAME
+     axlIsPolyType - determines if thesymbol is a polygon user type
+  FUNCTION
+     axlIsPolyType (
+                 g_polygon
+                 )
+         ==> t/ni
+  SYNOPSIS
+      Tests if argument g_polygonis of type o_polygon.
+  NEEDS
+     g_polygon - any skill variable.
+  RETURNS
+     t/nil:    Returns t ifg_polygon is actually an o_polygon.
+               Otherwise, it returns nil.
+  SEE ALSO
+         axlPolyFromDB
+  EXAMPLES
+         poly = axlPolyFromDB(cline_dbid)
+         axlIsPolyType(poly) will return t
+         axlIsPolyType(cline_dbid) will return nil

@@ -1,0 +1,232 @@
+查询和设置显示选项
+  NAME
+         axlDBDisplayControl - inquire and set display options
+  FUNCTION
+         axlDBDisplayControl(
+                 s_name
+                 [g_value]
+         )
+         ==>g_currentValue/ls_names
+  SYNOPSIS
+         Inquires and/or sets the display database controls .
+         If setting a value, the return is the old value ofthe control.
+         A side effect of most ofthese controls is if a form is active that
+         is displaying the currentsetting it may not beupdated. Additional
+         side effects of individualcontrols are listed.
+         Use axlColorGet and axlColorSet to change thebackground color.
+         Note <maxColor> isfound by:
+                 maxColor = axlColorGet(`count)
+         Items currently supported:
+         Name:   connectPointSize
+         Value:  dbrep
+         Set?:  Yes
+         Description: Changes thesize of connect points (diamond figures)
+         Equiv:  prmed Display group
+         Side Effects: Call axlVisibleUpdate to update display.
+         Name:   connectPointEnabled
+         Value:  t/nil
+         Set?:  Yes
+         Description: Changesvisibilty of connect points (diamond figures)
+         Equiv:  prmed Display group
+         Side Effects: Call axlVisibleUpdate to update display.
+         Name:   customColorEnabled
+         Value:  t/nil
+         Set?:  Yes
+         Description: Changes the display of custom colors
+         Equiv:  color192 dialog ("Enable CustomColors")
+         Side Effects: Call axlVisibleUpdate to update display.
+         Name:   displayNetNames
+         Value:  t or nil
+         Set?:  Yes
+         Description: Enables the display of net names onetch. OpenGL must be enabled.
+         Equiv:  prmed Display group
+         Side Effects: Call axlVisibleUpdate to update display.
+         Name:   drcMakerSize
+         Value:  dbrep
+         Set?:  Yes
+         Description: Changes thesize of DRC markers
+         Equiv:  prmed Display group
+         Side Effects: Call axlVisibleUpdate to update display.
+         Name:   editingTime
+         Value:  int
+         Set?:  Reset
+         Description: Reportsediting time of design in minutes
+         Equiv:  status form
+         Side Effects: Can reset time by passingg_value == t
+         Name:   endcapsEnable
+         Value:  t or nil
+         Set?:  Yes
+         Description: Controls display of line endcaps
+         Equiv:  prmed Display group
+         Side Effects: Call axlVisibleUpdate to update display.
+         Name:   filledPadsEnable
+         Value:  t or nil
+         Set?:  Yes
+         Description: Pads aredisplayed filled or hollow
+         Equiv:  prmed Display group
+         Side Effects: Call axlVisibleUpdate to update display.
+         Name:  gridColor
+         Value:  1 to <maxcolor>
+         Set?:  Yes
+         Description: Changes thegrid color
+         Equiv:  color dialog Display group
+         Side Effects: Call axlVisibleUpdate to update display.
+         Name:   gridEnable
+         Value:  t or nil
+         Set?:  Yes
+         Description: Queries and changes the gridvisibility
+         Equiv:  Color form, Display Group, Grids
+         Side Effects: Call axlVisibleUpdate to update display.
+         Name:   highlightColor
+         Value:  1 to <maxColor>
+         Set?:  Yes
+         Descriptionueries/changes the permanent highlight color.
+                 Can be used with axlHighlightObject
+         Equiv:  Color form, Display Group, Permanent highlight
+         Side Effects: Will alsochange the perm highlight color in
+                 the hilite command.Call axlVisibleUpdate to update display.
+         Name:   holeColor
+         Value:  1 to <maxColor>
+         Set?:  Yes
+         Descriptionueries/changes the drill hole color.
+         Equiv:  Color form, Display Group
+         Side Effects: Call axlVisibleUpdate to update display.
+         Name:   lastSaveUser
+         Value:  string
+         Set?:  No
+         Description: Reports last user login who saveddesign. This may
+                 be an empty string if the design wasnever saved.
+         Equiv:  Status form
+         Side Effects: None
+         Name:   nonPlatedHolesEnable
+         Value:  t or nil
+         Set?:  Yes
+         Description: Queries and changes thenon-plated holes visibility.
+                 Unlike in the prmeddialog setting this option to t
+                 does not set padlessHolesEnableto t.
+         Equiv:  Color form, Display Group, Grids
+         Side Effects: Call axlVisibleUpdate to update display.
+         Name:   padlessHolesEnable
+         Value:  t or nil
+         Set?:  Yes
+         Description: Queries and changes the padlessholes visibility.
+         Equiv:  Color form, Display Group, Grids
+         Side Effects: Call axlVisibleUpdate to update display.
+         Name:   platedHolesEnable
+         Value:  t or nil
+         Set?:  Yes
+         Description: Queries and changes the platedvisibility.
+                 Unlike in the prmeddialog setting this option to t
+                 does not set padlessHolesEnableto t.
+         Equiv:  Color form, Display Group, Grids
+         Side Effects: Call axlVisibleUpdate to update display.
+         Name:   tempColor
+         Value:  1 to <maxColor>
+         Set?:  Yes
+         Descriptionueries/changes the temporary highlight color.
+                 Can be used with axlHighlightObject
+         Equiv:  Color form, Display Group, Temporary highlight
+         Side Effects: Call axlVisibleUpdate to update display.
+         Name:   ratsnestColor
+         Value:  1 to <maxColor>
+         Set?:  Yes
+         Descriptionueries/changes the ratsnest color for top to bottom
+                         ratsnest.In pre-16.2 releases this set the color
+                         for all ratsnest.
+         Equiv:  Color form, Display Group, Ratsnest Color
+         Side Effects: Call axlVisibleUpdate to update display.
+         Name:   ratsnestBBColor
+         Value:  1 to <maxColor>
+         Set?:  Yes
+         Descriptionueries/changes the ratsnest color for bottom to bottom
+                         ratsnest.
+         Equiv:  Color form, Display Group, Ratsnest Color
+         Side Effects: Call axlVisibleUpdate to update display.
+         Name:   ratsnestTTColor
+         Value: 1 to <maxColor>
+         Set?:  Yes
+         Descriptionueries/changes the ratsnest color for top to top
+                         ratsnest.
+         Equiv:  Color form, Display Group, Ratsnest Color
+         Side Effects: Call axlVisibleUpdate to update display.
+         Name:   ratsnestJog
+         Value:  t/nil
+         Set?:  Yes
+         Descriptionueries/changes the ratsnest jog option.
+         Equiv:  prmed form, Display Group, Ratsnest Jog
+         Side Effects: None
+         Name:  ratTSize
+         Value:  dbrep
+         Set?:  Yes
+         Description: Changes thesize of RatT markers
+         Equiv:  prmed Display group
+         Side Effects: Call axlVisibleUpdate to update display.
+         Name:   thermalPadEnable
+         Value:  t or nil
+         Set?:  Yes
+         Description: Queries and changes the thermalpads. Only applicable
+                 for negative planes.
+         Equiv:  prmed Display group
+         Side Effects: Call axlVisibleUpdate to update display.
+         Name:   transparencyGlobal
+         Value:  1 to 255
+         Set?:  Yes
+         Description: Changes theOpenGL global transparency where
+                 1 is completelytranslucent and 255 is solid.
+         Equiv:  prmed Display group
+         Side Effects: Call axlVisibleUpdate to update display.
+         Name:   transparencyShape
+         Value:  1 to 255
+         Set?:  Yes
+         Description: Changes theOpenGL shape transparency where
+                 1 is completelytranslucent and 255 is solid.
+         Equiv:  prmed Display group
+         Side Effects: Call axlVisibleUpdate to update display.
+         Name:   viaLabel
+         Value:  t or nil
+         Set?:  Yes
+         Description: Queries and changes the vialabel display. Feature
+                 is not available inproducts less then PCB XL.
+         Equiv:  prmed Display group
+         Side Effects: Call axlVisibleUpdate to update display.
+         Name:   viaLabelColor
+         Value:  1 to <maxColor>
+         Set?:  Yes
+         Description: Queries and changes the vialabel color. Feature
+                 is not available inproducts less then PCB XL.
+         Equiv:  Color form, Display Group
+         Side Effects: Call axlVisibleUpdate to update display.
+         Name:   stackedViaLabelColor
+         Value:  1 to <maxColor>
+         Set?:  Yes
+         Description: Queries and changes the stackedvia label color. Feature
+                 is not available inproducts less then PCB XL.
+         Equiv:  Color form, Display Group
+         Side Effects: Call axlVisibleUpdate to update display.
+         Name:   waiveDRCColor
+         Value:  1 to <maxColor>
+         Set?:  Yes
+         Description: Queries and changes the waivedDRC color
+         Equiv:  Color form, Display Group, Waived DRC
+         Side Effects: Call axlVisibleUpdate to update display.
+         Name:   waiveDRCEnable
+         Value:  t to nil
+         Set?:  Yes
+         Description: Queries and changes the waivedDRC display state
+         Equiv: Color form, DisplayGroup, Waived DRCs
+         Side Effects: Call axlVisibleUpdate to update display.
+  NEEDS
+         s_name: symbol name ofcontrol. nil returns allpossible names
+         s_value: optional symbolvalue to set. Usually a t or a nil.
+  RETURNS
+         See above
+         ls_names - If name is nil then returns a list of all controls.
+  SEE ALSO
+         axlDBControl, axlColorGet, axlColorShadowGet
+  EXAMPLES:
+         1) Find out grid color
+                 color = axlDBDisplayControl('gridColor, nil)
+         2) Turn on grids
+                 old = axlDBDisplayControl('gridEnable t)
+         3) get all names supported by thisinterface
+                 listOfNames = axlDBDisplayControl(nil)

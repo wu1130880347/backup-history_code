@@ -1,0 +1,28 @@
+保存设计细节到 Allegro IPF 文件中
+  NAME
+          axlDetailSave - save elements toallegro ipf (intermediate plotfile)
+  SYNOPSIS
+         axlDetailSave(
+                 t_filename
+                 l_bBox
+                 o_dbid/lo_dbid
+                 [g_filledPads]
+         )
+         ==> t/nil
+  FUNCTION
+         This saves a clipping box (l_bBox) and the passed set of geometries (lo_dbid)
+         to a Allegro ipf file (t_filename).
+         Notes:
+            - Any attached text tothe dbids is saved.
+            - Ignores logical dbidssuch as nets, components, etc.
+  NEEDS
+         t_filename - the name ofthe file into which thedetail is saved
+         l_bBox     - list of two xy coordinates definingselection box
+         lo_dbid    - list of AXL DBID's or single DBID
+         g_filledPads - outputfilled pads as filled (t) or unfilled (nil). Default
+                         is filled.Certain other filled figures may be effected by this option.
+  RETURNS
+         t      - was able to save into the file
+         nil    - otherwise
+  SEE ALSO
+         axlDetailLoad

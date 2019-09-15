@@ -1,0 +1,54 @@
+检查提供的字符串是合法的字符和长度。
+  NAME
+         axlCheckString - check a stringthat
+  SYNOPSIS
+         axlCheckString(
+                 t_type
+                 t_string
+         ) -> t_modString/nil
+         axlCheckString(
+                 nil
+                 nil
+         ) -> lt_types
+         axlCheckString(
+                 'error
+                 nil
+         ) -> t_errorMsg/nil
+  FUNCTION
+         This checks the providedstring is legal characters and length. You must
+         also provide the data type.Give this API two nils if you want to see
+         the list of supported data types.
+         It performs the followingchecks for the data type provided:
+            - length check
+            - legal characters
+         For all data types exceptPROPVALUE, it may also modifythe provided
+         string and return the updated string to meet Allegrodatabase rules.
+            - stripping leading and trailing whitespace
+            - upper case
+         Unique considerations bydata type:
+            - PROPVALUE checks for common property valuerestrictions. Typically
+              a property may havemore severe restrictions.
+            - GROUP checks for common group namingrestrictions. A particular group
+              may enforce addtionalrestrictions.
+         You should use the return string since it mayhave been modified.
+         Errors messages may evolveover time.
+         Last error is only mainteduntil next call to axlCheckString
+  NEEDS
+         t_type - data type (nil to return all supported datatypes)
+         t_string - input string
+         'error - fetch last error message
+  RETURNS
+         t_modString - modifiedoutput string if checkis successful
+         lt_types - list of data typessupported
+         nil - failed check
+  SEE ALSO
+         axlDBControl - max name length
+  EXAMPLES
+         - return all supported types
+             axlCheckString(nil nil)
+         - typical check
+             axlCheckString("REFDES" "u1") -> "U1"
+         - error
+            axlCheckString("NET" "!GND") -> nil
+            axlCheckString('error nil)
+                 -> "ERROR(SPMHUT-1):Illegal character(s) present in the name or value."

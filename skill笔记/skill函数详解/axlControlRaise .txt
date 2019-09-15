@@ -1,0 +1,23 @@
+切换到某个控制面板，如:Options、Find、Visibility4 b' N) \2 f; N. I  z8 d# o
+  NAME
+         axlControlRaise - raise to top itemin control panel
+  SYNOPSIS
+         Raises tab in control panelto top. If at the start of
+         an interactive command thisoverrides the environment
+         variable, control_auto_raise.
+         Supported symbols are:
+                 'options 'find'visibility
+  FUNCTION
+         axlControlRaise (
+             g_window
+         )
+         ==> t/nil
+  NEEDS
+         g_option: 'options 'find'vis nil
+              If nil returns a list supported symbols
+  RETURNS
+         t if success
+         nil - unknown symbol
+  EXAMPLE
+         raise option panel to top
+                 axlControlRaise('mini)

@@ -1,0 +1,21 @@
+更新文字方向
+  NAME
+         axlTextOrientationCopy - update text orientation defstruct from a text dbid
+  SYNOPSIS
+         axlTextOrientationCopy(
+            o_textDbid
+            [orient]
+         ) -> orient/nil
+  FUNCTION
+         This is a convenience function that updates a TextOrientation
+         defstruct based upon a text dbid.
+         This is typically used with axlDBCreateText or axlDBChangeText.
+  NEEDS
+         o_textDbid - text dbid
+         orient - optional existing defstruct, if nil will create a new
+                 defstruct
+  RETURNS
+         orient = update TextOrientation defstruct
+         nil - error in the arguments
+  SEE ALSO
+         axlDBChangeText

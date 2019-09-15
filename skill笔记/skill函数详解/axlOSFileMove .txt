@@ -1,0 +1,19 @@
+ÎÄ¼þÒÆ¶¯
+  NAME
+     axlOSFileMove - Rename file fromsrc to dest, in OS neutralmanner
+  SYNOPSIS
+     axlOSFileMove(
+         t_src
+         t_dest
+     ) ==> t/nil
+  FUNCTION
+    moves given source file to givendestination
+  NEEDS
+     t_src  - full-path of source file
+     t_dest - full-path ofdestination file
+  RETURNS
+     t   on successful copy
+     nil on failure
+  EXAMPLE
+     unless(axlOSFileMove("/mydir/myfile" "/newdir/newfile")
+       axlUIConfirm("file moveFAILED") )

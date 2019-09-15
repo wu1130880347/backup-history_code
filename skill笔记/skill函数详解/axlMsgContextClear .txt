@@ -1,0 +1,22 @@
+清除context缓冲区的信息
+  NAME
+         axlMsgContextClear - clearbuffered messages from a message context
+  FUNCTION
+         axlMsgContextClear(
+                 r_context
+                 )
+         ==> t
+  SYNOPSIS
+         Clears the bufferedmessages for a context. You should not normally use thisfunction.
+         Use functions that print (axlMsgContextPrint) or retrieve (axlMsgContextGetString)
+         messages and then clear them.Or else use a context finish (axlMsgContextFinish) that
+         forces the messages to beprinted.
+  NEEDS
+         r_context:      The context handle fromaxlMsgContextStart. If r_context is nil,
+                         axlMsgContextClear clears all messages in all contexts.
+  RETURNS
+         t:      Always returns t.
+  EXAMPLES
+         context = axlMsgContextStart()
+         ... do somethings ...
+         axlMsgContextClear(context)

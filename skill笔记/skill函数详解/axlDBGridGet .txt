@@ -1,0 +1,45 @@
+获取格点值
+  NAME
+          axlDBGridGet - get grid values
+  SYNOPSIS
+         axlDBGridGet(
+                 nil
+         )
+         ==> lt_grids
+         axlDBGridGet(
+                 t_gridName
+         )
+         ==> og_grid
+  FUNCTION
+         Returns current gridvalues. Function has two modes:
+          - if gridname is nil returns list of names
+          - If given a grid name return its gridcharacturistics (seebelow)
+        Reserved grid name is "non-etch" otherwise gridnames follow Allegro
+        ETCH subclass names.
+        Use axlDBDisplayControl to control gridcolor and visibility.
+        Grids have the followingattributes:
+     NAME                TYPE    DESCRIPTION
+    ----------------------------------------
+     objType             string  Name of the object - grids
+     readOnly            nil    can modify object
+     name                string  Name of grid
+     xOrigin             dbrep   X origin of grid
+     yOrigin             dbrep   Y origin of grid
+     xMajor              dbrep   Major X spacing of grid (read-only)
+     yMajor              dbrep   Major Y spacing of grid (read-only)
+     xGrids              l_dbrep Spacings X of grid (always a list of dbreps)
+     yGrids              l_dbrep Spacings Y of grid (always a list of dbreps)
+  NEEDS
+         t_gridName      --     name of grid or nil to get all grir names
+  RETURNS
+         lt_gridds       -- list of grids
+         og_grid         -- disembodied property list containing gridsettings
+  SEE ALSO
+         axlDBGridSet
+  EXAMPLE
+         # get and print all grids
+         grids = axlDBGridGet(nil)
+         foreach(g grids
+              grd = axlDBGridGet(g)
+              printf("GRIDname=%s  values=%L\n", grd->name, grd)
+         )

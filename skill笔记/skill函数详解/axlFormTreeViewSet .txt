@@ -1,0 +1,64 @@
+获取窗体目录树
+  NAME
+         axlFormTreeViewSet - Sets Tree Viewcontrol options
+  SYNOPSIS
+         axlFormTreeViewSet(
+                 r_form
+                 t_field
+                 s_option
+                 g_hItem
+                 [s_data]
+         ) -> t/nil
+  FUNCTION
+         Allows an application toglobal and individual items
+         in a tree view control.
+  NEEDS
+         Takes 4 args; form id, field name (string), s_option (symbol),
+         g_hItem (tree view user data type) and optional s_data (symbol.
+         S_option and g_hItem are pairedin the following manner:
+           s_option                      g_hItem
+           --------                     --------
+         TV_REMOVEALL                    nil
+         TV_DELETEITEM                   g_hItem
+         TV_ENSUREVISIBLE                g_hItem
+         TV_EXPAND                       g_hItem (4)
+         TV_EXPAND_TOP                   nil    (5)
+         TV_COLLAPSE                     g_hItem (4)
+         TV_COLLAPSE_TOP                 nil    (5)
+         TV_SELECTITEM                   g_hItem (2) (3)
+         TV_SORTCHILDREN                 g_hItem
+         TV_NOEDITLABEL                  nil    disables in place label editing
+         TV_NOSELSTATEDISPATCH           nil    check box selection not dispatched.
+         TV_ENABLEEDITLABEL              nil    Enable in place label editing
+         TV_MULTISELTYPE                 g_hItem (1)
+         TV_NOSHOWSELALWAYS              nil
+         TV_SHOWSELALWAYS                nil
+         NOTES:
+         1) For TV_MULTISELTYPE g_data optioncan also be provided
+             TVSELECT_SINGLE, TVSELECT_2STATE, TVSELECT_3STATE
+            if not provided defaultsto TVSELECT_SINGLE.
+         2) g_hItem is the handle of an item inthe tree view control.
+            This handle was returnedas result of the call to
+            axlFormTreeViewAddItem(). You can fetchg_hItem handles by
+            callingaxlFormTreeViewGetParents. Also when the you recive
+            a form dispatch abouttree control changes the form User Type
+            curValue and curValueIntattributes are the g_hItem.
+         3) You can pass nil for g_hItem in somecases. nil can be passed
+            for TV_SELECTITEMoption to deselect currently selected item.
+         4) If nil is passed for TV_EXPAND or TV_COLLAPSE then all levels (including)
+            children are expanded or collapse.
+         
+         5) The two _TOP options expands (TV_EXPAND_TOP) or collapses (TV_COLLAPSE_TOP)
+            all top level treeitems. Children tree item states are preserved
+EXAMPLES
+         Deletes the selectedtreeview item in a form.
+             axlFormTreeViewSet(formform->curField 'TV_DELETEITEM form->curValue)
+         Expand all levels includingchildren:
+             axlFormTreeViewSet(form "tree" 'TV_EXPAND nil)
+         Collapses all expanded toplevels:
+             axlFormTreeViewSet(form "tree" 'TV_COLLAPSE_TOP nil)
+         
+         For more examples see axlFormTreeViewAddItem and
+            <cdsroot>/share/pcb/examples/skill/form/basic
+  RETURNS
+         Returns t for success, nil for failure

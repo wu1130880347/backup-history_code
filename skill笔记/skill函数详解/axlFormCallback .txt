@@ -1,0 +1,153 @@
+窗体调用其他函数
+  NAME
+         axlFormCallback - formCallback
+  FUNCTION
+         formCallback(
+                 [r_form]
+                 )
+         ==> t
+  SYNOPSIS
+         This is not a function but documents thecallback interface for
+         form interaction between auser and Skill code. TheSkill program
+         author provides thisfunction.
+         When the user changes afield in a form the Allegro form processor
+         calls the procedure you specified asthe g_formAction argument in
+         axlFormCreate when you created thatform. The form attribute
+         curField specifies the nameof the field that changed. The form
+         attribute curValuespecifies the current value of the field (after
+         the user changed it). If you set g_stringOption to t in your call
+         to axlFormCreate when you created thatform, then curValue is a
+         string. If g_stringOptionwas nil (the default), then curValue is
+         the type you specified for that field in theform file.
+         Note: The term formCallbackused in the title of this callback
+         procedure description is a dummy name. Thecallback function name
+         must match the name or symbol name youused as the g_formAction
+         argument in axlFormCreate when you created theform.
+         If you specify the callbackname (g_formAction) as a string in your
+         call to axlFormCreate, SKILL calls that function with no arguments.
+         If you specify g_formActionas a symbol, then SKILL calls that
+         function with the form handle as its singleargument.
+         The callback must call axlFormClose to close the form and to
+         continue in the main application code if form mode isblocking.
+         All form infomation isprovided by the r_form argument which is
+         a form data type.Applications can extend the data stored on
+         this type by adding their ownattributes, please capitalizethe
+         first letter of theattribute name to avoid conflicts with
+         future additions by Cadenceto this structure. Tables and
+         2 show the available field types and how they impact ther_form
+         data type.
+       ------------------------------------------------------------------
+                                Table 1
+                                -------
+        Form Field Types:
+            Type: What the field iscommenly known to the user
+            Keyword: How the fieldis declared in the form file
+                         (see axlFormBNFDoc)
+            curValue: the data type seen in the formdispatch and axlFormGetField
+                         (see axlFormCallback)
+            curValueInt: If curValuecan be mapped to an integer. For certain
+                         field typesprovides additional info.
+       Type            Keyword           curValue        curValueInt
+      Button          MENUBUTTON (6)        t               1
+      Check Box       CHECKLIST (1)       t/nil           1 or 0
+      Radio Box       CHECKLIST (1)       t/nil           1 or 0
+      Long (integer) INTFILLIN           integer         integer
+      Real (float)   REALFILLIN          floatingpoint   N/A
+      String          STRFILLIN           string           N/A
+      Enum (popup)   ENUMSET             string          integer (2)
+      List            LIST                string          index
+      Color well      COLOR                t/nil          1 or 0
+      Tab             TABSET/TAB       string or t (3)    N/A or 1/0
+      Tree            TREEVIEW             string        see axlFormTreeViewSet
+      Text             INFO (4)            N/A              N/A
+      Graphics        THUMBNAIL (5)        N/A              N/A
+      Trackbar        TRACKBAR             integer        integer
+      Grid             GRID                   see axlFormGridDoc
+      Notes:
+         1) What distinguishes between a radiobutton and check box is
+            radio buttons are agroup of check boxes where only
+            one can be set. Torelate several checkboxes as a set of radio buttons
+            use supply the samelabel name as the third field (groupLabel)
+            in the form filedescription:
+                 CHECKLIST<fieldLabel> <groupLabel>
+            When a user sets a radio button thebutton be unset will
+            dispatch to the app'scallback with a value of nil.
+         2) Enum will only set curValueInt ondispatch when their dispatch
+            value of their popupuses an integer. Otherwise this field is
+            nil.
+         3) Tabs can dispatch in two methods:
+             - default when a tab is selectedyour dispatcher receives
+                 the tab name in thecurField and curValue is t.
+             - If "OPTIONS tabsetDispatch" is set in the TABSET ofthe
+                 form file then when a tab is selectedyour app dispater
+                 receives the TABSETas the curField and thecurValue being
+                 the name of the TABthat was selected.
+         4) INFO fields can be static where the text is declared in the
+                 form file or dynamic where you can set the text via the
+                 application atrun-time. To achieve dynamic access enter
+                 the following inthe form file:
+                     TEXT "<optionalinitial text>"
+                     INFO<fieldLabel>
+                     ... reset of TEXT section ...
+         5) Thumbnails support three methods
+             - static bitmapdeclared via form file
+             - bitmaps that can bychanged by the application at run-time
+             - basic drawing canvas-- see axlGRPDoc doc
+         6) Buttons are stateless. Theapplication cannot set the button
+            to the depressed state.You can only use axlFormSetField to
+            change the text in thebutton. Several button fieldLabels are
+            reserved use them onlyas described:
+                 done or ok - Do action and close form.
+                 cancel - Cancelchanges and close form.
+                 print - Print form; do not use.
+                 help - Call cdsdoc for help about form. Do not use.
+       ------------------------------------------------------------------
+                                Table 2
+                                 -------
+         Attribute Name  Set?    Type*   Desription
+         curField        no     string  Name of form field (control) that
+                                        just changed
+         curValue        no     See->   Value dependant uponfield type (2)
+         curValueInt     no     See->   Value dependant uponfield type (2)
+         doneState       no     int     0 = action; 1 = done; 2 = cancel
+                                        3 = abort (1)
+         form            no      string Name of this form (form file name)
+         isChanged       no     t/nil   t = user has changedone or more
+                                        fields
+         isValueString   no     t/nil   t all field valuesare strings
+                                        nil one or more fields are not strings
+         objType         no     string  Type of object; in this case "form"
+         type            no      string Always "fixed"
+         fields          no     list of strings   all fields in the form (3)
+         infos           no      list of strings   all info fields in form (3)
+         event           no      symbol list, tree and grid control only
+                                        see axlFormGridDoc for grid info
+                                        otherwise see note 4 and 5
+         row             no      integer grid control only
+         col             no      integer grid control only
+         treeViewSelState no     integer Tree control only (see note 5)
+         Notes:
+         1) the doneState shows 0 for most actions. If abutton with
+            the done or ok is pushed then the done state isset. A
+            button with the cancellabel sets the cancel state. In
+            either the done or cancel state youneed to close the form
+            with a axlFormClose. Ifthe abort state is set the form
+            will close even if you do not issue anaxlFormClose.
+         2) Data type is dependant upon the field type, see Table 1.
+         3) The difference between the fields and infos list is that items
+            appearing in the infos list are static textstrings the program
+            can change at run-time.All other labels appear in the fields
+            list and are reflect theycan be changed by the user (even
+            buttons, tabs, greyed and hidden fields).
+         4) Event for list box is t if item is selected, nil if deselected.
+            This is always t for single select list box while the multi-
+            select option can haveboth states
+         5) Event and treeViewSelState for a tree control see
+            axlFormTreeViewAddItem.
+  NEEDS
+         r_form:         Form dbid.
+  RETURNS
+         t:      Always returns t.
+  EXAMPLES
+         See axlFormCreate examples
+         See axlFormBuildPopup examples

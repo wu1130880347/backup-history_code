@@ -1,0 +1,29 @@
+滚动文件中的指定行
+  NAME
+         axlUIViewFileScrollTo - Scroll to line specified in view file
+  SYNOPSIS
+         axlUIViewFileScrollTo (
+                 r_windowMsg
+                 x_line/nil
+         )
+         -> x_lines/nil
+  FUNCTION
+         Scroll to line specified line in file viewer. -1 goes to
+         the end of viewer.
+         Note: number of lines in view window may not match number of
+                 lines in file due to line wrapping in viewer.
+  NEEDS
+         r_windowMsg:    Existing view window
+         x_line:         line to scroll,
+                                 0 top of file,
+                                 -1 bottom of file.
+                                 -2 just return number of lines in viewer
+  RETURNS
+         x_lines/nil:    nil, not a view file window otherwise returns
+                 number of lines in view windiw
+  EXAMPLES
+         The following example:
+            - Displays the file topology.log
+            - Scrolls to end of file
+           pm = axlUIViewFileCreate("topology.log" "Topology" nil)
+           axlUIViewFileScrollTo(pm -1)

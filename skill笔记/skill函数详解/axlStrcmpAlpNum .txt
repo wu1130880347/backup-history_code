@@ -1,0 +1,27 @@
+Ò»¸ö×ÖÄ¸/Êý×ÖÅÅÐò
+  NAME
+    axlStrcmpAlpNum - provides a alpha/numeric sort
+  FUNCTION
+    axlStrcmpAlpNum (
+      t_str1
+      t_str2
+    ) => t/nil
+  SYNOPSIS
+      Behaves similar to alphalessp with one important distiction. If
+      both strings end in the number the number portion is seperated
+      and the 2 stripped strings are first compared. If they are equal then
+      the number sections are compared as numbers (not strings).
+      So alphalessp would sort strings to U1 U10 U2. This interface
+      sorts them as U1 U2 U10.
+  NEEDS
+      t_str1, t_str2 - two strings
+  RETURNS
+      0: if two strings are equal
+      +num: if t_str1 is greater then t_str2 (1 goes after 2)
+      nil if t_str1 is less then t_str2 (1 goes before 2)
+  SEE ALSO
+      sort, sortcar, lessp, alphalessp
+  EXAMPLES
+         l = '("U5" "U10" "U1" "U5" "U2")
+         sort(l 'axlStrcmpAlpNum)
+         ==-> ("U1" "U2" "U5" "U5" "U10")

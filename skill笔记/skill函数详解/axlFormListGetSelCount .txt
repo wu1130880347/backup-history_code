@@ -1,0 +1,24 @@
+获得list部件中处于选择状态的个数
+  NAME
+         axlFormListGetSelCount - return count selected items inmulti-list box
+  FUNCTION
+         axlFormListGetSelCount(
+                 r_form
+                 t_field
+                 )
+         ==> x_count/nil
+  SYNOPSIS
+         This only applies to amulti-select list box (OPTIONS multiselect
+         in form file).
+         Returns a count of number of itemsselected in a multi-select list
+         box.
+  NEEDS
+         r_form:         Form contrl.
+         t_field:        Name of the field.
+  RETURNS
+         nil if not a multi-list box
+         x_count: number of itemsselected
+  SEE ALSO
+         axlFormListGetSelItems
+  EXAMPLES
+         see axlform.il example

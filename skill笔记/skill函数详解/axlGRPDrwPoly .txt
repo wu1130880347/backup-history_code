@@ -1,0 +1,21 @@
+Í¼ÐÎ»æ£º»­ÐéÄâÇøÓò£¨Poly£©
+  NAME
+      axlGRPDrwPoly
+  FUNCTION
+      axlGRPDrwPoly(
+               r_graphics,
+               l_vertices
+      )->t/nil
+  SYNOPSIS
+     This function draws a polygon, into the areaidentified by the r_graphics  
+     handle, and the list ofcoordinates. Option properties attached to
+     the r_graphics handle areapplied, when drawingthe polygon. If the
+     coordinates do not form aclosed polygon, the first and lastcoordinates
+     in the list will be connect bya straight line.
+  NEEDS
+     r_graphics - The graphicshandle.
+     l_vertices - a List ofcoordinates describing the line.
+  RETURNS
+      nil if an erroroccurred, otherwise t.
+  SEE ALSO
+     axlGRPDoc

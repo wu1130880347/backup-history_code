@@ -1,0 +1,38 @@
+加载或查找零件定义
+  NAME
+         axlLoadSymbol - load or find asymbol definition
+  FUNCTION
+         axlLoadSymbol(
+                 t_symKind
+                 t_symName
+         ) -> o_dbidSymDef/nil
+  SYNOPSIS
+         Searches forindicated symbol in database, if not present
+         search PSMPATH and load thesymbol into the database.
+         In the symbol editor thiscan only be used for shape and
+         mechanical symbols for usewith padstacks.
+         CAUTION: if a symol definitionis not is use (dbid->instance
+         is nil) then Allegrowill delete the defintion. This deletion
+         of unused symbols occursduring save drawing, refreshsymbol
+         place manual amoung otherplace.  This means the database is
+         saved as part of axlRunBatchDBProgram then the unused symdefs
+         will be deleted.
+  NOTES:
+         1) axlDBCreateSymbol will also load the symbol definition if
+            required. So you do not needthis API to place symbols.
+         2) You can deleteunused symdefs via axlDeleteObject.
+  NEEDS
+         t_symkind: "PACKAGE", "MECHANICAL", or "FORMAT" (caseinsensitive)
+         t_symName: Name of symbol (lower case). This is the root
+                 name of the symbol, do NOT include anextension
+                 (e.g. .psm) or adirectory path
+  RETURNS
+         dbid of symbol definition
+         nil: cannot find symbol, unknown symbol type, symbol type
+                 doesn't matchsymbol, can't find apadstack that is
+                 required for a sympin, or symbolrevision is too old.
+  SEE ALSO
+         axlDBCreateSymbol
+  EXAMPLES
+         symdef = axlLoadSymbol("package" "dip14")
+

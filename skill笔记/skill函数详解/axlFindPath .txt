@@ -1,0 +1,51 @@
+查找路径从一个 ETCH对象到另一个
+  NAME
+         axlFindPath - Find path fro mone ETCH object to another
+  FUNCTION
+         axlFindPath(
+                 o_oneDbid
+                 o_twoDbid
+                 [g_altPath]
+         )
+         ==>lo_dbid/llo_dbid/nil
+  SYNOPSIS
+         Finds an etch path from oneobject to another. Items must be on the same net.
+         Items must be connect type (pins, vias, clines or shapes, tee).
+         
+         Restrictions:
+            - A partial connectionbetween the 2 objects(ratsnest still exists)
+              results in a nil return.
+            - Segments are promotedto their owning cline (path)
+         Return list is ordered by:
+                 o_oneDbid, ... <connecteditems>, o_twoDbid
+         Two use this to find loopson a net you must compare every node to every
+         other node. This can bevery time consuming for large pin count nets.
+  CAUTIONS
+         - If multiple paths existbetween the two objects returns will follow
+           a single path but the oneit uses is not defined (by this it maydecide
+           on the shortest or longest.
+         - VOLTAGE nets bcause ofthe high number of interconnects may not return
+           correct results since thealgorithm is recursive and terminates if it
+           nests to deeply.
+  NEEDS
+         o_oneDbid - first net item
+         o_twoDbid - second net item
+         [g_altPath] - enable altpath
+  RETURNS
+         nil - no path exists between objects or an error
+         lo_dbid - path list if g_altPath is nil
+         llo_dbid - path list if g_altPath is t.First item is one path and and
+                 second item is nil or the alternativepath.
+                 (lo_1dbid lo1dbid)
+  EXAMPLES
+         1) Find a path between two items
+             ; ashOne is aselection utility found at
+             ;  <cdsroot>/pcb/examples/skill/ash-fxf/ashone.il
+             one = ashOne()
+             two = ashOne()
+             ; pick a line, clineor segment (set find filter)
+             path = axlFindPath(one two)
+             axlShowObject(path)
+         2) see if the two objects is a start/end pointof a loop
+             path = axlFindPath(one two t)
+  SEE ALSO

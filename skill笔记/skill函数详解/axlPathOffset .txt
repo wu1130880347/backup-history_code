@@ -1,0 +1,23 @@
+定义线段终点
+  NAME
+         axlPathOffset - adds an offset to all objects in a r_path
+  SYNOPSIS
+         axlDB2Path(
+                 r_path
+                 xy
+         )
+         ==> r_path
+  FUNCTION
+         This adds a xy offset to all points within a r_path.
+  NEEDS
+         r_path -
+         offset - offset xy
+  RETURNS
+         new r_path
+  SEE ALSO
+         axlPathStart, axlDB2Path
+  EXAMPLES
+         1) obtain shape outline as a r_path and then move if by 10:20
+                 p = ashOne("shapes")
+                 path = axlDB2Path(p)
+                 path1 = axlPathOffset(path 10:20)

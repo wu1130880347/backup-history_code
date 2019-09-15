@@ -1,0 +1,18 @@
+获取所有加载的插件列表
+  NAME
+         axlDllDump - returns a list of all loadedplugins
+  SYNOPSIS
+         axlDllDump(
+         )
+         ==> l_dllLoad/nil
+  FUNCTION
+         This is a debug function that reports allplugins loaded
+         by Skill.
+  NEEDS
+         nothing
+  RETURNS
+         list of plugin handles or nil of no loadedplugins
+  SEE ALSO
+         axlDllOpen
+  EXAMPLES
+         axlDllDump()

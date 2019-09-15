@@ -1,0 +1,33 @@
+生成封装文件(PSM、BSM、、、)
+NAME
+     axlWritePackageFile - Dump symbol data to disk
+  SYNOPSIS
+     axlWritePackageFile(
+         o_symDefDbid
+         [t_output_dir])
+     ==> t/nil
+  FUNCTION
+     Dump out a symbol dra, psm and associated padstacks to disk.
+     File name root is The symbol definition name in lower case.
+     For example, if the symdef name is "CAPCK05" the output files
+     will be created with the names capck05.psm and capck05.dra
+     plus any padstacks (in lower case) that are part of the symbol.
+     This is the same as dump_libraries on a single syumbol definition.
+  CAUTION
+     Will overwrite any existing files in the target directory
+  NEEDS
+     o_symDefDbid - the symbol definition to store on disk
+     t_output_dir  - optional directory on disk to store the file
+                         if not provided then current directory.
+  RETURNS
+     t - on success
+     nil - failed, typical failures
+                 - dbid is not a component
+                 - directory does not exist or is not writable
+  SEE ALSO
+     axlWriteDeviceFile
+  EXAMPLE
+         Wire device file of the definition for the 1st component
+         instance off the design root
+         symDef = car(axlDBGetDesign()->components)->symbol->definition
+         axlWriteDeviceFile( symDef)

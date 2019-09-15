@@ -1,0 +1,56 @@
+修改现有的附件。
+  NAME
+     axlSetAttachment - Modify anexisting attachment.
+  SYNOPSIS
+     int axlSetAttachment (
+         o_attachment
+         [t_password]
+     )
+     ==> o_attachment/nil
+      
+  FUNCTION
+     Modifies an existing Allegrodatabase attachment with the
+     data contained in the given AXLattachment id.  The original attachment
+     object must be obtained fromone of the axlCreateAttachment,
+     axlGetAttachment, oraxlGetAllAttachments functions.  Theattachment
+     revision number and theattachment data may both be modified.
+    The format of the data is determined by the dataFormat attributestructure,
+     which may also be set by theuser.  If "dataFormat" is 'string, then the
+     value of the "data" attribute will beused for the new attachment data.
+     If "dataFormat" is 'file, then thevalue of the "data" attribute will be
+     interpreted as a file name fromwhich the attachment data will be read.
+     If the existing attachment ispassword protected, then thecorrect password
+     must be provided or the function willfail.
+  
+  NEEDS
+     o_attachment - AXL id of theexisting attachment to be modified.  The
+                    "revision", "dataFormat", and "data" attributes may allbe
+                    set to newvalue by the user.
+     t_password   - Password for the given existingattachment.  If this does
+                    not matchthe password of the existing attribute, then the
+                    attachmentupdate will fail.  If the existingattachment is
+                    notpassword protected, then thismay be omitted or nil.
+      
+  RETURNS
+     Returns the AXL id of themodified attachment if successful or nil if not.
+      
+  NOTE
+     Once an attachment is passwordprotected it needs to be deleted then
+     re-added to remove or changethe password protection.
+  SEE ALSO
+      axlGetAttachment
+  
+mso-font-kerning:0pt;mso-bidi-font-weight:bold'>error
+  SEE ALSO
+         axlOpenDesign, axlRenameDesign, axlRunBatchDBProgram
+gn:none;text-autospace:none'>         1) Change a single viato "VIA" padstack7 w1 j* K6 M8 j
+                 via = <dbid of avia>
+                 via = axlReplacePadstack( via, "VIA")
+         2) Change all vias onboard to "VIA" padstack
+                 ;; ashFindAllPins --example Skill code to find all vias on brd
+                 vias =ashFindAllPins( )
+                 via = axlReplacePadstack( via, "VIA")
+         3) Change a single viato pad dbid
+                 via = <dbid of avia>
+                 pad = <dbid of apad>
+                 via = axlReplacePadstack( via, pad )

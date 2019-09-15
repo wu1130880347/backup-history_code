@@ -1,0 +1,26 @@
+预定义的高精度常量
+
+  NAME
+         axlMathConstants -pre-defined high accuracy constants
+  SYNOPSIS
+         Fundamental match constants
+  FUNCTION
+         Provides pre-defined set of highaccuracy math constants. They are:
+            axlPI        - PI
+            axlPI_2      - PI/2.0
+            axlPI_4      - PI/4.0
+            axlSQRT2     - sqrt(2)
+            axlSQRT1_2   - 1/sqrt(2)
+            axlEpsilonFloat  - epsilon for floating pointnumbers (32 bit)
+            axlEpsilonDouble -epsilon for doubles (64 bit)
+            axlDegPerRad - Degreesper radian
+            axlRadPerDeg - Radiansper degree
+            axlRad0, axlRad45, axlRad90, axlRad135, axlRad180,
+            axlRad225, axlRad270, axlRad315, axlRad360
+                            -radians values for popular degrees values
+            Note: Skill, by default, limits the numberof decimal places printed but these
+                 constants are still stored and used atthe full precision. To see the
+                 full precision ofthe constant you can do:
+                    sstatus(fullPrecision t)
+                        or
+                    printf("%5.18\n" axlPI)

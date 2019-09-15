@@ -1,0 +1,45 @@
+设置阴影模式
+  NAME
+         axlColorShadowSet - set shadow options  
+  FUNCTION
+         axlColorShadowSet(
+                 g_mode
+                 t/nil
+         ) -> t/nil
+         axlColorShadowSet(
+                 'percent
+                 x_percentage
+         ) -> t/nil
+  SYNOPSIS
+         This sets the shadow modeoptions. These are equilvalent of
+         the color' commands Shadowmode box under the Display group.
+         Mode options are:
+            - The mode option is eithert or nil to turn shadow modeon or off.
+            - The activeLayer optionis either t or nil to automatically
+                 This is called "Dim activelayer in Options panel.
+            - The highlight can be tor nil to dim highlighted objects
+                 This is called"Dimcolor assignments" in the Options panel
+            - The percent options set the dimness (0) to brightness (100)
+                 percentage.
+         On most graphics/displaycombinations shadow values of
+         less then 40% disappear into the background (e.g. you have
+         what appears to be black onblack).
+         After you finish all youcolor changes you should call
+         axlVisibleUpdate to update thedisplay.
+         This interface is disabled if the user has set thedisplay_noshadow
+         environment variable.
+  NEEDS
+         g_mode:
+                 'mode:enable/disable shadow mode
+                 'highlighted:enable/disable shadow mode for highlighted objects
+                 'activeLayer:enable/disable active layer dimming
+                 'percent: set shadow modepercentage (0 to 100)
+  RETURNS
+         t if successful, nil an argument error
+  SEE ALSO
+         axlColorSet, axlColorShadowGet, axlVisibleUpdate
+  EXAMPLES
+         1) Is shadow mode on
+                 axlColorShadowSet('mode t)
+         2) Is shadow mode percent
+                 axlColorShadowSet('percent 20)

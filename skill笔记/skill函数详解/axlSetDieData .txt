@@ -1,0 +1,30 @@
+为指定Die设定数据
+  NAME
+         axlSetDieData - set data for thespecified die
+  FUNCTION
+         axlSetDieData (
+             g_dieId
+             s_dataType
+             g_newValue
+         )
+         ==> t/nil
+  SYNOPSIS
+         This function setsthe given data for the given die.
+         Only available in SIPproducts.
+  NEEDS
+         g_dieName - name or dbid ofthe die to get the data for
+         s_dataType   - data type of the given value, one of:
+                         '(DSA_BUMP_PACKAGE_DIAM_DBREP
+                          DSA_BUMP_PACKAGE_DIAM_STRING
+                          DSA_BUMP_DIE_DIAM_DBREP
+                          DSA_BUMP_DIE_DIAM_STRING
+                           DSA_BUMP_MAX_DIAM_DBREP
+                          DSA_BUMP_MAX_DIAM_STRING
+                          DSA_BUMP_HEIGHT_DBREP
+                          DSA_BUMP_HEIGHT_STRING
+                          DSA_BUMP_ECOND_STRING
+                           DSA_DIE_THICKNESS_DBREP
+                          DSA_DIE_THICKNESS_STRING)
+         g_newValue - new value for thespecified data type.
+  RETURNS
+         t on success, otherwise nil

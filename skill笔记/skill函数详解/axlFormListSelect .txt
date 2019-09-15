@@ -1,0 +1,32 @@
+将窗体上某个list部件中的某项选中: l8 @) T2 |3 g2 Y  W0 x; _* w" u% M* {
+  NAME
+         axlFormListSelect - (De)Highlight item in a list
+  FUNCTION
+         axlFormListSelect(
+                 r_form
+                 t_field
+                t_listItem/x_position/nil
+         ) -> t/nil
+  SYNOPSIS
+         This highlights and if not visible in list shows designateditem.
+         Allegro forms only permitsone item to be visible so it deselects
+         any previously selecteditem.
+         If nil is passed for the third argument, the list is reset
+         to top and selected list item is deselected.
+         For selection, you may pass eithera string of the item to select
+         or a position within the list.
+         With a string, if a list contains multipleitems with the
+         same name then then position should beused. If you have the
+         list sort itself then the position is impossible todetermine.
+         Returns position of objectselected if successful.
+  NEEDS
+         r_form: Form id
+         t_field: Name if field
+         t_listItem: string of item in the list.Send nil if you wish todeselect
+                 any selected item and set list back to top.
+         x_position - select theitem at this position (-1) deselects
+                 current selecteditem
+         nil (third arg) deselect item and reset list to top
+  RETURNS
+         t: item selected
+         nil no object selected

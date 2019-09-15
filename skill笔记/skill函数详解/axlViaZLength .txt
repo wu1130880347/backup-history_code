@@ -1,0 +1,24 @@
+获取Via Z 长度
+  NAME
+         axlViaZLength - return via Z length
+  SYNOPSIS
+         axlViaZLength(
+                 t_layer1
+                 t_layer2
+         ) -> f_length
+  FUNCTION
+         Returns the via length from layer1 to layer2. The layer names can
+         either be given as the ETCH subclass name (e.g. TOP) or given as
+         the formal skill layer name (e.g. "ETCH/TOP").
+         This is the length used in the ViaZ option to several DRC checks.
+         This requires an XL or better product license.
+  NEEDS
+         t_layer1 - start layer name
+         t_layer2 - end layer name
+  RETURNS
+         f_length - via length in design units
+  SEE ALSO
+         axlCNSGetViaZPVF
+  EXAMPLES
+         1) Get length from top to bottom
+                 axlViaZLength("TOP" "BOTTOM")

@@ -1,0 +1,18 @@
+设置表格工作表
+NAME
+     axlSpreadsheetSetWorksheet
+  FUNCTION
+     axlSpreadsheetSetWorksheet(name)
+         ==> t / nil
+  SYNOPSIS
+     Makes the specified worksheet the active one for future cell references.
+     If the worksheet does not exist, it will be created as the new last
+     worksheet in the document.
+  NEEDS
+     name -- The name of the worksheet to activate.
+  RETURNS
+     t   -- Worksheet successfully activated / defined.
+     nil -- Worksheet not activated. Reason written to console.
+  SEE ALSO
+    axlSpreadsheetSetCell
+    axlSpreadsheetSetStyle

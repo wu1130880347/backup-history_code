@@ -1,0 +1,20 @@
+计算两点的代数差
+  NAME
+         axlMXYSub - subtract twocoordinates
+  FUNCTION
+         axlMXYSub(
+                 l_pt1
+                 l_pt2
+         ) -> l_pt/nil
+  SYNOPSIS
+         This does a l_pt1 - lpt2 and returnsthe result.
+         The l_ptN is an x:ycoordinate.
+  NEEDS
+         l_pt1, l_pt2: 2 xypoints
+  RETURNS
+         l_pt: Returns coordinatethat is result of subtraction.
+         nil: Arguments are notcoordinates
+  SEE ALSO
+         axlMXYAdd
+  EXAMPLES
+         axlMXYSub('(1263.0 1063.0) '(1338.0 1137.0)) -> (-75.0 -74.0)

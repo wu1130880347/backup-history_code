@@ -1,0 +1,30 @@
+ÒÆ³ýÒ»¸öÇøÓòshape
+  NAME
+         axlRegionRemove  - remove shapes from aRegion
+  FUNCTION
+         axlRegionRemove(
+                o_regiondbid/t_regionName
+                 o_dbid/lo_dbid
+         )==> t/nil
+  SYNOPSIS
+         Removes shapes from anexisting region group. Element
+         must currently be a direct member of thegroup.
+         This will mark DRC out ofdate. It is up to the
+         application to update theDRC system
+  TIP
+         Using dbids is faster then usingnames.
+  NEEDS
+         o_regiondbid: dbid of aregion group
+         t_regionName: name of aregion group
+         o_dbid:   legal database shapes to remove fromgroup
+         lo_dbid:  list of legal databaseshapes to remove from group
+  RETURNS
+         t         - removed elements
+         nil       - failed to remove one or moreelements. Object
+                     may not be aregion member (rember must be
+                     a direct member).
+  SEE ALSO
+         axlRegionCreate
+  EXAMPLES
+         - Using the example from axlRegionAdd remove of the sshape:
+             axlRegionRemove(region  shape)

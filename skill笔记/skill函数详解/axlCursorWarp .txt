@@ -1,0 +1,25 @@
+改变光标位置
+
+
+  NAME
+         axlCursorWarp - Change cursorlocation
+  SYNOPSIS
+         axlCursorWarp (
+             g_pixel
+             l_xy
+         ) ==> t/nil
+  FUNCTION
+         Sets the cursor position.May set the cursor eitherby pixel
+         or design units. If setting by designunits the new value must
+         be within the currentviewable window (axlWindowBoxGet).
+         See axlCursorGet for a discussionbetween pixel and designunits.
+  NEEDS
+         g_pixel -       If t return xy in pixels else return cursor position
+                         where it stands incurrent design.
+         l_xy     -     The xy values may be specified in pixel (g_pixel=t)
+                         or design units (g_pixel=nil)
+  RETURNS
+         t if moved cursor, nil if bad arguments or moved cursoroutside
+         of main window.
+  SEE ALSO
+         axlCursorGet, axlWindowBoxGet

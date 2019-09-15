@@ -1,0 +1,26 @@
+设置数据输入对话框的最大数和最小数
+  NAME
+         axlFormSetFieldLimits - Set min/maxvalues for a numeric formfield
+  SYNOPSIS
+         axlFormSetFieldLimits(
+             o_form
+             t_field
+             g_min
+             g_max
+         )
+         ==> t/nil
+  FUNCTION
+         Sets the minimun or maximun values thata user can enter in a integer
+         or real fillin field.  If a nil value is provided,  that limit is
+         left unchanged.  
+         For a REAL field,  the type for g_min and g_max may be int, float or
+         nil.  For a INT or LONG, the type must be int or nil.
+  NEEDS
+         o_form                  Form handle
+         t_field                 The field label
+         g_min                   Minimum value for the field
+         g_max                   Maximum value for the field
+  RETURNS
+         t               for success
+         nil             Error.  There must be a problem with one of the input
+                         parameters.

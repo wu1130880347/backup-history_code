@@ -1,0 +1,20 @@
+更新格点显示
+NAME
+         axlFormGridCancelPopup - updates grid display
+  FUNCTION
+         axlFormGridCancelPopup(
+                 r_form
+                 t_field
+         ) -> t/nil
+  SYNOPSIS
+         After any change to gridcontent the application must tell
+         the grid the changes arecomplete so the grid can update
+         itself to the user. Changesinclude: adding ordeleting
+         columns and changing cells.
+  NEEDS
+         r_form: standard formhandle
+         t_field: standard fieldname
+  RETURNS
+         Returns t for success, nil for failure (incorrect args)
+  SEE ALSO
+         axlFormGridNewCell

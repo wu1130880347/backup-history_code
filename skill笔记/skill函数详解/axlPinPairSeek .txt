@@ -1,0 +1,21 @@
+²éÕÒÅä¶Ô
+  NAME
+         axlPinPairSeek
+  FUNCTION
+             axlPinPairSeek(
+                 o_pin1
+                 o_pin2
+             )==>o_pinpair/nil
+  SYNOPSIS
+         Given two pins or ratTsreports if they are part of a pinpair.
+  NEEDS
+         o_pin1/o_pin2   - dbid of a pin or ratT
+         t_pin1/t_pin2   - a pin name (<refdes>.<pin#> (ratT names notsupported)
+  RETURNS
+         o_pinpair - pinpair dbid
+         nil       - pinpair for given pins does not exist
+  SEE ALSO
+         axlPinPair
+  EXAMPLES
+         - See if apinpair for these 2 pins exist
+         pp = axlPinPair("U2.13" "R1.2")

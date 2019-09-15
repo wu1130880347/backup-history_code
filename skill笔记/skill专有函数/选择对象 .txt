@@ -1,0 +1,10 @@
+选择对象
+常用两种方法来获取到Brd文件中的相关信息，其中
+第一种是使用axlDBGetDesign()接口函数获取顶层设计，然后不断使用访问属性的方式获取到其他对象；具体的使用 axlDBGetDesign()->?? 来获取可以获得的对象和起内容  ，如果要指定查找框选什么的可以查看axlSelectByName等一些列select函数
+另一种类似Show Element功能一样的操作方式，通过设置对象过滤器，选择高亮对象，获取高亮对象三个步骤获取对象列表，比如你这里就可以
+axlClearSelSet()
+axlVisibleDesign(nil)
+axlVisibleLayer("REFDES/SILKSCREEN_TOP" t)
+axlSetFindFilter( ?enabled (list"noall" "text") , ?onButtons (list "all"))
+text = axlGetSelSet(axlAddSelectAll())
+然后访问TEXT中的内容进行操作就可以了 。

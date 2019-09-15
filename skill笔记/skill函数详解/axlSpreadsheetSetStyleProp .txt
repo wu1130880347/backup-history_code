@@ -1,0 +1,21 @@
+设置表格样式属性
+  NAME
+     axlSpreadsheetSetStyleProp
+  FUNCTION
+     axlSpreadsheetSetStyleProp(type, propName, propVal)
+         ==> t / nil
+  SYNOPSIS
+     Sets a specific style property in the active style definition.
+  NEEDS
+     type     -- Type of property being set. Must be one of:
+                 ALIGNMENT, FONT, FILL, NUMBER_FORMAT, PROTECTION.
+     propName -- Name of the property being set (varies by type).
+     propVal  -- Value to set the property to.
+  RETURNS
+     t   -- Style attribute successfully set.
+     nil -- Attribute not set (no active style or invalid parameters).
+            See console for further details.
+  SEE ALSO
+    axlSpreadsheetSetStyle
+    axlSpreadsheetSetStyleBorder
+    axlSpreadsheetSetStyleParent

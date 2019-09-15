@@ -1,0 +1,13 @@
+获取所有当前显示属性
+   NAME
+          axlGetAllVisibleProfiles
+   FUNCTION
+          axlGetAllVisibleProfiles()
+             ==> list ofprofiles / nil
+   SYNOPSIS
+          Returns a list of allthe bond wire profiles currently visible in the design.
+   NEEDS
+          Nothing.
+   RETURNS
+          list of profile names.
+          nil if error or noprofiles visible.

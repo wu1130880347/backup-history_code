@@ -1,0 +1,204 @@
+该axlDll系列的API，提供了能够绑定编译
+  NAME
+         axlDllDoc - Introduction toAXL Skill Plugin
+  SYNOPSIS
+         The axlDll family of APIsprovide the ability to bind compiled
+         Dll (shared library) packages intoprograms supporting this the Skill
+         axl APIs.  Any publically exported functions from a Dllcan imported. The
+         only restriction is thatexported Dll functions must support the API
+         specified in below.
+         Any reference to 'DLL' isthe equivalent to a shared library for UNIX
+         and Linux programmers. All UNIXreferences apply to Linux.
+         Creating a plugin requirestwo components:
+             - Skill code to import and wrap thefunctionality provided
+               by the dll.
+             - The dll/sharedlibrary implementing the plugin functionality
+  SKILL PROGRAMMING
+         The Skill progamming model for plugins is:
+             - Locate and open plugin viaaxlDllOpen. Suggest assigning
+               handle to a globalSkill symbol. On subsequent calls into
+               your Skill applicationthe symbol will be non-nil so the
+               call to axlDllOpen can be skipped.
+               See axlDllOpen.
+             - Import requiredsymbols from plugin via axlDLLSym. Like the
+               handle returned by axlDllOpen these handlesshould be assigned
+               to global symbols.
+             - Use either axlDllCall or axlDllCallList to accesscapability
+               from the plugin.
+             - The I/O data typessupported are documented in axlDllCall.
+  DLL PROGRAMMING
+         Allows use externaldevelopers to utilize existing C/C++ code or
+         devevlop new capabilitiesin C/C++ to plugin as extensions to SPB
+         software. SPB softwaresupporting this capability are those that
+         incorporate the "axl" extension packageto Skill.
+         Implementation of a Plugindll:
+             - Obtain the compilerenvironment required by Cadence.
+               (see Allegro platformdocument).
+             - Use existing CadenceMakefile (UNIX) or Project file
+               (Microsoft) which contains requiredcompile/link options.
+               You can use thesefiles to build your plugin to adapt your
+               own softwareconfiguration environment.
+               (see<cdsroot>/share/pcb/examples/skill/plugin)
+             - Insure exported Dllfunctions meet the API requirements
+               (see API PluginFunctions below).
+               The include file,<cdsroot>/share/pcb/include/axlplugin.h
+               has requiredstructure definitions and defines.
+             - Build your plugin.
+             - Test it.
+         Required Cadence files for plugin programming:
+              <cdsroot>/share/pcb/include/axlplugin.h
+   API Plugin Functions:
+         The C API for any plugin function is as follows:
+             long <function>(AXLPluginArgs*output, AXLPluginArgs*input)
+         The API takes identicalstructures for both its input and output
+         arguments. The callingCadence software updates the input structure
+         with the data passed by thecalling Skill code. It also initializes
+         the output structure.
+         The Plugin function must return a value and optionally update
+         the output structure with return data (argv and count). The plugin return
+         value is passed back to thecalling Skill code as follows:
+            return == 0: Returns a list of from output datastructure up to
+                         the count value. If count in output structureis 0,
+                         returns anempty list.
+            return != 0: return value is returnedto Skill as an integer
+         AXLPluginArgs input/outputstructure members:
+            version =AXLPLUGIN_VERS_IN  -  version of input structure. If
+                                           additional capability isadded in
+                                           the future this version number will
+                                           be bumped. It informs the plugin the
+                                           the capability supported in the
+                                           structure.
+            flag = 0                     -  future use
+            maxEntries =AXLPLUGIN_MAX   -  can be ignored on input. On ouput
+                                           you cannot exceed this value for return
+                                           arguments.
+            count = <number of argv entries> -  Number of entries in argv. Basically,
+                                           the number of arguments provided
+                                           to the axlDLLCall APIs. Will never
+                                           be more the maxEntries.
+            argv[]                       - array ofAXLPluginEntry arguments
+         AXLPluginEntry (argv) structure members.See Input/Output Data Primitives.
+             type                - indicates type of data
+             data                - union of primitive typessupported
+         For the called Dll function to return data to callingSkill code both
+         set the count and argv entries should be set in the output datastructure.
+         For each argv entry return you should alsosets the data type to
+         one of the primitives shownbelow.  Under no situation should youattempt
+         to return more then maxEntries.
+         If your exported dllfunctions will be used outside your progamming
+         environment then you should validcheck the input arguments either
+         in the Skill wrapper inyour Dll Function. For example, if you
+         expect an string argument and the calling Skillcode passes an integer,
+         a program exception willoccur if the data is not checked.
+  Input/Output Data Primitives
+         A set I/O data primitivesare supported. The argv entry of
+         AXLPluginArgs is an arrayof these structures. Each array
+         member has its data type indicated and the data itself.
+         Both the input and output data use theAXLPluginArgs structure. The
+         data primitives supportedare:
+            Type         Skill type     C type    C struct member
+           AP_BOOL         t/nil           int       b_value
+           AP_LONG         x_value         long      l_value
+           AP_DOUBLE       f_value         double    d_value
+           AP_CONST_STRING t_value/s_value char *    cs_value
+           AP_STRING       t_value         char *    s_value (output only)
+           AP_XY           f_value:f_value AXLXY     xy_value
+         AP_STRING types will not be seen on input.All strings passed
+         from Allegro to the pluginare AP_CONST_STRING. To return a string,
+         the plugin may use eitherAP_CONST_STRING orAP_STRING. If AP_STRING
+         is used the Allegro willfree the memory associated with the string
+         using the standard C "free" API which means you must allocate
+         it via malloc. Other data type restrictions are:
+           - The plugin must NOTmodify in place any input AP_CONST_STRING;
+             corruption of Skillwill occur.
+           - To maintainAP_CONST_STRING input data across function calls you should
+             make a copy of them. Skill maygarbage collect the memory after
+             your Dll function returns.
+           - If you use your ownmemory manager do NOT useAP_STRING types
+             for return. These require the use thestandard malloc memory manager.
+           - Input arguments can beSkill symbols ('<symbol>) but these
+             are converted toAP_CONST_STRING types.
+           - The STRING types do NOT support wide charactersets; use only
+             characters in the Asciicharacter set.
+           - AP_XY reprensents a (x y) location and is implemented as a
+             structure of 2 doubles
+           - If AP_BOOL type is used two definesare provided in axlplugin.h:
+                 AXLPLUGIN_TRUE  = 1
+                 AXLPLUGIN_FALSE = 0
+           
+         Return value from pluginexported back to Skill
+             - if output->count is0 then the we look at the return value
+               from the plugin function and return x_value to symbol
+             - else (non-zero count) we return this value to skillas
+               an skill integertype.
+  Programming Restrictions, Cautions and Hints:
+         -) Cadence only supports the compilerlisted in the SPB Platform
+            documentation. Alsorequired are any compiler and DLL
+            linker options listed.
+         -) If your DLL has dependancies uponother Dlls, make sure they do
+            not conflict with Dllsused by Cadence. Typically they need
+            to be the same version and not built with debug options.
+            To determine the DLLsused by Cadence use:
+              Window: depends or procexp (www.sysinternals.com)
+              Solaris, Linux: ldd<program name>
+              AIX:            dump -H <program name>
+         -) On Windows, you can include UI components in your plugin. This
+            capability is NOTsupported on Unix.
+         -) Wide character types are not supported in theplugin to Allegro
+            interface
+         -) On Unix, if threading is used then you should POSIXthreads
+            (pthreads).
+         -) STL programming should use thedefault STL provided by the
+            Cadence requiredcompiler. Do not usethird parties STL.
+         -) On Windows, if DLL is MFC based then do not compile it debug.
+            MFC Classes change insize if code is built debug and are not
+            compatible withnon-debug MFC code.  There are methodsdescribed
+            on the Web on how build MFCdebuggable without requiring the MFC
+            debug shared library.Typically on Windows Debug Dlls are not
+            compatible withnon-Debug Dlls. Also many different versions of
+            MFC exist which are impatible withone another. Use one and the
+            binary query tools (see above) to determine theversion of MFC
+            currently required byCadence.
+         -) There are currently no methods tomake function calls back to
+            Allegro from the plugin.
+         -) Your DLL can be used across multipleCadence releases without
+            recompiling your plugin.Re-compiling is only required if Cadence
+            changes the compiler inthe release.
+         -) Programming errors in your plugincan crash the host program. In
+            rare cases these bugscan corrupt an Allegro database. See
+            customer support below.
+         -) On Windows, to access stdout/stderr, set the TELCONSOLE=1
+            as the OS level. Thisvariable cannot be set via Allegro's env
+            file. This is alsoconsidered a debugenvironment so should
+            not be used duringboard design.
+  Performance Considerations
+         The following issues shouldbe considered if highperformance is
+         required:
+         1) Locating and loading a plugin. This should bedone once per
+            activation. Assign thehandle return by axlDllOpen to a global
+            symbol to prevent Skillgarbage collection. Do not close the plugin.
+         2) Import symbols of a plugin once. TheaxlDll interface internally
+            caches symbol import sosubsequent lookups will be faster then the
+            initial call.
+         3) A plugin function should do meaningful work since there is some
+            overhead convertinginput data from Skill to native C types and
+            and doing the opposite for return data.
+  
+  Cadence Customer Support:
+         - Cadence does not supportingdebugging customer developed plugins.
+         - An environment variable, allegro_noextension_plugin, is available
+           to disable plugincapability. If Allegro starts crashing or
+           databases become corrupt, you should set this variable todetermine
+           if a plugin is thecause.
+  EXAMPLES
+         An example containing Skill, the plugin C code, Gnu Makefile (UNIX) and
+         project file (Visual.NET) is contained at
+                <cdsroot>/share/pcb/examples/plugin.
+         In addition, a prebuilt pluginmodule is contained in the Cadence
+         install hierarchy so you do not need to compile and link the
+         plugin source code to runthe Skill code.
+         The example plugin providedhas three exported symbols:
+            - An echo API which returns as outputany input given.
+            - A x_value API which returns the numberof input arguments.
+            - A distanceimplementation to calculate the distance between
+              two points.

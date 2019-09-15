@@ -1,0 +1,14 @@
+ÉèÖÃPin Delay Öµ
+  NAME
+     axlCNSSetPinDelayPVF
+  SYNOPSIS
+     axlCNSSetPinDelayPVF(g_value)
+     => t/nil
+  FUNCTION
+     Sets a value for pin delaypropagation velocity.
+  NEEDS
+     g_value: a string to define the new pin delaypropagation velocity factor. A
+              nil value indicatesthat the value is to be deleted.
+  RETURNS
+     t: no errors
+     nil: error detected

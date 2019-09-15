@@ -1,0 +1,15 @@
+¹Ø±Õ·ÉÏß
+  NAME
+         axlRatsnestBlank - blank allratsnest lines of a specified net.
+  SYNOPSIS
+         axlRatsnestBlank(
+             rd_net
+         )
+         ==> t/nil
+  FUNCTION
+         Function blanks allratsnest lines in a net.
+  NEEDS
+         rd_net  - dbid of a net
+  RETURNS
+         t     - if ratsnest lines areblanked successfully.
+         nil   - otherwise

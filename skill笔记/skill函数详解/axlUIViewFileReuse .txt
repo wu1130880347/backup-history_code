@@ -1,0 +1,41 @@
+再使用上一次的显示窗口显示一个文件
+  NAME
+         axlUIViewFileReuse - reuses a view file window
+  SYNOPSIS
+         axlUIViewFileReuse (
+                 r_windowMsg
+                 t_file
+                 t_title
+                 g_deleteFile
+                 [g_formToExpose]
+         )
+         -> t/nil
+  FUNCTION
+         Reuses the view window to display a file (t_file), it is an error for.
+         file not to exist. Window should be given a title (t_title).
+         Expects r_windowMsg to be type of view window. If user quit the
+         window it will re-open it at the old size/position.
+         File is deleted is g_deleteFile is t when view window is quit or
+         reused. It is suggested that applications not delete view files
+         themselves as the Save and Print buttons will not work.
+  NEEDS
+         r_windowMsg:    Existing view window to use
+         t_file:         Name of file to display. If "" displays last
+                         registered logfile.
+         t_title:        Title for window
+         g_deleteFile:   Delete file on quit of window.
+         g_formToExpose: Optional argument that defines the handle of a
+                         window to be exposed when the text file window is closed.
+                         Default is the parent set by axlUIViewFileCreate.
+                         Normally you should not use this argument.
+  RETURNS
+         t/nil:  Fails if can't use window; such as application has quit
+                 it or it has been GC.
+  EXAMPLES
+         The following example:
+            - Displays the file ncdrill log, reusing the window
+              logWindow created when displaying batch_drc.log in the
+              axlUIViewFileCreate example.
+            - Deletes the file ncdrill.log automatically when the user
+                 exits window.
+           axlUIViewFileReuse(logWindow "ncdrill.log" "NC Drill Log" nil)

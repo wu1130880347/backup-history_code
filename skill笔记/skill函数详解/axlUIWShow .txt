@@ -1,0 +1,43 @@
+显示或隐藏一个窗口
+NAME
+         axlUIWShow - Show or hide a window
+  SYNOPSIS
+         axlUIWShow (
+                 r_window/nil
+                 s_option
+         )
+         -> t/nil
+  FUNCTION
+         Shows or hides a window depending upon option passed.
+         If window id is nil effects the main window.
+         Notes
+            1) if option is showna the window might become active.
+            2) show option if window is already visible may not make it active
+  NEEDS
+         r_window:       Window id or if nil the main window.
+         s_option:
+                 'show:  Show and activate window
+                 'showna: Show but don't activate window
+                 'hide: Hide window
+                 nil: Show available options
+  RETURNS
+         t for success, nil for failure (window not a window or bad option)
+  NAME
+         axlUIWSize - Return size of window
+  SYNOPSIS
+         axlUIWSize (
+                 r_window/nil
+         )
+         -> ll_rect
+  FUNCTION
+         Returns outer size of a window. Size is in pixels. x and y coordinates are
+         upper left corner of window.
+         On UNIX/Linux, the y value will typically include an offset due to title bar
+         height.
+  NEEDS
+         r_window:       Window id or if nil the main window.
+  RETURNS
+         ll_rect - ( (x_X x_Y) (x_Width x_Height))
+         nil - error, handle is not a window
+  SEE ALSO
+         axlUIWMove

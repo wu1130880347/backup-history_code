@@ -1,0 +1,37 @@
+添加自动分配网络算法  
+  NAME
+     axlAddAutoAssignNetAlgorithm
+  FUNCTION
+     axlAddAutoAssignNetAlgorithm(t_algorithmt_displayName)
+         ==> t/nil
+  SYNOPSYS
+     This function allows the user toadd custom auto
+     net assignment algorithms tothe list in the
+         Logic -> Auto Assign Net
+     command's algorithms list in the APD and SIP IC Packaging
+     tools. This list will always containthe Cadence standard
+     algorithms (Router-Based, Nearest Match, and Constraint-Driven).
+     These names cannot be duplicateor overwritten by thecustomer.
+     Specifying a pair with either aduplicate algorithm or
+     display name will cause thecurrently-existing (user)
+     entrey to be replaced.
+  NEEDS
+     t_algorithm - Text string (case sensitive) containing the name
+                   of the skill function to be called for this
+                   algorithm.
+         The function must take twoparameters:
+             First parameter: Listof source pins.
+             Second parameter: Listof destination pins.
+         The function should return "FAIL" if it was unable tocomplete
+         due to some manner of codefailure, or else should return a
+         list of source pins that are stillunassigned.
+     t_displayName -- Text string (also case sensitive) that will
+                      be used as the name of thisalgorithm in the
+                      auto assignnet command's pull-down menu for
+                      selecting thealgorithm to use.
+  RETURNS
+     t if algorithm successfully registered.
+     nil if registration failed (function not defined, name in use, etc).
+  NOTES
+     This function is only availablewithin the Cadence IC Packaging
+     tools(APD and CDNSIP). 

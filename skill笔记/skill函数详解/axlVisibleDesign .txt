@@ -1,0 +1,42 @@
+显示或不显示所有层
+NAME
+         axlVisibleDesign - make entire design visible or invisible
+  SYNOPSIS
+         axlVisibleDesign(
+                 g_makeVis           
+         )
+         ==>t/ni;
+  FUNCTION
+         Make entire design visible or invisible.
+         This command does not visually change the display, since it can also
+         be used in conjunction with the axlSelect command family to provide
+         additional filtering of the database objects. If you wish to visually
+         update the display, call axlUIWUpdate(nil) after changing the
+         visibility.
+  PROGRAMMING NOTE
+         This routine along with axlVisibleGet and axlVisibleSet allow you to
+         temporary change the visibility of the design to provide additional
+         filtering capability when finding objects via the selection set. The
+         programming model is
+                 saveVis = axlVisibleGet()
+                 axlVisibleDesign(nil)
+                 ; set desired layers visible via one or more calls to
+                 axlVisibleLayer(...)
+                 ; set find filter for objects to find
+                 axlSetFindFilter(...)
+                 ; find objects by using one of the Select APIs .. example
+                 axlAddSelectAll()
+                 objs = axlGetSelSet()
+                 ; restore visiblility
+                 axlVisibileSet(saveVis)
+                 ; note no need to make a call to axlVisibileUpdate because
+                 ; the visisbility changes are a wash
+  NEEDS
+         g_makeVis       - either t or nil.
+                           t = make entire design visible
+                           nil = make entire design invisible
+  RETURNS
+         t               - on success
+         nil             - incorrect g_makeVis arg
+  SEE ALSO
+         axlVisibleUpdate axlVisibleLayer

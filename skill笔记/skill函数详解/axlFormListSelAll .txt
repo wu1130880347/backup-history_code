@@ -1,0 +1,27 @@
+全选或取消全选list部件中的项
+  NAME
+       axlFormListSelAll - select/de-selectall items in a multi-list control
+  FUNCTION
+         axlFormListSelAll(
+                 r_form
+                 t_field
+                 g_set
+                 )
+         ==> t/nil
+  SYNOPSIS
+         This only applies to amulti-select list box (OPTIONS multiselect
+         in form file).
+         This either selects or deselects all itemsin list box.
+  NEEDS
+         r_form:         Form contrl.
+         t_field:        Name of the field.
+         g_set:  t to select all; nil to deselect all
+  RETURNS
+         t if successful, nil field is not a mutli-select list box
+  SEE ALSO
+         axlFormListGetSelItems
+  EXAMPLES
+     Select all items in multi-listcontrol; mlistfield
+         axlFormListSelAll(fw "mlistfield" t)
+     De-Select all items inmulti-list control; mlistfield
+         axlFormListSelAll(fw "mlistfield" nil)

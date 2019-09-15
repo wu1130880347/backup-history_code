@@ -1,0 +1,36 @@
+获得某环境变量的值
+  NAME
+         axlGetVariable - get currentsetting of environment variable
+  FUNCTION
+         axlGetVariable(
+                 t_variable/nil
+                 )
+         ==> t_value/nil
+  SYNOPSIS
+         Requests the value of thespecified Allegro environment variable,
+         t_variable. Returns thestring assigned to the
+         variable or nil if thevariable is currently not set in Allegro.
+         Variable names are caseinsensitive.
+         Use axlGetVariableList where the variable stores a list
+         of items (such as a PATHvariable) to preserve anyspaces
+         in each item.
+         Note: Variable names/valuescan change from release to release.
+  NEEDS
+         t_variable:     the name of the Allegro environment variable.
+         nil:    if nil returnsa list of all set variables in Allegro
+  RETURNS
+         t_value/nil:    the string value of the Allegro environmentvariable.
+                         Returns nil if thevariable is not set.
+         lt_names: if passed nil returnslist of variable names
+  SEE ALSO
+         axlUnsetVariable, axlSetVariable, axlGetVariableList
+         axlReadOnlyVariable axlSetVariableFile,  axlUnsetVariableFile
+  EXAMPLES
+         The following example:
+         1. Gets the value ofthe current menu loaded.
+            The variable name ismenuload.
+         2. Then gets thevalue of the library search path libpath.
+                 menu = axlGetVariable("menuload")
+                         ==> "geometry"
+                 psmpath = axlGetVariable("psmpath")
+                         ==> ".symbols"

@@ -1,0 +1,15 @@
+获取默认的licensig版本
+  NAME
+         axlLicDefaultVersion - return defaultversion number used for licensing
+  SYNOPSIS
+         axlLicDefaultVersion(
+         )-> f_version
+  FUNCTION
+         This returns the defaultversion number used in licensing. Most applications
+         in a release will use thisversion number when checking out licenses.
+  NEEDS
+         nothing
+  RETURNS
+         f_version - floating pointnumber (e.g. 16.3)
+  SEE ALSO
+         axlLicCheckOut

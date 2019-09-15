@@ -1,0 +1,28 @@
+¹Ø±Õ´°Ìå
+  NAME
+         axlFormClose - closes formwindow
+  FUNCTION
+         axlFormClose(
+                 r_form
+                 )
+         ==> t/nil
+  SYNOPSIS
+         Closes the form r_form.Unless the form is running without a callback
+         handler, you must make thiscall to close the form. Without a
+         registered dispatch handler, Allegro closes theform automatically
+         before returning to theapplication from axlFormDisplay.
+         Note: axlUIWClose also performs thesame function.
+  NEEDS
+         r_form:         Form dbid.
+  RETURNS
+         t/nil:          Returns t if it closed the form. Otherwise itreturns
+                         nil (for example,
+                         if the form wasalready closed).
+  EXAMPLES
+         case( form->curField
+         ("done"
+                 axlFormClose(form)
+                 axlCancelEnterFun()
+                 _extract()
+                 t)
+         See axlFormCreate examples.

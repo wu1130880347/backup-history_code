@@ -1,0 +1,19 @@
+获取从指定的单元格中的数据。
+  NAME
+     axlSpreadsheetGetCell
+  FUNCTION
+     axlSpreadsheetGetCell(row, col)
+         ==> t / nil
+  SYNOPSIS
+     Retrieves the data from thespecified cell.
+  NEEDS
+     row -- Row index (1-based) of cell to look up.
+     col -- Column index (1-based) of cell to look up.
+  RETURNS
+     Structure describing cell, or nil if cell notdefined.
+     Structure includes informationsuch as row/col, style,
+       data type, and dataitself.
+  SEE ALSO
+    axlSpreadsheetSetCell
+    axlSpreadsheetSetCellProp
+    axlSpreadsheetDefineCell

@@ -1,0 +1,21 @@
+设置表格风格
+  NAME
+     axlSpreadsheetSetStyle
+  FUNCTION
+     axlSpreadsheetSetStyle(id, name)
+         ==> t / nil
+  SYNOPSIS
+     Defines or activates the specified style in the active spreadsheet.
+     Styles may be referenced in any worksheet of the spreadsheet. You do
+     not need to redefine the style for each new worksheet you create.
+  NEEDS
+     id   -- The spreadsheet ID for this style.
+     name -- The user "name" for this style / nil. This is the name
+             that is displayed for this style in the Excel style
+             editor and selection pull-down.
+  RETURNS
+     t   -- Style successfully activated / defined.
+     nil -- Style not activated. Reason written to console.
+  SEE ALSO
+    axlSpreadsheetSetCell
+    axlSpreadsheetSetWorksheet

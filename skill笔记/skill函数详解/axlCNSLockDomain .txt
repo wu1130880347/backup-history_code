@@ -1,0 +1,28 @@
+Ëø¶¨/½âËøÔ¼ÊøÓò
+  NAME
+         axlCNSLockDomain - lock/unlock aconstraint domain
+  FUNCTION
+         axlCNSLockDomain(
+                 g_domain
+                 g_mode
+         )
+         ==> t/nil
+  SYNOPSIS
+         This locks or unlocks aconstraint domain.
+         See discussion inaxlCNSIsLockedDomain.
+   NOTE
+         Changing the lock on adomain can take a considerable amount of time
+         since DRC status for that domain needsto be updated. In the spacing
+         domain dynamic shapes alsoneed to be updated. If doing other changes,
+         you should considercloaking (axlDBCloak the entire process.This
+         API already uses cloaking.
+  NEEDS
+         g_domain: domain of cset;'physical, 'spacing, 'sameNet, 'electrical
+         g_mode: may either be t (to lock) or nil to unlock
+  RETURNS
+         returns t if updated lock status, nil an error
+  SEE ALSO
+         axlCNSIsLockedDomain
+  EXAMPLES
+         1) Lock Spacing and Same net spacingdomains
+             axlCNSIsLockedDomain('spacing t)

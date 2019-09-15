@@ -1,0 +1,37 @@
+通过插件调用参数
+  NAME
+         axlDllCall - call plugin viaarguments
+  SYNOPSIS
+         axlDllCall(
+                 o_pluginFunc
+                 [g_arg1]
+                 ...
+                 [g_arg10]
+         ) -> nil/x_value/lg_data
+  FUNCTION
+         This calls a symbol thathas been imported from a plugin. As
+         the first argument itrequires o_pluginFunc which was returned
+         via a call to axlDllSym.The rest of the arguments are what
+         the implement plugin APIhas defined.
+         
+         The return from the call isone of the following:
+           nil: error processing data
+           x_value: plugin function returned a non-zeroresult
+           lg_data: plugin function returned a zero and
+         In turn it calls the importfunction from the plugin
+  NEEDS
+         o_pluginFunc - pluginsymbol handle
+         [g_arg1..10] - up to 10 arguments.
+  RETURNS
+         nil: error in processingarguments or funding functions
+         x_value: if plugin function returns a non-zero then
+                 this is what isreturned
+         lg_data: if plugin function returns zero then its output
+                 arguments areprocessed and returned as a list.
+                 If the outputargument list from the plugin has0 entries
+                 then an empty list is returned.
+  SEE ALSO
+         axlDllOpen
+  EXAMPLES
+         1) Example carried from axlDllSym
+                 axlDllCall(_ashDistance 10:0 25.1:0) -> 15.1

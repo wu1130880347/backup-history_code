@@ -1,0 +1,53 @@
+由Module在板上创建一个实例
+  NAME
+         axlDBCreateManyModuleInstances - Creates manyinstances of
+                                      the same module.
+  FUNCTION
+         axlDBCreateManyModuleInstances(
+             t_name
+             t_moddefName
+             x_tileStartNum
+             l_origin
+             l_offset
+             x_num_tiles
+             f_rotation
+             x_logicMethod
+             [l_netExcept]
+             [g_mirror]
+         )
+         ==> o_result/nil
+  SYNOPSIS
+         Creates multiple moduleinstance in the design. By reducing the
+         number of times the moduledefinition file must be opened, this
+         function optimizes performance when creating severalinstances
+         of the same module.
+  NEEDS
+         t_name         Prefix of the names of the moduleinstances.
+         t_moddefName   Name of the module definition/
+         x_tileStartNum Tilenumbering start number and increment
+                          by 1 for each tile.
+         l_origin       First location of first module.
+         l_offset       List containing the offset wantedbetween module
+                        origins.
+         x_numTiles     The number of module instances to beplace.
+         f_rotation     Angle of rotation for the moduleinstance.
+         x_logicMethod  Flag to indicate where the logic for the
+                         modulecomes from.
+                                         0 - no logic
+                                        1 - logic fromschematic
+                                        2 - logic from moduledefinition
+         l_netExcept    Optional list of net names to add to the net
+                        exception list.
+         g_mirror    Optional if modules should be mirrored
+  RETURNS
+         lo_result   If successful, returns the list of database objects
+                     that belong tothe module instances created.
+         nil         Creation of module instance could not be completed.
+  SEE ALSO
+         axlDBCreateModuleDef axlDBCreateModuleInstance
+  EXAMPLE
+         Add 5 module instancesbased on the module definition file mod.mdd,
+         starting at point (10,10) and offsetting by (5,0) every time:
+             modinsts = axlDBCreateManyModuleInstances(
+                         "Num" "mod" 2 10:10 '(5 0) 5 0 2 '("GND" "+5"))
+         => Creates 5 module instancesnamed Num2, Num3, Num4, Num5, Num6.

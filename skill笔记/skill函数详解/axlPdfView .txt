@@ -1,0 +1,27 @@
+打开一个pdf文件
+  NAME
+     axlPdfView - PDF viewerinterface
+  SYNOPSIS
+     axlPdfView(
+         t_pdfFile
+     )
+     ==> t
+  FUNCTION
+     Displays a PDF file fromAllegro.  If just the filename is given
+     attempts to find the pdf filevia Allegro's PDFPATH variable.
+     
+     It displays the PDF file in anexternal pdf viewer.
+     It functions slightly differentin a UNIX versus Windows environment.
+     On UNIX, the only supported browser isacroread. The program, acroread
+     must be in located in yourPATH.
+     On Windows, it uses the defaultpdf registered with Windows
+     registry for fileswith the pdf extension. If none is registered
+     then the call will fail.
+  NEEDS
+     t_pdfFile - pdf to display
+  RETURNS
+     t ifsuccess; nil failure
+     Failure can be due to
+         no acroread program found (UNIX) orregistered (Windows)
+  EXAMPLE
+         axlPdf("allegro.pdf")

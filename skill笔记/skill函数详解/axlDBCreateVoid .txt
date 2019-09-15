@@ -1,0 +1,34 @@
+创建一个void
+  NAME
+         axlDBCreateVoid - add a void to an "open" shape
+  FUNCTION
+         axlDBCreateVoid(
+             o_shape/nil
+             r_path/o_polygon
+         )
+         ==> o_dbid/nil
+  SYNOPSIS
+         Adds a void to a shape. Ifadding multiple voids it
+         is recommended that you either add thevoids when creating
+         the shape (axlDBCreateShape) or re-open the shape (axlDBOpenShape)
+         before creating the voids.
+         Only certain layers (e.g. ETCH) allow voids in ashape.
+         Use axlOK2Void to determine if shape supportsvoids.
+         For best performance, if adding multiplevoids to an etch shape
+         first call axlDBOpenShape, add the voids then close the shape
+         (axlDBCreateCloseShape).
+         Unless you want the void tobe permanent, do not add voids to
+         dynamic shapes. User addedvoids on dynamic shapes must
+         be put on the dynamic shape(class=BOUNDARY) not on the generated
+         shape (class=ETCH).
+  NEEDS
+         o_shape:  The axl DBID of the shape, if nil uses the openshape.
+         r_path:   Existing path structure created by the axlPath functions
+  RETURNS
+         o_dbid/nil         - axl DBID of the void, nil if not created
+  EXAMPLES
+         1) Create Shape Example
+         2) Add to existing shape
+                 see dbc_shp_t10 function in axldbctshp.ilexample code  
+  SEE ALSO
+         axlDBCreateShape, axlDBOpenShape, axlOK2Void, axlDBCreateVoidCircle

@@ -1,0 +1,17 @@
+保存层面优先级表
+  NAME
+         axlLayerPrioritySaveAll - Save existinglayer priority tables.
+  FUNCTION
+         axlLayerPrioritySaveAll(
+         ) -> t/nil
+  SYNOPSIS
+         Saves all layer priorityinformation to be restored later. Until
+         a axlLayerPriorityRestoreAll() is called, any subsequentcalls
+         to this function areno-op.
+  NEEDS
+  RETURNS
+         t: success
+         nil: this function has been calledalready but axlLayerPriorityRestoreAll
+              has not beencalled yet.
+  SEE ALSO
+         axlLayerPriorityClearAll, axlLayerPriorityRestoreAll

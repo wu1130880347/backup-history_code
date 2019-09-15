@@ -1,0 +1,32 @@
+È·ÈÏÇ°UI
+  NAME
+         axlUIConfirmEx - puts a UI blocking confirmer with do not show again checkbox
+  FUNCTION
+         axlUIConfirmEx(
+                 t_message
+                 t_key/nil
+                 [s_level]
+                 )
+         ==> t
+  SYNOPSIS
+         Displays the string t_message in a confirmer window with an optional check
+         box to never show the box again.
+         Functions same as axlUIConfirm except allows a checkbox to never show
+         confirmer again. System remembers this selection so if user has
+         indicated they don't want the box the call immediately returns.
+         Requires a unique t_key string which is used to remember the selection.
+         The optional s_level argument changes the info displayed to the user.
+         On program start/exit writes a file to <HOME>/pcbenv/remember_<program>.txt
+  NEEDS
+         t_message:      Message string.
+         t_key:          unique key for
+                         if nil works like axlUIConfirm
+         s_level: option level symbol; default is info level, other levels
+                 are 'warn and 'error.
+  RETURNS
+         t:      Always returns t
+  SEE ALSO
+          axlUIConfirm
+  EXAMPLES
+         Inform user when a significant transition is being made:
+             axlUIConfirmEx( "Use this command at your own risk." "mynewcommand")

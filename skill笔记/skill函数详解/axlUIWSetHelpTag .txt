@@ -1,0 +1,32 @@
+在现有的一个窗口上显示一个指定的帮助标记
+  NAME
+     axlUIWSetHelpTag - subclasses help tag on an existing window
+  SYNOPSIS
+     axlUIWSetHelpTag(
+         r_window
+         t_tag
+         )
+         -> t/nil
+  FUNCTION
+      This has been mostly replaced by axlUIWHelpRegister which will work
+      for either commands or forms.
+      Attaches the given help tag to a pre-existing dialog
+      (anything with a Port). This function employs subclassing
+      of the help tags. This means that if a help tag is already
+      associated with the dialog, this new help tag will be added
+      to it - it will *not* replace it. Adding a new help tag to
+      a pre-existing one is done by concatenating the two with a dot.
+      For example:
+  
+      Pre-existing Help Tag: foo
+      New Help Tag:          bar
+  
+      Resulting Help Tag:    foo.bar
+  
+  NEEDS
+         r_window:       Window id.
+         t_tag:          subclass help string
+  RETURNS
+         t for success, nil for failure (invalid arguments)
+  SEE ALSO
+         axlUIWHelpRegister

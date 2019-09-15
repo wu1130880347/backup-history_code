@@ -1,0 +1,14 @@
+获得两条线段的交叉点
+  NAME
+         axlLineXLine - find theintersection point between 2 line segments
+  SYNOPSIS
+         This function isobsolete see axl_ol_ol2. It is kept for
+         backward compatibility.
+  SEE ALSO
+         axl_ol_ol2
+:white;mso-highlight:white;mso-font-kerning:0pt'>         ll_line: two end points
+  RETURNS
+         slope or nil if line isvertical
+  EXAMPLE
+         axlLineSlope(list(5.0:20.10 15.4:30.2)) =
+         axlLineSlope(list(5:20 5:40)) = nil

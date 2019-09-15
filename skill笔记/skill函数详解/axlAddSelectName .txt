@@ -1,0 +1,112 @@
+按名增加选择对象
+  NAME
+         axlAddSelectName        - Add objects to selection set by name
+         axlSingleSelectName     - Add objects to selection set by name after
+                                  clearing the current selections.
+         axlSubSelectName        - Remove objects from sel set by name.
+  FUNCTION
+         axlAddSelectName(
+                 t_nameType
+                 l_names
+         )
+         ==> t/nil
+         axlSingleSelectName(
+                 t_nameType
+                 l_names
+                 [g_wildcard]
+         )
+         ==> t/nil
+         axlSubSelectName(
+                 t_nameType
+                 l_names
+         )
+         ==> t/nil
+  SYNOPSIS
+         Finds figures by theirnames. Clears the current contents of the select
+         set, and adds named figure dbids to theselect set in single modeusing
+         the arguments as describedbelow. The function selects any figures
+         completely, regardless of theselection mode.  If the function selects
+         a figure already partiallyselected, the figure becomesfully selected.
+         Note: The on buttons matterfor select Propertiesby name, but don't
+         for other name types.   
+         Both axlSubSelectName and axlAddSelectName always operate inwildcard mode.
+         Both will take the optionalwildcard argument but ignore it. In the future,
+         if passed nil they may obey the argument.
+  NEEDS
+         t_nameType      - name type string - indicates the type of name string
+                           beingprovided.  Also implies the type of object to
+                           beselected.
+                            t_nameType          l_names
+                            -------------------------------------------------
+                             "NET"               List of net names for net      
+                                                selection.
+                             "COMPONENT"         List of reference designators
+                                                for component instance
+                                                selection.
+                                                
+                             "SYMBOL"            List of reference designators
+                                                for symbol instanceselection.
+                             "FUNCTION"          List of function designators for
+                                                function instance selection.
+                             "DEVTYPE"           List of device type for
+                                                 componentor symbol instance
+                                                selection. **
+                             "SYMTYPE"           List of symbol types for
+                                                symbol instance selection.
+                             "REFDES"            List of reference designators
+                                                for component or symbol
+                                                instance selection. **
+                             "DEVSYM"            List of device type for
+                                                symbol instance selection.
+                             "GROUP"             List of group names for group
+                                                 or group member selection.
+                             "PROPERTY"          List of property names or
+                                                (property value) lists for
+                                                selection of database object
+                                                that have the property/value.
+                                                If no value is provided, the
+                                                 value will beignored for the
+                                                database property comparison.
+                                                The find filter enabled and
+                                                onButtons control the type of
+                                                elements that will be selection.
+                                 **For DEVTYPE and REFDES,  a component instance
+                                   will be selected if COMPONENTS are in the
+                                   find filter ?enabledlist.  Otherwise,
+                                    if SYMBOLS are enabled,  a symbol instance
+                                   will be selected.
+         l_names         - list of name items which could be names, (name value)
+                           lists or location coordinatelists.  This varies
+                           with thename type.  Also supports a single name
+                           itemoutside of a list. Thus it can be:
+                             - aname
+                             - a list of names
+                             - a list of name/value pair
+         g_wildcard      - for interfaces that support thisargument, a t
+                         means that "*" or "?" preforms regularexpression
+                         matching.Default is nil where * and ? are treated
+                         as normalcharacters. Supported by axlSingleSelectName.
+  RETURNS
+         t      - If something added to ro removed from the sel set
+         nil    - Otherwise.
+  NOTE
+         Dependent on find filter ?enabled settings.
+  EXAMPLES
+         The following exampleselects the nets GND and VCC by their names.
+         axlClearSelSet()
+         axlSetFindFilter( ?enabled list( "noall" "nets")
+                 ?onButtons list( "all"))
+         axlSingleSelectName( "NET" list( "GND" "VCC"))
+         ==> (dbid:234436dbid:98723)
+         axlSingleSelectName("PROPERTY" list( list("BUS_NAME" "MEM") "FIXED")
+         The following exampleselects a set of nets--one set by the property
+         nameELECTRICAL_CONSTRAINT_SET with value DEFAULT, and another
+         set that has the name ROUTE_PRIORITY.
+         axlClearSelSet()
+         axlSetFindFilter( ?enabled list( "noall" "nets")
+                           ?onButtons list( "all"))
+         axlSingleSelectName("PROPERTY"
+                 list( list( "ELECTRICAL_CONSTRAINT_SET" "DEFAULT")
+                 "ROUTE_PRIORITY"))
+         ==> (dbid:234436dbid:98723 dbid:234437 dbid:98727
+             dbid:234438 dbid:98725dbid:234439 dbid:98726)

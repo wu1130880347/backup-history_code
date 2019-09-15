@@ -1,0 +1,49 @@
+基于类型设计查询约束模式
+  NAME
+         axlCNSDesignModeGet - inquireconstraint modes based on type design
+  FUNCTION
+         axlCNSDesignModeGet(
+                 nil
+         ) ==> ls_constraints
+         axlCNSDesignModeGet(
+                 'all
+         ) ==>lls_constraintNModes
+         axlCNSDesignModeGet(
+                 'editable
+         ) ==> t/nil
+         axlCNSDesignModeGet(
+                 s_name/t_name
+         ) ==> s_mode/nil
+  SYNOPSIS
+         This fetches the currentdrc mode(s) for checks that fall
+         into set of designconstaints. These constraints pertain
+         to the entire board. Todetermine the setcurrently supported
+         do a axlCNSDesignModeGet().
+         This has axlDebug support.
+  CAUTION
+         Future releases may add or subtract constraintchecks. The
+         axl interface does guaranteethe checks returned by this
+         interface will remainconstant from release to release.
+  NEEDS
+         nil: returns all checks indesign type DRC
+         'all: returns all checks and current mode
+         'editable: returns t if mode can be change, nil otherwise
+                 nil is returned when in Allegro studio which does
+                 not offer this option
+         s_name: symbol name ofcheck.
+         t_name: string name ofcheck
+  RETURNS
+         ls_names: - list of checks (s_name ...)
+         lls_names: - list of checks and their mode ((s_name s_mode) ...)
+         s_mode: mode 'on, 'off or 'batch
+  SEE ALSO
+         axlCNSDesignModeSet, axlCNSDesignValueGet
+  EXAMPLES
+         1) get current list of design constaints
+                 axlCNSDesignModeGet(nil)
+         2) get list of settings for all designconstraints
+                 axlCNSDesignModeGet('all)
+         3) get current setting of pkg 2 pkg
+                 axlCNSDesignModeGet('Package_to_Package_Spacing)
+         4) get current setting of negative planeislands using a string
+                 axlCNSDesignModeGet("Negative_Plane_Islands")

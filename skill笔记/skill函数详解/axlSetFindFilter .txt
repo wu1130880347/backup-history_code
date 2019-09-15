@@ -1,0 +1,242 @@
+ÉèÖÃfindÃæ°å
+  NAME
+         axlSetFindFilter - Set find filter forselection of database objects
+  SYNOPSIS
+         axlSetFindFilter(
+                 ?enabled        lt_enabled
+                 ?onButtons      lt_filterOn
+         ) => t/nil
+  FUNCTION
+         This function sets upboth the object types to be displayed in the
+         Find Filter and which typesamong those are to be set to on in the
+         Find Filter form.
+         The first argument, lt_enabled, is a list of theobject types to
+         be displayed in the FindFilter and of the select options
+         described below. The secondargument, lt_onButtons, lists the
+         object types whose buttonsare to be on (andtherefore selectable)
+         when the filterdisplays. The table below lists the keywords that
+         can be included in theenabled and onButtons lists for setting up
+         the Find Filter. Thediagrams show the keywords and the buttons
+         they cause axlSetFindFilter to display.
+         Each change is additive andprocessed in the order that they appear
+         in the list.  i.e. '("ALLTYPES" "NOPINS") enables all objecttypes
+         except for pins.
+         Each of the followingkeywords may be preceeded with a "NO" to disable
+         the particular option or objecttype.  i.e. "NOPINS".  The initial
+         default is "NOALL"
+         Keyword         Description
+        ---------------------------------------------------------------------
+         "INS"          Enable pins
+         "VIAS"          Enable vias
+         "CLINES"        Enable clines
+         "CLINESEGS"     Enable cline (arc or line) segs
+         "LINES"         Enable lines
+         "LINESEGS"      Enable line (arc or line) segs
+         "DRCS"          Enable drc errors
+         "TEXT"          Enable text
+         "SHAPES"        Enable shapes, rects and frects
+         "SHAPESEGS"     Enable shape segments
+         "BOUNDARY_SHAPES" Enable promotion toboundary shape if auto-shape
+                                 is selected (see dynamic shape discussion
+                                below)
+         "VOIDS"         Enable shape voids
+         "VOIDSEGS"      Enable shape void segments
+         "SYMBOLS"       Enable symbol instances
+         "FIGURES"       Enable figure
+         "COMPONENTS"    Enable component instances
+         "FUNCTIONS"     Enable function instances
+         "NETS"          Enable nets
+         "BONDWIRES"     Enable bondwires (APD/SIP only)
+                         See Bondobject discussion below.
+         "FINGERS"       Enable fingers (APD/SIP only)
+                         See Bondobject discussion below.
+         "GROUPS"        
+         "GROUPMEMBERS"  
+                         "GROUPS" and "GROUPMEMBERS" operate together to
+                         producefour possible selection states:
+                                           States
+                        Keyword      | 1 | 2 | 3 | 4 |
+                        =============|===|===|===|===|
+                         GROUPS      |OFF| ON|OFF| ON|
+                        GROUPMEMBERS |OFF|OFF| ON| ON|
+  
+                         State 1egacy. This supports code that predates the group
+                                 implementation. This is the same as State 3.
+   
+                         State 2: Grouponly. By only setting the group bitfield,
+                                 any selected group is returned to the application
+                                  asa group.
+                         State 3: Membersonly. By only setting the group_members bitfield,
+                                 group members are returned to the application when a group
+                                  isselected.
+  
+                         State 4:Hierarchical. By setting both the group and group_members
+                                 bitfields, a groupis returned for any heirarchical group that is
+                                 selected (such asa Module instance), and groupmembers
+                                  are returned for all other selectedgroup types.
+         "AUTOFORM"      Option - OBSOLETE
+         "EQUIVLOGIC"    Option - For logic object types (nets andcomponents),
+                                 causes the physical equivalent to be
+                                  selected.  Physical objects must be enabled
+                                  inboth "enabled" an "onButton" lists.
+         "INVISIBLE"     Option - Allows selection of objects thatare not
+                                  visibledue to color class/subclass form
+                                 setting.
+         "NAMEFORM"      Option - enables the find byname/property fields in
+                                 the find filter form.
+         "DYNTHEMALS"    Option - Enable selection of thermalreliefs generated
+                         by dynamicshapes. Only applicable to ?enabled.
+                         By default, you should not selectthese if you
+                         plan onmodifing the objects since the dynamic
+                         shape willjust re-generate them. You should
+                         only accessthem from read-only purposes.
+                         If in thepartition editor or the design has
+                         partitionsactive then this option is used to
+                         selectionsof read-only objects.
+                         This optionshould also be used to select
+                         shape basefillets. The sytem will not allow
+                         shape basedfillets to be modified it the dynamic
+                         filletoption is enabled.
+         "BONDSMART"     Option - Application has been updated todifferentiate
+                         bond wiresand/or fingers (APD/SIP).
+                         See Bond object discussion below.
+         "ALLTYPES"      Enable all object types ("INS" ... "NETS").
+         "ALL"           Enable all object types andoptions.
+         axlSetFindFilter processes thekeywords in each argument list in
+         order and only makes thechanges occurring in the list. This
+         means that changes areincremental for each call to the function.
+         To remove a selection, attach the string "NO" to the front of the
+         keyword. For example, the list ("ALLTYPES" "NOPINS") enables all
+         object types except pins.The initial default setting of the Find
+         Filter is "NOALL." That is, nothing is enabled.Use "NOALL" to
+         clear the Find Filterbefore enabling particular types.
+  DYNAMIC SHAPES
+         When writing an applicationand it needs to handle shapes you
+         need to decide how you wantto handle dynamic shapes.  If your
+         skill program does not accessshapes then read no further.
+         
+         A shape on ETCH, may either bestatic or dynamic. A static shape is
+         similar to what existed inAllegro prior to PSD15.0, you add
+         a shape to an etch layer andmanually void objects that impact
+         the shape. A dynamic shapeis placed on the BOUNDARY CLASS and
+         geneates zero or moreshapes on the ETCH layer based upon voiding.
+         If you want to modify adynamic shape then you should set
+         BOUNDARY_SHAPES. This allowthe user to select the generated
+         shape but selection will return itsdynamic shape (e.g a move
+         shape). If you want toaccess infomation on the shape then do
+         not set theBOUNDARY_SHAPES option (e.g show element).
+         Note if youpass "ALL" or "ALLTYPES" to setOptions then
+         BOUNDARY_SHAPES will be enabled and user'sselecting a ETCH
+         layer generated shape willresult in the selection returning
+         its dynamic shape on the "BOUNDARYCLASS". If youwish to
+         select the generated shapebut want to use the all option then do
+         a '("ALLTYPES" "NOBOUNDARY_SHAPES").
+         You only need to passBOUNDARY_SHAPES to the enabled list. It
+         will be ignored it pass tothe onButtons list.
+  Bond Objects
+         Bond objects (bond wires and fingers) are enabled only inSIP/APD.
+         These options are ignoredin the PCB products.
+         In SIP/APD, to maintainbackward compatibility, an application is
+         not considered to be "bondsmart". Thismeans if the Skill
+         application enables VIAs then FINGERSare enabled and if CLINES
+         enabled the BOND WIRES areenabled.
+         To make an application BONDSMART, you either set the
+         BONDSMART option or use theBONDWIRES, NOBONDWIRES, FINGERS
+         or NOFINGERS options.An application that is bond smart can
+         control seperately theselection of bond objects (fingers or bond
+         wires) from their baseobjects (vias or clines).
+         NOTE: You only need to makeyou Skill application bond smart if
+         you wish to differentiate the disablingof one of these objects.
+         By default, users in SIP/APDwill be able to independantly select
+            - VIAS or FINGERSif the Skill app enables VIAS
+            - CLINES and WIRES if CLINESare enabled.
+         Ideally most applicationswill not need to be updated to be bond
+         smart.
+  NEEDS
+         enabled -       List of keyword strings that describe objecttypes
+                         that are tobe selectable. Enabled object types will
+                         apear infind filter form. Object types need the
+                         onButton set as wellto fully enable selection.  List
+                         may also includeselection options.
+                         Also supportsa single keyword string instead of a list
+                         of strings.
+         onButtons -     List of keyword strings that describe objecttypes that
+                         are to beenabled for selection. Enabled types will
+                         appear with the onButtondepressed in the find filter
+                         form.  onButton settings provide the default for
+                         controls which can bemodified by the user when the
+                         find filterform is opened.  An object type must beon
+                         in both theenabled and onButton lists to be fully
+                         enabled forselection.  Options are ignored when
+                         provided inthe onButton list.
+                         Alsosupports a single keyword string instead of a list
+                         of strings.
+  RETURNS
+         t       - if any find filterchanges where made.
+         nil     - if no valid keywordswere provided.
+  NOTE
+         axlSetFindFilter does not display or selectany types that have
+         not been enabled.  That means that ?onButtons keywords only effect
+         enabled types. So for example, if youjust want to have all
+         enabled buttons be on, use ?onButtons list( "alltypes"). In general,
+         you only need to setspecific buttons on if you want those on and
+         others off.
+  APPLICATION PROGRAMMING NOTE
+        When you use axlSetFindFilter in implementing an interactive
+         command, it is a good ideato make your AXL-SKILL program restore
+         the user's FindFiltersettings from the previous time he or she
+         used the same command. Also, bear in mind thatFind Filter
+         settings are incremental.You probably want to clear any previous
+         settings as you start, then set theones you want. Call
+         axlSetFindFilter with "noall" as the first member of the list for
+         both the ?enabled and ?onButtons argumentsthe first time you call
+         it.
+         To maintain the user's FindFilter settings between invocations of
+         your command
+         1. The first time theuser invokes your program (when it loads),
+            preset global variablesto the list of enabled and onButtons
+            settings you want as the initialdefault, as
+            follows:
+                 myglobal_enabled = list("noall" "xxx" "yyy" ... "zzz")
+                        myglobal_onButtons = list("xxx" ..."zzz")
+         2. Each time the userinvokes your command, call axlSetFindFilter
+            with the current globalvalues of enabled and onButtons.
+                 axlGetFindfilter( ?enabledmyglobal_enabled
+                         ?onButtonsmyglobal_onButtons)
+         As users operates thecommand, they can set or clear any ofthe
+         buttons on the Find Filter.Therefore, you need to savehis button
+         settings as you exit thecommand.
+         3. As you end thecommand, save the user\222s current Find Filter
+            onButton settings usingthe following
+                 myglobal_onButtons= cons( "noall" axlGetFindFilter(t))
+         The cons( "noall" ... ensures that when youcall axlSetFindFilter
+         again you clear anysettings left over from any previous command,
+         and the set onlythe buttons as set at the time you call
+         axlGetFindFilter.
+EXAMPLES
+         The following exampledisplays the Find Filter with a list of
+         Nets, Pins and Vias.The Pins and Vias boxes are turned on.
+         (axlSetFindFilter ?enabled (list "vias" "pins" "nets")
+                 ?onButtons (list "vias" "pins"))
+         The following exampledisplays the Find Filter with Pins, Vias,
+         and Clinesegs turnedon.
+         (axlSetFindFilter ?enabled (list "noall" "vias" "pins"
+                 "nets" "clinesegs" "nameform")
+                 ?onButtons (list "vias" "pins" "clinesegs"))
+         The following example setsto find all the pins and vias on a net
+         when the user selects anypart of the net.
+         axlSetFindFilter(
+                 ?enabled list("noall" "equivlogic" "nets" "pins" "vias")
+                 ?onButtons list("all"))
+#endf
+**/
+(defun axlSetFindFilter (@key
+                                 (enabled                nil)
+                                 (onButtons              nil)
+                                 "gg")
+     "Set find filter elementsand initial on buttons"
+     (let ((result nil))
+         (when (axlOKToProceed)
+             (when enabled(setq result (_axlListToFilterenabled nil)))
+             (whenonButtons (setq result (_axlListToFilteronButtons t))))
+         result))

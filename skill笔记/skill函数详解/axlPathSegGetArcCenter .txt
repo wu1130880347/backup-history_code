@@ -1,0 +1,27 @@
+获得线段弧线的中心
+  NAME
+         axlPathSegGetArcCenter - Get the arccenter of a pathSeg
+  FUNCTION
+         axlPathSegGetArcCenter(
+             r_pathSeg
+         )
+         ==> l_point/nil
+  SYNOPSIS
+         Gets the center point of apath arc segment.
+  NEEDS
+         r_pathSeg:      Handle of a path arc segment.
+  RETURNS
+         l_point/nil:    Returns a list containing thecenter coordinate of
+                         the arcsegment. Returns nil if the argument is
+                         not an arc.
+  EXAMPLES
+         This example:
+           * Creates a path with astraight line segment and an arc segment
+           * Gets the last segmentadded with axlPathGetLastPathSeg
+         axlPathSegGetArcCenter gets thecenter of the last arc segment.
+         path = axlPathStart( list(1000:1250) 173)
+                 axlPathLine( path 29 2000:1250)
+                 axlPathArcCenter( path 12. 3000:2250 nil 2000:2250)
+         lastSeg = axlPathGetLastPathSeg(path)
+         axlPathSegGetArcCenter( lastSeg)
+                 ==> (2000 2250)

@@ -1,0 +1,17 @@
+AllegroµÄÊä³öÃüÁî
+  NAME
+         axlPPrint - Allegro's pretty print function
+  FUNCTION
+         axlPPrint(
+                 t_name
+         ) -> t_pname
+  SYNOPSIS
+         This exposes Allegro'spretty print text function. This basically
+         converts insures the firstcharacter after white space, _ or /
+         is capitalized and therest if lower case.
+  NEEDS
+         t_name: string
+  RETURNS
+         t_pname: converted string
+  EXAMPLES
+         axlPPrint("ETCH/TOP") -> "Etch/Top"

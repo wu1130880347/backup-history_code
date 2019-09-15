@@ -1,0 +1,40 @@
+输入Allegro参数文件
+  NAME
+         axlImportXmlDBRecords - import AllegroParameter file
+  SYNOPSIS
+         axlImportXmlDBRecords(
+                 t_fileName
+         ) -> t/nil
+  FUNCTION
+         This imports an AllegroParameter file into the current design. It offers
+         the same capability as (File->Import->Parameter)
+         A side effect is creationof param_read.log file.
+  CAUTIONS
+         For new releases, the prm files mayrequire updating to support new parameter
+         records or additions tocurrent records.
+  TIP
+         You can create your owncustom parameter files and load them with thisinterface.
+         While the export interfacetypically groups several Allegro parameters together
+         you can custom craft a prmfile with a single paramter record or just a single
+         parameter from one record (see example below). The only prm filerequirements
+         are
+            - prm file xml header
+            - parameter header and trailer
+            - revision number perparameter (currently these areall 1)
+  NEEDS
+         t_fileName - name ofparamter file. Default extension is .prm and if
+                 not given apath component will locate the file via PARAMPATH.
+  RETURNS
+         t if success, nil an error
+  SEE ALSO
+         axlExportXmlDBRecords
+  EXAMPLES
+         See  axlExportXmlDBRecords
+         Example of a parameter filewith setting just the dynamic shape min area to 75.0:
+         <?xmlversion="1.0" encoding="UTF-8" standalone="no" ?>
+         <CadenceAllegroParameterxmlns="">
+           <dynfill_parm_type>
+            <rev>1</rev>
+             <min_area>75.0MIL</min_area>
+          </dynfill_parm_type>
+        </CadenceAllegroParameter>

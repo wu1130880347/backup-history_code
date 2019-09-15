@@ -1,0 +1,30 @@
+创建一个封闭的shape
+  NAME
+         axlDBCreateCloseShape - complete (fill) an "open" shape in database
+  FUNCTION
+         axlDBCreateCloseShape(
+             o_shape
+             [g_forceShape]
+         )
+         ==> l_result/nil
+  SYNOPSIS
+         Closes the current openshape and applies the fillpattern
+         specified in axlDBCreateOpenShape, then performs DRC. Ifthe
+         fill fails, axlDBCreateCloseShape returns nil.
+  NEEDS
+         o_shape      - dbid of open shape created by axlDBCreateOpenShape
+         g_forceShape - by defaultAllegro creates a rectangle in its
+                        database when an outline is arectangle. This is for
+                        performance and space reasons. Youmay override this
+                        behavior bypassing a t for this option when closing
+                        a shape.
+         r_fill -  shape can be filled differently then voided.  This should
+                 only be done withxhatch shapes and shoulduse spacing/width
+                 in power of twomultiples. We strongly discourage this option.
+                 Used in place of g_forceShape.
+  RETURNS
+         l_result/nil:   - nil if not created, or a list containing
+                                        (car) axl DBID of theshape
+                                        (cadr) t if DRCs created or nil.
+  EXAMPLES
+         Create Shape Example

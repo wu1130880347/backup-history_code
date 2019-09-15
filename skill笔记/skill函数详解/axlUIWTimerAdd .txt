@@ -1,0 +1,72 @@
+添加计时器：设置一个时间延迟回调。
+  NAME
+         axlUIWTimerAdd - Setup a time delayed callback.
+  SYNOPSIS
+         axlUIWTimerAdd(
+             o_window
+             x_timeout
+             g_oneshot
+             u_callback
+         )
+         ==> o_timerId/nil
+  FUNCTION
+         Add or remove a callback for an interval timer.
+         This is not a real-time timer.  It is synchronus with the processing of
+         window based messages.  Therefore,  the actual callback interval may
+         vary.  Also, the timer will not go off (and call you back)  unless
+         window events for timer window (o_window) are being processed.  You
+         must be waiting in a UI related call (e.g. axlEnter*,  a blocking
+         axlFormDisplay, axlUIWBlock, etc.).  You can receive callbacks if you
+         return back to the main program message processing,  but that will be
+         stalled if the program is directed to block on another window.
+         You may add properties to the returned timerId to store your own data
+         for access in your timer callback.
+         Example:
+             procedure( YourSkillProcedure()
+                 ; set up a continuous timer using the main window
+                 timerId = axlUIWTimerAdd(nil 2000 nil 'YourTimerCallback)
+                 timerId->yourData = yourdata
+             )
+             procedure( YourTimerCallback( window timerId elapsedTime)
+                 ; your time period has elapsed.  do something.
+             )
+  NEEDS
+         o_window        Window which the timer is associated with.  If
+                         o_window is nil,  the timer will be associated with
+                         the main window.
+         x_timeout       Timeout in milliseconds before the timer is triggered
+                         and calls your callback procedure.  This timeout is
+                         not precise because it is dependent on processing of
+                         window messages.
+         g_oneshot       Controls how many times the timer triggers.  Use one
+                         of the following values:
+         
+                             t           The timer goes off once and a
+                                         automatically removes itself.
+                             nil         The timer goes off at the time interval
+                                         continuously until it is removed with
+                                         axlUIWTimerRemove.
+         u_callback      The procedure which is to be called when the timer goes
+                         off.  It is called with the following arguments.  Its
+                         return value is ignored.
+                             u_callback(
+                                 o_window
+                                 o_timerId
+                                 n_elapsedTime
+                             )
+                             o_window       The window you provided to
+                                             axlUIWTimerAdd.
+                             o_timerId       The timer id which was returned by
+                                             axlUIWTimerAdd.
+                             x_elapsedTime   The approximate elasped time in
+                                             milliseconds since the timer was
+                                             added.  
+  RETURNS
+         o_timerId       A identifier for the timer.  Use this to remove the
+                         timer.  This return value is subject to garbage
+                         collection when it goes out of scope.  When it is
+                         garbage collected,  the timer will be removed.  Don't
+                         count on garbage collection to remove the timer,
+                         however,  because you never know when GC will kick in.
+                         If you need a timer that lasts forever,  you probably
+                         have to assign this to a global variable.

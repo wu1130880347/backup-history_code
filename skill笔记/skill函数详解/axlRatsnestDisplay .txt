@@ -1,0 +1,15 @@
+ÏÔÊ¾·ÉÏß
+  NAME
+         axlRatsnestDisplay - display allratsnest lines of specified net.
+  SYNOPSIS
+         axlRatsnestDisplay(
+             rd_net
+         )
+         ==> t/nil
+  FUNCTION
+         Function displays allratsnest lines in a net.
+  NEEDS
+         rd_net   - dbid of a net
+  RETURNS
+         t     - if ratsnest lines aredisplayed successfully.
+         nil   - otherwise

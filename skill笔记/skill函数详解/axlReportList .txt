@@ -1,0 +1,22 @@
+报表列表
+  NAME
+         axlReportList - listregistered Skill reports
+  FUNCTION
+         axlReportRegister(
+         ) -> ll_reportList/nil
+  SYNOPSIS
+         This lists all the Skillreports registered to the Allegro
+         report interface.
+         Even if you do notregister any reports, severalwill be
+         listed since we registerAllegro default reports written
+         in Skill.
+  NEEDS
+         nothing
+  RETURNS
+         ll_reportList: a list oflists of reports register. Each
+                 sub-list has thefollowing format
+                   (g_reportCallbackt_description t_title)
+         nil: no reports registered
+  SEE ALSO
+         axlReportRegister
+  EXAMPLES

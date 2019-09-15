@@ -1,0 +1,66 @@
+设置设计的约束模式
+  NAME
+         axlCNSDesignModeSet - set design constraintmodes
+  FUNCTION
+         axlCNSDesignModeSet(
+                 t_name/s_name
+                 t_mode/s_mode
+         )
+         ==> t/nil
+         axlCNSDesignModeSet(
+                 'all
+                 t_mode/smode
+         )
+         ==> t/nil
+         axlCNSDesignModeSet(
+                 l_constraintNModes
+                 t_mode/smode
+         )
+         ==> t/nil
+         axlCNSDesignModeSet(
+                 ll_constraintNModes
+         )
+         ==> t/nil
+  SYNOPSIS
+         This sets the current drcmode(s) for checks that fall
+         into set of designconstaints. These modes control
+         the DRC for that check on theentire board.
+         
+         To determine the set currently supporteddo a axlCNSDesignModeGet().
+         This supports severalinterfaces. All checks may be set
+         ('all), individual checks, (t_name), list of checks with
+         a same mode
+                 '(s_name ...) t_mode/s_mode
+                 '(t_name ...) t_mode/s_mode
+         and sets of checks via a list of:
+                 '((s_name/t_names_mode/t_mode) ....)
+         
+         For performance reasons, changing modes or values does
+         not invoke DRC. You need to manually do this. A set
+         of interfaces supportsmarking changes to perform
+         an minimal set of drc updatesdepending upon your changes
+         (see axlCNSMapUpdate).
+  CAUTION
+         Future releases may add or subtract constraintchecks. The
+         axl interface doesguarantee the checks returned by this
+         interface will remainconstant from release to release.
+  NEEDS
+         s_name: symbol name ofcheck.
+         t_name: string name ofcheck.
+         s_mode: mode setting; maybe 'on, 'off, or 'batch
+         t_mode: string modesetting  "on, "off" or "batch"
+         'all: set all checks for given tier ofallegro.
+  RETURNS
+         Returns t if succeeds or nil if failure.
+  SEE ALSO
+         axlCNSDesignModeGet, axlCNSDesignValueGet, axlCNSMapUpdate
+  EXAMPLES:
+         1) turn on pkg to pkg ki check
+                 axlCNSDesignModeSet('Package_to_Place_Keepin_Spacing'on)
+         2) make all design constraints batchonly
+                 axlCNSDesignModeSet('all 'batch)
+         3) turn two constraint to off
+                 axlCNSDesignModeSet('(Negative_Plane_IslandsPad_Soldermask_Alignment) 'off)
+         4) set various constraints to differentmodes
+                 axlCNSDesignModeSet( '((Package_to_Place_Keepin_Spacingoff)
+                                 (Package_to_Place_Keepout_Spacing'on)) )

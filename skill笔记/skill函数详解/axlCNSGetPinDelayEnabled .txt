@@ -1,0 +1,12 @@
+返回是否有设置PinDelay
+  NAME
+     axlCNSGetPinDelayEnabled
+  SYNOPSIS
+     axlCNSGetPinDelayEnabled()
+         => t/nil
+  FUNCTION
+     Returns if pin delay isenabled.
+  NEEDS
+  RETURNS
+     t: pin delay is enabled
+     nil: pin delay is not enabled

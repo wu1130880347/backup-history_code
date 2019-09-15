@@ -1,0 +1,105 @@
+¸ü¸Ädbids²ãÃæ
+  NAME
+         axlChangeLayer - change layer for dbids
+  FUNCTION
+         axlChangeLayer(
+                 lo_dbid/o_dbid
+                 t_newLayer
+                 [o_padStackDbid]/[t_padstackname]
+         )
+         ==> t/nil
+  SYNOPSIS
+         Changes layer for lines, clines or segments, shapes and text.
+         Functionality offered matches what the Allegro change command provides.
+         If moving clines or cline segments across layers, you should provide a
+         via to be used to maintain connections. Via must meet contraint rules.
+  NOTES:
+         - If you need to change the layer of multiple etch objects, it is more efficient
+            to pass them as a list of dbids then to call this function for each dbid.
+         - Note for via to be accepted if must have:
+                 - pads on start and destination layers
+                 - be in the constraint via list for the net and location
+           If the provided padstack is not acceptable, system will select an acceptable
+           padstack based upon the via list for net and location.
+  NEEDS
+         lo_dbid/o_dbid - a single dbid or list of dbids
+         t_newLayer - new layer.
+         o_padStackDbid - if moving clines across layers, allegro will add a via
+                 to maintain connection. This is that via. If this argument is not
+                 provided the system default via is used.
+         t_padStackName - name of padstack to be used
+  RETURNS
+         t if succeeded, nil if failure
+         FAILURES: (for debug purposes set axlDebug(t) to see additional messages)
+             - an dbid is of a type supported
+             - illegal option types
+             - target layer matches object current layer
+  EXAMPLES
+         1) Move an object to ETCH/BOTTOM
+             ; ashOne is a selection utility found at
+             ;   <cdsroot>/pcb/examples/skill/ash-fxf/ashone.il
+             dbid = ashOne()
+             ; pick an object (set find filter)
+             result = axlChangeLayer(dbid "ETCH/BOTTOM")
+             ;   or if moving clines
+             result = axlChangeLayer(dbid "ETCH/BOTTOM" "PAD60SQ36D")
+  SEE ALSO
+         axlTransformObject, axlDBChangeText, axlChangeWidth
+**/
+list
+axlChangeLayer(int argc, list *argv)    // LAMDBA2
+{
+     char           *myFunc = "axlChangeLayer";
+     list            l;
+     int           bufid;
+     long            err, numChanged;
+     find_filter_type    filter;
+     int class, subclass;
+     dbptr_type via = NULL;
+     change_type chg;
+     list dbidList = argv[0];
+     int inVis = TRUE;
+     if (AIXOKToProceed() == FALSE)
+         return ilcNil;
+     if (!axluGetLayerOpt(myFunc, AXLGETLAYER_CLASSMODE, argv[1], &class, &subclass))
+         return ilcNil;
+     if (subclass==INVALID_SUBCLASS)
+         return ilcNil;
+     if (argc==3) {
+         if (!axluGetPadstackPtr(myFunc, argv[2], &via))
+             return ilcNil;
+     }
+     bufid = bufinit0(sizeof(dba_object_handle), 1024, 1024);
+     if (bufid<0)
+         return (ilcNil);
+     SetFindFilter(&filter, inVis);
+     filter.text = 1;
+     filter.shape = 1;
+     filter.rect = 1;
+     filter.frect = 1;
+     /* axluAtom2List makes a list out of a single DBID */
+     err = axluGetFilteredDBPtrBuf(NULL, dbidList, bufid,
+                                   ChangeWFilterFunc, (void *)&filter);
+     if (err == FALSE) {         /* nothing in buffer */
+         err = 1;
+         goto NOTHING_TO_DO;
+     }
+     chg_init_param(&chg);
+     if (!_axlDbg)
+         chg.flags |= CHGF_NOMSGS;
+     chg.apply_class = TRUE;
+     chg.class_filter =  ETCH;
+     chg.apply_subclass = TRUE;
+     chg.class = class;
+     chg.subclass = subclass;
+     chg.viapadstk_ptr = via;
+     err = chg_items(bufid, &numChanged, &chg);
+NOTHING_TO_DO:
+     buffree(bufid);
+     if (err || !numChanged)
+         return ilcNil;
+     /* refresh the dbids */
+     for(l = axluAtom2List(dbidList); ilNonnull(l); l = ilCdr(l))
+         axlDBRefreshId(ilCar(l));
+     return ilcT;
+}

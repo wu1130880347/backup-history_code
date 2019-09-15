@@ -1,0 +1,33 @@
+获得某个多边形的内存使用情况
+  NAME
+         axlPolyMemUse - debug functiontracking polygon memory usage.
+  FUNCTION
+         axlPolyMemUse (
+         ) -> lx_polyCounts
+  SYNOPSIS
+         This returns a list ofintegers reflecting the internal memory
+         use of the axlPolyinterfaces. If you assign Poly objects to
+         global handles (instead of assigningto locals, e.g let or prog
+         statements) then youneed to insure all of global data is nil-ed
+         at the end of your program.The example below shows how to check
+         that you have written yourprogram correctly.
+         Description of 5integers. Integers 2 through 5 are for Cadence use.
+            1 - Most important and showsnumber of Skill Polys still in use.
+            2 - Number of AllegroPolys in use. This is always >= to Skill
+                Polys. Theadditional polys are voids (holes) in the Skill
+                polys
+            3 - Number of edgesin all Allegro polys.
+            4 - Number of AllegroFloating Point Polys; should be 0.
+            5 - Number of edgesin all Allegro Floating Point Polys; should be 0.
+  NEEDS
+         nothing
+  RETURNS
+         lx_polyCounts: a list of 5integers reflecting Poly memory usage
+  SEE ALSO
+         axlPolyOperation
+  EXAMPLES
+         1) Verify at end ofyour program you have no hanging Poly memory
+                 in use.
+            gc() ; requires Skilldevelopment licenses
+            axlPolyMemUse()      
+            ;; should return all 0's

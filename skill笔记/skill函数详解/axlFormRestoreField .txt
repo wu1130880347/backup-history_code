@@ -1,0 +1,37 @@
+还原窗体上的某个部件中的值
+  NAME
+         axlFormRestoreField  - sets field back to last value
+  FUNCTION
+         axlFormRestoreField(
+                 r_form
+                 t_field
+                 )
+         ==> t/nil
+  SYNOPSIS
+         Restores t_field in openform r_form to its previous value. The previous value is only
+         from the last user change and not from form set field functions, so this function is
+         only useful in the formcallback function.
+         Use this function in the formcallback to restore the previous value when you detect the
+         user has entered an illegalvalue in the field.
+  NEEDS
+         r_form:         Form dbid.
+         t_field:        Name of the field.
+  RETURNS
+         t/nil:          Returns t if the field was restored. Returns nil if the field was not
+                         restored (for example, if the field does not exist).
+  EXAMPLES
+         See axlFormCreate examples where the callback function checks that theuser has
+         entered in field "view_file" a filename that ison the list of availableextract view
+         filenames. If theuser-entered value is not, then the program calls axlFormRestoreField
+         to restore the field to itsprevious value.
+                 (case form->curField
+                  ("view_file"
+                  (if form->curValue
+                  (progn
+                  ; Accept user inputonly if on list
+                  if(member( form->curValuefileList)
+                 then axlFormSetField( form
+                         "view_file" form->curValue)
+                  else axlFormRestoreField(
+                 form "view_file"))))
+                  t)

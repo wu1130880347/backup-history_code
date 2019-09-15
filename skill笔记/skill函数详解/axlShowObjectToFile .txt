@@ -1,0 +1,23 @@
+将某些对象的相关信息保存到一个文件中
+  NAME
+         axlShowObjectToFile - Create showelement file for dbid list.
+  SYNOPSIS
+         axlShowObjectToFile (
+                 lo_dbid
+                 [t_file_name]
+         )
+         ==> (t_file_name x_widthx_line_count)
+  FUNCTION
+         Creates a temp file withshow element information on the dbids
+         which are specified inlo_dbid.
+  NEEDS
+         lo_dbid         list of DBID's or singleDBID
+         t_file_name     optional file name (instead of a tempfile)
+  RETURNS
+         A list of three items which describe thefile which was created:
+             (t_file_name x_widthx_line_count)
+                 t_file_name     The name of the temp file
+                 x_width         The width (in characters) of the widest
+                                text line
+                 x_line_count    The count of lines in thefile.
+         Returns nil if thefile could not be created.

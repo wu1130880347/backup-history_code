@@ -1,0 +1,31 @@
+获取physical约束集中的padstack列表
+    NAME
+         axlCnsGetViaList - padstack namesfrom physical constraint sets.
+    FUNCTION
+         axlCnsGetViaList()
+             t_csetName
+         )
+         ==>lt_padstacks/nil
+    SYNOPSIS
+         Returns padstacks definedin a physical constraint set.
+         If cset name is provided then returns only viasassigned
+         for that cset otherwise returns vias for all csets.
+         The same vias may appearmore then once when using the nil option.
+         Order of vias in list when given a cset Nameeffects the via selection
+         behavior of etch editing'sworking layer model (see thisdocumentation
+         for more infomation).
+         Note padstacks in via list may not currently be loadedin database
+         or exist on disk (not findable is shownby a "*" indicators in cns
+         physical set dialog).
+    NEEDS
+         t_csetName: name ofphysical cset or nil to process allcsets
+    RETURNS
+         lt_padstacks: a list of padstacksdefined in a cset or all
+                 cset. nil if no padstacks found or cset not found.
+    SEE ALSO
+         axlCnsAddVia, axlCnsDeleteVia, axlCNSGetPhysical
+    EXAMPLES
+         1) Report vias in DEFAULT physicalconstraint set
+                 axlCnsGetViaList("DEFAULT")
+         2) Report vias in all physicalconstraint sets
+                 axlCnsGetViaList(nil )

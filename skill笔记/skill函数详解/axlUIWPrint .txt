@@ -1,0 +1,36 @@
+在窗体上显示信息
+NAME
+         axlUIWPrint - prints a message
+  SYNOPSIS
+         axlUIWPrint (
+                 r_window
+                 [s_msg_level]
+                 t_format_string
+                 [g_arg1 ...]
+         )
+         -> t/nil
+  FUNCTION
+         Prints a message to a window other then the main window. If desired
+         window does not have a message line then output goes to main window.
+         See axlMsgPut for detailed description although unlike that fucntion
+         this does not buffer messages. A nil for window dumps output to main
+         window.
+         If a message level is fatal
+  NEEDS
+         r_window:       Window id.
+         s_msg_level     Optional message level symbol. If not present
+                         then defaults to info1.
+                 'info0  - infomational message (not recorded in journal)
+                 'info1  - infomational mesasge
+                 'warn   - warning level message
+                 'error  - error level message (with beep)
+                 'fatal  - fatal level message (with beep)
+         t_format_string: The context message (printf like) format string.
+         g_arg1 ...:     The values for the substitution arguments for the
+                         format string
+  RETURNS
+         t/nil:  only reason for failure is symbol not a window type or nil.
+  EXAMPLE
+         net = "GND"
+         axlUIWPrint(nil "My net name is %s", net);
+         axlUIWPrint(nil 'error "Illegal net name: %s", net);

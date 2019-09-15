@@ -1,0 +1,47 @@
+总是允许用户取消Skill 代码测试。红绿灯会改变红色。
+
+  NAME
+         axlCancelOn - control-Cinterface
+         axlCancelOff - control-Cinterface
+         axlCancelTest - control-Cinterface
+  SYNOPSIS
+         Allows Skill code to test for user cancel.
+         When cancel is enabled thetraffic light will change to yellow.
+         Cancel calls are nestablebut you should always make as
+         many off calls as on calls.To avoid problems always
+         place the cancelon/off callpairs in the same function.
+         These calls do not work from the Skillor Allegro command
+         line since Allegro willimmediately disable cancel when
+         exiting the Skillenvironment to prevent the system
+         from hanging.
+         Caution: Only enable cancel processing when you are doing
+         no user interaction. Havingcancel enabled when theuser
+         has to enter infomation is not supported and will hang the
+         system.
+         Caution: Should exercisecaution in how ofter axlCancelTest is
+         called as it could cause aperformance impact to your program.
+         The actual canceltest isvery low overhead but the conversion from
+         Skill to C to do the test will causea performance impact.
+  FUNCTION
+         axlCancelOn(
+         )
+         -> t
+         axlCancelOff(
+         )
+         -> t
+         axlCancelTest(
+         )
+         -> t/nil
+  NEEDS
+         Nothing
+  RETURNS
+         Only axlCancelTest returns meaningfuldata. t means Cancel
+         was hit by the user; nil means it wasn't
+  EXAMPLES
+         count = 0
+         axlCancelOn()
+         while( count < 50000 &&!axlCancelTest()
+                 printf("Count =%d\n" count)
+                 count++
+         )
+         axlCancelOff()

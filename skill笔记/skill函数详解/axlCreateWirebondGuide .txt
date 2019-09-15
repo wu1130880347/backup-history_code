@@ -1,0 +1,17 @@
+NAME
+          axlCreateWirebondGuide
+   FUNCTION
+          axlCreateWirebondGuide(
+             r_path
+          )
+          ==> dbid/nil
+   SYNOPSIS
+          This function adds a wirebondguide path into the design, which
+          can then be used to snapfingers to, etc. through thewirebond
+          tools.
+   NEEDS
+          r_path -- Existing pathconsisting of the straight-line and
+             arc segments previouslycreated by axlPath functions
+   RETURNS
+          dbid of newly createdguide path if successful.
+          nil if an error occured (message printed to status window).

@@ -1,0 +1,31 @@
+设置一个子窗口的父窗口，可以将一个窗口置顶
+  NAME
+         axlUIWSetParent - set children's parent
+  FUNCTION
+         axlUIWSetParent (
+             o_childWindow
+             o_parentWindow/nil
+         )
+         ==> t / nil
+  SYNOPSIS
+         This sets the parent of a window. When a window is created it
+         gets the main window of the application which is sufficient
+         for most implementations. If you want to run blocking mode on
+         a form that is lauched from another form then you should set
+         the child's form parent window to be the lauched form.
+         Setting the parent in addition to having blocking behave correctly
+         also has these benefits:
+            - if its parent is closed the the child is also closed
+            - if the parent is iconify then the child is hidden
+            - the child will stay on top of its parent in the window
+                 stacking order.
+  NEEDS
+         o_childWindow   child window handle
+         o_parentWindow  parent window (if nil then the main window of
+                 application which is the default parent normally)
+                 It also rejects if parent and child window are the same.
+  RETURNS
+         t       Set parent
+         nil     Couldn't set parent (windows are probaly not legal)
+  SEE ALSO
+         axlUIWBlock

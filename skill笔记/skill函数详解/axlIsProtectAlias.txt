@@ -1,0 +1,18 @@
+判断某个快捷键是否被锁定
+  NAME
+        axlIsProtectAlias - markes alias asread-only (orwritable)
+  FUNCTION
+         axlIsProtectAlias(
+                 t_alias
+                 )
+         ==> t/nil
+  SYNOPSIS
+         Tests if alias ismarked protected.
+         This may also be used withfunckeys.
+  NEEDS
+         t_alias:        name of the Allegro environment alias.
+  RETURNS
+         t/nil:          Returns t ifprotected. Returns nil if unprotected
+                         or alias is not set.
+  SEE ALSO
+         axlProtectAlias

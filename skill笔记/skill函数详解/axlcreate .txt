@@ -1,0 +1,75 @@
+创建一个  film 记录
+  NAME
+     axlcreate -    creates a film record in active Allegroboard db
+  SYNOPSIS
+    axlcreate (
+      t_filmname
+      (n_rotate_code
+       n_x_offset
+       n_y_offset
+       n_undef_line_width
+       n_shape_bound
+       n_plot_mode
+       n_mirrored
+       n_full_contact
+       n_supp_unconnect
+       n_draw_pad
+       n_aper_rot
+       n_fill_out_shapes
+       n_vector_based
+       n_draw_holes
+      )
+      (lt_layers)
+    )
+    ->name/nil
+  FUNCTION
+    This creates a new film record or updates an existingrecord. This function is most
+    commonly called through theartwork control form's film record "load" option.
+    t_filename = film record name
+    l_params is a list consisting of 13 paramters which correspond to the "FilmOptions"
+    fields in the film control form (see below for a description ofthe fields).
+    lt_layers is the list of layers, each layer is astring  of the form
+         '("ETCH/TOP" "VIA/TOP"...)
+  CAUTIONS
+         The filmname is limited bythe database. Entering a name longer then
+         the design allows will return a nil. So theartwork parameter dialog
+         for the current name limit.
+         All units based parameters (x offset, width, etc) must be specifiedin database
+         units NOT design units.Database units are always integers and can be converted
+         from designs units by:db_units =
+                 design_units *design_accuarcy ** 10
+         For example if the design has 2 units of accuracy and you want to a width
+         of 12.34 you would specify 1234   
+                 (1234 = 12.34 * 10 ** 2)
+                     or
+                 (1234 = 12.34 * 100)
+  NEEDS
+    t_filmname - the name of thefilm record to be created
+    l_params - list of parameters for the film They are:
+        rotate_code - 0, 2, 4, or 6, corresponding to 0, 90, 180, 270 degree rotation
+        x_offset - film record blockorigin x offset
+        y_offset - film record blockorigin y offset
+        undef_line_width - filmrecord undefined line width
+        shape_bound - shape boundingbox size
+        plot_mode - film record plotmode--boolean; 0 =NEGATIVE, 1 = POSITIVE
+        mirrored - flag denoting mirroring
+        supp_unconnect - indicatorto not flash unconnectedpads
+        draw_pad - indicator to drawpads
+        aper_rot - boolean indicatorfor aperture rotation
+        fill_out_shapes - booleanindicator to notsuppress shape fill
+             This is the the "opposite" of the "suppress shapefill"
+             switch in the filmcontrol form (ex:  if suppress shape fill is
+             selected, fill_out_shapesshould be 0).  This is named
+             this way because it howit is represented within the Allegro database.
+             This should be set to 1 for 274X, Barcode and MDA since it isignored by
+             these formats inAllegro but but certain 3rd party applications may work
+             differently.
+        vector_based - booleanindicator for vector-based padbehavior
+        draw_holes - booleanindicator for draw holes in pads
+    lt_layers - list of layers to include in the fikm
+  RETURNS
+      the name of the film recordcreated, or nil if failure
+  EXAMPLE
+    Film control form's film record "save" option iscalled.  This creates a .txt file
+    containing the following:
+        axlcreate( "TRACE_2" '(0 0 0 0 0 1 0 0 0 0 0 1 1 0) '("ETCH/TRACE_2" "PIN/TRACE_2" "VIACLASS/TRACE_2" ))

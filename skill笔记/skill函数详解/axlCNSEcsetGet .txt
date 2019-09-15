@@ -1,0 +1,20 @@
+返回电气约束集
+  NAME
+         axlCNSEcsetGet - return electrical cset bygiven name
+  FUNCTION
+         axlCNSEcsetGet(
+                 t_name
+         )
+         ==> o_dbidEcset/nil
+  SYNOPSIS
+         This returns dbid ecset byname if it exists.
+  NEEDS
+         t_name: name of ecset
+  RETURNS
+         o_dbidEcset: dbid of cset
+         nil: failed (name illegal)
+  SEE ALSO
+         axlCNSEcsetGetValue, axlCnsList
+  EXAMPLES
+         1) test if ecset exists
+             axlCNSEcsetGet("foo")

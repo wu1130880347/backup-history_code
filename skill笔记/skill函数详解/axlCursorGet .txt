@@ -1,0 +1,21 @@
+获取当前光标位置，以像素点为单位
+  NAME
+         axlCursorGet - Get cursorposition
+  SYNOPSIS
+         axlCursorGet (
+             g_pixel
+         ) ==> l_xy
+  FUNCTION
+         This fetches the currentcursor position either in pixels (screen
+         units) or converted intocurrent design units. The mapping from
+         pixels to design unitstakes into account the current window view
+         and zoom factor of the design.
+         Accesing this innon-graphic mode is undefined.
+  NEEDS
+         g_pixel -       If t return xy in pixels else return cursor position
+                         where it stands incurrent design.
+  RETURNS
+         The cursor position eitherin pixels (integer) or design units
+         (floating point).
+  SEE ALSO
+         axlCursorWarp, axlUIControl

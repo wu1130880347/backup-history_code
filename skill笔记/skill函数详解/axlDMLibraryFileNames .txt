@@ -1,0 +1,36 @@
+获取 库文件列表
+  NAME
+    axlDMLibraryFileNames - return items form viaallegro PATH variables
+  SYNOPSIS
+     axlDMLibraryFileNames(
+         t_fileType
+     ) lt_files
+  FUNCTION
+         Given an Allegro file type resolve locationsof all files
+         within its defined path. Iffile appears multiple times
+         in the path will return its first location.
+         Popular file types are:
+                 ALLEGRO_PACKAGE_DB- psm files
+                 ALLEGRO_SHAPE_DB -ssm files
+                 ALLEGRO_FLASH_DB -fsm files
+                ALLEGRO_MECHANICAL_DB - osm files
+                 ALLEGRO_FORMAT_DB -bsm files
+                 ALLEGRO_PADSTACK_DB  - padstack files
+                CONSMGR_TECHNOLOGY_FILE - tcf techfiles
+                 MODULE_DEF_DB - mddmodule files
+                 ALLEGRO_SCRIPT -scr script files
+         More types can be infileops.txt which islocated at
+        <cdsroot>/share/pcb/text/fileops.txt
+   
+         See axlUIDataBrowse if you just want a GUIdata browser.
+  CAUTIONS
+         The list can be long.
+  NEEDS
+         t_fileType - file type attempts fromfileops.txt
+  RETURNS
+         lt_files - list of resolved files
+  SEE ALSO
+         axlUIDataBrowse
+  EXAMPLES
+         1) return all psm files in the PSMPATH
+             axlDMLibraryFileNames("ALLEGRO_PACKAGE_DB")

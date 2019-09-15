@@ -1,0 +1,29 @@
+创建一个新的电气约束集，名称必须是合法的，
+  NAME
+         axlCNSEcsetCreate - create a newelectrical contraint set
+  FUNCTION
+         axlCNSEcsetCreate(
+                 t_name
+                [t_copyName/o_dbidCopyEcset]
+         )
+         ==> o_dbidEcset/nil
+  SYNOPSIS
+         This creates a new ecset.Name must be legal in character
+         set and less then maximum length. It will also fail if
+         ecset already exists.
+         By default ecset is createdempty, if you provide asecond
+         argument it will copy the contents of theecset.
+  NEEDS
+         t_name: name of new ecset
+         t_copyName: Optional nameto copy from
+  RETURNS
+         o_dbidEcset: dbid of newcset
+         nil: failed (name illegal or ecset already exists)
+  SEE ALSO
+         axlCNSDesignModeSet, axlCNSCreate
+  EXAMPLES
+         1) create a new empty cset
+             axlCNSEcsetDelete("foo")
+         2) create a copy contents from first cset in list
+             p = car(axlDBGetDesign()->ecsets)
+             axlCNSEcsetDelete("bar" p)

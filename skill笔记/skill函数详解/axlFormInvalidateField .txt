@@ -1,0 +1,20 @@
+设置某个部件是否显示
+  NAME
+     axlFormInvalidateField - sets a form fieldto visible or invisible
+  SYNOPSIS
+     axlFormInvalidateField (
+         r_form
+         t_field
+     ) -> t/nil
+  FUNCTION
+     Invalidate's form's field. Thisallows Windows to send a redraw
+     message to the field's redrawprocedure.
+     
+     This should only be used for fields
+     where the application controls thedrawing. The only field
+     that currently falls into thiscatagory is thumbnail fields.
+  
+  NEEDS
+     Takes 2 args; form id, field name (string)
+  RETURNS
+     Returns t for success, nil for failure

@@ -1,0 +1,22 @@
+增加所有对象选择
+  NAME
+         axlAddSelectAll - Add all drawingobjects to the selection set if they meet current find filter criteria.
+  SYNOPSIS
+         axlAddSelectAll(
+         )
+         ==> t/nil
+  FUNCTION
+         Finds all the figures inthe database that pass the current
+         Find Filter and adds their dbids tothe select set.
+  NEEDS
+         None
+  RETURNS
+         t      - Something was added to the selection set.
+         nil    - Otherwise.
+  EXAMPLE
+        The following exampleselects all vias in a layout and deletes them.
+         axlSetFindFilter(?enabled list( "noall" "vias")
+                 ?onButtons list( "noall" "vias"))
+                 axlAddSelectAll()
+                 axlDeleteObject(axlGetSelSet())
+                 ==> t

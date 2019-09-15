@@ -1,0 +1,26 @@
+删除未使用的用户属性定义。
+  NAME
+         axlDBDeletePropDictEntry - delete a userdefined property entry
+  FUNCTION
+         axlDBDeletePropDictEntry(
+                 t_name
+                 )
+         ==> t/nil
+  SYNOPSIS
+         Deletes an unused userproperty definition.
+         Property entry must be unused.The property definition must be
+         a user property and its useCount (axlDBGetPropDictEntry) must be
+         zero for you to delete it.
+         Use axlDBDeletePropAll if property is in use.
+  NEEDS
+         t_name:         String specifying the name of the userproperty  
+                         dictionaryentry to be deleted.
+  RETURNS
+         t:    Deleted the property definition.
+         nil:  Property is in use, is an allegro property, property
+                 does not exist, or name is not legal.
+  SEE ALSO
+         axlDBAddProp, axlDBDeletePropAll, axlDBCreatePropDictEntry
+  EXAMPLES
+         1) take property, myprop, created axlDBCreatePropDictEntry example
+                 axlDBDeletePropDictEntry("myprop")

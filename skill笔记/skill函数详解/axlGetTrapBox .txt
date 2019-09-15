@@ -1,0 +1,20 @@
+²éÕÒ´°¿Ú×ø±ê
+  NAME
+         axlGetTrapBox the find windowcoordinates
+  SYNOPSIS
+         axlGetTrapBox(
+             l_point
+         )
+         ==> l_window/nil
+  FUNCTION
+         Function returns thecoordinates of the find window
+  NEEDS
+         l_point - (x y) - list of x and ycoordinates
+  RETURNS
+         l_window - ((x_l y_l) (x_u y_u)) - list of  corner
+                                           coordinates of the find window.
+                  (x_l y_l) - listcontaining x and y coordinates
+                              of thelower left corner.
+                  (x_u y_u) - list x and ycoordinates
+                              of theupper right corner.
+         nil    - if l_point is null or inincorrect format.

@@ -1,0 +1,26 @@
+NAME
+     axlImpdedanceGetLayerBroadsideDPWidth -
+  SYNOPSIS
+     axlImpdedanceGetLayerBroadsideDPWidth(
+         t_layer1/x_layerNum1
+         t_layer2/x_layerNum2
+         f_diffImpedance
+     )
+     ==> f_lineWidth/nil
+  FUNCTION
+    Compute the differential impedance of a broadside-coupled
+     diffpair with the given linewidth and two specified layers on
+     which the signal lineswill be routed. Warning message may be
+     given if the parameters areinappropriate for the calculation.
+  NEEDS
+     t_layer1 - layer name (example "ETCH/TOP" or "TOP")
+     x_layerNum1 - number of theetch subclass Layers are numbered
+                 starting with 0 for the Toplayer.
+     t_layer2 - layer name (example "ETCH/TOP" or "TOP")
+     x_layerNum2 - number of theetch subclass Layers are numbered
+                 starting with 0 for the Toplayer.
+     diffImp:    The target differential impedance in ohms.
+  RETURNS
+     the line width in user units or nil onerror.
+  SEE ALSO
+    axlImpedance2Width

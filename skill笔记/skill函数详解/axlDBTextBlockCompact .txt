@@ -1,0 +1,27 @@
+未使用的文本块压缩
+  NAME
+         axlDBTextBlockCompact - compress out unused textblocks
+  FUNCTION
+         axlDBTextBlockCompact(
+                 t/nil
+         ) -> x_unusedBlocks
+  SYNOPSIS
+         This reports and/orcompresses out unused database text blocks.
+         If compacting text blocks, it will alwaysupdate database
+         text to reflect the newtext block numbers.
+         The database always needsto have at least one text block so
+         even new databases willalways report at least one in use.
+  CAUTION
+         You will need to force adbid refresh on any text parameters
+         and text type dbids to reflect the new numbering.
+  NEEDS
+         nil: report number of textblocks that can be eliminated fro
+                 database
+         t: Actually do the compaction.
+  RETURNS
+         x_unusedBlocks - count of text blocks thatare unused.
+  SEE ALSO
+         axlDBControl axlGetParam axlDBRefreshId
+  EXAMPLES
+         unused = axlDBTextBlockCompact(nil)
+         printf("This database has %dunused text blocks\n" unused)

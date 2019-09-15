@@ -1,0 +1,26 @@
+调整扇区大小
+  NAME
+         axlDBTuneSectorSize - tune Allegro'ssector for performance
+  SYNOPSIS
+         axlDBTuneSectorSize(
+         )
+         ==> nil/l_result
+  FUNCTION
+         This tune's Allegro'ssector size for betterperformance.
+         Normally this occursautomatically via dbdoctor or performance advisor.
+         In addition, it is doneperiodically during design open.
+         Allegro's optimal sector sizechanges over the course
+         of a design cycle. As thedesign becomes complete a smaller sector
+         size typically results inbetter performance at a cost of a slightly
+         higher memory requirement.
+         Note: size is in dbunits, future releases maychange this to
+         design units.
+  NEEDS
+         None
+  RETURNS
+         If tuning was requiredreturns a disembody property list with
+              - old sectors
+              - their size
+              - new sectors
+              - new sector size
+         If no tuning is requiredreturns nil.

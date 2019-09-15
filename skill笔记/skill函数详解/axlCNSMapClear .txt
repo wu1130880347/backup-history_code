@@ -1,0 +1,16 @@
+批量改变约束设定
+  NAME
+         axlCNSMapClear - starts new batchconstraint change wrapper
+  FUNCTION
+         axlCNSMapClear(
+         ) ==> t
+  SYNOPSIS
+         See axlCNSMapUpdate.
+  NEEDS
+         nothing
+  RETURNS
+         t
+  SEE ALSO
+         axlCNSMapUpdate
+  EXAMPLES
+         See axlCNSMapUpdate

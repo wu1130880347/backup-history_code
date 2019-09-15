@@ -1,0 +1,49 @@
+设置一条或多条动态线的内部参数
+  NAME
+         axlSetLineLock - Sets dynamicsline lock parameters
+  FUNCTION              
+         axlSetLineLock (
+             ?arcEnableg_arcEnable
+             ?lockAngle f_lockAngle
+             ?minRadiusf_minRadius
+             ?length45  f_length45
+             ?fixed45   g_fixed45
+             ?lengthRadiusf_lenghtRadius
+             ?fixedRadiusg_fixedRadius
+             ?lockTangentg_lockTangent
+         )
+         ==> t/nil
+  SYNOPSIS                                                  
+         Sets one or more ofdynamics line lock parameters. These
+         parameters are the same asthe ones defined in Allegro
+         status form.
+         The default effect for allparameters not explicitly set in
+         a call to axlSetLineLock is to leave the current setting of
+         that parameter.
+  NEEDS
+         g_arcEnable     - If t, this sets Lock Modeto Arc. Otherwise
+                           Lock Mode is Line.  Default is Line.
+         f_lockAngle     - Sets Lock Direction. Allowed values are:45
+                           (degrees), 90 (degrees), or 0 (off, or no
+                           lock).
+         f_minRadius     - Sets Minimum Radius. This is a value in
+                           userunits.
+         f_length45      - Sets the Fixed 45 Length value inuser units
+         g_fixed45       - If t, sets the Fixed 45 Lengthmode.
+                           axlSetLineLock cannot set this parameter
+                           unlessf_lockAngle is 45, and g_arcEnable
+                           is nil.
+         f_lengthRadius  - Sets Fixed Radius value in user units.
+         g_fixedRadius   - If t, sets the FixedRadius mode.
+                           axlSetLineLock can not set thisparameter
+                           unlessf_lockAngle is 45 or 90, and
+                          g_arcEnable is t.
+         g_lockTangent   - If t, sets the Tangentmode to on.
+  RETURNS
+         t/nil:          Returns t if it set thegiven line lock
+                         parameterssuccessfully. Otherwise returns nil.
+  EXAMPLES
+         The following example setsthe Line Lock parameters to Lock
+         Direction: 90, Lock Mode: Arc, Fixed Radius: on at30 mils:
+             axlSetLineLock( ?arcEnable t ?lockAngle 90 ?fixedRadius t
+                 ?lengthRadius 50)

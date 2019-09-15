@@ -1,0 +1,22 @@
+设置某个部件是否显示
+  NAME
+     axlFormSetFieldVisible - sets a form fieldto visible or invisible
+  FUNCTION
+     axlFormSetFieldVisible (
+         r_form
+         t_field
+         x_value
+     ) -> t/nil
+  SYNOPSIS
+     Sets individual form fields tovisible or invisible.
+     Note: This function should normallynever be used since it violates
+         most useability guidelines.Use axlFormSetEditable to grey
+         fields that shouldn't beedited.
+  NEEDS
+     r_form:         Form id.
+     t_field:        Form field name (string).
+     x_value: Pass an interger of 1 to set field visable, 0 for invisible.
+  RETURNS
+     Returns t for success, nil for failure
+  EXAMPLES
+         none

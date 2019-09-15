@@ -1,0 +1,25 @@
+Group¸üÃû
+  NAME
+         axlDBGroupRename - Rename a group
+  SYNOPSIS
+         axlDBGroupRename(
+                 o_groupDbid
+                 t_newName
+         )
+         ==> t/nil
+  FUNCTION
+         Renames a group. Groupssupported are GENERIC, BUS, DIFF_PAIR, NETCLASS,
+         NET_GROUP and MATCH_GROUP. Do not attempt to renamegroup types not listed.
+         All restrictions and disclaimersspecified in axlDBCreateGroup also
+         apply for this API.
+  NEEDS
+         o_groupDbid     The dbid of the group to be renamed
+         t_newName       New name of the group. Group name mustbe unique for the
+                         group type.
+  RETURNS
+         t               Sucessful in rename.
+         nil             Failed in rename; dbid not a group, group can't berenamed,
+                         new name isnot legal for group type or name already exists
+                         in thatgroup type.
+  SEE ALSO
+         axlDBCreateGroup

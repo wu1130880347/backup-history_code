@@ -1,0 +1,43 @@
+显示一个数据输入对话框
+NAME
+         axlUIPrompt - prompts the user for a string with blocking UI
+  FUNCTION
+         axlUIPrompt(
+                 t_message
+                 [t_default]/'password
+                 )
+         ==> t_response/nil
+  SYNOPSIS
+         Displays the string t_message in a type-in confirmer window. The user
+         must type a response into the blank fill-in field in the window.
+         The function displays the optional argument t_default in brackets to
+         the left of the fill-in field. If the user simply presses the Return
+         key or clicks the OK button in the window, the value of t_default
+         becomes the function return value. If the user selects the Cancel
+         button in the window, the function returns nil.
+         If the symbol password is used instead of t_default then the
+         user input is obscured and not scripted.
+         This function is a blocker. The user must respond before any further
+         interaction with Allegro.
+  NEEDS
+         t_message:      Message string displayed.
+         t_default:      Optional default value displayed and returned if user
+                         presses only the Return key or clicks OK.
+         'password:      Obscure and don't script user input
+  RETURNS
+         t_response/nil: The user response or default value. Returns nil if the
+                         user selects Cancel.
+  SEE ALSO
+         axlUIConfirm
+  EXAMPLES
+         Prompt the user for a module name with a default "demo." In this
+         example, the user overrides the default by typing "mymcm."
+            axlUIPrompt( "Enter module name" "demo" )
+         A fillin is displayed, with the default value "demo." To accept the
+         default value, the user may either press Return or select OK. Otherwise,
+         the user types a new value into the fillin field and presses Return
+         or selects OK. In this example they enter "mymcm" in the fillin field
+         and press Return. axlUIPrompt returns the following:
+             ==> "mymcm"
+         Password prompt:
+            ret = axlUIPrompt( "Enter password" 'password )

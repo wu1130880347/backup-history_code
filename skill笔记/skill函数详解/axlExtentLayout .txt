@@ -1,0 +1,17 @@
+已废弃，仅为了兼容旧版本
+  NAME
+         axlExtentLayout - obsolete
+  FUNCTION
+         axlExtentLayout(
+                 )
+         ==> l_bBox/nil
+  SYNOPSIS
+         Obsolete use axlExtentDB.Kept for backwardcapability.
+  NEEDS
+         None.
+  RETURNS
+         l_bBox/nil:     see axlExtentDB
+  EXAMPLES
+         None.
+  SEE ALSO
+         axlExtentDB

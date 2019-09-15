@@ -1,0 +1,34 @@
+删除窗体上某个list部件中某些内容
+  NAME
+         axlFormListDeleteItem - Deletes an itemfrom a list
+  FUNCTION
+         axlFormListDeleteItem(
+                 r_form
+                 t_field
+                t_listItem/x_index/lt_listItem/nil
+         ) -> t/x_index/nil
+  SYNOPSIS
+         This deletes the indicateditem in the list. You can delete
+         by a string or by position.Deleting by string works the
+         best if the all items areunique. Position can be probalmatic
+         if you have the list sort items you add toit.
+         If you need to supportdeleting multiple items, it is faster
+         to call this interface witha list of items.
+         Currently delete by list only supportsstrings as list.
+  NEEDS
+         r_form:  Form id
+         t_field: Name if field
+         x_index  The position of the item to be deleted.
+                  0 = the first item inthe list, -1 is the last
+         t_listItem: deletes by list item string
+         lt_listItem: list of items to delete
+         nil: deletes last item
+  RETURNS
+         x_index: if using strings (t_listItem) to delete items then
+                 it returns the index of string deleted.This is
+                 useful if you want the codeto automatically select
+                 the next item in the list
+         t: if deleting by index (x_index) returns t if deleted the item
+         nil: failed to delete theitem
+  SEE ALSO
+         axlFormListSelect

@@ -1,0 +1,59 @@
+用户取消时打印该信息
+  NAME
+         axlMsgCancelPrint - print messagefor user cancel
+  FUNCTION
+         axlMsgCancelPrint(
+                 )
+         ==> t
+  SYNOPSIS
+         Prints a message informingthe user that he requested cancel. This is a convenience
+         function. The severity ofthis message is Error (3) and so AXLwrites it into the
+         context buffer as it doesother warning, error, and fatalmessages. Call this function
+         only from a routine that isrequesting user input.
+  NEEDS
+         None.
+  RETURNS
+         t:      Always returns t.
+  EXAMPLES
+         axlMsgCancelPrint()
+         Sets severity level to 2 (warning) and putsinto message buffer
+         (if axlMsgSys messagesare in English):
+         "User CANCEL received"
+font-family:"Courier New";color:red;background:white;mso-highlight:white;mso-font-kerning:0pt'>EXAMPLES" M+ }) w1 ]5 y% h) o- U
+         1) default conversion (db in mils)
+                 axlMKSStr2UU("100.1") -> "100.0MILS"
+xu12.0pt;font-family:"Courier New";color:fuchsia;background:white;mso-highlight:white;mso-font-kerning:0pt;mso-bidi-font-weight:bold'>axlMKS2UU("100.1") -> 100.0
+         2) database is in mils
+                 axlMKS2UU("100mils") -> 100.0
+         3) database is in mils
+                 axlMKS2UU("100inches") -> 100000.0
+         4) database is in mils
+                 axlMKS2UU("100METER") -> 3937008.0
+         FLOC 2 7
+         COLOR 2 1
+         ENDFIELD
+         FIELD subclass
+         FLOC 5 7
+         ENUMSET 19
+         OPTIONS prettyprintownerdrawn
+         POP "subclass"
+         ENDFIELD
+  NEEDS
+         See AXL Forms FunctionalSpec for details.
+         t_restrict - This optionalargument is a string that indicates class
+                      andsubclass restrictions if the form contains "class"
+                      and "subclass" popup fields thathave not been overridden
+                      with calls toaxlFormBuildPopup.  Possible values are:
+                      "NONE"         - no restrictions
+                      "TEXT"         - only layers that allow text
+                      "SHAPES"      - only layers that allow shapes
+                      "RECTS"        - only layers that allow rectangles
+                      "ETCH"         - only etch layers
+                      "ETCH_PIN_VIA" - only etch, pin, and vialayers
+                      "ETCH_NO_WIREBOND" - only non-wirebondetch layers
+  RETURNS
+         This function returnsnil on failure which occurs if:
+             No interactive commandis active or the active command is
+             not of the type AXLregistered interactive,
+             AXL Forms codeencounter an error. See AXL Forms Func Spec.
+         Upon success, r_form is returned.

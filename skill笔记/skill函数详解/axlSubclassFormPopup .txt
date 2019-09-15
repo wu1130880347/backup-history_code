@@ -1,0 +1,48 @@
+在指定的层创建右键弹出菜单
+  NAME
+         axlSubclassFormPopup - create popup of subclasses for given class
+  FUNCTION
+         axlSubclassFormPopup(
+                 r_form
+                 t_field
+                 t_class
+                 nil/lt_subclass
+         ) -> t/nil
+  SYNOPSIS
+         For a given Allegro class build a form popup for given field
+         of r_form. This is a combination of axlGetParam and
+         axlFormBuildPopup with color swatching.
+         If fourth argument is nil base it upon all subclasses of
+         given class. List of subclasses can also be provided.
+         One of its major uses is to easily build a subclass popup
+         containing a their current colors as a swatches. If you desire
+         this functionality then in the form file for that field(s) you
+         need to add (note only ENUMSET field types support this option).
+                 OPTIONS ownerdrawn
+         Popups built in this way are dispatched back to the application
+         as strings.
+         Note: if list of subclasses are passed, illegal subclass names are
+                 silently ignored.
+  TIP
+         To take advantage of color swatches in your subclass pulldown (ENUMSET)
+         use this interface and the ownerdrawn option in the form file. The
+         form file entry for your control should look like:
+             FIELD <field name>
+             FLOC <x y location>
+             ENUMSET <width of field>
+             OPTIONS prettyprint ownerdrawn
+             POP <popup name>
+             ENDFIELD
+         Note prettyprint option upper/lower cases the popup name the user sees.
+  NEEDS
+         r_form: standard form hanle (see axlFormCreate)
+         t_field: field name in form or popup name of form
+         t_class: class name
+         nil/lt_subclass: if nil all members of class else
+                 provided list is used.
+  RETURNS
+         t if successfully did it, nil failed
+  SEE ALSO
+         axlFormBuildPopup axlColorDoc axlFormCreate axlGetParam
+  EXAMPLES
+         axlSubclassFormPopup( form "subclass_name" "ETCH" nil)

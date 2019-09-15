@@ -1,0 +1,22 @@
+检查包装：检查drc 错误
+  NAME
+         axlPackageDesignCheckDrcError
+         
+  SYNOPSIS
+         axlPackageDesignCheckDrcError(l_location g_dbids)
+             ==> nil
+  FUNCTION
+     This function will create anexternal DRC marker for an error
+     found by the currently runningpackage integrity check. The tool
+     itself will track the checkbeing run so that it knows the name
+     to use for the rule violation.
+     
+  NEEDS
+     l_location - Location at which toplace the DRC marker.
+     g_dbids - Optional list ofdatabase object ids which are associated
+         with this error. Usually 0-2 objectsare affected.
+  RETURNS
+     nil
+  SEE ALSO
+     axlPackageDesignCheckAddCheck
+     axlPackageDesignCheckLogError

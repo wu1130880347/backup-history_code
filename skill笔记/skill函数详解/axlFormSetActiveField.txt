@@ -1,0 +1,19 @@
+设置窗体上某个部件为激活状态+ [: c# k; `2 w6 w, c+ q
+  NAME
+         axlFormSetActiveField - sets form'scurrently active field
+  SYNOPSIS
+         This makes indicated fieldthe active form field.
+         
+         Note: If you do a axlFormRestoreField in your dispatchhandler
+                 on the field thatpassed to your handler then that field
+                 will remain active.
+  FUNCTION
+         axlFormSetActiveField(
+                 r_form
+                 t_field
+         ) -> t/nil
+  NEEDS
+         r_form: form dbid
+         t_field: Name of the field
+  RETURNS
+         t/nil: Returns t if field was set active, nil if couldn't do it.

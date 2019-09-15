@@ -1,0 +1,19 @@
+删除未使用的CNS组类型。
+  NAME
+         axlCnsPurgeObjects - delete unused cnsgroup types.
+  SYNOPSIS
+         axlCnsPurgeObjects(
+                 list l_type
+         ) -> x_purgeCount
+  FUNCTION
+         Process the database and delete allgroup_type objects that have
+         no members; i.e. a netclasswith no nets, or a region with noshapes.
+  NEEDS
+         domain of interest'physical or 'spacing
+  RETURNS
+         count of the objects deleted.
+  SEE ALSO
+         axlCnsPurgeCsets
+  EXAMPLES
+         axlCnsPurgeObjects('netclass)
+         axlCnsPurgeObjects('region)

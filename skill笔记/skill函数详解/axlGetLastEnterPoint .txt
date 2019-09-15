@@ -1,0 +1,14 @@
+获取最后输入点的位置
+  NAME
+         axlGetLastEnterPoint - get the last picklocation from axlEnterPoint()
+  FUNCTION
+         axlGetLastEnterPoint (
+         )   ==> l_point/nil
+  SYNOPSIS
+         Gets the last picklocation from axlEnterPoint.
+  NEEDS   
+         None         
+  RETURNS
+         list of x/y from last enterpoint
+  EXAMPLE:
+         Returned list for a pick:(1000.00 2000.00)

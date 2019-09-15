@@ -1,0 +1,26 @@
+根据显示属性列表显示或不显示某些层
+  NAME
+         axlVisibleSet - sets visibility state for entire desisgn
+  SYNOPSIS
+         axlVisibleSet(
+                 l_visList           
+         )
+         ==>t/nil
+  FUNCTION
+         This sets the visibility of the entire design. This is the
+         complementary function to axlVisibleGet.
+         This command does not visually change the display, since it can also
+         be used in conjunction with the axlSelect command family to provide
+         additional filtering of the database objects. If you wish to visually
+         update the display, call axlVisibleUpdate after changing the
+         visibility.
+  NEEDS
+         l_visList       - list with visibility attributes
+  RETURNS
+         t               - on success
+         nil             - incorrect format for l_visList.
+  NOTE
+         If there are any changes to the structure of l_visList, you have
+         to reflect them here.
+  SEE ALSO
+         axlVisibleUpdate axlVisibleLayer

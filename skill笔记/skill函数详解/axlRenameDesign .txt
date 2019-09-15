@@ -1,0 +1,19 @@
+更改当前设计文件名
+  NAME
+         axlRenameDesign - change thecurrent design name
+  SYNOPSIS
+         axlRenameDesign(
+             t_design
+         )
+         ==> t_design/nil
+  FUNCTION
+         Changes the current designname. This has no effect on the existing
+         disk version of the (current) current design. Thenew current design
+         name will be displayed inthe main window's title bar and it
+         becomes the default name foraxlSaveDesign.
+  NEEDS
+         t_design                - the new current design name
+  RETURNS
+         axlRenameDesign         - the provided design name, or nil if error
+  SEE ALSO
+         axlOpenDesign

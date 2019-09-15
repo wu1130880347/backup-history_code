@@ -1,0 +1,26 @@
+阻抗转换为线宽度
+  NAME
+     axlImpedance2Width - converts anlayer/impedance to a line width
+  SYNOPSIS
+     axlImpedance2Width(
+        t_layer/x_layerNum
+        f_impedance
+     ) ==> f_lineWidth/nil
+  FUNCTION
+     Converts the given impedance ona specified layer to a line width.
+  NOTE:
+     None of the axlImpedance APIsare available in Allegro PCB L.
+  NEEDS
+     t_layer - layer name (example "ETCH/TOP" or "TOP")
+     x_layerNum - number of the etchsubclass Layers are numbered
+                 starting with 0 for the Toplayer.
+     f_impedance - the impedancevalue, in ohms, that is to be
+                 converted to a linewidth
+  RETURNS
+     f_lineWidth - the convertedline width in drawing units
+     nil - conversion was notsuccessful
+  SEE ALSO
+     axlWidth2Impedance,
+     axlImpdedanceGetLayerEdgeDPImp, axlImpdedanceGetLayerEdgeDPWidth,
+     axlImpdedanceGetLayerEdgeDPSpacing, axlImpdedanceGetLayerBroadsideDPImp,
+     axlImpdedanceGetLayerBroadsideDPWidth,

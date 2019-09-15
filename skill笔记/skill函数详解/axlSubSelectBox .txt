@@ -1,0 +1,28 @@
+按框去除所选对象
+  NAME
+         axlSubSelectBox - remove items in window from sel set
+  SYNOPSIS
+         axlSubSelectBox(
+                 [l_bBox]
+         )
+         ==> t/nil
+  FUNCTION
+         Find all selected objects that intersect with the input box and meet
+         the find filter criteria.  Remove those objects from the selection set.
+         If no box (or an incomplete box) is provided, prompt the user for
+         a selection box (or to complete the box) prior to the find operation.
+  NEEDS
+         l_bBox  - A list containing one or two coordinates defining the
+                   bounding box to be used to the select figures. If l_bBox is
+                   nil, the function requests two picks from the user. If l_bBox
+                   has only one point, the function asks for a second point from
+                   the user.
+  RETURNS
+         t               - if any objects were removed from the selection set.
+         nil             - if nothing removed.
+  SEE ALSO
+         axlAddSelectPoint
+  EXAMPLES
+         See the examples for axlSubSelectPoint for an example of subtracting
+         from the select set, and axlAddSelectPoint for an example of using a
+         box for selection.

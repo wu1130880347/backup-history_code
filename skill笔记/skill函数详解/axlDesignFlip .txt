@@ -1,0 +1,20 @@
+翻转设计查看
+  NAME
+         axlDesignFlip - flip over thedesign visually   
+  SYNOPSIS
+         axlDesignFlip(
+                 g_flip
+         ) t/nil
+  FUNCTION
+         Visually flips the designin the 'y' axis. Maintains current xy view.
+         This command is disable if OpenGL is disabled.
+  NEEDS
+         t = flipped on y axis
+         nil = unflip
+  RETURNS
+         Old flip state. If t flipped (y) if nil normal top viewstate
+  SEE ALSO
+         axlWindowFit
+  EXAMPLES
+         Toggle flipping
+             axlDesignFlip( !axlDesignFlip())

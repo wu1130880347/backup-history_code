@@ -1,0 +1,45 @@
+按坐标点单选
+  NAME
+         axlSingleSelectPoint - find object atpoint, clearprevious items
+  SYNOPSIS
+         axlSingleSelectPoint(
+                 l_point
+         )
+         ==> t/nil
+  FUNCTION
+         Find a object that is close to theinput point and meets the find
+         filter criteria.  Add that object to the selection set afterclearing
+         all previous selections.
+         If no point is provided,  prompt the user for a selection pointprior
+         to the find operation.
+         axlSingleSelectPoint selects a singleobject and adds it to the select
+         set, unlessEQUIVLOGIC is on. In that case, it may select multiple
+         objects, for example, if itfinds a qualified figure (such as a pin,
+         connect line, or via) that is part of anet.  axlSingleSelectPoint adds
+         all the qualified figuresthat belong to the net to the select
+         set. See Find FilterOptions.
+         This finds objects withinthe current trapsize (axlGetTrapBox) which
+         varies based upon the zoomfactor.
+  NEEDS
+         l_point         - coordinate pair for xylocation where objects are
+                           to befound.
+  RETURNS
+         t               - if an object was addedto the selection set.
+         nil             - if nothing added.
+  SEE ALSO
+         axlAddSelectPoint
+  NOTE
+         An object which iscurrently in the selection set may be reselected
+         if there are nounselected objects that qualify for selection at the
+         given point and findfilter.
+  EXAMPLES:
+         The following example addsa previously defined user property MYPROP
+         to a pin at X6325 Y3575.
+         axlSetFindFilter(?enabled "pins" ?onButtons "pins")
+         axlSingleSelectPoint( 6325:3575 )
+         axlDBAddProp(axlGetSelSet() list( "MYPROP" 23.5))
+         ==> t
+         To check:
+            1. Select Show --Element.
+            2. Select the pin to display itsproperties.
+            3. The SHOW ELEMENTform displays MYPROP with value "23.500000 level."

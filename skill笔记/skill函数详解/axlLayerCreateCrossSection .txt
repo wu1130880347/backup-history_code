@@ -1,0 +1,44 @@
+在某层之上增加一个新的层
+  NAME
+     axlLayerCreateCrossSection - create a newcross-section layer for conductor classes.
+  FUNCTION
+     axlLayerCreateCrossSection(
+         t_Prev_layerName
+         t_layerType
+         t_materialType
+         [t_subclassName]
+         [t_planeType]
+     )
+     ==> t/nil
+  SYNOPSIS
+         Adds a new cross-sectionlayer to the design.
+         t_subclassName is nil then anunnamed dielectric layer is created. It
+         is suggested that youcreate unnamed dielectric layers if they are only
+         required for signalanalysis and board thickness calculations since using
+         a name will ETCH layer inthe design.
+  NEEDS
+         t_Prev_layerName   -- Layer name above which the new layer is to
+                               be added.
+         t_layerType        -- The type of layer to beadded, such as
+                               "CONDUCTOR" or "SURFACE". See cross section
+                              dialog for a complete list of layer types.
+         t_materialType     -- The material of the layer See crosssection
+                              dialog for a complete list of available
+                              materials.
+         t_subclassName     -- Optional. Name of the new layer
+         t_planeType        -- Optional. Type of plane, either "POSITIVE"
+                               or "NEGATIVE". The default isPositive.
+  RETURNS
+         t/nil   - nil if not created,
+                 - t if createdor, if it alaready exists
+  SEE ALSO
+     axlLayerCreateNonConductor
+     axlGetLayer
+  EXAMPLE
+         The following examplecreates a conductor layer that:
+             * Is located above alayer subclass called Bottom
+             * Has copper as thelayer material
+             * Has a subclass namecalled New_Layer
+             * Is a positive plane
+         axlLayerCreateCrossSection("BOTTOM" "Conductor"
+                         "Copper" "NEW_LAYER" "Positive")

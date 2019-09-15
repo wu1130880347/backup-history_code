@@ -1,0 +1,48 @@
+´´½¨net Class ×é
+  NAME
+         axlNetClassCreate - add a netclassgroup
+  SYNOPSIS
+         axlNetClassCreate(
+                 t_name
+                 g_domain/lg_domain
+         )==> o_dbid
+  FUNCTION
+         This creates a new netclassgroup. If a netclass exists
+         with this name then nil isreturned.
+         Net Classes need to bepopulated via axlNetClassAdd. Empty
+         net classes may be deletedon database save.
+         A netclass must be part ofone or more domains. These domains
+         are shown below. The SameNet Constraint domain uses
+         the netclass spacingdomain.
+         An object (bus, diffpair, xnet or net) may be a member
+         of single netclass in adomain. For example, if net VCC
+         exists in the POWERnetclass in the physical domain then you
+         cannot add it to anothernetclass in the physical domain.
+         You can still add this netof a netclass in the spacing or
+         electrical domain.
+         
+         You can obtain the current set ofnetclasses in the database
+         via: axlDBGetDesign()->netclass.
+         axlNetClassGet reports if anobject is a member of a
+         netclass either directly or via thelogic hierarchy.
+         To assign a cset to anetclass assign the PHYSICAL_CONSTRAINT_SET,
+         SPACING_CONSTRAINT_SET,SAME_NET_SPACING_CONSTRAINT_SET or
+         ELECTRICAL_CONSTRAINT_SETproperty to the netclass where the value
+         of the property is the csetname.
+         
+         Same Net constraints sharesthe same domain with the
+         SPACING_CONSTRAINT_SET.
+  NEEDS
+         t_name  - name of netclass group (changed to upper case)
+         g_domain - netclass domaincan be 'spacing,'physical,
+                 'electrical or 'all
+         lg_domain - list ofnetclass domains
+  RETURNS
+         nil: error ornetclass with that name exists
+         o_dbid: dbid of group
+  SEE ALSO
+         axlNetClassDelete axlNetClassAdd axlNetClassRemove
+         axlNetClassGet, axlDBAddProp, axlCNSCreate
+  EXAMPLES
+         1) Create a netclassin physical domain called "5_MIL"
+                  nc = axlNetClassCreate("5_mil" 'physical)

@@ -1,0 +1,21 @@
+将DOS目录中的”\”改为UNIX的”/”
+  NAME
+     axlOSSlash - Change DOSdirectorybackslash to UNIX slash
+  FUNCTION
+     axlOSSlash(
+         t_directory
+     )
+     ==> t_directory/nil
+  SYNOPSIS
+     This changes DOS stylebackslashes to UNIX style slashes which are
+     more amenable to Skill. On UNIXthis just returns the incoming
+     string.
+  NEEDS
+     t_directory
+  RETURNS
+     t_directory/nil
+  SEE ALSO
+         axlOSBackSlash
+  EXAMPLE
+         p = axlOSSlash("\tmp\foo")
+                 -> "/tmp/foo"

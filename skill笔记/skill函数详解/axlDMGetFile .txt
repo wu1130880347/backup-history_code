@@ -1,0 +1,31 @@
+从Allegro DM得到完全指定名称
+  NAME
+         axlDMGetFile - gets fully specifiedname from Allegro DM
+  SYNOPSIS
+         Opens a file in conventionAllegro manner; adds an extension
+         and optionally looks it up in a Allegrosearch path.
+         Note must have an entry infileops.txt file.
+         Note: The function will display an error message if a file
+         can not be located.
+  FUNCTION
+         axlDMGetFile (
+                 t_id
+                 t_name
+                 t_mode
+                 [t_prop]
+         ) -> t_name/nil
+  NEEDS
+         t_id:   id describing file attributes fromfileops.txt
+         t_name: name
+         t_mode: open mode
+                    "r": read-only
+                    "w": write
+                    "wf": write line-buffered
+         t_prop: Property string
+  RETURNS
+         t_name/nil:     Name of file or nil
+  SEE ALSO
+         axlDMOpenFile
+  EXAMPLE
+         (setq aPort (axlDMGetFile "ALLEGRO_TEXT", "clip", "w", "HELP:clipboard"))
+                 - gets fully qualifiedname; clip.txt for writing

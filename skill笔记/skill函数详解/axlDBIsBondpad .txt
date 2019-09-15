@@ -1,0 +1,20 @@
+判断是否一个焊垫与否
+  NAME
+     axlDBIsBondpad - Verify if a dbid is a bondpador not.
+  SYNOPSIS
+     axlIsBondpad(
+         o_dbid
+     )
+     ==> t or nil
+  FUNCTION
+         This function verifies thatwhether the given element dbid is a
+         "bondpad" or not.
+         A "bondpad" (or "bondfinger") is defined as a "via" (can be
+         through hole or blind/buried) with the BOND_PADproperty
+  NEEDS
+     o_dbid      - dbid of the element to be checked.
+  RETURNS
+     t           - If "o_dbid" is a bondpad.
+     nil         - If "o_dbid" is not a bondpad.
+  NOTE
+  EXAMPLE

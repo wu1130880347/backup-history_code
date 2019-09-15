@@ -1,0 +1,26 @@
+获取长度
+  NAME
+     axlDBGetLength - calculate length of object
+  SYNOPSIS
+     axlDBGetLength(
+         o_dbid
+     )
+     ==> f_etchlength/nil
+  FUNCTION
+         Calculate the length of the given objectwhich may be a
+         NET, CLINE, SEGMENT, or RATSNEST. If RATSNEST returns the
+         manhatten length. If a netis partially routed includes
+         sum of all ratsnestmanhatten lengths.
+         Currently does not include VIA-Z or PIN_DELAY into its
+         calculation.
+  NEEDS
+     o_dbid      - dbid
+  RETURNS
+     nil         - Not a legal object
+     f_etchLength  - length of object
+  SEE ALSO
+         axlDBGetManhattan, axlDBPinPairLength
+  EXAMPLE
+         Skill> p = ashOne()
+         Skill> axlDBGetLength(p)
+         -> 2676.777

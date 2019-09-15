@@ -1,0 +1,28 @@
+某点是否在shape上
+  NAME
+         axlGeoPointInShape - returns if pointis inside or outside shape or a polygon
+  SYNOPSIS
+         axlGeoPointInShape(
+             l_point
+             o_dbid/o_polygon
+             [g_include_voids]
+         ) ==> t/nil
+  FUNCTION
+         Given a point and a shapedbid or a polygon user type this returns if that
+         point is inside or outsidea shape. If shape has voids and g_include_voids
+         is t then pointis outside if inside a void.
+         Voids are excluded ifg_include_voids is nil.
+         Will not allowhole polygons as input. When polygon holes is passed the
+         following warning isdisplayed:
+                 Invalid polygon idargument -<argument>
+  NEEDS
+             l_point             - the point
+             o_dbid/o_polygon    - dbid of the shape / o_polygon
+             [g_include_voids]   - Applicable only in case thesecond parameter
+                                  is a shape otherwise it's ignored
+                                  For shape,optional, nil excludevoids,
+                                   default t.
+  RETURNS
+         Returns t for insideshape, nil for outsideor not a legal shape.
+  SEE ALSO
+         axlGeoPointShapeInfo

@@ -1,0 +1,47 @@
+# Allegro script
+#	file: J:/ZWSD/design2018/NodeScreenV1_0/Revsion2/Finally/main/pcb/play/set_workspace.scr
+#	start time: Fri Sep 07 20:49:34 2018
+#	Version: 17.2-2016 S031 (3682489) Windows SPB 64-bit Edition
+scriptmode +i +n
+version 17.2
+
+setwindow pcb
+trapsize 15542
+generaledit
+setwindow form.find
+FORM find all_off  
+FORM find all_on  
+setwindow pcb
+placementedit 
+generaledit 
+setwindow form.mini
+FORM mini class BOARD GEOMETRY 
+setwindow pcb
+placementedit 
+setwindow form.find
+FORM find symbols YES 
+setwindow pcb
+etchedit 
+setwindow form.find
+FORM find all_off  
+FORM find cline_segs YES 
+FORM find vias YES 
+FORM find clines YES 
+FORM find clines NO 
+FORM find pins YES 
+FORM find symbols YES 
+setwindow pcb
+prmed 
+setwindow form.prmedit
+FORM prmedit display_enhance NO 
+FORM prmedit display_embed_pin_net_names YES 
+FORM prmedit display_embed_shape_net_names YES 
+FORM prmedit display_embed_net_names YES 
+FORM prmedit design  
+FORM prmedit apply  
+FORM prmedit shapes  
+FORM prmedit done  
+setwindow pcb
+generaledit
+
+#	stop time: Fri Sep 07 20:53:45 2018

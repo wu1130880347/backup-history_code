@@ -1,0 +1,16 @@
+设置表格文件属性
+NAME
+     axlSpreadsheetSetDocProp
+  FUNCTION
+     axlSpreadsheetSetDocProp(propName, propVal)
+         ==> t / nil
+  SYNOPSIS
+     Sets a property on the document (spreadsheet) itself.
+  NEEDS
+     propName -- Propety to set. Allowable values are:
+                     AUTHOR, LAST_AUTHOR, DATE, COMPANY, or VERSION.
+     propVal  -- Value to set this property to.
+  RETURNS
+     t   -- Document property successfully set.
+     nil -- Property not set (no active spreadsheet or invalid property).
+            See console for further details.

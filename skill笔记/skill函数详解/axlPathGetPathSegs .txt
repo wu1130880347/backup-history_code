@@ -1,0 +1,27 @@
+获得path中的所有线段
+  NAME
+         axlPathGetPathSegs - Get the path segsin correct order.
+  FUNCTION
+         axlPathGetPathSegs(
+             r_path
+         )
+         ==> r_pathList/nil
+  SYNOPSIS
+         Gets a list of thesegments of a path structure, in the order
+         they appear in the path.
+  NEEDS
+         r_path: Handle of anexisting path structure.
+  RETURNS
+         r_pathList/nil: Returns a list of thesegments of the path.
+                         Returns nil if r_pathis not a path.
+  EXAMPLES
+         The example:
+            * Creates a path
+            * Gets its segs
+            * Prints them
+         mypath = axlPathStart( list(1000:1250) 173)
+                 axlPathLine( mypath 29 2000:1250)
+                 axlPathArcCenter( mypath 12 3000:2250 t 3000:2250)
+         mysegs = axlPathGetPathSegs( mypath)
+         print mysegs
+                 ==> (array[6]:1057440array[6]:1057416 array[6]:1057392)

@@ -1,0 +1,21 @@
+获取db对象的自定义颜色
+  NAME
+         axlIsCustomColored - get customcolor of a db object
+  FUNCTION
+         axlIsCustomColored (
+             o_dbid
+         )
+         ==> x_customColor/nil
+  SYNOPSIS
+         If object has custom color, will return theobject custom
+         color, otherwise nil.
+  NEEDS
+         o_dbid          An dbid for which customcolor information is
+                         desired.
+  RETURNS
+         x_customColor - custom color color or nil if objecthas no
+                         customcolor or object does not support customcolor.
+  SEE ALSO
+         axlCustomColorObject
+  EXAMPLES
+         see axlCustomColorObject

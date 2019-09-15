@@ -1,0 +1,25 @@
+测试某dbid是否是窗体类型
+  NAME
+         axlIsFormType  - checks if symbol is of type form
+  FUNCTION
+         axlIsFormType(
+                 g_form
+                 )
+         ==> t/nil
+  SYNOPSIS
+         Tests ifargument g_form is a form dbid.
+  NEEDS
+         g_form:         dbid of object to be tested.
+  RETURNS
+         t/nil:          Returns t if r_formis the dbid of a form. It returns
+                         nil if it isnot.
+  EXAMPLES
+         Check that the form youcreate is truly a form.
+                 unless(boundp('MyForm) MyForm = nil)
+                 form = axlFormCreate( MyForm
+                           "extract_selector.form" '("E" "OUTER")
+                           '_formAction t)
+                 if( axlIsFormType(form) then
+                     print("Created formsuccessfully.")
+                 else
+                     print("Error! Couldnot create form."))

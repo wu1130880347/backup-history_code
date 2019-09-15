@@ -1,0 +1,32 @@
+按名称单选
+  NAME
+         axlSingleSelectName     - Add objects to selection set by nameafter clearing the current selections
+  SYNOPSIS
+         see axlAddSelectName
+  NAME
+         axlSingleSelectObject
+  FUNCTION
+         axlSingleSelectObject(
+                 lo_dbid
+                 )
+         ==> t/nil
+  SYNOPSIS
+         Clears current contents ofthe select set and adds the dbids in
+         lo_dbid to the select set insingle mode. lo_dbid can be either a
+         single dbid or a list ofdbids. The function selects figures
+         completely regardless ofthe selection mode. If the dbid of any
+         part of a figure is inlo_dbid, the function addsthe entire figure.
+  NEEDS
+         lo_dbid:        dbid, or list ofdbids to be added to the select set.
+  RETURNS
+         t/nil:          Returns t if itadded any objects to the select set, nil otherwise.
+  EXAMPLES
+         The following examplecreates a symbol and add its dbid to the select set.
+         axlClearSelSet()
+         axlSetFindFilter(      
+                 ?enabled list( "all" "equivlogic")
+                 ?onButtons list( "all"))
+         mysym = axlDBCreateSymbol(
+                 list( "dip14" "package"), 5600:4600)
+         axlSingleSelectObject(car(mysym))
+         ==> t

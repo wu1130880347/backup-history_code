@@ -1,0 +1,16 @@
+某个pin是否是电镀的
+  NAME
+         axlDBIsPlatingbarPin - Verify if a dbid is a PlatingBar Pin
+  FUNCTION
+         axlDBIsPlatingbarPin (
+                 o_dbid
+         )
+         ==> t or nil
+  SYNOPSIS
+         A "plating bar pin " is defined as a "pin" with component
+         class = DISCRETE or PLATING_BAR
+  NEEDS
+         o_dbid          dbid of the element to be checked.
+  RETURNS
+         t               If is a plating bar pin.
+         nil             If is not a plating bar pin.

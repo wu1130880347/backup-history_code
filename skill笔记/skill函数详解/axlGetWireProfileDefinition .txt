@@ -1,0 +1,13 @@
+获取配置文件定义
+  NAME
+     axlGetWireProfileDefinition
+  FUNCTION
+     Given a bonding wire profile name, this will returnsits definition information.
+  SYNOPSIS
+     list axlGetWireProfileDefinition(profileName)
+  NEEDS
+     profileName -- Name of the profiledefinition being queried.
+                    If nil, will retrievedefinitions of all profiles in design.
+  RETURNS
+     Structure of informationdescribing the profile definition (material, 3d points list, etc).
+     Error string iffailure.

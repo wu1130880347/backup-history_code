@@ -1,0 +1,30 @@
+NAME
+         axlScheduleNet - apply or deletea user schedule on a net
+  SYNOPSIS
+         axlScheduleNet(
+                 o_net/t_net
+                 t_schedule/nil
+         )
+         ==> t/nil
+  FUNCTION
+         This applies a userschedule or a partial user schedule to
+         a net. Format of t_schedule is a stringin the $SCHEDULE
+         netin (3rd party) format. See netin documentation for
+         more info aboutthe syntax.
+         When t_schedule is nil itremoves any user schedule or
+         partial user schedule fromthe net and restores it
+         its default schedulealgorithm (NET_SCHEDULEproperty).
+  NEEDS
+         o_net   - dbid of net
+         t_net   - name of net
+         t_schedule - schedule or partialschedule using $SCHEDULE
+                 netin format
+                 if nil remove
+         
+  RETURNS
+         t - schedule applied
+         nil - failed orarguments are incorrect (use axlDebug)
+                 for moreinfo.
+  SEE ALSO
+         axlSchedule
+  EXAMPLES

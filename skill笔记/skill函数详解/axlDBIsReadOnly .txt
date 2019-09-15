@@ -1,0 +1,21 @@
+ÔªËØÊÇ·ñÖ»¶Á
+  NAME
+     axlDBIsReadOnly - Is elementread-only
+  SYNOPSIS
+     axlDBIsReadOnly(
+         o_dbid
+     ) -> t/nil
+  FUNCTION
+         This checks if indicated databaseobject is read-only.
+        
+         An example of why an objectis marked read-only due to a partition being active.
+  NEEDS
+     o_dbid      - dbid of the element to be checked.
+  RETURNS
+     t - object is read-only
+     nil- not read-only or not a dbid
+  SEE ALSO
+         axlDBIsFixed
+  EXAMPLE
+         p = axlSelectByname("SYMBOL" "U1")
+         ret = axlDBIsReadOnly(p)

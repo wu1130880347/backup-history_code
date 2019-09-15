@@ -1,0 +1,55 @@
+创建一个“最小”的零件，必须提供名称和类型
+  NAME
+         axlDBCreateSymDefSkeleton - add a "skeleton" symbol definitionto DB
+  SYNOPSIS
+         axlDBCreateSymDefSkeleton(
+             l_symbolData
+             l_extents
+             [l_pinData]
+         )
+         ==> l_result/nil
+  FUNCTION
+         Creates a "minimal" symbol definition.While the
+         symbol name and type must be provided, the instance iscreated
+         with only pins.  Once this "skeleton" definition
+         has been created, the expectation isthat you will be adding the
+         rest of the symbol geometrywith additional axlDBCreate calls.
+         This supports the abilityto create symbols that do not exist
+         in the "library".
+         Shape symbol:
+             - You may only attach asingle shape to a shape symbol, no voids.
+             - Layer required is "ETCH/TOP".
+             - Extents should belarger then the shape but hasno adverse
+               impact if it is significantlylarger.
+         Flash symbol:
+             - You may attach amultiple shapes but none may contain voids.
+             - Layer required is "ETCH/TOP".
+             - Extents should be largerthen the shape but hasno adverse
+               impact if it is significantlylarger.
+  NEEDS
+         l_symbolData    - a list of (t_symbolName [t_symbolType])
+                                t_symbolName - name of the symbol
+                                 t_symbolType - "package" (default)
+                                                "mechanical".
+                                                "format",
+                                                "shape" or
+                                                 "flash"
+         l_extents       - The lower left and upper right corners
+                           of thesymbol def extents
+         l_pinData       - list of axlPinData defstructs for the pins
+  RETURNS
+         axlDBCreateSymDefSkeleton - nil if not created, or
+                                        axl DBID of the symbol def
+  EXAMPLE
+         1) Create a shape symbol
+            symdef = axlDBCreateSymDefSkeleton( '("shape_pad" "shape")
+                         list(-100:-100 100:100))
+            p = axlPathStart( list( -4:10 4:10 8:0 4:-10 -4:-10 -4:10) )
+            s = axlDBCreateShape(p t "ETCH/TOP" nil symdef)
+         2) Create a flash symbol
+            symdef = axlDBCreateSymDefSkeleton( '("flash_pad" "flash")
+                         list(-100:-100 100:100))
+            p = axlPathStart( list( -4:10 4:10 8:0 4:-10 -4:-10 -4:10) )
+            ps = axlPathStart( list( -4:10 4:10 4:-10 -4:-10 -4:10) )
+            s = axlDBCreateShape(p t "ETCH/TOP" nil symdef)
+            s = axlDBCreateShape(ps t "ETCH/TOP" nil symdef)

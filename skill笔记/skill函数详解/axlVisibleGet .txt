@@ -1,0 +1,53 @@
+获得所有层的显示状态
+NAME
+         axlVisibleGet - get the visibility set of the design
+  FUNCTION
+         axlVisibleGet(
+         )
+         ==>l_visList
+  SYNOPSIS
+         Returns the visibility of the entire design which layers are
+         visible/invisible.
+  NEEDS
+         nil
+  RETURNS
+         l_visList       - Lists of lists. Format is for each class
+                         (nil class <t_className> visible t/nil/-1
+                           subclassinfo <l_subclass>) ....)
+                         l_subclass format:
+                             ((<t_subclass> t/nil) ....)
+                           where t/nil/-1
+                                 t - visible
+                                 nil - invisible
+                                 -1 - class has both visible and invisible items
+  NOTE
+         Any change in the structure of l_visList affects axlVisibleSet,
+         the complementary function to this one.
+  EXAMPLE
+   Skill > visList = axlVisibleGet()
+   ((nil class "BOARD GEOMETRY" visible nil subclassinfo nil)
+       (nil class "COMPONENT VALUE" visible nil subclassinfo nil)
+       (nil class "DEVICE TYPE" visible nil subclassinfo nil)
+       (nil class "DRAWING FORMAT" visible nil subclassinfo nil)
+       (nil class "DRC ERROR CLASS" visible t subclassinfo nil)
+       (nil class "ETCH" visible -1
+       subclassinfo
+       (("TOP" t)
+         ("TRACE_2" nil)
+         ("TRACE_3" nil)
+         ("BOTTOM" t)
+       ))
+       (nil class "MANUFACTURING" visible nil subclassinfo nil)
+       (nil class "ANALYSIS" visible nil subclassinfo nil)
+       (nil class "PACKAGE GEOMETRY" visible nil subclassinfo nil)
+       (nil class "PACKAGE KEEPIN" visible t subclassinfo nil)
+       (nil class "PACKAGE KEEPOUT" visible nil subclassinfo nil)
+       (nil class "PIN" visible t subclassinfo nil)
+       (nil class "REF DES" visible nil subclassinfo nil)
+       (nil class "ROUTE KEEPIN" visible t subclassinfo nil)
+       (nil class "ROUTE KEEPOUT" visible nil subclassinfo nil)
+       (nil class "TOLERANCE" visible nil subclassinfo nil)
+       (nil class "USER PART NUMBER" visible nil subclassinfo nil)
+       (nil class "VIA CLASS" visible nil subclassinfo nil)
+       (nil class "VIA KEEPOUT" visible nil subclassinfo nil)
+   )

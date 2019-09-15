@@ -1,0 +1,17 @@
+获得PCB底层层名，如：BOTTOM
+  NAME  
+     axlConductorBottomLayer - to return the name of thebottom conductor layer
+  
+  SYNOPSIS
+     axlConductorBottomLayer(
+     )  
+     ==> t_name
+  
+  FUNCTION
+         Return the name of thebottom conductor layer.
+  NEEDS
+         nothing
+  RETURNS
+         t_name: the name of thebottom conductor layer
+  EXAMPLE
+         axlConductorBottomLayer() -> "BOTTOM"

@@ -1,0 +1,4 @@
+NAME
+         axlCancelTest - control-Cinterface
+  SYNOPSIS
+         see axlCancelOn

@@ -1,0 +1,58 @@
+设置约束指定Ecset DRC具体值
+  NAME
+         axlCNSEcsetValueSet - set Ecset levelconstraint value
+  FUNCTION
+         axlCNSEcsetValueSet(
+                o_ecsetDbid/t_ecsetName
+                 t_name/s_name
+                 f_value
+         )
+         ==> t/nil
+         axlCNSEcsetValueSet(
+                o_ecsetDbid/t_ecsetName
+                ll_constraintNValues
+         )
+         ==> t/nil
+  SYNOPSIS
+         This sets the value of theindicated Ecset DRC.
+         
+         To determine the list currently supportedvalues do a
+                 axlCNSEcsetValueGet(nil).
+         This interfaces supportstwo variations for setting,
+         a single value or a list of values wherell_constraintNValues
+         is: '((s_name/t_namef_value/t_value) ....)
+         
+         Passing as a value a nil or empty string ("") results in
+         the constraint beingdeleted from the ecset.
+         For performance reasons, changing a valuedoes
+         not invoke DRC. You need to manually do this. A set
+         of interfaces supportsmarking changes to perform
+         an minimal set of drc updatesdepending upon your changes
+         (see axlCNSMapUpdate).
+  CAUTION
+         Future releases may add or subtract constraintchecks. The
+         axl interface doesguarantee the checks returned by this
+         interface will remainconstant from release to release.
+  NEEDS
+         o_ecsetDbid - dbid of ecset
+         t_ecsetName - name of ecset
+         s_name: symbol name ofconstraint.
+         t_name: string name ofconstraint.
+         f_value: All of thesechecks values are in user units. A float
+                 is assumed to becurrent database units. Value may be
+                 rounded.
+         t_value: If given as astring with MKS units the value will
+                 be converted intocurrent database units (rounding
+                 may result).
+  RETURNS
+         Returns t if succeeds or nil if failure.
+  SEE ALSO
+         axlCNSEcsetModeGet, axlCNSEcsetValueGet, axlCNSMapUpdate,
+         axlCNSEcsetValueCheck
+  EXAMPLES:
+         1) Set impedance
+              axlCNSEcsetValueSet("UPREVED_DEFAULT"
+                                'Impedance ALL:ALL:100.0:2)
+         2) Set multi-value
+              axlCNSEcsetValueSet("UPREVED_DEFAULT"
+                 '((Impedance "ALL:ALL:100.0:2") (Maximum_Via_Count 5)))

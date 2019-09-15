@@ -1,0 +1,51 @@
+»úÏäÀ®°ÈÏìÒ»Éù
+  NAME
+         axlUIWBeep - alert the user
+  SYNOPSIS
+         Sends an alert to the user. Usually a annoying beep.
+  FUNCTION
+         axlUIWBeep (
+         )
+         -> t
+  NEEDS
+         zip
+  RETURNS
+         zip
+  EXAMPLES
+         axlUIWBeep()
+  NAME
+         axlUIWBlock - Block waiting for user input on window
+  SYNOPSIS
+         axlUIWBlock (
+                 r_window
+         )
+         -> t/nil
+  FUNCTION
+         CAUTION: Is not compatible with the "g_nonBlock = nil" option to
+                  axlFormCreate. With axlFormCreate your must set
+                  a callback on the g_formAction.
+         This blocks on the indicated window until it destroyed. All other
+         windows are disabled. It may be called recursively unlike the
+         block option to axlFormCreate.
+  
+         Once you enter a blocking mode you should not bring up a window
+         that is non-blocking. This behavorior is not defined and is not
+         supported.
+  
+         If you block you should set block attribute (block) in the Window Placement
+         list (lt_placement) so that the title-bar shows that it is a
+         blocking window.
+  
+         If you have a window callback registered you must allow the window
+         to close since the unblock facility unblocks other windows upon
+         close so that the correct window will get focus after the blocked
+         window is destroyed.
+         If one blocked form opens another form then the sub-form must
+         also be blocking and a axlUIWSetParent done to set the
+         parent of the second blocked form to be the lauching form.
+  NEEDS
+         r_window:       Window id.
+  RETURNS
+         t for success, nil for failure (window already closed or not a window)
+  SEE ALSO
+         axlUIWSetParent

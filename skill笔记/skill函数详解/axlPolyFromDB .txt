@@ -1,0 +1,113 @@
+用数据生成多边形虚拟区域(Poly)
+  NAME
+         axlPolyFromDB - generate apolygon fron database
+  FUNCTION
+     axlPolyFromDB (
+         o_dbid/r_path
+         ?endCapType s_endCapType
+         ?layer      t_layer
+         ?padType    s_padType
+         ?holes      t/nil
+         ?line2poly  t/nil
+     )
+     => lo_polygon
+  SYNOPSIS
+         Creates a list ofo_polygon objects from the dbid or a r_path. Use the
+         lo_polygon list to get thepoly attributes or to perform logical
+         operations on these polys.
+         In the case ofr_path option, we expect a paththat reflects
+         a closed shape with nointersections. It is important that
+         the first and last pointbe the same. The width option of
+         r_path is ignored as wellas the '?' arguments toaxlPolyFromDB.
+  POLYGON ATTRIBUTES:
+         area - (float) Area of polygon indesign units. If a hole this is
+                 negative.  If a polygon is not a hole then thearea is the
+                 sum of the basepoly area minus any of its holes.
+         bBox - (bBox)  bounding box of polygon
+         holes - (list ofo_polys/nil) list of anyholes in poly
+         isHole - (t/nil) is this a hole (void) or a shape
+         objType - (t_string)  "polygon"
+         vertices - (list ofcoords). This alwaysdescribes a closed shape.
+                 Format for eachcoord is: (xy f_radius) Where
+                   xy - verticepoint in design units
+                   f_radius - 0 ifprevious point and this point forms a segment
+                         else pointsform a arc with radius. The sign of the
+                         radiusindicates for postive the arc is to the left
+                         of they-axis and a negitve indicates arc is the right.
+                 If arcs are presenta polygon typically may contain more segments
+                 then theunderlying shape dbid. This is due to the polygon arcs
+                 cannot cross aquadant so are broken along quadant boundaries.
+  NOTES
+         - A polygon is NOT a dbid.
+         - Comparing two polys usingSkill functions:
+           - equalfunction: geometrically compares that two polys
+             are the same thus slightly slower then the eqfunction.
+           - eq functioncompares that the poly ids are the same.
+         This is different from thedbid comparision where both the
+         equal and eq return thesame results.
+         What this means from aprogramming standapoint, is if you have
+         2 identical shapes inAllegro the 'equal' comparison on the shape
+         dbids returns they are NOT equal butconverting these shapes
+         to polys via axlPolyFromDB and doing a 'equal' of
+         the resulting polys will return 't' while the'eq' comparison
+         will return 'nil'.
+  NEEDS   
+      o_dbid       - axl DBID for one of thefollowing:
+                     path (line and cline), shape, rect, frect, pin, via, void,
+                     arc and linefrom which to construct the poly.
+                     Notes:
+                       - arc and lineare segments reported by show element
+      r_path       - Path construct from the axlPath APIfamily. This
+                     is not an Allegro databaseobject and is much more
+                     efficientmethod for creating an Allegro shape then
+                     converting itto a Poly. Note axlDBCreateOpenShape
+                     also supports ar_path. See SYNOPSIS for moredetail.
+                     See line2poly
+                     r_path must describe aclosed non-intersecting shape
+                     unless theline2poly is t (see below).
+      s_endCapType - Keyword stringspecifying the end cap type to be used
+                     for thepoly, one of 'SQUARE, 'OCTAGON, or 'ROUND.This
+                     is used in case of lineor cline only, otherwise it's
+                     ignored. Thedefault is 'SQUARE. Used in case of line
+                     or cline only.
+      t_layer      - String representation of a layer. i.e. "ETCH/TOP"
+                     This is used incase of pin or via only, otherwise it's
+                     ignored. Thedefault is "ETCH/TOP".
+      s_padType    - Keyword string specifying the type of thepad to be
+                     retrieved, one of 'REGULAR, 'ANTI, or'THERMAL. This is
+                     used for pins, vias or if r_pathis based with the line2poly
+                     option; othwiseit is ignored. The default is 'REGULAR.
+      holes        - For shapes with voids returns anyvoids as holes (this
+                     is the default). If nil don't return theholes.
+      line2poly    - Applicable only if 1stargument is an r_path.
+                     By default, an r_path which describes a closedpath when this
+                     option is t, the r_path itselfis converted to a poly in a manner
+                     similar to toline dbids. It is strongly recommended that the
+                     r_path haswidth otherwise the artwork undefined line width is used.
+                     Typically onepoly is returned for each segment in the r_path.
+  RETURNS
+      lo_polygon     Returns the lo_polygon object representingthe resulting
+                     geometry. If axlPolyFromDB cannot get thepolys it
+                     returns nil.
+  SEE ALSO
+     Other APIs that support orgenerate polygons:
+        axlPolyOperation -   performs various logical operations on 2 listsof polygon
+        axlPolyExpand -      expands or contracts polygon
+        axlIsPolyType - is object apolygon object
+        axlPolyErrorGet - return last error from axlPolyOperation
+        axlPolyFromDB - convert anallegro dbid to a polygon
+        axlPolyMemUse - debug function to return memoryuse of polygon sub-system
+        axlPolyOffset - move a polygon
+        axlPolyFromHole - converts a holepolygon to a postive polygon
+        axlDBCreateShape - create a shape
+     See documentation forindividual use.
+   EXAMPLES
+     1) Create a poly froma via
+         polyList = axlPolyFromDB(via_dbid?layer "ETCH/BOTTOM" ?padType 'ANTI)
+     2) Create a rectanglepoly (one corner at 0,0 with a width 1000 and
+        height of 500) using r_path method
+         ; note first and last points are thesame
+         myPath = axlPathStart( list(0:0 1000:0 1000:500 0:500 0:0) 0)
+         pathPoly = axlPolyFromDB(myPath )
+         poly = car(pathPoly)
+         poly->??

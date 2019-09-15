@@ -1,0 +1,87 @@
+;==============================================================zdw==
+(defun my_form ()
+			time = getCurrentTime()
+			time = parseString(time)
+			day = nth(1 time)
+			month = car(time)
+			month = upperCase(month)
+			year = nth(3 time)
+			date = strcat(" Date: " day " " month " " year)
+			 CreateForm()
+			myform=axlFormCreate( (gensym) form_file nil 'Form_Action t)
+			axlFormDisplay(myform)
+			axlUIWPrint(myform date)
+
+		)
+
+
+(defun CreateForm ()
+drain()
+form_file = "FindSymbol_form.form"
+myform = outfile(form_file "w")
+fprintf(myform "#Created by xml2bnf  perl utility\n")
+fprintf(myform "#Coded by Venkata Ramanan/Santa Clara, CA\n\n")
+fprintf(myform "FILE_TYPE=FORM_DEFN VERSION=2\n")
+fprintf(myform "FORM AUTOGREYTEXT\n")
+fprintf(myform "FIXED\n")
+fprintf(myform "PORT 31 8\n")
+fprintf(myform "HEADER \"FindSymbol\"\n\n")
+fprintf(myform "POPUP <ENUM>\"ITEM1\"\"0\",\"ITEM2\"\"1\",\"ITEM3\"\"2\",\"LAST ONE\"\"3\".\n\n")
+fprintf(myform "TILE\n\n")
+fprintf(myform "## Input Field in Form## \n")
+fprintf(myform "FIELD Input1\n")
+fprintf(myform "FLOC 7 2\n")
+fprintf(myform "FSIZE 17 2\n")
+fprintf(myform "STRFILLIN 17 50\n")
+fprintf(myform "FGROUP \"Find Symbol\"\n")
+fprintf(myform "VALUE \"\"\n")
+fprintf(myform "ENDFIELD \n\n\n")
+fprintf(myform "## Text Field in Form## \n")
+fprintf(myform "TEXT \"Find:\"\n")
+fprintf(myform "FLOC 1 2\n")
+fprintf(myform "TGROUP \"Find Symbol\"\n")
+fprintf(myform "ENDTEXT\n\n")
+fprintf(myform "ENDTILE\n\n")
+fprintf(myform "ENDFORM\n\n")
+close(myform)
+)
+
+axlCmdRegister("find_symbol" 'my_form)
+defun(find_symbol (find_name)
+	
+	;visible the layers
+	axlVisibleLayer("PIN/TOP" t)
+	axlVisibleLayer("PIN/BOTTOM" t)
+	axlVisibleLayer("REF DES/SILKSCREEN_TOP" t)
+	axlVisibleLayer("REF DES/SILKSCREEN_BOTTOM" t)
+	axlVisibleLayer("PACKAGE GEOMETRY/SILKSCREEN_TOP" t)
+	axlVisibleLayer("PACKAGE GEOMETRY/SILKSCREEN_BOTTOM" t)
+	axlVisibleUpdate(t)
+	symbols = axlDBGetDesign()->symbols
+	foreach(sym symbols
+		axlDehighlightObject(sym)
+		when(sym->refdes == find_name		
+			;axlSingleSelectObject(sym)
+			axlZoomToDbid(sym,t)
+			axlHighlightObject(sym)
+		)
+	)	
+)
+
+(defun Form_Action (myform)
+(let (t1 item index field cnt)(printf "field/value %L = %L (int %L\n)" 
+myform->curField myform->curValue, myform->curValueInt )
+(printf "doneState %L\n" myform->doneState )
+case(myform->curField
+		("Input1"
+		 find_symbol(upperCase(axlFormGetField(myform "Input1")))		 
+		 axlSetFindFilter(?enabled list("all") ?onButtons list("symbols"))
+		 axlFormSetActiveField(myform "Input1")		
+		)
+	)
+)
+
+if((nequal myform->doneState 0)
+axlFormClose(myform))
+)
+;==============================================================end zdw===============

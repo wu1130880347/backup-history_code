@@ -1,0 +1,24 @@
+¹Ø±ÕAllegroÎÄ¼þ
+  NAME
+         axlDMClose - closes an Allegrofile.
+  FUNCTION
+         axlDMClose(
+                 p_port
+         ) t/nil
+  SYNOPSIS
+         Closes an opened Allegrofile. While user may close a file via
+         the core SKILL function, "close". It is suggestedthat any file
+         opened via a "axlDM" function be closed via thisfunction. It
+         your program adheres tothis standard then it willbe compatible
+         with future Allegro DataManagement enhancements.
+         Use this in place ofSkill's infile/outfile if you have used
+         axlDMOpenFile or axlDMOpenLog.
+  NEEDS
+         p_port: Skill port type obtain via an axlDMfunction.
+  RETURNS
+         t/nil:  Succes or failure. Normally you don't checkreturn.
+  SEE ALSO
+         axlDMOpenFile axlDMOpenLog
+  EXAMPLE
+         axlDMClose(logport)
+                 - closes a portobtained via axlDMOpenLog

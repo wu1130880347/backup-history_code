@@ -1,0 +1,27 @@
+获得线段的线宽
+  NAME
+         axlPathSegGetWidth - Get the width ofa pathSeg
+  FUNCTION
+         axlPathSegGetWidth(
+             r_pathSeg
+         )
+         ==> f_width/nil
+  SYNOPSIS
+         Gets the width of a singlesegment in a path structure.
+  NEEDS
+         r_pathSeg:      Handle of a segment of a path structure.
+  RETURNS
+         f_width:        Returns width of the segment. Returns nil if
+                         r_pathSegis not a segment.
+  EXAMPLES
+         The following example:
+           * Creates a path withdefault width 173 mils
+           * Adds line segments atwidths 29 and 33 mils
+           * Gets the last segmentadded with axlPathGetLastPathSeg
+         axlPathSegGetWidth returns the widthof that segment only, 33 mils.
+         path = axlPathStart( list(1000:1250) 173)
+                 axlPathLine( path 29 2000:1250)
+                 axlPathLine( path 33 3000:3450)
+         lastSeg = axlPathGetLastPathSeg(path)
+         axlPathSegGetWidth( lastSeg)
+                 ==> 33.0

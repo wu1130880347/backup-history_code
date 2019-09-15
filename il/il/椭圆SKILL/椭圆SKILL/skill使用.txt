@@ -1,0 +1,6 @@
+1、拷贝释放到skill目录下，load, cot即可
+
+
+2、把*.bmp放到这个路径下
+
+C:\\Cadence\\SPB_16.0\\share\\pcb\\text\\icons

@@ -1,0 +1,23 @@
+Í¼ÐÎ»æÖÆ£º»­Í¼
+  NAME
+      axlGRPDrwCircle
+  FUNCTION
+      axlGRPDrwCircle(
+               r_graphics,
+               l_origin,
+               x_radius
+      )->t/nil
+  SYNOPSIS
+     This function draws a circle, into the areaidentified by the r_graphics
+     handle, at the origin specified, and withthe specified radius. Option
+     properties attached to ther_graphics handle are applied, when drawing
+     the circle.
+     
+  NEEDS
+     r_graphics - The graphicshandle.
+     l_origin   - A list noting the x and ycoordinate of the origin.
+     x_radius   - An integer noting the radius of thecircle.
+  RETURNS
+     nil if an erroroccurred, otherwise t.
+  SEE ALSO
+     axlGRPDoc

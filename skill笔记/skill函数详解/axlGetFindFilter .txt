@@ -1,0 +1,32 @@
+获得find面板的状态
+  NAME
+         axlGetFindFilter - return currentfind filter settings
+  SYNOPSIS
+         axlGetFindFilter(
+                 [onEnabledF]
+         )
+         ==> lt_filters/nil
+  FUNCTION
+         Returns the current FindFilter settings as a list of keyword strings.
+         The return findfilters settings (onButtonor enabled) is controlled
+         by the boolean onEnabledF.
+  NEEDS
+         onEnabledF      - If onEnabledF is nil, it returns theonButton list.
+                           IfonEnabledF is t, it returns the enabled list.
+                           Defaultis nil
+  RETURNS
+         lt_filters      - list of element types inthe find filter.
+                                 OR
+                           list ofcurrent onButton settings.
+         nil             - if list wouldbe empty.
+  EXAMPLES
+             axlSetFindFilter( ?enabled list( "vias" "pins" "nets"
+                         "clinesegs" "nameform")
+                         ?onButtons list("vias" "pins" "clinesegs"))
+             ret = axlGetFindFilter()
+             Returns:
+                 ("NAMEFORM" "NETS" "CLINESEGS" "VIAS" "PINS"
+                     <plusdefault items that may change from release to release> )
+             ret = axlGetFindFilter(t)
+             Returns:
+                 ("CLINESEGS" "VIAS" "PINS")

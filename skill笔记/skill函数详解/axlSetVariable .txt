@@ -1,0 +1,45 @@
+设置环境变量
+  NAME
+        axlSetVariable - sets Allegroenvironment variables
+  FUNCTION
+         axlSetVariable(
+                 t_variable
+                 g_value
+                 )
+         ==> t/nil
+  SYNOPSIS
+         Sets the Allegroenvironment variable with the name given by the string
+         t_variable to the valueg_value. g_value can be a string, int, t, or
+         nil. Returns the string assigned to thevariable or nil if the variable
+         cannot be set inAllegro.
+         Note: 511 is themaximum list long (lt_variable).
+  NOTES
+         1) Variablenames/values can change from release to release.
+         2) Variable settings only apply tocurrent session. They are not
+                 saved to user'slocal env file.
+         3) Variable changes do not effectprograms launched from Allegro
+                 e.g. import logic, refresh_symbol
+         4) Many Allegrooperations are done via batch operations such
+            as items in FileImport/Export, artwork, axlRunBatchDBProgram, etc.
+            These operations do NOT seevariables changed (likePSMPATH) by
+            this call or by theAllegro set command.
+  NEEDS
+         t_variable:     name of the Allegro environment variable.
+         g_value:        Value to which the environmentvariable is to be set.
+                         Can be astring, int, t, or nil.
+  RETURNS
+         t/nil:          Returns t ifsuccessful. Returns nil if invalid data
+                         type ofvariable is marked read-only.
+  SEE ALSO
+         axlGetVariable
+  EXAMPLES
+         The following example setsthe new library search path "libpath".
+            axlSetVariable("libpath" "/mytools/library")
+                 ==> t
+            libraryPath = axlGetVariable("libpath")
+                 ==> "/mytools/library"
+         Using list mode:
+            axlSetVariable("psmpath" '("." "symbols"))
+                 ==> t
+            axlGetVariableList("psmpath")
+                 ==> ("." "symbols")

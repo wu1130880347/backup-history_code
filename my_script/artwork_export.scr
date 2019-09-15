@@ -1,0 +1,84 @@
+# Allegro script
+#	file: J:/ZWSD/design2018/NodeScreenV1_0/Revsion2/Finally/main/pcb/play/artwork_export.scr
+#	start time: Fri Sep 07 20:27:19 2018
+#	Version: 17.2-2016 S031 (3682489) Windows SPB 64-bit Edition
+scriptmode +i +n +e +c
+version 17.2
+
+setwindow pcb
+trapsize 15542
+placementedit
+QtSignal ColorVisibilityPane CVPGlobalVisOn clicked
+setwindow pcb
+zoom in -1499.42 -642.01
+trapsize 7771
+QtSignal ColorVisibilityPane CVPViewDropdown CurrentIndexChanged "Film: 08_DrillDrawing"
+ncdrill customization 
+placementedit 
+setwindow form.nc_drillcustomization
+FORM nc_drillcustomization auto_symbols  
+fillin yes 
+FORM nc_drillcustomization done  
+fillin yes 
+setwindow pcb
+ncdrill legend 
+setwindow form.nc_drilllegend
+FORM nc_drilllegend total_drill YES 
+FORM nc_drilllegend done  
+setwindow pcb
+pick grid -1483.88 3632.11
+placementedit 
+xsection_chart 
+setwindow form.xsectionChart
+FORM xsectionChart xsectionchart_ok  
+setwindow pcb
+pick grid 2665.90 -921.76
+placementedit 
+nctape_full 
+setwindow form.nc_drill
+FORM nc_drill auto_tool_select YES 
+FORM nc_drill optimize YES 
+FORM nc_drill parameters  
+setwindow form.nc_parameters
+FORM nc_parameters suppress_lead_zeroes YES 
+FORM nc_parameters suppress_equal YES 
+FORM nc_parameters enhanced_format YES 
+FORM nc_parameters done  
+setwindow form.nc_drill
+FORM nc_drill execute  
+FORM nc_drill close  
+setwindow pcb
+placementedit 
+ncroute 
+setwindow form.nc_route
+FORM nc_route parameters  
+setwindow form.nc_parameters
+FORM nc_parameters done  
+setwindow form.nc_route
+FORM nc_route execute  
+FORM nc_route close  
+setwindow pcb
+placementedit 
+artwork 
+setwindow form.film_control
+FORM film_control general_parameters  
+FORM film_control film_control  
+FORM film_control select_all  
+FORM film_control create  
+fillin yes 
+setwindow pcb
+setwindow text
+close
+setwindow form.film_control
+FORM film_control cancel  
+setwindow pcb
+placementedit 
+prepopup 1344.81 1658.25
+setwindow pcb
+zoom out 521.07 2031.26
+trapsize 15542
+save 
+fillin yes 
+placementedit 
+
+#	stop time: Fri Sep 07 20:28:32 2018

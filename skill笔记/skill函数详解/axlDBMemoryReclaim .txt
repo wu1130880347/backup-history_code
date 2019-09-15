@@ -1,0 +1,40 @@
+回收数据库内存以便重用
+4 b# D) D, @3 \' }
+  NAME
+         axlDBMemoryReclaim - reclaim databasememory for reuse
+  SYNOPSIS
+         axlDBMemoryReclaim( )
+         -> x_sizeReclaimed
+  FUNCTION
+         Reclaims database memory for reuse by theAllegro database. Normally in Skill
+         memory of deleted databaseobjects is not reused until Skillcode returns
+         to the main processing loop.
+         Should only be used inspecial cases since the default programming model
+         works for most all Skillprograms. For a well written Skill program
+         this is typically not required.
+         Before utilizing this API, first try thefollowing techniques:
+           - use axlDBCloak if are adding/deletingobjects that are etch based
+                 (vias, clines, etch shapes, pings (e.g. like moving asymbol).
+           - insure that you do not have any longrunning db transactions
+             (axlDBTransactionStart). E.g. commit alltransactions you have active.
+             Transactions can benested so you should commit all the way to the initial
+             transaction.
+         The one known programmingmodel this use this API is the "try-it" model.
+         This is where a program adds anobject to the database, performs a test
+         and then deletes it (e.g. utilizaes axlAirGap to get distances to other
+         db objects).
+         For the API to be mosteffective make sure:
+            - Are not inside anaxlDBCloak.
+            - The most memory can bereclaimed if you have no activedb transactions.
+         Memory reclaimed isreturned to the database for reuse. It is not be returned
+         to the program's memorypool nor returned to the OS. The program's memory
+         usage at the OS level isNOT reduced.
+         As a side effect some ofthe dbids that are checked-out may be reclaimed
+         since they actually link todeleted db objects. They are reported as "dbid:remove".
+         Do NOT use instead axltrigger callbacks.
+  NEEDS
+         nothing
+  RETURNS
+         Amount of memory reclaimed (bytes).
+  SEE ALSO
+         axlDBCloak, axlDBTransactionStart

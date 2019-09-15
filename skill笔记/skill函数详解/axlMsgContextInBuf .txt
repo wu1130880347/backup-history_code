@@ -1,0 +1,74 @@
+测试某信息是否在context缓冲区内
+  NAME
+         axlMsgContextInBuf - checks in amessage is in message buffer
+  FUNCTION
+         axlMsgContextInBuf(
+                 r_context
+                 t_format_string
+                 )
+         ==> t
+  SYNOPSIS
+         Checks whether messaget_format_string is in the message buffer of context r_context.
+         This provides theapplication with the ability to control code flow based on a
+         particular message reportedby a called function. The check is based on the original
+         format string, not thefully substituted message.
+  NEEDS
+         r_context:              The context handle fromaxlMsgContextStart. axlMsgContextInBuf
+                                looks only for messages in this context (or any children). If
+                                r_context is nil, axlMsgContextInBuf looks through allcontexts.
+         t_format_string:        The format string of the message.
+  RETURNS
+         t/nil:          Returns t if themessage is in the buffer. Otherwise it returns nil.
+  EXAMPLES
+         if( axlMsgContextInBuf(context "My error")
+         printf(%s\n" "My error isthere"))
+         The following example:
+         1. Starts a contextwith axlMsgContextStart
+         2. Puts a warning, an error, and a fatal error messageusing axlMsgPut
+         3. Checks for the error messagewith axlMsgContextInBuf
+         4. Tests for thecontext severity level with axlMsgContextTest
+         5. Prints the contextbuffer with axlMsgContextPrint
+         6. Ends with axlMsgContextFinish
+                 context = axlMsgContextStart("My own context.")
+                 axlMsgPut(list("My warning" 2))
+                 axlMsgPut(list("My error" 3))
+                 printf("Messageseverity %d",axlMsgContextTest(context))
+                 axlMsgPut(list("My fatal error %s" 4) "BADERROR")
+                 if( axlMsgContextInBuf(context "My error")
+                 printf("%s\n" "my error isthere"))
+                 printf("Messageseverity %d",axlMsgContextTest(context))
+                 axlMsgContextPrint(context)
+                 axlMsgContextFinish(context)
+                  ==> t
+         When you load theSKILL program shown above, the SKILL command line
+         outputs the following:
+         W- My warning
+         E- My error
+         F- My fatal error BADERROR
+         Message severity 3
+         my error is there
+         Message severity 4
+         t
+         This information shows thegeneral usage of the axlMsg system:
+         * Messages first go to thecontext buffer
+         * axlMsgContextPrint prints them to theSKILL command line
+         * The contents of theoutput buffer from any print and printf data write to thecommand
+           line when controlreturns to the command line.
+         That is why the messages "Messageseverity 3," "myerror is there" and
+         "Message severity 4" are after thebuffered messages ("W-My warning" ...).
+xupan>Examples:3 c! f& w. m2 A! a, }. _. e1 A
+           - Typical use, convert from designunits to another type (design
+             is in mils)
+                 axlMKSConvert(.5 "design" "INCHES") => 0.0005
+           - axlMKSConvert(".5MILS" "INCHES") => 0.0005
+           - pre-register a unit type then use if onfuture conversions
+                 axlMKSConvert(nil "MILS") => t
+                 axlMKSConvert(.5) => 0.0005   
+           - go todefault output conversion (METERS)
+                 axlMKSConvert(.5 "MILS" nil) => 2.54e-05   
+           - Not just length issupported (go tofarads)
+                 axlMKSConvert(1e-09 nil "pF") => 1000.0   
+  NEEDS
+      as specified above
+  RETURNS
+      function will return theconverted value if successful, ilcNil if failed.

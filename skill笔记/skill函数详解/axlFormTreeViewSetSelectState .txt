@@ -1,0 +1,28 @@
+获取选定目录树状态
+  NAME
+         axlFormTreeViewSetSelectState - Control tree viewselect state
+  SYNOPSIS
+         axlFormTreeViewSetSelectState(
+                 r_form
+                 t_field
+                 g_hItem
+                 g_state
+         ) -> t/nil
+  FUNCTION
+         In multi select mode, sets the selectstate. This is diferent
+         than the current selecteditem in signle select tree views. In
+         multi select mode, users can changethe select state by clicking
+         on the select checkboxassociated with each item.
+  NEEDS
+         Takes 4 args; form id, field name (string), treeview item
+         and select state.
+  
+         Item is the handle of anitem in the tree view control. This
+         handle was returned asresult of the call to
+         axlFormTreeViewAddItem().
+         select state is unchecked if g_state is nil or 'TVSTATE_UNCHECKED
+         select state is checked if g_state is t or 'TVSTATE_CHECKED
+         select state is disabled (3 state mode) if g_state is'TVSTATE_DISABLED
+  
+  RETURNS
+         t for success, nil for failure.

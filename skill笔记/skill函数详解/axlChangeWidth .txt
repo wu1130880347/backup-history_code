@@ -1,0 +1,39 @@
+ÐÞ¸Ä line/cline µÄÏß¿í
+  NAME
+         axlChangeWidth - modify width of aline or cline
+  FUNCTION
+         axlChangeWidth(
+                 lo_dbid/o_dbid
+                 f_newWidth
+                 [g_invisible]
+         )
+         ==> lo_dbid/nil
+  SYNOPSIS
+         Changes width of lines, clines and segments (arc and line).
+         By default, only visible linesare changed. This allows layer filtering
+         by temporary changing thevisible layers (see examplein axlVisibleUpdate).
+         If you wish to overridethis behavior then passg_invisible=t.
+  TIPS
+         1) If you need to change the width ofmultiple lines, it is moreefficient
+            to pass them as a list of dbids then to call this function for each dbid.
+         2) Currently this does not support change thewidth of shape borders.
+  NEEDS
+         lo_dbid/o_dbid - a singledbid or list of dbids
+         f_newWidth - new width ofline
+         g_invisible - if t objects do not need to be visibleon the display to have
+                 their widthchanged.
+  RETURNS
+         list of width objects or nil if failed.
+         FAILURES:
+             - an dbid is not a cline, line or line/arc segment ofa line/cline
+             - illegal option types
+             - transformed object isoutside of database extents
+  EXAMPLES
+         1) Changes the width of a cline to 20 in current databaseuse units
+             ; ashOne is aselection utility found at
+             ;   <cdsroot>/pcb/examples/skill/ash-fxf/ashone.il
+             dbid = ashOne()
+             ; pick a line, clineor segment (set find filter)
+             updatedDbid = axlChangeWidth(dbid, 20.0)
+  SEE ALSO
+         axlTransformObject, axlChangeLayer

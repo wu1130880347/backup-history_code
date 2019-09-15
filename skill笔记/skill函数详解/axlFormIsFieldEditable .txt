@@ -1,0 +1,15 @@
+查询窗体上某个部件是否可用
+  NAME
+     axlFormIsFieldEditable - determineswhether a form field is editable.
+  FUNCTION
+     axlFormIsFieldEditable (
+         r_form
+         t_field
+     ) -> t/nil
+  SYNOPSIS
+     This checks the given formfield if editable.  If the field
+     is editable, t is returned.  If the field is greyed nil is returned.
+  NEEDS
+     Takes 2 args; form id, and field name (string).
+  RETURNS
+     Returns t for editable, nil for greyed or failure.

@@ -1,0 +1,55 @@
+Ìæ»»º¸ÅÌ
+  NAME
+         axlReplacePadstack - replace anexisting pin/via padstack
+  SYNOPSIS
+         axlReplacePadstack(
+                 o_dbid/lo_dbid
+                o_padstackdbid/t_padname
+         )
+         ==> lo_dbid
+  FUNCTION
+         Replaces the padstack on aPin or Via (or on a list of them).
+         The function will not print any errormessages unless you have
+         argument errrors.
+         The pin/via can be a list or asingle dbid. If the list contains
+         items that are not a pin or viathey are silently ignored.
+         Padstack can either bereferenced by name or a dbid. The padstack must be
+         present in the Allegrodatabase. As an example, use axlDBCreatePadstack
+         to obtain a dbid.
+         Returns a list ofpins/vias that have had their padstacks changed.
+         This may not be thesame as your initial list as the software
+         removes dbid's that are not pins or vias and thoseitems where
+         changing the padstack wouldcreate a database error (pin would
+         be outside the boardextents).
+         NOTE: Will not changesymbol defintion pins.
+         CAUTION: Changing thepadstack on a pin in the drawing editor will
+                 result in anexploded pin. This will increase your database
+                 size and has impacts onrefresh_symbol.
+         CAUTION: Using this function canresult in disconnects and new DRC
+                 violations.
+  PERFORMANCE HINTS:
+         1) If you want tochange all instances of a particular padstack it
+                 will be faster tochange the padstack itself.
+         2) If you are changingmany pins and vias to the same padstack it
+                 is faster to callthis function with a list of pin/vias instead
+                 of calling it for eachone.
+  NEEDS
+         o_dbid/lo_dbid: List of AXLDBID's (pins or vias) or asingle DBID.
+         o_dbid_padstack/t_padname:padstack may either be a name or dbid.
+                         Padstackmust already be in the drawing.
+  RETURNS
+         lo_dbid - returns list ofvias/pins that had padstack changed. This
+                 is always a list.
+         nil     - Error or nothing in the list was apin or a via.
+  EXAMPLES:
+         1) Change a single viato "VIA" padstack
+                 via = <dbid of avia>
+                 via = axlReplacePadstack( via, "VIA")
+         2) Change all vias onboard to "VIA" padstack
+                 ;; ashFindAllPins --example Skill code to find all vias on brd
+                 vias =ashFindAllPins( )
+                 via = axlReplacePadstack( via, "VIA")
+         3) Change a single viato pad dbid
+                 via = <dbid of avia>
+                 pad = <dbid of apad>
+                 via = axlReplacePadstack( via, pad )

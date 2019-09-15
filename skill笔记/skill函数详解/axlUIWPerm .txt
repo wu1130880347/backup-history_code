@@ -1,0 +1,33 @@
+控制某个窗口永久显示
+  NAME
+         axlUIWPerm - Control permanance of window across db open
+  SYNOPSIS
+         axlUIWPerm (
+                 r_window
+                 [t/nil]
+         )
+         -> t/nil
+  FUNCTION
+         Normally forms and other windows close automatically when
+         another database is opened. This allows this default behavior
+         to be overridden.
+  CAUTIONS
+         Windows are automatically closed when a new database is opened
+         for a good reason; the data the window display's may no
+         longer apply to the new database. So if this function
+         is used you should apply it with this in mind.
+         If no second argument is provided returns current state of
+         window.
+  NEEDS
+         r_window:       Window id
+         optional 2nd arg:
+                 t - set permanent
+                 nil - reset permanent
+  RETURNS
+         returns old value;
+  EXAMPLE
+     1) open test form & make permanent
+         handle = axlFormCreate('testForm "axlform" nil 'testFormCb, t nil)
+         axlUIWPerm(handle t)
+     2) test if window is permanent
+         ret = axlUIWPerm(handle)

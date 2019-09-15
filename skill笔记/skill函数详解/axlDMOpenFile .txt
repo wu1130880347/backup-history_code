@@ -1,0 +1,67 @@
+打开一个Allegro兼容的文件
+  NAME
+         axlDMOpenFile - opens an Allegrocompatible file
+  FUNCTION
+         axlDMOpenFile (
+                 t_id
+                 t_name
+                 t_mode
+         ) -> p_port/nil
+  SYNOPSIS
+         Opens a file in conventionAllegro manner; adds an extension
+         and optionally looks it up in a Allegrosearch path.
+         Must have an entry infileops.txt file.
+         Use this in place ofSkill's infile/outfile. The Skill
+         interfaces resolve the filelocation using SKILLPATH which
+         may mean that files may not open in the localdirectory if
+         the SKILLPATH does not have "." as its firstcomponent.
+         axlDMOpenFile uses the Allegroconvention to open file.
+         Note if you use axlDMOpenFile to open a file, use axlDMClose
+         to close it. All other Skill file APIs workon the port returned
+         by this interface.
+         If you want to useAllegro's standard file extension
+         support (we will append the extension if not present) then
+         see for list of t_ids
+                <cdsroot>/share/pcb/text/fileops.txt
+         Otherwise if you always providean extension use the "TEMP" id.
+  HINT
+         use get_filename(p_port) to obtain name offile
+  NEEDS
+         t_id:   id describing file attributes fromfileops.txt
+                 Examples are "ALLEGRO_LAYOUT_DB" for Allegro
+                         layoutswith extension brd, "ALLEGRO_REPORT"
+                         for All egro reportfiles with extension rpt.
+         t_name: name
+         t_mode: open mode
+            Option must be open ofthe following
+              "r": open for reading
+              "w": open for writing, create if doesn't exist truncate to
+                         zero length if exists
+              "a": open for writing, create if doesn't exist, go to end
+                         of file for appending if exists
+            In addition, the followingmodifiers are supported
+              "f": Flush file aftereach write. This can be slow on Windows
+                         if writing across thenetwork. This is typically
+                         used if a process will takea long time and
+                         the userwould like to look at the file to see
+                         the progress. Example "wf"
+              "b": Open in binarymode. This only has effect on Windows.
+                         If file isAscii has the effect for reading
+                         of not eliminating thecarriage-return (\r)
+                         that are in DOS Ascii files. Forwriting doesn't
+                         add thecarriage-return when it seesa linefeed
+                         (writes it like aUNIX Ascii file).
+                         Example "rb"
+              "s": Allow spaces infile or directory name.Currently
+                         Allegrodoesn't support this behavior. Setting
+                         this optionis unsupported. Example "rbs"
+  RETURNS
+         p_port/nil:     A SKILL port if it can open file
+  SEE ALSO
+         axlDMFileError, axlDMFindFile, axlDMGetFile,
+         axlDMOpenLog, axlDMClose, axlDMFileParts
+  EXAMPLE
+         - opens a file; clip.txt for writing
+             aPort = axlDMOpenFile("ALLEGRO_TEXT" "clip" "w")
+         - opens a file; b.bar
+             aPort = axlDMOpenFile("TEMP" "foo.bar" "r")

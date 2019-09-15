@@ -1,0 +1,17 @@
+获得某线段的斜率
+  NAME
+         axlLineSlope - slope of a line
+  SYNOPSIS
+         Returns slope of a line.
+         Floating point may be used.
+  FUNCTION
+         axlLineSlope(
+                 ll_line
+         ) -> f_slope
+  NEEDS
+         ll_line: two end points
+  RETURNS
+         slope or nil if line isvertical
+  EXAMPLE
+         axlLineSlope(list(5.0:20.10 15.4:30.2)) = 0.9711538
+         axlLineSlope(list(5:20 5:40)) = nil

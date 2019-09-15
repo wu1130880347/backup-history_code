@@ -1,0 +1,41 @@
+×¢²á²Ëµ¥Ïî
+  NAME
+     axlUIMenuRegister - register menu items to be loaded
+  FUNCTION
+     axlUIMenuRegister(
+         t_command/x_location
+         ll_menu
+         [g_menuOption]
+     ) => t/nil
+  SYNOPSIS
+     This allows you to register menu items to be loaded when
+     Allegro loads a new menu. It is a combination of
+     axlUIMenuFind and axlUIMenuInsert
+     If more elaborate menu configuration is required consider
+     calling axlTriggerSet directly.
+  TIP
+     Use axlIsSymbolEditor function if you need to filter commands based upon
+     symbol versus design editors.
+  CAUTIONS
+     - see axlUIMenuFind for cautions about portability across releases.
+     - When multiple menu registers are done, there may be depedancies.
+       For example, if the first menu register adds a new submenu
+       before the File menu the result will be not as expected if
+       the second attempts to add a new item to the Edit menu via
+       the location method.
+     - do NOT call this API from within a axlTriggerSet callback function.
+  NEEDS
+     t_command - command to insert menu before (see axlUIMenuFind)
+     x_location - location before to insert menu (see axlUIMenuFind)
+     ll_menu - list of menu items to load (see format 3 option
+         of axlUIMenuInsert)
+     g_menuOption - Indication to add to top or bottom of menu
+         (see axlUIMenuInsert)
+  RETURNS
+     t if register function for indicated callback
+     nil failed to register trigger
+  SEE ALSO
+     axlUIMenuFind, axlUIMenuInsert, axlTriggerSet, axlUIMenuDebug
+     axlIsSymbolEditor
+  EXAMPLES
+     see <cdsroot>/share/pcb/examples/skill/ui/menu.il

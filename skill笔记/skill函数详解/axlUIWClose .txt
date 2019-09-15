@@ -1,0 +1,22 @@
+关闭一个窗口
+  NAME
+         axlUIWClose - closes an open window
+  SYNOPSIS
+         axlUIWClose (
+                 r_window
+         )
+         -> t/nil
+  FUNCTION
+         Closes a window. Note window may also be closed by user. See front of
+         the section for specific window types.
+  NEEDS
+         r_window:       Window id.
+  RETURNS
+         t for success, nil for failure (window already closed or not a window)
+  EXAMPLES
+         The following example:
+             - Displays a window using axlUIViewFileCreate.
+             - Closes it using axlUIWClose.
+         logWindow = axlUIViewFileCreate("batch_drc.log" "Batch DRC Log" t)
+         ;;; Other interactive code
+         axlUIWClose(logWindow)

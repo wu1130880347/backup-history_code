@@ -1,0 +1,32 @@
+锁或解锁给定域的约束集
+  NAME
+         axlCNSCsetLock - lock/unlock acset
+  FUNCTION
+         axlCNSCsetLock(
+                 g_domain
+                 t_csetName
+                 g_mode
+         )
+         ==> t/nil
+  SYNOPSIS
+         This locks or unlocks aconstraint set in the givendomain.
+         See discussion in axlCNSIsLockedDomain.
+         You should usually lock or unlock the entiredomain since this matches
+         the DRC user model. Weprovide this interface to temporary unlock a locked
+         cset, make changes then reapply the lock.
+   NOTE
+         Changing the lock on a csetcan take a considerable amount of time
+         since DRC needs to beupdated. In the spacing domain, dynamic shapes need
+         to be updated. If doingother changes, consider cloaking (axlDBCloak
+         the entire process. This API alreadyuses cloaking for theindividual cset.
+  NEEDS
+         g_domain: domain of cset;'physical, 'spacing, 'sameNet, 'electrical
+         t_csetName: cset name
+         g_mode: may either be t (to lock) or nil to unlock
+  RETURNS
+         returns t if updated lock status, nil an error
+  SEE ALSO
+         axlCNSIsLockedDomain
+  EXAMPLES
+         1) Lock Spacing and Same net spacingdomains
+             axlCNSIsLockedDomain('spacing t)

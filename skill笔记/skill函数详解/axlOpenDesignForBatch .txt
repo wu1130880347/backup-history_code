@@ -1,0 +1,38 @@
+批处理打开设计
+  NAME
+         axlOpenDesignForBatch - open an Allegrodesign database for batch use
+  SYNOPSIS
+         axlOpenDesignForBatch(
+             ?design t_design
+             ?mode t_mode
+         )
+         ==> t_design/nil
+  FUNCTION
+         Open a design. The newdesign replaces the current design.
+         Since this is for batchusage, commands and menusare not changed.
+         If the current design hasunsaved edits, then theuser is asked
+         to confirm the discard unless thecurrent design was opened in
+         "r" mode (notsupported in this release) or g_mode is "wf". If
+         the user cancels theconfirmer, then the function returnsnil and
+         the current design is leftopen.
+         If t_design is notprovided, then theuser will be prompted for
+         the name of the design toopen.
+         If t_design does not existon disk, then thestandard Allegro
+         Drawing Parameters formwill be presented.
+         The designType of the newdesign is set as the same as the
+         current design. It can bechanged using axlSetDesignType.
+  NEEDS
+         t_design                - The name of the new design toedit
+         g_mode                  - "w" or "wf" (see above)
+                                  add a "l" to disable Allegrofile locking
+                                  example: "wl" for no locking
+  RETURNS
+         axlOpenDesignForBatch  - t_design if opened, or nil if error
+  NOTE
+         This command functionsessentially exactly the same as the
+         Allegro "edit" command, except the t_modecan be set to "wf" in
+         order to discard thecurrent edits without confirmation.
+         Since confirmation usesstandard Allegro confirmer, the "wf"
+         mode is essentially thesame as setting the NOCONFIRM environment
+         variable.
+         This will void all axl dbidhandles and clear the selection set.

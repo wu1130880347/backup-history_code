@@ -1,0 +1,17 @@
+恢复allegro 层面优先级表
+  NAME
+         axlLayerPriorityRestoreAll - Restore allegrolayer priority tables.
+  FUNCTION
+         axlLayerPriorityRestoreAll(
+         ) -> t/nil
+  SYNOPSIS
+         Restores previouslysaved  layer priority information. This function
+         only works if a callto axlLayerPrioritySaveAll() has been done
+         already.
+  NEEDS
+  RETURNS
+         t: success
+         nil: Nothing to restore.
+  SEE ALSO
+         axlLayerPrioritySaveAll axlLayerPriorityClearAll,
+

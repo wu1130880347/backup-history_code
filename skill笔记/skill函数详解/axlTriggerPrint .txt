@@ -1,0 +1,15 @@
+测试一个注册了的触发
+  NAME
+         axlTriggerPrint - print register triggers
+  FUNCTION
+         axlTriggerPrint(
+         ) -> t
+  SYNOPSIS
+         This is a debug function. It prints what is currently registered
+         for triggers.
+  NEEDS
+         zip
+  RETURNS
+         t
+  SEE ALSO
+         axlTriggerSet, axlTriggerClear

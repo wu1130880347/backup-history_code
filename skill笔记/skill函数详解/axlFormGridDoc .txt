@@ -1,0 +1,216 @@
+格点描述文件
+  NAME
+         axlFormGridDoc - form grid controloverview
+  OVERVIEW
+         Provides access from theform's package to a grid control.
+         Grids offer tabular supportand offer a variety offeatures
+         that are summarized below.
+  MAJOR FEATURES
+         - Optional side and top headers.
+         - Several data types on aper column basis: Text (info), Checkbox
+           with optional text, Enum (Drop-drop) and Fillin (with builtin
+           types string, integer and real).
+         - row and column indexing is 1 based
+  LIMITS
+         - maximum columns = 200
+         - maximum rows over 1,000,000
+         - maximum field string length (per column) is 256
+         - may only create columnsat grid initialization time
+  FORM FILE SUPPORT
+     GRID  (see uifbase.c for BDF description)
+         Standard items
+             FLOC - x,y location
+             FSIZE - width and height (includes headers if used)
+             POP - optional rightbutton popup for body (also requires
+                 application to set the GEVENT_RIGHTPOPUP option
+         OPTIONS:
+              INFO - entire grid isinfo-only even if containtypable fields
+              HLINES - drawhoriztonal lines between columns
+              VLINES - draw verticallines between rows
+              USERSIZE - allow userto resize columns
+              MULTISELROW - allowsmulti-row select (also set via Skill API, axlFormGridEvents)
+     HEADERS (GHEAD)
+         - specified within GRIDsection
+         - TOP and SIDE header (only one per type allowed in a grid)
+         HEADSIZE - height (TOP) or widht (SIDE) for header
+         OPTIONS:
+             3D - display raised
+             NUMBER - for side header display row number if application
+                 does not provide text
+         POP - optional right mousebutton popup one per header.
+                 Requiresapplication to setGEVENT_RIGHTPOPUP for header
+  PROGRAMMING SUPPORT
+         The follow Grid APIs areavailable (all have gdoc)
+             axlFormGridInsertCol - insert a column
+             axlFormGridInsertRows - insert one or more rows
+             axlFormGridDeleteRows - delete one or more rows
+             axlFormGridEvents - set grid events
+             axlFormGridOptions - misc grid options
+             axlFormGridNewCell - obtain structure for setting a cell
+             axlIsGridCellType - is item a celldata type
+             axlFormGridSetBatch - for setting multiplecells
+             axlFormGridGetCell - for getting cell data
+             axlFormGridBatch - used with axlFormGridSetBatch
+             axlFormGridUpdate - update display after changes
+             make_formGridCol &copy_formGridCol - for defstruct formGridCol
+         In additional the followingstandard form APIs may be used
+             axlFormSetFieldVisible - set grid visibility
+             axlFormIsFieldVisible
+             axlFormSetFieldEditable - set grid editibility
+             axlFormIsFieldEditable
+             axlFormBuildPopup - change a popup
+             axlFormSetField - set individual cell
+             axlFormRestoreField - restore last cell changed
+                 - restore supportsundoing last "change" event
+                 - adding, deleting, right mouse eventresets restore
+         Multi-row select supportfunctions:
+             axlFormGridSetSelectRows - control selectionof rows
+             axlFormGridSelectedCnt - number of rowsselected
+             axlFormGridSelected - list of rows selected
+DATA STRUCTURES
+         r_cell - user data type for cell update (see axlFormGridNewCell)
+         r_formGridCol - defstruct to describe column (see axlFormGridInsertCol)
+COLUMN FIELD TYPES (fieldType)
+         Grids supports theassigning data types on a column basis.
+         On a per cell basis, you may change a editable cell into
+         a read-only cell byassigning it a s_noEdit or s_invisible
+         attribute. Also if the grid doesn'tthe 'change (see
+         axlFormGridEvents) then the entire grid istreated as text.
+         See axlFormGridInsertCol for a completedescription of
+         column attributes. and axlFormGridSetBatch for a discussion
+         on cell attributes.
+         TEXT  - column is composed of display only text
+         STRING - column supportseditable text. See edit-combo below.
+         LONG - column supportsnumeric data entry cells. See
+                         edit-combobelow.
+         REAL - column supportsnumeric floating point entry cells.
+                 See edit-combobelow.
+         ENUMSET - column supportscombo-box (dropdown) cells
+                 Must have a popupattribute on column
+         CHECKITEM - column hascheckbox cells with optional text.
+         edit-combo: by assigning apopup attribute at the column
+                 and/or at the celllevel STRING, LONG and REAL types
+                 can be change tosupport both the original text
+                 editing field withthe addition of a drop-down.
+         
+PROGRAMMING
+     Once a grid is defined in theform file the following is
+     the standard method for initializing thegrid
+         1) create required columns - axlFormGridInsertCol
+         2) create initial set of rows - axlFormGridInsertRows
+         3) initial grid cells and headers -  axlFormGridSetBatch
+            then on callback use
+            - axlFormGridNewCell
+            - axlFormGridSetBatch
+         4) Set event filters - axlFormGridOptions
+         5) Display grid - axlFormGridUpdate
+     
+     See grid.il and grid.form for programmingexample. This is
+     contained in the AXL Sharewarearea:
+        <CDS_INST_DIR>/share/pcb/etc/skill/examples/ui
+EVENTS (Dispatching)
+     Unlike other form controls, an application canspecify
+     what events are dispatched.This is controlled via the
+     axlFormGridEvents API which documents theusage.
+     Also the form callbackstructure has new fields that have been
+     added for grids (see axlFormGridEvents).
+     By default, a grid is createdwith the 'rowselect enabled.
+     Typically, this is appropriatefor a multi-columntable.
+MULTI-ROW SELECTION
+     A super-set of row selection isthe multi-row selection option. With
+     this option the user can selectmultiple rows. Grids running in this mode
+     do now support cell select or change options.
+     This is set in Skill via:
+        axlFormGridEvents(<form><grid> '(mrowselect))
+     or from the formfile by adding theMULTISELROW option to the grid's OPTION line.
+     Standard selection model issupported (not extended). This means
+         - left click selects a row
+         - shift-left click selectsall rows between the initial and current row
+         - ctrl-left click adds toselection of row is currently selected it de-selectes
+         - control-a selects allrows
+    APIs are provided (see above) to get current selectedrows and set or clear
+    row selections.
+    Finally since multiple rows maybe selected the standard form callback mechanism
+    only informs you of a selectionevent. You need to utilize axlFormGridSetSelectRows
+    to determine the currentselection.
+SCRIPTING
+     Unlike most other form controlswhere the programmerdoesn't have
+     to worry about scripting; gridprogrammers need to should address
+     scripting. By default, the grid uses theevent type and row/column
+     number for scripting.Depending upon your application this may create
+     scripts that do not replay givendifferent starting data.
+     Grids supports assigning scriptlabels to rows, columns and
+     on a per cell basis.
+     
+     Labeling is implemented by theapplication code setting the
+     scriptLabel attribute in onaxlFormGridInsertCololumn for a column
+     or axlFormGridNewCell on a row, col or per cell basis. Youcan also
+     change this dynamically. Note for (row=0, col=n) sets
+     the scriptLabel for the column via axlFormGridNewCell and
+     (row=n, col=0) allows setting for row script labels.
+     The grid script line formatextends upon the standard form scripting
+     in the following manner:
+         FORM <formname>[tileLabel] <fieldLabel> <event> <glabel> [<value>]
+            where
+                FORM<formname> [tileLabel] <fieldLabel>
+                 - standard formscript form fieldLabel is the grid label
+                <event> is thegrid event which are:
+                     rowselect   := GEVENT_ROWSELECT
+                     cellselect  := GEVENT_CELLSELECT
+                     change      := GEVENT_CELLCHANGE
+                     rpopup      := GEVENT_RIGHTPOPUP
+                     rprepopup   := GEVENT_RIGHTPOPUPPRE
+                     lprepopup   := GEVENT_LEFTPOPUPPRE
+                 <glabel>label corrosponds to where in grid event occured
+                         see below for its format
+                 [<value>]optionall value depending upon event
+     Depending upon the event therest of script line appears as follows:
+        rowselect   <glabel:=row>
+        cellselect  <glabel:=cell>
+        change      <glabel:=cell>  <value>
+        rpopup      <glabel:=cell>  <popup value>
+        rprepopup  <glabel:=cell>
+        lprepopup  <glabel:=cell>
+     The glabel has several formatoptions depending upon the event:
+         row - if row has ascriptLabel uses that otherwise uses row number
+         cell - if cell has a labeluses that
+                else uses row and/orcolumn labels (if either doesn't have
+                   a label uses itsnumber)      <row>,<col>
+                else uses pure row/colnumbers   <#row>,#col>
+     When you set a scriptlabel torow, col or cell the followingcharacter
+     set is enforced: case insensitive, no white space or comma or $.
+     Labels with these chars will bereplaced by an underscore (_). Pure
+     numeric strings may be used butif you do not label everything, scripts
+     may fallback and use the row/gridnumber to resolve a number it can't
+     find as a script label string.
+     Notes:
+         1) if row & col is used as the glabel then a comman (,) is used
+            to delineate between therow/col name/number.
+         2) Do not turn on events that you do not plan to processsince
+            scripts will recordthem. For instance if you only
+            do processing onrowselect (no editable cells) then only
+            enable rowselect. As aside benefit you then do not have to
+            label columns or cells since the rowlabel is sufficient.
+         3) If you use a row and/or columnheading then you may find
+            that as reasonable for assigning asscriptLabels.
+     Examples:
+         1) if grids replaced the text parameterform then you wouldn't
+            need to label thecolumns since the column number is sufficient.
+            You may want tooptionally label the columns to for script
+            readability but from areplay point the columns would need
+            to be labeled. Thisapplication wouldn't require cell labeling.
+         2) if grids replaced color form. Forcertain color grids like
+            stackup it would benecessary to label each cell
+            since each class that isgroup in the stackup grid isn't
+            row consistent. (e.g depending ondesign the subclasses
+            are not the same goingacross the rows). Othergroupings
+            would only requirelabeling on class for col and subclass
+            for row since it isorthogonal.
+     See axlFormGridDoc for grid overview.
+HEADERS
+     You can set column (top) headers either via axlFormGridInsertCol
+     at column creation time or axlFormGridSetBatch if you need
+     to change the header using rownumber 0.
+     Row (side) headers default to automatic runnumbers if this
+     option is set in the form file.Via axlFormGridSetBatch
+     you can set the text for individual rowsusing col number 0.

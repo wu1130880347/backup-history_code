@@ -1,0 +1,113 @@
+注册一个Skill 命令至Allegro应用中
+  NAME
+         axlCmdRegister - register a Skillcommand with Allegro
+  SYNOPSIS
+         list axlCmdRegister (
+                 t_allegroCmd
+                 ts_callback
+                 ?cmdType        t_cmdType
+                 ?doneCmd        ts_doneCmd
+                 ?cancelCmd      ts_cancelCmd
+         ) ==> t/nil
+  FUNCTION
+         Registers a command namedt_allegroCmd with Allegro Shell
+         system. If command alreadyexist either because it's a
+         base Allegro cmd or it has beenregisterd by this function
+         at an earlier time, it will be hidden.
+         Additional args on theAllegro command line are passed
+         unparsed to the AXLprogram.
+         The function axlCmdRegister can be called atany time. Once
+         the command is registered, it can be typed inthe command
+         line area of the Allegro window or it can beincorporated
+         in the menus or popups.
+  TIPS
+         Interactive mode should beused if you are changingthe database. It
+         will "done" an activeinteractive command before starting your
+         command.
+         General is used if viewing thedatabase or providing some
+         non-database capability. Itis allowed to co-exist with other general
+         and interactive commands.
+         If changing the databasevia a form only command (e.g. not
+         requesting user picks fromthe canvas) then you should provide
+         a dummy event handler toprevent your skill code's return to Allegro.
+         See example in<cdsroot>/share/pcb/examples/skill/cns-design.il
+         function _AcDesignEvent().
+         You can pass arguments fromthe Allegro command line to your registered
+         Skill function. See<cdsroot>/share/pcb/examples/skill/examples/axlcore/arg.il
+  CAUTION
+         You will not be able to accessinteractive allegro commands
+         via axlShell if you register yourskill code as interactive. Reason
+         is that we do not support nestinginteractive commands. This
+         includes using axlShell to spawn allegroscrits that contain
+         interactive commands. Aninteractive Allegro command are those
+         commands that show theircommand name in the lower right side of
+         the Allegro window (where the "Idle" string appears).
+  NEEDS
+         t_allegroCmd - Name ofcommand to be registered.
+  
+         ts_axlCmd    - Name of the Skill callback routine
+                                        that is called when the cmd is
+                                        activated from Allegro window.
+  
+         t_cmdType    - "interactive" In which case all the ai rules
+                                 for interactivecommands are applied to
+                                this cmd. This is the DEFAULT.
+  
+                      - "general" Immediatecommand-executes as soon as
+                                 the command is called, even during
+                                another command. For example, you can
+                                 usethis for display refresh commands.
+                                command in Allegro.
+  
+                      - "sub_cmd"  Must be called inside an interactive
+                                command. Use this type for pop-ups.
+  
+         ts_doneCmd  - Done call back. If provided, it gets called
+                         anytime theuser types "done" or Done is
+                         picked fromactive popup.  It could be either
+                         a symbol or string.  If nil, axlFinishEnterFun
+                         is calledby default.
+  
+         ts_cancelCmd - Cancel callback. If provided, it gets called
+                         anytime theuser types "cancel" or Cancel is
+                         picked fromactive popup.  It could be either
+                         a symbol or string.  If nil, axlCancelEnterFun
+                         is called by default.
+  
+         Other options such ass_oopsCmd will be added at a future time.
+  
+  RETURNS
+         t/nil for SUCCESS/FAILURE
+  SEE ALSO
+         axlCmdUnregister axlCmdList, axlUIWHelpRegister
+  EXAMPLE
+         axlCmdRegister("interboxcmd"
+                        'axlEnterBox
+                         "interactive"
+                         ?doneCmd'axlBoxDone   
+                         ?cancelCmd'axlBoxCancel)
+         axlCmdRegister( "my swapgates"'axlMySwapGates
+                 ?cmdType "interactive" ?doneCmd'axlMySwapDone
+                         ?cancelCmd'axlMySwapCancel)
+         For commands (s_allegroCmd value) that acceptparameters as
+         strings, the SKILL function must convert theparameters to
+         symbols. The following example is of aregistered function
+         that takes arguments:
+         axlCmdRegister( "do it" 'do_print)
+                 do it myFile TextAshFindAllText
+                 where myFile is an outputport.
+         The following functionsparse and process the do it arguments:
+         ;; Added to deal with strings
+         (defun do_print (arg1 description find_func)
+                 myport = evalstring(arg1)           
+                 do_print2( myport descriptionfind_func)
+         )
+         ; Here is the real function
+         (defun do_print2 (p description find_func)
+             (let (list)
+                 (fprintf p "Properties on%s:\n"description)
+                 (setq list (apply find_func nil))
+                 (print_list_props list p)
+                 (fprintf p "\n\n")
+             ) ; let
+         )

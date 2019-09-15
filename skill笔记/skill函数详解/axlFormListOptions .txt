@@ -1,0 +1,40 @@
+设置窗体上某个list部件的选项7 b3 S; o- J; s. s" b0 P
+  NAME
+         axlFormListOptions - set options for list control
+  FUNCTION
+         axlFormListOptions(
+                 r_form
+                 t_field
+                 s_option/(s_option1 s_option2...)
+         ) -> t/nil
+  SYNOPSIS
+         This sets options for a list control. Currentlythe following
+         options are supported:
+                 'doubleClick -enable double click selection
+         Passing a nil for option sets defaultlist behavorior. Thisis:
+                 single click
+         Event handling (dispatch) of double click isthe following:
+            1) receive the firstclick as an event with the item selected
+                         andresult->doubleClick = nil
+            2) receive the secondclick as an event with the item selected
+                         and result->doubleClick = t
+         Suggested Use model:
+             On first click youshould do what would normallyhappen if
+             the user just does oneclick. The second click should be
+             a natural extension.For example, on a browser
+             the first click wouldselect the file when thesecond click
+             would do what the Ok button (send file to app and
+             close the form).
+         
+  NEEDS
+         r_form:  Form id
+         t_field: Name if field
+         s_option Sets option for list control
+                  nil = resets list to default
+  RETURNS
+         t if arguments are valid, nil otherwise.
+  EXAMPLES
+         1) Enable double click for list
+                 axlFormListOptions(form "list" 'doubleClick)
+         1) Disable double click for list
+                 axlFormListOptions(form "list" nil)

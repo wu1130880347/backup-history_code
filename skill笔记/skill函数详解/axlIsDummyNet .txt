@@ -1,0 +1,18 @@
+ÊÇ·ñÊÇ¿ÕÍøÂç
+  NAME
+         axlIsDummyNet - determine if a netis a Dummy net.
+  SYNOPSIS
+         axlIsDummyNet(
+                 net_dbid
+         )
+         ==> t/nil
+  FUNCTION
+         Determines if a givennet is a Dummy net. Name of net is an
+         empty string ("").
+  NEEDS
+         net_dbid - net databaseobject
+  RETURNS
+         return - t,   if Dummy Net
+                 nil, if not DummyNet
+  SEE ALSO
+         axlIsPinUnused

@@ -1,0 +1,34 @@
+显示某对象的相关信息
+  NAME
+         axlShowObject - in long messagewindow display info about data
+  SYNOPSIS
+         axlShowObject (
+                 lo_dbid
+         )
+         ==> t/nil
+  FUNCTION
+         Displays the object data for eachdbid in lo_dbid in a
+         Show Element window. Thiscommand does the same function as the
+         interactive command listelement. lo_dbid can be
+         either a single dbid or a list ofdbids.
+  NEEDS
+         lo_dbid - list ofDBID's or single DBID
+  RETURNS
+         t               - successfully displayed window
+         nil             - error or novalid DBID's in list
+  EXAMPLES
+         The following example:
+         1. Defines thestring-valued property "myprop".
+         2. Adds it to the net "ena2."
+         3. Displays the resultto the user with axlShowObject.
+         axlDBCreatePropDictEntry(
+             "myprop", "real", `( "pins" "nets" "symbols"),
+             list( -50. 100), "level")
+         axlClearSelSet()
+         axlSetFindFilter(
+             ?enabled `("NOALL" "ALLTYPES" "NAMEFORM")
+             ?onButtons "ALLTYPES")
+         axlSingleSelectName( "NET" "ENA2")
+         axlDBAddProp(axlGetSelSet(), list("MYPROP" 23.5))
+         axlShowObject(axlGetSelSet())
+         ==> t

@@ -1,0 +1,18 @@
+设置最小的默认线宽
+  NAME
+      axlCNSGetDefaultMinLineWidth - Get minimumdefault line width
+  SYNOPSIS
+      axlCNSGetDefaultMinLineWidth(
+           t_sublassName
+      )
+      => f_minLineWidthValue
+  FUNCTION
+      Retrieves the minimum linewidth value for thespecific subclass.
+  NEEDS
+     t_subclassname  - A subclass name of the class ETCH or CONDUCTOR.
+  RETURNS
+     f_minSpacingValue - min line width value (in design unit) on the subclass
+  EXAMPLE
+     Example to get the min line width value for layer "TOP":
+         axlCNSGetDefaultMinLineWidth("TOP")
+                         => 0.004

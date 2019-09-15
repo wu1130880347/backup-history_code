@@ -1,0 +1,24 @@
+ÒÆ³ýÒ»ÌõÍøÂç
+  NAME
+          axlRemoveNet - remove a net.
+  SYNOPSIS
+          Removes a net. For object mayeither give a string with
+          the net name to be renamedor an object that is on that net.
+          Caution: The net name maybe used in properties. This function
+                 currently does not updatethese values.
+  FUNCTION
+         axlRemoveNet(
+                 t_name/o_netDbid
+                 [g_ripup]
+         )
+         ==> t/nil
+  NEEDS
+         t_name          -       the net name.
+         o_dbid          -       alt is a dbid that is on a net
+         g_ripup         -      optional, ripupassociated etch when net deleted.
+  RETURNS
+         t               -       the net is successfully removed.
+         nil             -       failed
+  EXAMPLE
+         axlRemoveNet("GND")
+

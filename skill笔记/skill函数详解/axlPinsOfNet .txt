@@ -1,0 +1,32 @@
+获取pin上的net(xnets)
+  NAME
+         axlPinsOfNet - returns pins and ratT onnets or xnets
+  FUNCTION
+         axlPinsOfNet(
+                 o_net/t_net
+                 g_mode
+         ) -> lo_pins/nil
+  SYNOPSIS
+         Returns list of pinsand ratTs on a net or xnet.
+         First arg can be either anet or xnet dbid or a net name (xnet
+         names are notsupported).
+         Second option, g_mode, can be 'pin to return onlythe pins,
+         'ratT to return list ofratTs or nil to return both pins and
+         ratTs.
+         There is no meaningconveyed in the list of items returned.
+  NEEDS
+         o_net: dbid of a net or xnet
+         t_net: name of a net (does not supportxnet names)
+         g_mode: nil   - return both pins and ratTsof a net
+                 'pin  - return only pins
+                 'ratT - return onlythe ratT's.
+  RETURNS
+         lo_pins: list of pinsand/or ratTs on net or xnet
+         nil:    nothing meeting criteria  (or error, dbid not net or xnet)
+  EXAMPLES
+         1) all pins on GND
+             net = car(axlSelectByName("NET" "GND"))
+             lpins = axlPinsOfNet(net, 'pins)
+         2) all pins and ratTson first xnet in design root (could be a net)
+             xnet = car( axlDBGetDesign()->xnet)
+             lpins = axlPinsOfNet(xnet, nil)

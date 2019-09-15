@@ -1,0 +1,11 @@
+Æô¶¯»ò½ûÓÃVia Z
+  NAME
+     axlCNSSetViaZEnabled
+  SYNOPSIS
+     axlCNSSetViaZEnabledenabled(g_value) => t
+  FUNCTION
+     Enables or disables Via Z.
+  NEEDS
+     g_value: t or nil to indicate if Via Z is turned on or off.
+  RETURNS
+     t

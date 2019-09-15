@@ -1,0 +1,16 @@
+测试格定的调用格式
+  NAME
+         axlIsGridCellType - is symbol a formgrid cell User Type
+  FUNCTION
+         axlIsGridCellType(
+                 r_cell
+         ) -> t/nil
+  SYNOPSIS
+         Tests passed symbol is aUser Type form grid cell.
+  NEEDS
+         symbol
+  RETURNS
+         t is of type formgrid cell
+         nil some other type
+  SEE ALSO
+         axlFormGridNewCell

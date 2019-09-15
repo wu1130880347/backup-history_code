@@ -1,0 +1,22 @@
+将当前窗口的菜单保存到一个菜单文件中
+  NAME
+         axlUIMenuDump - Dump the main window's menu to a file
+  SYNOPSIS
+         axlUIMenuDump (
+             t_menuFile
+         ) ==> t_menuFile/nil
+  FUNCTION
+         Dumps the main window's current menu to the file t_menuFile. The
+         default menu filename extension will be added if t_menuFile has none.
+         There is no user interaction when an existing file is over-written.
+  NEEDS
+         t_menuFile      The name of the file which the menu is to be dumped to.
+                         If t_menuFile is nil, the file name will be based on
+                         the program's default menu name (which may vary based
+                         on the current state of the program).
+  RETURNS
+         The full name of the file that is written is returned.
+         If no file is written, nil is returned.         
+  NOTE
+         The intent of this procedure is to provide a base menu file from which
+         to develop a customized menu.

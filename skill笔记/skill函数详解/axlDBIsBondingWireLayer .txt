@@ -1,0 +1,23 @@
+ÅÐ¶Ï¿ÉÐ´²ã
+  NAME
+         axlDBIsBondingWireLayer - is layer abonding wire layer
+  FUNCTION
+         axlDBIsBondingWireLayer (
+                 t_layerName
+         )
+         ==> t or nil
+  SYNOPSIS
+     This is an obsolete function.Bonding wire layers have been
+     replaced by die stack layers.Use axlDBIsDieStackLayer to
+     check whether a layer is a diestack layer.
+         This is normally used inthe APD product.
+  NEEDS
+         t_layerName: Layer name "CONDUCTOR/<subclass>"
+                         (note: CONDUCTOR isETCH in Allegro)
+  RETURNS
+         t if bonding wire layer
+         nil not
+  SEE ALSO
+         axlDBIsBondwire
+  EXAMPLES
+         axlDBIsBondingWireLayer("CONDUCTOR/TOP_COND") -> nil

@@ -1,0 +1,13 @@
+当前使用了多少内存
+  NAME
+         axlMemSize - memory useestimates
+  SYNOPSIS
+         Returns a memory useestimate. This is not what the program
+         is using but what it iscurrently requesting from the OS.
+  FUNCTION
+         axlMemSize (
+         ) -> x_size
+  NEEDS
+         nothing
+  RETURNS
+         size in bytes

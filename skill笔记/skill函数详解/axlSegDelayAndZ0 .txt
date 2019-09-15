@@ -1,0 +1,18 @@
+返回一条线段的延迟时间和阻抗值
+  NAME
+         axlSegDelayAndZ0 - return delay andimpedance of a cline segment
+  FUNCTION
+         axlSegDelayAndZ0(
+                 o_clineSegDbid
+         ) => (f_delay f_z0)/nil
+  SYNOPSIS
+         This returns the delay andimpedance of a cline segment.
+         It will return nil if segmentisn't a cline segment.
+         Normally delay is innanoseconds and impedance is in ohms.
+         Currently is noisy if youpass in non-cline segments.
+  NEEDS
+         segment cline
+  RETURNS
+         delay andimpedance in current mks units.
+  SEE ALSO
+         axlGetImpedance

@@ -1,0 +1,32 @@
+获得当前设计类型，如："board","mcm"or "mdd"
+  NAME
+         axlDesignType - returns design type
+  SYNOPSIS
+         axlDesignType (
+                 g_detailed
+         ) -> t_type
+  FUNCTION
+         This returns the type of design.Infomation returned may be high level
+         if g_detailed is nil, where values are: "layout" or "symbol".
+         If g_detailed is true(t) design type is fully qualified.Types
+         returned are:
+                 for layout:     "board", "mcm", "cio", "mdd" (module) or "til" (tile)
+                 for symbol:     "package", "mechanical", "format" or "shape",
+                                 "flash"
+         Note: in the future inaddition to layout and symbol a type of
+         padstack might be returned.
+  NEEDS
+         g_detailed:     t return detailed info, nil return high level design
+                         type
+  RETURNS
+         t_type:         string describing design type, see above
+  SEE ALSO
+         axlIsSymbolEditor
+  EXAMPLES
+         The following example gets the high-leveldesign type of the current
+         active layout:
+             axlDesignType(nil)
+             ==> "LAYOUT"
+         Get the detailed designtype:
+             axlDesignType(t)
+             ==> "BOARD"

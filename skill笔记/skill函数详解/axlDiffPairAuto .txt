@@ -1,0 +1,46 @@
+根据通配符自动增加差分对
+  NAME
+         axlDiffPairAuto - automaticallygenerate set of diffpairs
+  FUNCTION
+         axlDiffPairAuto(
+                 t_diffPairPrefix
+                 t_posNetSuffix
+                 t_negNetSuffix
+                [g_returnDiffPairList]
+         ) -> x_cnt/(x_cnt lo_diffpair)/nil
+  SYNOPSIS
+         This allows the automaticgeneration of the diffpair. It
+         generates the set of diffpairs basedupon the provided
+         positive (t_posNetSuffix) and negative (t_negNetSuffix)
+         suffixes used in your netnaming scheme.
+         You may optionally providea prefix (t_diffPairPrefix) that
+         will be used in generatingthe diffpair names of the form
+            <t_diffPairPrefix>+ netname - suffix
+         If nets are part of busses and end the bitfield syntax (<1>),
+         the syntax portion isignored when performing suffixmatching.
+         If a diffpair is createdthe bit number is added to the base
+         net name used in forming adiffpair. For example, given
+         two nets; "DATA_P<1>" and "DATA_N<1>" will result in adiffpair
+         called "DP_DATA1" with this call:
+             axlDiffPairAuto("DP_" "_P" "_N")
+  NEEDS
+         t_diffPairPrefix: string toprefix diffpair names. Use ""
+                 if no prefix isdesired.
+        t_posNetSuffix/t_negNetSuffix: suffixes used to delinate
+                 + and - diffpair members.
+         g_returnDiffPairList -controls return see below
+  RETURNS
+         returns depending upong_returnDiffPairList
+         g_returnDiffPairList == nil     (default)
+             x_cnt: number ofdiffpairs created
+         g_returnDiffPairList == t
+            (x_cnt, lo_diffpair)list of diffpairs created
+  SEE ALSO
+         axlDiffPair
+  EXAMPLES
+         Name generation, 2 nets, NET1+ and NET1- passed
+           axlDiffPairAuto("DP_" "+" "-")
+         will result in one diffpaircalled "DP_NET1" with menbers
+         "NET1+" and "NET1-".
+         axlDiffPairAuto("" "+" "-") will result in sameresult
+         but diffpair will be called"NET1".

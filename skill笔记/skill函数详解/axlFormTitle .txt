@@ -1,0 +1,22 @@
+指定窗体的标题
+  NAME
+         axlFormTitle - changes formtitle
+  FUNCTION
+         axlFormTitle(
+                 r_form
+                 t_title
+                 )
+         ==> t/nil
+  SYNOPSIS
+         By default, set the form title viathe form file. If
+         this is not sufficient thiscall may override the default title.
+         HINT: Keep in mind thewidth of the form versus the width
+                 necessary for the title couldproduce clipping of the title.
+  NEEDS
+         r_form: form dbid
+         t_title: string to set for the title
+  RETURNS
+         t/nil: t if title set; nil failed for some reason
+  EXAMPLES
+         axlFormTitle( form "ExtractSelector")
+         Also see axlFormCreate examples.

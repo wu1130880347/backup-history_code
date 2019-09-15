@@ -1,0 +1,29 @@
+计算两pins，vias或T点之间的长度
+  NAME
+     axlDBPinPairLength - calculate length between two pins, vias or rat_ts
+  SYNOPSIS
+     axlDBPinPairLength(
+         o_pin1
+         o_pin2
+     )
+     ==> f_etchlength/nil
+  FUNCTION
+         Calculate the shortest length between 2 pins. Pins must be
+         on the same xnet. The pincan also be a VIA or RAT_T. If the
+         distance is not fully routedincludes a Manhatten estimate
+         of the unrouted portion.
+         Includes VIA-Z or PIN_DELAY in itscalculation if theseoptions
+         are enabled and if your licensepermits this capability.
+  NEEDS
+     o_pin1      - a pin, via or rat_t
+     o_pin2      - a pin, via or rat_t on same xnet as o_pin1
+  RETURNS
+     nil         - Not a legal object; unsupported dbidor items not on same xnet
+     f_etchLength  - length of object
+  SEE ALSO
+         axlDBGetLength
+  EXAMPLE
+         Skill> pin1 = ashOne()
+         Skill> pin2 = ashOne()
+         Skill> axlDBPinPairLength(pin1 pin2)
+         -> 2676.777

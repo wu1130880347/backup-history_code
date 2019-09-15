@@ -1,0 +1,21 @@
+设置了动态镜选项
+  NAME
+         axlSetDynamicsMirror - sets mirroroption for dynamics
+  SYNOPSIS
+         axlSetDynamicsMirror(
+            g_mirror
+         ) ==> g_oldmirror
+  FUNCTION
+         Sets the Dynamicsmirroring.
+         g_mirror may be
+            GEOMETRY - mirrorgeometry only (same layer)
+            nil - mirror none
+            t - mirror
+  NEEDS
+         g_mirror type
+  RETURNS
+         old mirror value
+  SEE ALSO
+         axlAddSimpleMoveDynamics
+  EXAMPLES
+         axlSetDynamicsMirror(t)

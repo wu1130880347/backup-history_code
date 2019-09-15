@@ -1,0 +1,30 @@
+删除字符串的前后空格
+  NAME
+         axlStringRemoveSpaces - strip leading and trailing whitespace from a string
+  SYNOPSIS
+         axlStringRemoveSpaces(
+                 t_string
+         ) -> t_modString/nil
+         axlStringRemoveSpaces(
+                 lt_string
+         ) -> lt_modString/nil
+  FUNCTION
+         This will strip leading or trailing whitespace from a string (standard C ilspace()
+         macro.
+         Has two modes:
+           - one string
+           - list of strings
+         In list of strings, items in list that are not a string are filtered out of the
+         return.
+  NEEDS
+         t_string - a string
+         lt_string - list of strings
+  RETURNS
+         t_modString - modified string
+         lt_modString - modified strings
+         nil - not a string
+  SEE ALSO
+         axlCheckString
+  EXAMPLES
+         ret = axlStringRemoveSpaces(" a ")
+         ret = axlStringRemoveSpaces( '(" a " " b "))

@@ -1,0 +1,21 @@
+一个层的阻抗宽度
+  NAME
+     axlWidth2Impedance - width to impedance for a layer
+  SYNOPSIS
+     axlWidth2Impedance(
+        t_layer/x_layerNum
+        f_lineWidth
+     ) ==> f_impedance/nil
+  FUNCTION
+     Converts the given line width on a specified layer to an impedance.
+     This uses the field solver to compute the imdepdance
+  NEEDS
+     t_layer - layer name (example "ETCH/TOP" or "TOP")
+     x_layerNum - number of the etch subclass Layers are numbered
+                 starting with 0 for the Top layer.
+     f_lineWidth - the line width to be converted to an impedance
+  RETURNS
+     f_impedance - the converted impedance value
+     nil - conversion was not successful
+  SEE ALSO
+     axlImpedance2Width

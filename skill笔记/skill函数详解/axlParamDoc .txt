@@ -1,0 +1,125 @@
+
+artwork×ÊÁÏÎÄµµ
+  NAME
+         axlParamDoc - allegro databaseparameter representation
+  SYNOPSIS
+         Objects represented hereare the Allegro parameter records.
+         These are miscellaneousobjects typically representing
+         process controls kept in theAllegro database
+         Only objects added/modifiedare currently documented
+         here. See AXL SkillReference manual for others
+  SEE ALSO
+         axlDbidDoc  - rest of Allegro database objects
+==============================================================
+  ARTWORK Attributes:   
+     NAME                TYPE            DESCRIPTION
+    ------------------------------------------------
+    objType              string          "artwork"
+    nChildren            number          number of films
+    groupMembers         l_string        list of film names
+==============================================================
+  ARTWORK film Attributes:   
+     NAME                TYPE            DESCRIPTION
+     ------------------------------------------------
+    objType              string          "artwork"
+    name                 string          Name of film.
+    groupMembers         l_string        list of layerscomprising film
+    drawMissingPadAperturest/nil        Specifies the apertures thatare
+                                        available to draw (fillin) the shape
+                                        of any pad for which there is no
+                                        exactly matching pad aperture in
+                                         art_aper.txt. Notselecting this
+                                        option means that such pads are
+                                        not drawn.
+    fullContact          t/nil           Applies to negative film.
+                                        When t, a pin or via that is
+                                        connected to a shape uses no flash,
+                                        which causes a solid mass of copper
+                                         to cover the pad. When you do not
+                                        select this field, a pin or via
+                                        connected to a shape uses a
+                                        thermal-relief flash.
+   mirrored             t/nil           Specifies whether the photoplot
+                                        output is to be mirrored.
+    negative             t/nil           Is film positive (nil) or
+                                        negative (t).
+    offset               point           Specifies the x and yoffset to
+                                        add to each photoplot coordinate.
+                                        If you enter positive x and y
+                                         offsets, all photoplotted lines
+                                        shift in the positive direction on
+                                        the film.
+    rotation             integer         Rotation of the plotted film image.
+                                         Choicesare 0, 90, 180, and 270
+                                        degrees.
+    shapeBoundingBox     float           Applies to negative film. Adds
+                                        another outline around the design
+                                        outline, extending the shapeboundary
+                                        of the filled area.This new artwork
+                                        outline extends by default 100 mils
+                                         in alldirections beyond the design
+                                        outline.
+    suppressShapeFill    t/nil           Area outside the shapes is not
+                                        to be filled on a negative film.
+                                        You must replace the filled
+                                        areas with separation lines
+                                        before running artwork.
+    suppressUnconnectPads t/nil          Specifies that the pads of pins and
+                                        vias that have no connection to a
+                                        connect line in a gerber data file
+                                        are not plotted. This option applies
+                                        only to internal layers and to pins
+                                        whose padstack flags the pads as
+                                        optional.
+                                        Selecting this button alsosuppresses
+                                        donut antipads in raster based
+                                        negative artwork.
+                                        See additional cautions in doc for
+                                         artwork paramform.
+    undefineLineWidth    float           Determines the width of any line
+                                        that is 0.
+    useApertureRotation  t/nil           Specifies whether or not to
+                                         use theaperture rotation.
+    vectorBasedPad       t/nil           raster artwork uses gerber
+                                        behavior to determine which
+                                        type of pad to flash
+==============================================================
+  Layer Group Parameter Attributes (Allegro Classes):   
+     NAME         Set?  TYPE            DESCRIPTION
+    ------------------------------------------------
+    objType       No    string          "paramLayerGroup"
+    color         Yes   integer         Layer color index;-1 if all child layers
+                                        not the same color
+    groupMember   No    l_string        List of subclassesbelonging to this class
+    isEtch        No    t/nil           Is an etch layer
+    name                 string          Name of this class
+    nChildren     No    integer         Number ofsubclasses in class
+    pattern       Yes   integer         Pattern for layer; -1 if allchild layers
+                                        not the same pattern (see Layer Parameter Attributes )
+    visible       Yes   t/nil           All subclasses ofthis class are visible
+==============================================================
+  Layer Parameter Attributes (Allegro Subclasses):   
+     NAME         Set?  TYPE            DESCRIPTION
+    ------------------------------------------------
+    objType       No    string          "paramLayer"
+    color         Yes   integer         Subclass colornumber
+    drcPhotoType  No    string          "Postive" orNegative (etch only)
+    isEtch        No    t/nil           Is an etch layer
+    material      No    string          Layer material (etch only)
+    name          No    string          Name of thissubclass
+    number        No    integer         Layer number, while this isreported for both
+                                        etch and non-etch layers it is only meaningful
+                                         for etch layers where itshows the stackup order.
+    nextLayer     No    string          Name of next layerin stackup (etch only)
+    parentName    No    string          Name of owningclass
+    pattern       Yes   integer         Pattern of layer where 0 isdefault solid pattern.
+                                        For maximum patterns see axlColorGet('pattern)
+                                        Pattern style for each pattern number can be found
+                                         in the color192 dialog.
+    thickness     No    string          Layer thickness (etch only)
+    type          No    string          "Postive" orNegative (etch only)
+    userDefined   No    t/nil           Is layer userdefined. User defined layers can
+                                        have been added by the user. Note for etch layers
+                                        all are user defined but you typically cannot
+                                        delete or rename the TOP or BOTTOM.
+    visible       Yes   t/nil           All subclasses ofthis class are visible

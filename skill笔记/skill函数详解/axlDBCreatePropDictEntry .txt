@@ -1,0 +1,73 @@
+创建一个用户自定义的属性)
+  NAME
+         axlDBCreatePropDictEntry - create a propertydictionary entry
+  SYNOPSIS
+         axlDBCreatePropDictEntry(
+             t_name
+             t_type
+             lt_objects/t
+             [ln_range]
+             [t_units]
+             [g_hidden]
+         )
+         ==>od_propDictEntry/nil
+         axlDBCreatePropDictEntry(
+                 nil
+         )
+         ==> lt_availbeObject
+  FUNCTION
+         Creates a Allegro userdefined property dictorary entry with the given attributes.
+         Once a dictionary entry exists then this property canbe attached to objects.
+         STRING property values arelimited to 1024. STRING_ID allowsproperty values
+         up to 4096. STRING_ID is not currently supportedin Allegro's "defineproperty"
+         dialog.
+         If you need to store largerdata within the database, use attachments
+         (axlCreateAttachment).
+  NEEDS
+             t_name      - name of the property
+             t_type      - data type for the property value.
+                         Legalvalues are:
+                         Typical: "BOOLEAN", "INTEGER", "REAL", "STRING",
+                                 "DESIGN_UNITS",
+                         OtherSupported Types: "ALTITUDE", "CAPACITANCE",
+                                 "DISTANCE", "ELEC_CONDUCTIVITY",
+                                 "FAILURE_RATE", "LAYER_THICKNESS",
+                                 "IMPEDANCE", "INDUCTANCE", "PROP_DELAY",
+                                 "RESISTANCE", "TEMPERATURE",
+                                 "THERM_CONDUCTANCE", "THERM_CONDUCTIVITY",
+                                 "VOLTAGE", "VELOCITY", "NAME",
+                                 "THERM_RESISTANCE", "NOISE_VOLTAGE",
+                                 "PERCENTAGE", "STRING_ID"
+             lt_objects  - list of strings representing the object
+                         types thathmay have this property
+                         attached (use axlDBGetPropDictEntry(nil) to get
+                         list of valid objects).
+                         If only asingle object type isallowed, then
+                         it mayspecified as a string, rather
+                         than a list containing onestring.
+                         If this valueis t then all allowedproperties
+                         areallowed.
+             [ln_range]  - list containing the lowest and highest legal
+                         value for the (numeric) property.
+                         If thefirst value is nil itmeans
+                         negativeinfinitely, if the second is nil it
+                         meansinfinity.
+             [t_units]   - a text string to be used with data types
+                         (t_type) that have no units- STRING,
+                                         INTEGER, REAL, etc.
+             [g_hidden]  - t, property is hidden from the user.
+                         Hiddenproperties are not shownin any Allegro
+                         UI likeconstraint manager, showelement or
+                         propertyedit. Hidden properties can be accessed
+                         via Skill.Typically properties are hidden if
+                         you onlywant the user to change the property
+                         outside ofyour Skill program.
+                        
+                         Hiddenproperties are also visible via extracta.
+  RETURNS
+         dbid of dictionary entry or nil if not successful
+  SEE ALSO
+         axlDBAddProp, axlCreateAttachment
+  EXAMPLE
+         - add a new property of type string, supported on dbobjects
+                 propDoct = axlDBCreatePropDictEntry("ACME" "STRING" t)

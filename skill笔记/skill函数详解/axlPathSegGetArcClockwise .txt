@@ -1,0 +1,28 @@
+获得线段弧线的顺时针或逆时针方向
+  NAME
+         axlPathSegGetArcClockwise - Get the clockwiseflag of a pathSeg
+  FUNCTION
+         axlPathSegGetArcClockwise(
+             r_pathSeg
+         )
+         ==> t/nil
+  SYNOPSIS
+         Gets the clockwise flag (t or nil) of a path segment.
+  NEEDS
+         r_pathSeg:      Handle of a path segment.
+  RETURNS
+         t/nil:          Returns t if thesegment is clockwise, nil if it is
+                        counterclockwise.
+  EXAMPLES
+         This example:
+           * Creates a path with astraight line segment and a clockwise arc
+             segment
+           * Gets the last segmentadded with axlPathGetLastPathSeg
+         axlPathSegGetArcCenter returns t, meaning the arcsegment is clockwi
+se.
+         path=axlPathStart(list(1000:1250) 173)
+                 axlPathLine(path 29 2000:1250)
+                 axlPathArcCenter(path 12 3000:2250 t 2000:2250)
+         lastSeg = axlPathGetLastPathSeg (path)
+         axlPathSegGetArcClockwise (lastSeg)
+                 ==> t

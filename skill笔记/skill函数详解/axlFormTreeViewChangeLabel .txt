@@ -1,0 +1,22 @@
+修改窗体目录树标签
+  NAME
+         axlFormTreeViewChangeLabel - Modifies the textlabel of a treeview control item
+  SYNOPSIS
+         axlFormTreeViewChangeLabel(
+                 r_form
+                 t_field
+                 g_hItem
+                 t_label
+         ) -> t/nil
+  FUNCTION
+         Modifies the text of agiven treeview item.
+  
+  NEEDS
+         Takes 4 args; form id, field name (string), treeview itemhandle and new
+         label.
+  
+         Item is the handle of anitem in the tree view control. This handle was
+         returned as result of thecall to axlFormTreeViewAddItem().
+  
+  RETURNS
+         Returns t if the treeview item'slabel was mofified, nil for failure.

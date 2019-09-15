@@ -1,0 +1,80 @@
+以三基色值定义颜色
+  NAME
+         axlColorSet - set red, green, blue palette of acolor number
+  FUNCTION
+         1) axlColorSet(
+                x_number/'background
+                 l_rbg
+            ) -> t/nil
+         2) axlColorSet(
+                 'all
+                 ll_rgb
+            ) ->t/nil
+  SYNOPSIS
+         Sets red, green, blue palette for a color number or the background.
+         Modes supported:
+         1) color number (x_number) and red/green/bluelist. x_number must
+            be between 1 and axlColorGet('count).  Or 'background sets
+            red/green/blue of thebackground color.
+         2) 'all takes a list of red/green/bluevalues and sets colors
+            starting at 1 to end of list. Itis intended to be used
+            with axlColorGet('all) to save/restorecolor values.
+         Red/gree/blue are valuesbetween 0 (least intesity) to 255 (maximum
+         intensity.
+         After color changes aremade axlVisibleUpdate should be called to
+         update the display.
+  COLOR MODEL
+         A color (or colorNumber) in Allegro has thefollowing attributes:
+            - A palette of red, green and blue values eachbetween 0 and 255.
+                 0 adds none of thatprimary color to the mixture while
+                 255 adds the maximum.Thus 0,0,0 is black while 255,255,255
+                 is white. Thiscolor mixture is controlled via the
+                 Palette section ofthe color command.
+         Each color number can beassigned to a layer. Because there are
+         more layers then colors, multiple layerswill have the same color
+         number.
+         The system supports setting abackground palette value. Also
+         grids, ratsnest, tenporry highlightall can have a color number
+         assigned via axlDBControl.
+  COLOR SERVICES
+         axlColorSet - this routine
+         axlColorGet - get red green blue ofone or more color numbers
+         axlColorShadowGet - shadow modeoptions
+         axlColorShadowSet - set shadow mode options
+         axlLayerPrioritySet - set a layer to a display priority
+         axlLayerPriorityGet - get a layer's currentpriority
+         axlLayerPriorityClearAll - clear all layerpriorities (restore to default)
+         axlLayerPrioritySaveAll - save existing prioritytable
+         axlLayerPriorityRestoreAll - restore savedpriority table
+         axlColorSave - save color valuesto file
+         axlColorLoad - load color values fromfile
+         axlUIColorDialog - standard colorchooser dialog
+         axlDBControl - misc color numberassignments (e.g highlight)
+         axlLayerGet - get layer (class/subclass) attributes (control color
+                 number and visibility for individual layers)
+         axlLayerSet - set color number or visibility for a layer
+         axlVisibleLayer - set visibility of layer
+         axlIsVisibleLayer - is layer visibile
+         axlVisibleGet - get visibility set for design
+         axlVisibleSet - set visibility set for design
+         axlVisibleDesign - global designvisiblity control
+         axlVisibleUpdate - update windowswith color changes
+  NEEDS
+         x_number - color index
+         'background - set background color
+         'all - set colors based upon alist starting at colornumber 1
+         l_rgb - red/green/bluelists; 3 integers
+         ll_rgb - lists ofred/green/blue values
+  RETURNS
+         t: successful
+         nil: an error wrong arguments, color number isless then 1 or
+                 greater then max
+  SEE ALSO
+         See color services above
+  EXAMPLES
+         1) set color number 3 same as color 2
+                 clr = axlColorGet(2)
+                 axlColorSet(3 clr)
+                 axlVisibleUpdate(nil)
+         2) set first three colors
+                 axlColorSet('all '((10 10 10) (40 40 40) (100 100 100)))

@@ -1,0 +1,33 @@
+
+修改窗体目录树图标
+  NAME
+         axlFormTreeViewChangeImages - Modifies theimages used by an item in a tree view
+  SYNOPSIS
+         axlFormTreeViewChangeImages(
+                 r_form
+                 t_field
+                 g_hItem
+                 [g_hLeafImage]
+                 [g_hOpenImage]
+                 [g_hClosedImage]
+         ) -> t/nil
+  FUNCTION
+         Modifies the various bitmap imagesassociated with a given
+         tree view item.
+  NEEDS
+         r_form: Form id
+         t_field: Name of field
+         g_hItem: Handle of the itemin the tree view.  This handle was
+                 returned as aresult of the call to axlFormTreeViewAddItem
+                 when this item wasinitially added.
+         g_hLeafImage: handle of theimage to use whenever this item is
+                 a leaf node in thetree view.  If nil or not supplied,
+                 the default pink diamond image will beused.
+         g_hOpenImage: handle of theimage to use whenever this item is
+                 an expanded parentnode in the tree view.  If nil or not
+                 supplied, the default openfolder image will be used.
+         g_hClosedImage: handle ofthe image to use whenever this item is
+                 an unexpandedparent node in the tree view.  If nil or not
+                 supplied, the default closedfolder image will be used.
+  RETURNS
+         Returns t if the tree viewitem's images were modified, nil for failure.

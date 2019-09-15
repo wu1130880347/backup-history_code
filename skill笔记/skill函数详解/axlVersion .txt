@@ -1,0 +1,112 @@
+获得版本数据
+  NAME
+     axlVersion -    return version data
+  SYNOPSIS
+    axlVersion (
+      s_option
+    ) => g_value/nil
+  FUNCTION
+     This returns Allegro program or OS dependant data.
+     Option: none
+     Value: (ls_values) returns list of available options
+     Option:  version
+     Value: (f_value) Allegro program version (eg 15.5)
+     Option:  tVersion
+     Value: (t_value) Allegro program version as a string (eg 15.5)
+     Option:  fullVersion
+     Value: (t_value) Allegro program version and patch as a string
+             (eg 15.5 s01)
+     Option:  buildDate
+     Value: (t_value) Date program was built at Cadence (month/day/year)
+             (eg. 8/19/2005)
+     Option: release
+     Value: (t_value) Allegro release value. This consists of
+         of prefix and a number (<p><nn>): Where prefixes are
+             A - Alpha
+             B - Beta
+             P - Production
+             S - Patch
+         eg. S23 is indicates the 23rd Patch release
+     Option:  internalVersion
+     Value: (t_value) Internal program version (e.g v13-5-26a)
+     Option: programName
+     Value: (t_value) Executable being run.
+         eg. "allegro"
+     Option: displayName
+     Value: (t_value) Short Display name of program (may contain spaces).
+         Certain programs may change this during run-time depending
+         upon its license level. This may be the same or shorter then
+         the formal name. It may change from release to release.
+         eg. "Allegro PCB Design 610"
+     Option: formalName
+     Value: (t_value) Long Display name of program (may contain spaces).
+         This is the full formal name of program and may change
+         during run-time since it depends upon the license level.
+         It can the same or may be a longer name then 'displayName.
+         It may change from release to release
+     Option: isWindows
+     Value: (g_value) t if Windows OS; nil otherwise (UNIX)
+     Option isSQ
+     Value: (g_value) t if SpecctraQuest base product, nil otherwise
+     Option isPI
+     Value: (g_value) t if SpecctraQuest Power Integrity option, nil otherwise
+     Option isPDN
+     Value: (g_value) t if PDN analysis option, nil otherwise
+     Option isAPDSi
+     Value: (g_value) t if Allegro Package Designer SI L (or 610), nil otherwise
+     Option isAPDSiL
+     Value: (g_value) t if Allegro Package Designer SI L, nil otherwise
+     Option isAllegroExpert
+     Value: (g_value) t if Allegro Expert product, nil otherwise
+     Option isAllegroDesigner
+     Value: (g_value) t if Allegro Designer product, nil otherwise
+     Option isAllegroOrcad
+     Value: (g_value) t if Allegro Orcad product, nil otherwise
+     Option isAllegroPCB
+     Value: (g_value) t if Allegro PCB product, nil otherwise
+     Option isAPD
+     Value: (g_value) t if APD product, nil otherwise
+     Option isAPDL
+     Value: (g_value) t if Allegro Package Designer L, nil otherwise
+     Option isAPDXL
+     Value: (g_value) t if Allegro Package Designer XL, nil otherwise
+     Option isAPDLegacy
+     Value: (g_value) t if Allegro Package Designer VT2300, nil otherwise
+     Option isChipIOPlanner
+     Value: (g_value) t if Chip I/O Planner product, nil otherwise
+     Option isICP
+     Value: (g_value) t if an ICP based product (apd, sip), nil otherwise
+     Option isSIP
+     Value: (g_value) t if any SIP product, nil otherwise
+     Option isSIPDigital
+     Value: (g_value) t if any SIP Digital product, nil otherwise
+     Option isSIPDigArch_L
+     Value: (g_value) t if running the SIP Digital Architect L product
+     Option isSIPDigArch_GXL
+     Value: (g_value) t if running the SIP Digital Architect GXL product
+     Option isSIPDigSI_XL
+     Value: (g_value) t if running the SIP Digital SI XL product
+     Option isSIPDigLay_GXL
+     Value: (g_value) t if running the SIP Digital Layout GXL product
+     Option isSIPRF
+     Value: (g_value) t if running any SIP RF product.
+     Option isSIPRFArch_L
+     Value: (g_value) t if running the SIP RF Architect L product
+     Option isSIPRFLay_GXL
+     Value: (g_value) t if running the SIP RF Layout GXL product
+     Option isSigxp
+     Value: (g_value) t if any version of sigxp, nil otherwise
+     Option isSxExpert
+     Value: (g_value) t if Sigxp Expert product, nil otherwise
+     Option isSxExplorer
+     Value: (g_value) t if Sigxp Explorer product, nil otherwise
+     Option isEmbedded
+     Value: (g_value) t if Embedded placment allowed
+     Option isBackDrill
+     Value: (g_value) t if Backdrill functionality allowed
+  NEEDS
+      g_option - Skill symbol for the environment variable name
+  RETURNS
+      Return depends upon option given. See above
+  EXAMPLES
+     axlVersion()

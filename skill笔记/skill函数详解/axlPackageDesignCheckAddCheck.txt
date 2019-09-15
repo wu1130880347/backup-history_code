@@ -1,0 +1,60 @@
+检查包装：添加检查
+  NAME
+         axlPackageDesignCheckAddCheck
+         
+  SYNOPSIS
+         axlPackageDesignCheckAddCheck(
+             t_category t_namet_bitmap t_description
+             s_runCommand g_fixable
+         ) ==> defstruct defining check.
+  FUNCTION
+     This function will register a newcheck in the specified category of
+     the IC Packaging tools' "packageintegrity" command check tree.
+     
+     You must define acategory before adding checks to it. So, this
+     function should always becalled after axlPackageDesignCheckAddCategory.
+     A newly added check will beinserted into the tree in alphabetically
+     sorted order. Therefore, you do not need tomanage the order checks
+     are added by yourself.
+     
+     s_runCommand is the skill function which shouldbe called if this
+     check is selected to run. This function MUSTadhere to the following
+     guidelines:
+         #1: It must take exactlyone argument, which iswhether to
+             fix errorsit encounters or not.
+         #2: It must return aninteger value for how many errors
+             were found in thedatabase.
+         #3: It must call thefollowing functions:
+               axlPackageDesignCheckLogError(<error string> <fixed>) and
+               axlPackageDesignCheckDrcError(<error location> <dbids>)
+             to report any errors it finds.
+     These restrictions are imposedto ensure that output is consistent
+     across all checks run by thiscommand.
+  NEEDS
+         t_category - Name of thecategory this check should be placed under
+             in the user interfacetree. This should be the same name as
+             sent toaxlPackageDesignCheckAddCategory.
+         t_name - Name of the checkas it should appear in the
+         user interface. This willbe the name given to the check in the
+         resulting log file, and will bethe description for any
+         external DRCs created.
+         t_bitmap - Name of thebitmap file which should be shown when this
+             check is active in theuser interface. This
+             should be a full pathto the bitmap or else the bitmap
+             must be resolvablethrough BMPPATH.
+         t_description - Thedescription to be displayed in the GUI when this
+             check is highlighted.This description will also be printed to
+             the log file ahead of anyviolations found for this check. As a
+             result, the descriptionshould be as descriptive as possible in
+             order to maximize itsusefulness.
+         s_runCommand  - A symbol representing the function to becalled to
+             check this rule. See FUNCTION description for detailsabout
+             the required format and return valueof this function.
+         g_fixable - Boolean flag totell the user on the interface whether
+             problems found by thischeck can be automatically fixed or not.
+  RETURNS
+     Skill defstruct defining the check.
+  SEE ALSO
+     axlPackageDesignCheckAddCategory
+     axlPackageDesignCheckLogError
+     axlPackageDesignCheckDrcError

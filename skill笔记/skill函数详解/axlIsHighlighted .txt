@@ -1,0 +1,26 @@
+获得反显颜色
+  NAME
+         axlIsHighlighted - getPermanent higlight color about object
+  FUNCTION
+         axlIsHighlighted (
+             o_dbid
+         )
+         ==>x_highlightColor/nil
+  SYNOPSIS
+         If object is permantentlyhighlighted will return the highlight
+         color otherwise nil. NotePins can be highlighted
+         Currently only symbols, nets, pins and DRCerrors
+         can be highlighted. Wesuggest that you do not highlight
+         drc objects unless theyare eXternal DRCs since Allegro DRCs
+         are frequently recreated.
+         Future releases will addhighlight support more object types.
+  NEEDS
+         o_dbid          An dbid for whichhighlighting information is
+                         desired.
+  RETURNS
+         x_highlightColor -highlight color or nil if nothighlight or
+                            objectdoes not support highlighting.
+  SEE ALSO
+         axlHighlightObject
+  EXAMPLES
+         see axlHighlightObject

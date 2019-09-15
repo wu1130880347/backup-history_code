@@ -1,0 +1,41 @@
+获取指定的芯片堆叠数据
+  NAME
+         axlGetDieStackData - get data forspecified die stack
+  FUNCTION
+         axlGetDieStackData (
+             g_stackArg
+         )
+         ==> stack-datadefstruct/nil
+  SYNOPSIS
+         This function fetchesthe data for the given die-stack and loads
+         it into a defstruct.
+         Only available in SIPproducts.
+  NEEDS
+         g_stackArg - name or dbid ofthe die-stack to get the data for
+  RETURNS
+         stackData - defstruct with data for the given die stack.
+         nil       -die stack does not exist or there was an error.
+       defstruct fields:
+         dbid                  - dbid of member
+         refId                 - member name
+         surface               - one of DSA_SUBSTRATE_TOP,
+                                        DSA_SUBSTRATE_BOTTOM,
+                                       DSA_SUBSTRATE_CAVITY_TOP,
+                                       DSA_SUBSTRATE_CAVITY_BOTTOM
+         depth                 - for cavity-placed dies, gives the number oflayers
+                                below the surface the stack is placed.
+         cavityClearance       - for cavity-placedstacks, the clearance fromthe
+                                stack extents to the edge of the cavity on the
+                                 lowest layer.
+         cavityExpansion       - for cavity-placedstacks, the amount by which the
+                                cavity grows on each subsequent layer (the "width"
+                                 ofthe stadium step).
+         stackHeightMin        - starting height within stack
+         stackHeightMax        - ending height within stack
+         rotation              - rotation angle in degrees
+         extents               - unioned extents of all membersin stack
+  EXAMPLE
+         data = axlGetDieStackData("DIESTACK1")
+         printf("name = %L,minHeight = %L, maxheight = %L\n"
+                data->namedata->stackHeightMin data->stackHeightMax)
+         ==> name = "DIESTACK1", minHeight = 0.0, maxheight = 496.0

@@ -1,0 +1,17 @@
+Ìí¼Ó×¶
+  NAME
+     axlAddTaper - Add tapered trace
+  FUNCTION
+     axlAddTaper(
+         o_dbid/lo_dbid
+     )
+     ==> t/nil
+  SYNOPSIS
+                 Add tapered trace.
+                 tapered trace parameters arecontrolled from the Glossing
+                 "Pad andT"Parameter form.
+  NEEDS
+     o_dbid      - dbid can either be a Path (CLINE) or line (segment).
+  RETURNS
+     t           - OK
+     nil         - failed

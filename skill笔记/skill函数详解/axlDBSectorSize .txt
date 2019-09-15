@@ -1,0 +1,13 @@
+ºô½ÐÉÈÇø´óÐ¡
+  NAME
+         axlDBSectorSize - Obsolete
+  FUNCTION
+         axlDBSectorSize(
+             [f_size]
+         )
+         ==> nil
+  SYNOPSIS
+         This is obsolete. It iskept for backwardscompatibiltiy. It now calls
+         axlDBTuneSectorSize. Tuningsectors is now built into dbdoctor.
+  NEEDS
+  RETURNS
