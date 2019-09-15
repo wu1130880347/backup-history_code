@@ -1,0 +1,15 @@
+"D:\IAR8_0ARM\arm\bin\armproc.dll" 
+
+"D:\IAR8_0ARM\arm\bin\armjlink2.dll" 
+
+"G:\单片机资料\历史程序\ov7670\oc7670_1\IAR_TO_ARM_TEST_0\Debug\Exe\STM32F407_TEST_0.out" 
+
+--plugin "D:\IAR8_0ARM\arm\bin\armbat.dll" 
+
+--device_macro "D:\IAR8_0ARM\arm\config\debugger\ST\STM32F4xx.dmac" 
+
+--flash_loader "D:\IAR8_0ARM\arm\config\flashloader\ST\FlashSTM32F4xxx.board" 
+
+
+
+
