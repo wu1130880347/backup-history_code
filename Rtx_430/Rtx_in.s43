@@ -1,0 +1,68 @@
+    PUBLIC getsp
+    PUBLIC putsp
+    PUBLIC save_pop
+    PUBLIC save_push
+    PUBLIC restore_sr
+    
+    EXTERN SAVE_SR
+    EXTERN SAVE_PC
+    EXTERN timer0_comm
+    
+    RSEG CODE
+
+    
+getsp:
+    MOV    SP,R12 
+    ADD.W  #2,R12
+    RET
+    
+       
+putsp:    
+    MOV    @SP,R14
+    MOV    R12,SP 
+    SUB.W  #2,SP
+    MOV    R14,0(SP)
+    RET
+    
+
+save_push:
+    POP    SAVE_PC
+    POP    R10
+    PUSH   SAVE_SR
+    PUSH   R4
+    PUSH   R5
+    PUSH   R6
+    PUSH   R7 
+    PUSH   R12
+    PUSH   R13
+    PUSH   R14
+    PUSH   R15
+    PUSH   SAVE_PC
+    RET
+    
+    
+save_pop:
+    POP    SAVE_PC
+    POP    R9
+    POP    R8
+    POP    R11
+    POP    R10
+    POP    R15
+    POP    R14
+    POP    R13
+    POP    R12
+    POP    R7
+    POP    R6
+    POP    R5
+    POP    R4
+    POP    R2
+    RET       
+    
+    
+restore_sr:
+    MOV    SAVE_SR,SR
+    RET
+    
+    END
+
+

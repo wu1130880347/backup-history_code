@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<userOverrides>
+  <override>
+    <path>C:\Users\Administrator\Desktop\&#x7248;&#x672C;\Rtx_430\Clock.c</path>
+    <encoding>System</encoding>
+  </override>
+  <override>
+    <path>C:\Users\Administrator\Desktop\&#x7248;&#x672C;\Rtx_430\Interrupt.c</path>
+    <encoding>System</encoding>
+  </override>
+  <override>
+    <path>C:\Users\Administrator\Desktop\&#x7248;&#x672C;\Rtx_430\Rtx430.c</path>
+    <encoding>System</encoding>
+  </override>
+  <override>
+    <path>C:\Users\Administrator\Desktop\&#x7248;&#x672C;\Rtx_430\Rtx430.h</path>
+    <encoding>System</encoding>
+  </override>
+  <override>
+    <path>C:\Users\Administrator\Desktop\&#x7248;&#x672C;\Rtx_430\Source.c</path>
+    <encoding>System</encoding>
+  </override>
+  <override>
+    <path>C:\Users\Administrator\Desktop\&#x7248;&#x672C;\Rtx_430\Source.h</path>
+    <encoding>System</encoding>
+  </override>
+  <override>
+    <path>C:\Users\Administrator\Desktop\&#x7248;&#x672C;\Rtx_430\font.h</path>
+    <encoding>System</encoding>
+  </override>
+  <override>
+    <path>C:\Users\Administrator\Desktop\&#x7248;&#x672C;\Rtx_430\lcd12864.c</path>
+    <encoding>System</encoding>
+  </override>
+  <override>
+    <path>C:\Users\Administrator\Desktop\&#x7248;&#x672C;\Rtx_430\lcd_12864.h</path>
+    <encoding>System</encoding>
+  </override>
+  <override>
+    <path>C:\Users\Administrator\Desktop\&#x7248;&#x672C;\Rtx_430\main.c</path>
+    <encoding>System</encoding>
+  </override>
+  <override>
+    <path>C:\Users\Administrator\Desktop\&#x7248;&#x672C;\Rtx_430\pid.c</path>
+    <encoding>System</encoding>
+  </override>
+  <override>
+    <path>C:\Users\Administrator\Desktop\&#x7248;&#x672C;\Rtx_430\pid.h</path>
+    <encoding>System</encoding>
+  </override>
+  <override>
+    <path>D:\&#x7A0B;&#x5e8F;\Rtx_430\Interrupt.c</path>
+    <encoding>System</encoding>
+  </override>
+  <override>
+    <path>D:\&#x7A0B;&#x5e8F;\Rtx_430\main.c</path>
+    <encoding>System</encoding>
+  </override>
+</userOverrides>
+
+
