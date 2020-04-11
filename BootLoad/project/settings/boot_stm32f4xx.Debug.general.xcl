@@ -1,0 +1,15 @@
+"E:\IAR_8_22\arm\bin\armproc.dll" 
+
+"E:\IAR_8_22\arm\bin\armjlink2.dll" 
+
+"H:\cp_data\STM32\develop_stm32f405\BootLoad\project\Debug\Exe\boot_stm32f4xx.out" 
+
+--plugin "E:\IAR_8_22\arm\bin\armbat.dll" 
+
+--device_macro "E:\IAR_8_22\arm\config\debugger\ST\STM32F4xx.dmac" 
+
+--flash_loader "E:\IAR_8_22\arm\config\flashloader\ST\FlashSTM32F4xxx.board" 
+
+
+
+

@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "main.h": "c",
+        "boot2.h": "c",
+        "usart.h": "c",
+        "sys.h": "c",
+        "stm32f4xx_conf.h": "c",
+        "boot1.h": "c",
+        "stm32_flash.h": "c",
+        "stm32f4xx_flash.h": "c"
+    }
+}

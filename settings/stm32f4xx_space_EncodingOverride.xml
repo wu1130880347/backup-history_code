@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<userOverrides>
+    <override>
+        <path>H:\cp_data\STM32\develop_stm32f405\App\C_Src\main.c</path>
+        <encoding>System</encoding>
+    </override>
+    <override>
+        <path>H:\cp_data\STM32\develop_stm32f405\App\C_Src\main.cpp</path>
+        <encoding>System</encoding>
+    </override>
+    <override>
+        <path>H:\cp_data\STM32\develop_stm32f405\App\Network_Arch\CNetManagement.h</path>
+        <encoding>System</encoding>
+    </override>
+    <override>
+        <path>H:\cp_data\STM32\develop_stm32f405\App\Network_Arch\CSuperNetInterface.h</path>
+        <encoding>System</encoding>
+    </override>
+    <override>
+        <path>H:\cp_data\STM32\develop_stm32f405\App\Network_Arch\CUartProtocol.cpp</path>
+        <encoding>System</encoding>
+    </override>
+    <override>
+        <path>H:\cp_data\STM32\develop_stm32f405\App\Network_Arch\CUdpProtocol.h</path>
+        <encoding>System</encoding>
+    </override>
+    <override>
+        <path>H:\cp_data\STM32\develop_stm32f405\Device\Src\led.c</path>
+        <encoding>System</encoding>
+    </override>
+    <override>
+        <path>H:\cp_data\STM32\develop_stm32f405\FreeRTOS\include\FreeRTOSConfig.h</path>
+        <encoding>System</encoding>
+    </override>
+    <override>
+        <path>H:\cp_data\STM32\develop_stm32f405\System\Delay\delay.c</path>
+        <encoding>System</encoding>
+    </override>
+</userOverrides>

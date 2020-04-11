@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workspace>
+    <project>
+        <path>$WS_DIR$\BootLoad\BOOT1\boot1_stm32f4xx.ewp</path>
+    </project>
+    <project>
+        <path>$WS_DIR$\BootLoad\project\boot_stm32f4xx.ewp</path>
+    </project>
+    <project>
+        <path>$WS_DIR$\project\stm32f4xx_405_demo.ewp</path>
+    </project>
+    <batchBuild />
+</workspace>

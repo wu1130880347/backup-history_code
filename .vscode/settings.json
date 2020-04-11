@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "main.h": "c",
+        "delay.h": "c",
+        "led.h": "c",
+        "freertos.h": "c",
+        "freertosconfig.h": "c",
+        "new": "cpp"
+    }
+}
